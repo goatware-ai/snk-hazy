@@ -10,8 +10,8 @@ Every file in the folder is read (docx/xlsx member by member) for:
   H5  a file the prompt names that does not exist in the folder
   H6  a placeholder or dummy phrase in an input file (sample data, dummy text, placeholder,
       lorem ipsum, TBD), PDFs included: the platform's Input Files Quality Check FAILs on the
-      bare keyword even inside a published report (boiler-replacement-recommendation,
-      2026-09-12: EIA's "estimated from sample data reported on Form EIA-857")
+      bare keyword even inside a published report (2026-09-12: EIA's "estimated
+      from sample data reported on Form EIA-857")
 
 Future dates (mm/dd/yyyy after today) are counted, not judged: genuinely prospective
 deadlines are allowed, so the count prompts a date audit by hand. The per-date list was
@@ -43,7 +43,7 @@ def texts(path):
     yield from package_texts(path, suffixes=(".xlsx", ".docx", ".md", ".csv", ".txt"))
 
 
-# H6 (2026-09-12, boiler-replacement-recommendation pre-submission): "Files contain placeholder
+# H6 (2026-09-12, pre-submission): "Files contain placeholder
 # or dummy text: sample data". The phrase sat in the EIA Natural Gas Monthly's own methodology
 # notes; the check does not read context, so the phrase itself is the defect.
 PLACEHOLDER_RE = re.compile(r"\b(?:sample data|dummy (?:text|data|values?|entr(?:y|ies))|placeholder(?: text)?"
@@ -154,17 +154,17 @@ def check_hygiene(folder):
     print(f"        info: {len(fails)} hygiene failures, {len(future)} future dates to review")
 
 
-# H7 (2026-09-14, freight-audit-review refinement rounds 3 and 4): adjudication returned "the
+# H7 (2026-09-14): a finding returned "the
 # fuel index table jumps from 2026-07-27 straight to 2026-11-30, omitting every Monday from
 # 2026-08-03 through 2026-11-23" twice against a 57-line CSV that was complete, and the six
 # invoice lines it cited as examples were exactly the FUEL lines inside the first 25 and last
-# 15 lines of carrier_invoices.csv. The adjudicator previews that window of every CSV and
-# believes it saw the whole file; answering that the file is complete does not land, the note
+# 15 lines of carrier_invoices.csv. The platform previews that window of every CSV and
+# reads it as the whole file; answering that the file is complete does not land, the note
 # comes back verbatim. A chronological reference table (a weekly index, a monthly series) is
 # the shape it expects to see whole and reads as gapped; a long transaction log is sampled and
 # nobody expects the middle. Probed 2026-09-14 over 62 portfolio CSVs: fires on the pre-fix
 # fuel_index.csv and on one other chronological series; quiet on logs and lookups whose first
-# column is an id. Widened 2026-09-14 (parts-quotation refinement round 2): the same window hid
+# column is an id. Widened 2026-09-14: the same window hid
 # lines 26 to 146 of a 161-line parts master keyed by a sorted, unique part number, and the note
 # called PN-30744 and PN-30702 absent while quoting the file's last line as its end. A sorted
 # unique-id lookup is a reference table too, read whole and read as ending where the preview
@@ -175,14 +175,14 @@ _H7_ID_RE = re.compile(r"^[A-Za-z]{1,6}[-_]?\d{2,}[A-Za-z0-9-]*$")
 
 @check(codes=['H7'], rules=['PRE-PACK'], needs=['inputs'], params=['folder'])
 def check_previewable_series(folder):
-    """A reference CSV input, a dated series or a sorted unique-id lookup, is 40 lines or fewer, laid out in side-by-side panels if it is longer, because adjudication previews the first 25 and last 15 lines of a CSV and reads the hidden middle as missing rows.
+    """A reference CSV input, a dated series or a sorted unique-id lookup, is 40 lines or fewer, laid out in side-by-side panels if it is longer, because the platform previews the first 25 and last 15 lines of a CSV and reads the hidden middle as missing rows.
 
-    Since: 2026-09-14 (freight-audit-review refinement rounds 3 and 4, the same note twice; the id arm from parts-quotation refinement round 2 the same day; the date arm widened to any length the same day on cold-chain-review).
-    Source: adjudication (input omissions), proven by the note's own example lines.
+    Since: 2026-09-14 (the same note twice on one task; the id arm from a second task the same day; the date arm widened to any length the same day on a third).
+    Source: a platform finding (input omissions), proven by the note's own example lines.
     Drift-notes: the date arm fires on any file over 40 lines whose first column is a date on 90 percent of rows and
     sorted ascending, repeated keys allowed; the id arm fires on any file over 40 lines whose first column is an id on
     90 percent of rows, unique and sorted ascending. The 120-line cap and the "logs are sampled" assumption were
-    dropped on cold-chain-review (adjudication 2026-09-14): an 1,800-line reefer logger, an 1,128-line invoice file
+    dropped 2026-09-14: an 1,800-line reefer logger, an 1,128-line invoice file
     and a 160-line manifest were each read as the first 25 and last 15 lines and the golden's rows called absent.
     """
     inputs = folder / "inputs"
@@ -204,17 +204,17 @@ def check_previewable_series(folder):
         idlike = sum(1 for c in col if _H7_ID_RE.match(c))
         if datelike / len(col) >= 0.9 and col == sorted(col):
             emit("ERROR", f"[H7] {path.name}: {n} lines of a chronological series ({col[0]} to {col[-1]}); "
-                          "adjudication previews the first 25 and last 15 lines of a CSV and returned "
+                          "the platform previews the first 25 and last 15 lines of a CSV and returned "
                           "fuel_index.csv's rows 25 to 41 as 'every Monday from 2026-08-03 through 2026-11-23 "
-                          "omitted' twice (freight-audit-review, 2026-09-12 and 09-14) and called every excursion "
-                          "reading of an 1,800-line reefer logger missing (cold-chain-review, 2026-09-14). Lay the "
+                          "omitted' twice (2026-09-12 and 09-14) and called every excursion "
+                          "reading of an 1,800-line reefer logger missing (2026-09-14). Lay the "
                           "series out in side-by-side panels, or one row per key with the series across columns, "
                           "so the file is 40 lines or fewer")
         elif idlike / len(col) >= 0.9 and len(set(col)) == len(col) and col == sorted(col):
             emit("ERROR", f"[H7] {path.name}: {n} lines of a lookup keyed by a sorted unique id ({col[0]} to "
-                          f"{col[-1]}); adjudication previews the first 25 and last 15 lines of a CSV and called "
+                          f"{col[-1]}); the platform previews the first 25 and last 15 lines of a CSV and called "
                           "PN-30744 and PN-30702 absent from a 161-line parts master whose last line it quoted as "
-                          "the file's end (parts-quotation, 2026-09-14). Lay the table out in side-by-side "
+                          "the file's end (2026-09-14). Lay the table out in side-by-side "
                           "panels so the file is 40 lines or fewer")
 
 def main(folder):
@@ -225,8 +225,8 @@ def main(folder):
     return 1 if fails else 0
 
 
-# H8 (2026-09-14, hathi-replenishment-order-decision refinement round 10): the adjudication note
-# reported the five Hathi receipts, the two 1004 requests with their review entries, and the
+# H8 (2026-09-14): the finding
+# reported the five receipts, the two 1004 requests with their log entries, and the
 # 1005 damage pair as "no occurrence in the provided input previews or query-matched rows",
 # while quoting adjustments row 249 and transactions rows 338 and 407 back verbatim. The rows
 # sat at 122 to 180 of 300, 296 to 407 of 514 and 184 to 255 of 257: the hidden middle of the
@@ -235,7 +235,7 @@ def main(folder):
 # this is that rule as a detector, for every id the golden cites.
 _H8_ID_RE = re.compile(r"\b[A-Z]{2,6}(?:-[A-Z]{2,6})?-\d{3,8}\b")
 _H8_HEAD, _H8_TAIL, _H8_MIN_ROWS = 25, 15, 40
-# two side-by-side panels of 23 data rows fit the head window (kesselring refinement round 3, 2026-09-14:
+# two side-by-side panels of 23 data rows fit the head window (2026-09-14:
 # a 31-serial account block on a 239-row register was called absent at rows 40 and 60 with the cap at 25)
 _H8_PANEL_CAP = 2 * (_H8_HEAD - 2)
 
@@ -316,7 +316,7 @@ _H8_EXEMPT_VISIBLE = True
 
 
 def _h8_visible_figures(folder):
-    """Decimal figures some input shows inside adjudication's preview: every row of a table of 40 rows or
+    """Decimal figures some input shows inside the platform's preview: every row of a table of 40 rows or
     fewer, the head window (and a CSV's tail) of a longer one, and the whole text of a docx input."""
     from ..common import _docx_text
     out = set()
@@ -336,26 +336,26 @@ def _h8_visible_figures(folder):
 
 @check(codes=['H8'], rules=['PRE-PACK'], needs=['inputs', 'solution'], params=['folder'])
 def check_cited_rows_in_window(folder):
-    """Every input row keyed by an id the golden cites, or carrying a decimal figure the golden types into a cell that no input shows inside its own preview, sits inside adjudication's preview window, the first 25 rows of a workbook sheet or the first 25 and last 15 lines of a CSV, when the file is longer than 40 rows; a cited row outside it is reported as absent whatever the golden says about it.
+    """Every input row keyed by an id the golden cites, or carrying a decimal figure the golden types into a cell that no input shows inside its own preview, sits inside the platform's preview window, the first 25 rows of a workbook sheet or the first 25 and last 15 lines of a CSV, when the file is longer than 40 rows; a cited row outside it is reported as absent whatever the golden says about it.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 10).
-    Source: adjudication ("no occurrence of ADJ-546964, ADJ-700916, TXN-643651, TXN-643748, or
+    Since: 2026-09-14.
+    Source: a platform finding ("no occurrence of ADJ-546964, ADJ-700916, TXN-643651, TXN-643748, or
     HAT-FRG-1004 in the provided input previews or query-matched rows"), rows 296 to 407 of 514.
     Drift-notes: a key-like column is one whose values are nine in ten of one id shape (AAA-999999,
     AAA-AAA-9999); every such column is read, so a SKU column counts beside the record-id column.
-    Only files whose cited rows total 46 or fewer are read, the rows two side-by-side panels put in a head window (kesselring refinement round 3, 2026-09-14: 31 cited serials on a 239-row register, two called absent); a golden
+    Only files whose cited rows total 46 or fewer are read, the rows two side-by-side panels put in a head window (2026-09-14: 31 cited serials on a 239-row register, two called absent); a golden
     citing hundreds of ids or keys with dozens of rows each is the ledger shape of PR6, not this one
     (the first portfolio pass hit 24 such files). A workbook sheet gets the head window only: the note called ADJ-546964 and ADJ-700916 absent at
     rows 254 and 255 of 258, inside a CSV's tail window. The fix is a relay, never a reorder: lay the
     file out in side-by-side panels, or one row per key, so every cited row sits inside the preview;
     a lead block of the rows under review hands the solver the scope decision by file order
-    (recall-response refinement, 2026-09-15; PR12).
-    Figure arm (hx4180-fa26-spec-rev3 refinement round 2, 2026-09-14): a 57-line measurement report keyed by
+    (2026-09-15; PR12).
+    Figure arm (2026-09-14): a 57-line measurement report keyed by
     size and point carried no id the golden names, and the golden's sample-read tab typed the size L readings
-    from lines 30 to 43; adjudication reported "the only size L record is pocket opening 16.7 cm", the one
+    from lines 30 to 43; the finding reported "the only size L record is pocket opening 16.7 cm", the one
     line inside the tail. So a row in the hidden middle whose decimal figure of three or more digits the golden
     types into a cell counts as cited too, from five such rows up; a relaid file of 40 lines or fewer is exempt.
-    Narrowed 2026-09-15 (weldon-bridge-plan refinement round 5): a typed figure some input already shows inside
+    Narrowed 2026-09-15: a typed figure some input already shows inside
     its preview is sourced there and is not counted; the golden's net costs 78.25, 84.5 and 11.85 come from rows
     13, 14 and 25 of a 27-row item status report and only repeat as UNIT_PRICE on transfer lines deep in a
     1,026-row ledger, which the golden never reads for cost.
@@ -363,7 +363,7 @@ def check_cited_rows_in_window(folder):
     cited = {m.group(0) for m in _H8_ID_RE.finditer(_h8_golden_text(folder))}
     typed = _h8_golden_typed_figures(folder)
     if typed and _H8_EXEMPT_VISIBLE:
-        # a figure the golden types from a row adjudication can see is sourced there, whatever deeper rows repeat it
+        # a figure the golden types from a row the platform can see is sourced there, whatever deeper rows repeat it
         typed -= _h8_visible_figures(folder)
     if not cited and not typed:
         return
@@ -392,7 +392,7 @@ def check_cited_rows_in_window(folder):
                         col_outside.append((v, i + 1))
             # each key column is judged on its own: a serial column with 31 cited rows is the
             # account block, while the item-number column beside it is a foreign key that lands
-            # on dozens of other accounts' rows (kesselring round 3: the block escaped the cap
+            # on dozens of other accounts' rows (the block escaped the cap
             # only because both columns were pooled); a column where a cited id recurs is that
             # foreign key, and the golden cites it to the master file, not to these rows
             col_ids = {r[j] for i, r in enumerate(rows, start=1) if i in col_cited and j < len(r)}
@@ -412,9 +412,9 @@ def check_cited_rows_in_window(folder):
                 ex = "; ".join(f"{v} row {i}" for v, i in fig_rows[:6])
                 emit("ERROR", f"[H8] {name}: {len(fig_rows)} row(s) in the hidden middle of a {n}-row file carry "
                               f"figures the golden types into its cells (rows 27 to {n - tail + 1} are outside the "
-                              f"preview): {ex}. Adjudication read a 57-line measurement report as holding one size L "
-                              "record and called the golden's size L readings unsourced (hx4180-fa26-spec-rev3, "
-                              "2026-09-14). Lay the file out in side-by-side panels, or one row per key with the "
+                              f"preview): {ex}. A 57-line measurement report was read as holding one size L "
+                              "record and the golden's size L readings called unsourced "
+                              "(2026-09-14). Lay the file out in side-by-side panels, or one row per key with the "
                               "readings across columns, so it is 40 lines or fewer (H7)")
         # a handful of cited records is relaid into panels so they sit in the preview; a golden that
         # reads most of a file, or keys with dozens of rows each, is PR6's ledger shape, not this one
@@ -422,18 +422,18 @@ def check_cited_rows_in_window(folder):
             ids = sorted({v for v, _ in outside})
             ex = "; ".join(f"{v} row {i}" for v, i in outside[:6])
             emit("ERROR", f"[H8] {name}: {len(outside)} row(s) for {len(ids)} cited id(s) sit in the hidden middle of a "
-                          f"{n}-row sheet (rows 27 to {n - tail + 1} are outside the preview): {ex}. Adjudication "
-                          "reported such rows as 'no occurrence in the provided input previews or query-matched rows' "
-                          "(hathi-replenishment-order-decision 2026-09-14). Lay the file out in side-by-side panels, or one "
+                          f"{n}-row sheet (rows 27 to {n - tail + 1} are outside the preview): {ex}. Such rows were "
+                          "reported as 'no occurrence in the provided input previews or query-matched rows' "
+                          "(2026-09-14). Lay the file out in side-by-side panels, or one "
                           "row per key, so every cited row sits inside the preview; never move the rows under review "
                           "to the top, which hands the solver the scope decision by file order (PR12)")
 
 @check(codes=['H9'], rules=['PRE-PACK'], needs=['inputs'], params=['folder'])
 def check_csv_fields_without_commas(folder):
-    """No field in an input CSV contains a comma, because adjudication splits CSV lines on commas without honouring quotes and reads every column after a quoted comma as shifted.
+    """No field in an input CSV contains a comma, because the platform splits CSV lines on commas without honouring quotes and reads every column after a quoted comma as shifted.
 
-    Since: 2026-09-15 (dfl-freight-audit adjudication, item 1).
-    Source: adjudication counted 18 fields against a 16-column header on the bill of lading register
+    Since: 2026-09-15 (a rejection finding, item 1).
+    Source: the finding counted 18 fields against a 16-column header on the bill of lading register
     row carrying "Bittner residence, c/o Hilltop Plumbing" and "Water heaters, commercial", and 25
     against 24 on the freight bills row for "Ohlsen residence, c/o Kammerer Plumbing", and warned that
     weight, class, rate and accessorial columns come out shifted; both files were valid quoted CSV.
@@ -464,7 +464,7 @@ def check_csv_fields_without_commas(folder):
         cols = sorted({c for _, c, _ in hits})
         line, col, val = hits[0]
         emit("ERROR", f"[H9] inputs/{name}: {len(hits)} field(s) in {', '.join(cols)} contain a comma (first at line "
-                      f"{line}, {col} \"{val}\"); adjudication splits CSV lines on commas without honouring quotes and "
-                      "reads every later column as shifted (dfl-freight-audit 2026-09-15: 18 fields against a 16-column "
+                      f"{line}, {col} \"{val}\"); the platform splits CSV lines on commas without honouring quotes and "
+                      "reads every later column as shifted (2026-09-15: 18 fields against a 16-column "
                       "header). Reword each value without the comma")
 

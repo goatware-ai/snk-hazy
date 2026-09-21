@@ -1,7 +1,7 @@
 """Consolidation layer over the coded checks, organised by the task lifecycle.
 
 `autoeval_check.py` grew one coded check per platform finding — 83 of them across three
-tools, each named for the task and run that motivated it. That is the right way to
+tools, each born of the task and run that motivated it. That is the right way to
 *capture* a lesson and the wrong way to *apply* one. Two problems follow from a flat list
 of rule ids, and this module fixes both.
 
@@ -97,13 +97,13 @@ RULES = {
     # ---- Stage 1a: prompt, occupation, O*NET --------------------------------------
     "PRE-FRAME": ("PRE-PROMPT",
         "The prompt's opening frames the US setting, the requester's role and the expertise the reader brings, in the requester's own voice.",
-        "open-order-cleanup was rejected on prompt quality alone (2026-09-02) with its inputs, golden and "
-        "rubric called strong, for an opening that framed none of the three, and lift-truck-fleet-plan was "
+        "One task was rejected on prompt quality alone (2026-09-02) with its inputs, golden and "
+        "rubric called strong, for an opening that framed none of the three, and another was "
         "rejected at first review (2026-09-05) for writing the frame as a self-introduction to a coworker. "
         "Before this family existed P4 and P6 mapped to the report heading and never reached docs/rules.md."),
     "PRE-OCC": ("PRE-PROMPT",
         "The domain, occupation and the form's own metadata fields are all on the platform's closed lists and agree with each other.",
-        "Rewritten 2026-09-21 for Hazy (docs/RULE-DELTAS.md D1, D7-D9). The form offers a "
+        "Rewritten 2026-09-21 for Hazy. The form offers a "
         "CLOSED list of 14 domains and 64 occupations, so three things are mechanical and "
         "certain: an occupation off the list cannot be submitted at all, a domain that "
         "disagrees with the occupation's own O*NET job family is a form a reviewer bounces, "
@@ -133,12 +133,12 @@ RULES = {
         "fail by itself' - and stage 4 adjudication lists input cataloguing among its "
         "prompt-verbosity tells. It is the far end of PRE-SOURCES' band, and the repair "
         "overshoots into that check unless at least one source is kept "
-        "(frankfort-stock-recovery failed both, in that order, 2026-08-31)."),
+        "(one prompt failed both, in that order, 2026-08-31)."),
     "PRE-UNIQ": ("PRE-PROMPT",
         "The prompt does not reuse a prior task's reasoning path.",
         "The platform diffs each new prompt against the contributor's own prior tasks on "
-        "scenario, reasoning path, constraints, input kit and deliverable. Task 21 was "
-        "retired for reusing task 18's authored narrative moves, 7 of 7 markers."),
+        "scenario, reasoning path, constraints, input kit and deliverable. One task was "
+        "retired for reusing an earlier task's authored narrative moves, 7 of 7 markers."),
     "PRE-PACK": ("PRE-PROMPT",
         "Both zips are flat, every name is clean, no file is empty, and every file the prompt "
         "names exists.",
@@ -171,7 +171,7 @@ RULES = {
         "others: safety harm, a privacy leak, an inverted or prohibited top-level decision, "
         "and fabrication. A cadence, threshold or rate misapplied is an ordinary planning "
         "miss, belongs to an affirmative positive, and FAILs the dimension where it is "
-        "written as a penalty (inbound-consolidation-plan, 2026-08-27)."),
+        "written as a penalty (2026-08-27)."),
     "PRE-DUP": ("PRE-RUBRIC",
         "No criterion scores what another criterion already scores.",
         "Mirrored positive/negative pairs and repeated figures fail the near-identical "
@@ -185,14 +185,12 @@ RULES = {
     "PRE-FORM": ("PRE-RUBRIC",
         "The submission form's own bands are respected.",
         "500-char criteria, weights outside +1..+5 / -3..-5, and criterion count outside "
-        "15-60 are rejected by the form or its structure check "
-        "(Geranium's project-guidelines-v5.1.md, deleted in the 2026-09-21 port; Hazy's form "
-        "and guidelines state no US-setting rule, so this is house practice now - see "
-        "docs/RULE-DELTAS.md)."),
+        "15-60 are rejected by the form or its structure check. The form and guidelines "
+        "state no US-setting rule, so that part is house practice now."),
     "PRE-FOCUS": ("PRE-RUBRIC",
         "Criteria grade the finished file, not the order the work was done in.",
         "A delivered file carries no drafting timeline, so a process-ordering clause "
-        "('before any X is sized') cannot be observed. Failed task 07 C20."),
+        "('before any X is sized') cannot be observed. Failed one task's C20."),
 
     # ---- Stage 2a: the golden solution check ---------------------------------------
     "GOLD-LAND": ("GOLDEN",
@@ -260,7 +258,7 @@ RULES = {
         "The Agentic Rubric Quality Review reads each input sheet through a window of about "
         "28 rows and rates the rubric needs_improvement (ungrounded_verification, critical) "
         "when a criterion pins a record id, quantity or status that sits only past it: "
-        "hathi-replenishment-order-decision 2026-09-11, eleven rows citing transaction and "
+        "one rubric, 2026-09-11, eleven rows citing transaction and "
         "adjustment ids at rows 122 to 407 of the logs, 'could not be verified in the "
         "agent-visible source files'. A fact from a docx input or the prompt is always in "
         "view; a workbook fact past the window is scored as the deliverable's own property "
@@ -270,8 +268,8 @@ RULES = {
         "The Agentic Rubric Quality Review reads a deliverable's share on its DIRECT rows only "
         "(strict and gated liveness rows counted apart as 'live-calculation') and rates a rubric "
         "needs_improvement (miscalibrated_weighting, major) when a core requirement's cluster is "
-        "many rows at +1 each (weldon-bridge-plan 2026-09-11: eight rows, 8 of 39, 'failing the "
-        "transition order retains ~79%'; rossville 2026-09-11: six requirements at 1 to 3 points). "
+        "many rows at +1 each (2026-09-11: eight rows, 8 of 39, 'failing the "
+        "transition order retains ~79%'; another rubric the same day: six requirements at 1 to 3 points). "
         "It also reads two +5 strict rows on one order's unit count and dollar total as "
         "redundant_or_double_counted. Answer inside 39: +2 on the decision rows, a policy spot "
         "check, the strict pair on two different deliverables' outputs."),
@@ -279,14 +277,14 @@ RULES = {
         "Exact-number and exact-ID criteria stay under 80% of the rubric.",
         "The Agentic Rubric Quality Review rates a rubric needs_improvement when rigid "
         "checks with no tolerance pass 80% of the criterion count, and arguing the task "
-        "is deterministic does not spare the rating (tessendorf, 2026-08-26: 22 of 25). "
+        "is deterministic does not spare the rating (2026-08-26: 22 of 25). "
         "Hand-count it: the review's classification is semantic (a named-item outcome "
         "check counts as exact-ID with no digit in sight), so no digit proxy survives "
         "probing - 60-83% by digits across rubrics the review has passed. Re-probed "
-        "2026-08-31 against a second labelled point (frankfort-stock-recovery, the review "
-        "counting 36 of 40 = 90%) and the proxy still does not separate: that rubric "
+        "2026-08-31 against a second labelled point (the review counting 36 of 40 = 90%) "
+        "and the proxy still does not separate: that rubric "
         "measures only 85% by digits and 77.5% by money/quantity literals, under "
-        "boettcher's passing 90.6% and beside june-price-review's passing 83.0%. The "
+        "one passing rubric's 90.6% and beside another's passing 83.0%. The "
         "review sees a class the digits cannot. Do not code this. The repair is "
         "converting count-anchored single facts to method/coverage wording (an action "
         "list naming an owner and a date against each thing to be done; items showing "
@@ -304,12 +302,12 @@ RULES = {
         "pandas refuse the whole file: the solver's first command crashes, and this gate's "
         "own loaders skip what they cannot read, so every content check on that file goes "
         "silent. Both times it has happened the broken part was hiding a real finding "
-        "(pavelka 2026-08-26 and inbound-consolidation-plan 2026-08-27, each masking a "
+        "(2026-08-26 and 2026-08-27, each masking a "
         "thin-input failure)."),
     "DATA-BUDGET": ("DATASET",
         "The deliverable fits in the reviewing agent's context.",
         "The Agentic Rubric Quality Review reads the whole deliverable and every input "
-        "before it reads the rubric. Kolterman's review evicted the rubric itself from "
+        "before it reads the rubric. One review evicted the rubric itself from "
         "context at 260k chars and never actually ran."),
     "DATA-TIME": ("DATASET",
         "Dates are absolute and genuinely prospective.",
@@ -319,7 +317,7 @@ RULES = {
         "Records the golden cites join across the inputs on the keys they carry.",
         "The dataset quality check's cross-document consistency axis hard-fails at 2 when a "
         "cited record's related-id field names a record no input holds; quantities that tie "
-        "by inference do not count as a join (hathi-replenishment-order-decision 2026-09-13, "
+        "by inference do not count as a join (2026-09-13, "
         "every cited adjustment's Related Transaction ID absent from the transaction log)."),
     "DATA-LEAK": ("DATASET",
         "No input passage enumerates the golden's own answers.",
@@ -332,7 +330,7 @@ RULES = {
         "The highest-trust finding a reviewer can make against a task, and the one the "
         "user has called out explicitly. Reviewers do not flag a word list — they flag the "
         "rhythm (workplace detail, idiom, analytical ask), tautologies, slogans, idiom "
-        "standing in for a quantity, and first-person filler. Task 07 was failed on "
+        "standing in for a quantity, and first-person filler. One task was failed on "
         "em-dash density alone. One tell costs the reviewer's trust in everything else, "
         "so these never ship. Full flagged history in docs/reference/llm-prose-tells.md."),
     "REV-REGISTER": ("REVIEWER",
@@ -345,7 +343,7 @@ RULES = {
         "Reviewers verify them: fabricated surnames the inputs never carry, weekday/date "
         "pairs that are not real calendar days, and document metadata that is not "
         "operationally credible have each blocked a task."),
-    # Hand rule, no detector (2026-09-10, tessendorf-channel-split adjudication note). The
+    # Hand rule, no detector (2026-09-10, an adjudication note). The
     # adjudicator reads every basis the golden states against the input that states it, and
     # every numbered rule in an input memo against the rubric. Two send-backs on one note that
     # no regex can model: "the two case-pack items" for PK-212 and TW-440 (only TW-440 is
@@ -361,22 +359,22 @@ RULES = {
         "grades every prompt requirement, the memo's numbered rules included (4.a.vi). A "
         "collective label that fits one item of a pair, a rule basis borrowed from the wrong "
         "document, and a memo rule no criterion penalises breaking each came back from "
-        "adjudication on tessendorf-channel-split (2026-09-10)."),
+        "adjudication (2026-09-10)."),
 }
 
 # coded check -> the generalized rule it implements (exactly one)
 PRIMARY = {
     # Stage 1a
     "M1": "PRE-OCC", "M2": "PRE-OCC", "M3": "PRE-OCC",
-    # Added 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D7-D9): the form's
-    # required time breakdown, non-AI tool list and input-file count.
+    # Added 2026-09-21: the form's required time breakdown, non-AI tool list and
+    # input-file count.
     "M4": "PRE-OCC", "M5": "PRE-OCC", "M6": "PRE-OCC", "P1": "PRE-FILES", "P2": "PRE-PROMPT",
     "P2": "PRE-SOURCES", "P3": "PRE-VERBOSE", "P4": "PRE-FRAME", "P0": "PRE-FILES",
     "P5": "PRE-VERBOSE",    # file glosses (was P2 until 2026-09-04; a branch of check_prompt_rules since 2026-09-11)
-    # P6: the P4 frame written as a self-introduction to a coworker - lift-truck-fleet-plan was
-    # REJECTED at first human review on that paragraph (2026-09-05).
+    # P6: the P4 frame written as a self-introduction to a coworker - one task was
+    # REJECTED at first review on that paragraph (2026-09-05).
     "P6": "PRE-FRAME",
-    "P7": "PRE-VERBOSE",   # repetitive sentence openers (harlow-route-rebalancing-proposal, 2026-09-10)
+    "P7": "PRE-VERBOSE",   # repetitive sentence openers (2026-09-10)
     "H1": "PRE-NAME",       # codename anywhere in a shipped file (audit_task canary)
     "H2": "REV-CREDIBLE",   # 555-prefix phone number
     "H3": "REV-CREDIBLE",   # weekday/date pair that is calendar-false
@@ -392,13 +390,13 @@ PRIMARY = {
     "E1": "PRE-POL", "E2": "PRE-POL", "W9": "PRE-POL", "W14": "PRE-POL",
     "W15": "PRE-POL", "W17": "PRE-POL", "W18": "PRE-POL",
     # W19: a negative whose main verb a compliant deliverable also performs reads as
-    # inverted polarity (task 28 run 6 quality review; drafts 2026-08-24).
+    # inverted polarity (a quality review run; drafts 2026-08-24).
     "W19": "PRE-POL",
-    # R67 (what a penalty may be spent on) was DELETED 2026-09-21 in the Hazy port: it
-    # reserved negatives for four critical classes, and the Hazy form explicitly invites
-    # negatives on ordinary quality misses. See docs/RULE-DELTAS.md D4.
+    # R67 (what a penalty may be spent on) was DELETED 2026-09-21: it reserved negatives
+    # for four critical classes, and the form explicitly invites negatives on ordinary
+    # quality misses.
     "R69": "PRE-SCOPE",
-    "R104": "PRE-SCOPE",  # a positive and a negative sharing one rule anchor score the same disposition both ways (tessendorf adjudication, 2026-09-10: C15 held vs C29 planned, "merge or remove one")
+    "R104": "PRE-SCOPE",  # a positive and a negative sharing one rule anchor score the same disposition both ways (an adjudication, 2026-09-10: C15 held vs C29 planned, "merge or remove one")
     "R10": "PRE-DUP", "R15": "PRE-DUP", "R22": "PRE-DUP", "R41": "PRE-DUP",
     "R47": "PRE-DUP",
     "R60": "PRE-DUP",
@@ -407,8 +405,8 @@ PRIMARY = {
     "R92": "PRE-COVER",     # grouped presentation demanded, no criterion pins it (was R46's second arm)
     "R4": "PRE-COVER", "R13": "PRE-COVER", "R126": "PRE-COVER", "R132": "PRE-COVER", "R24": "PRE-COVER", "R73": "PRE-COVER", "R74": "PRE-COVER", "R76": "PRE-COVER",
     "E0": "PRE-FORM", "R1": "PRE-FORM", "R11": "PRE-FORM", "R12": "PRE-FORM",
-    # Added 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D5, D6): the form's
-    # mandatory closing formatting-and-style criterion, and its ban on hedged figures.
+    # Added 2026-09-21: the form's mandatory closing formatting-and-style criterion,
+    # and its ban on hedged figures.
     "R135": "PRE-FORM", "R136": "PRE-FORM",
     # R61: the 20% penalty share (negative weight against positive) — pure weight
     # arithmetic, so it sits with the other band checks, but it is NON-BLOCKING as of the
@@ -445,72 +443,72 @@ PRIMARY = {
     "R28": "GOLD-NEG", "R33": "GOLD-NEG", "R34": "GOLD-NEG", "R37": "GOLD-NEG",
     "R40": "GOLD-NEG", "R53": "GOLD-NEG", "W1": "GOLD-NEG", "W3": "GOLD-NEG", "W6": "GOLD-NEG", "R52": "GOLD-NEG",
     "R77": "GOLD-NEG",
-    # R80: an agentless comparative lands on the wrong party (dfl-freight-audit C6).
+    # R80: an agentless comparative lands on the wrong party (one task's C6).
     "R80": "GOLD-LAND",
-    # R81: a criterion fixing an action's owner to a named person (dfl-freight-audit C23-25).
+    # R81: a criterion fixing an action's owner to a named person (one task's C23-25).
     "R81": "RUBQ-RIGID",
-    "R128": "RUBQ-RIGID",  # one named function or the exact label words prescribed on a positive (june-price-review adjudication, 2026-09-14)
-    "R129": "RUBQ-RIGID",  # formula and cell-reference criteria over a quarter of positive weight under a prompt with no live-formula demand (hx4180 adjudication, 2026-09-14)
-    # R86: per-item quantifier on one attribute in two positives, no shared figure (dfl 2026-09-03).
+    "R128": "RUBQ-RIGID",  # one named function or the exact label words prescribed on a positive (an adjudication, 2026-09-14)
+    "R129": "RUBQ-RIGID",  # formula and cell-reference criteria over a quarter of positive weight under a prompt with no live-formula demand (an adjudication, 2026-09-14)
+    # R86: per-item quantifier on one attribute in two positives, no shared figure (2026-09-03).
     "R86": "PRE-DUP",
-    # R124: an exact-count row and a figure-free closed-set row on one tab (recall-response 2026-09-14).
+    # R124: an exact-count row and a figure-free closed-set row on one tab (2026-09-14).
     "R124": "PRE-DUP",
     # R99: no positive at +4/+5, a flat rubric; R100: an owner/date clause the prompt never asked
-    # for (dfl-freight-audit adjudication note, 2026-09-09).
+    # for (an adjudication note, 2026-09-09).
     "R99": "PRE-FORM", "R100": "RUBQ-RIGID",
-    # R114: the Rubric Quality Review's weighting read (weldon-bridge-plan, 2026-09-11).
+    # R114: the Rubric Quality Review's weighting read (2026-09-11).
     "R114": "RUBQ-WEIGHT",
-    "R115": "PRE-COVER",    # a prompt asking for a figure by X and Y has a criterion cueing both dimensions (packaging-consolidation adjudication, 2026-09-11)
-    "R117": "GOLD-LIVE",    # two strict rows resolve to one sheet (packaging-consolidation Rubric Quality Review, 2026-09-11)
+    "R115": "PRE-COVER",    # a prompt asking for a figure by X and Y has a criterion cueing both dimensions (an adjudication, 2026-09-11)
+    "R117": "GOLD-LIVE",    # two strict rows resolve to one sheet (a Rubric Quality Review, 2026-09-11)
     "R118": "GOLD-LIVE",    # a second formula-only gated row (same review)
     "R119": "PRE-OBJ",      # presence-only row over a computed figure (computed-values BLOCKING finding, same day)
-    "R120": "GOLD-LAND",    # a first-page row needs the summary as the first worksheet (packaging-consolidation oracle 2/3, 2026-09-11)
+    "R120": "GOLD-LAND",    # a first-page row needs the summary as the first worksheet (an oracle run 2/3, 2026-09-11)
     "R101": "PRE-COVER",   # a labelled front-page block no criterion scores
-    "R102": "PRE-COVER",   # prompt names the addressee, no criterion grades it (po-conformance-review 2026-09-10)
+    "R102": "PRE-COVER",   # prompt names the addressee, no criterion grades it (2026-09-10)
     "R82": "RUBQ-ATOM",
-    # R85: stacked absolute clauses / example hung off a liveness clause (pick-module-reslot).
+    # R85: stacked absolute clauses / example hung off a liveness clause.
     "R85": "RUBQ-ATOM",
-    # R84: a negative ending in a trailing rule-breach clause (", contrary to ...") - the
-    # flyer-program-review gate-2 reviewer sent the rubric back on the shape (2026-09-02).
+    # R84: a negative ending in a trailing rule-breach clause (", contrary to ...") - a
+    # gate-2 reviewer sent the rubric back on the shape (2026-09-02).
     "R84": "REV-REGISTER",
     # R111: a negative opening in the passive voice ("<object> is incorrectly <done>") - the Rubric
-    # Quality Review read it as inverted polarity twice on inbound-consolidation-plan (2026-09-11).
+    # Quality Review read it as inverted polarity twice on one rubric (2026-09-11).
     "R111": "GOLD-NEG",
     "G1": "GOLD-FID", "G2": "GOLD-FID", "G3": "GOLD-FID", "R29": "GOLD-FID",
-    # G6: a Params row cites a section that states a different figure (pick-module-reslot).
+    # G6: a Params row cites a section that states a different figure.
     "G6": "GOLD-FID",
-    # G7: a docx table total row that does not equal its rows (dfl-freight-audit 2026-09-02).
+    # G7: a docx table total row that does not equal its rows (2026-09-02).
     "G7": "GOLD-FID",
-    # G8-G10: the reviewer's literal read of the golden (lift-truck-fleet-plan REJECTED 2026-09-05):
+    # G8-G10: the reviewer's literal read of the golden (one task REJECTED 2026-09-05):
     # no signature line when the prompt says the deliverable is signed; actions dated before the
     # deliverable's own date; a cited identifier no input carries.
     "G8": "GOLD-FID", "G9": "GOLD-FID", "G10": "GOLD-FID",
-    # G11-G13 + R97: the golden read against the SOURCES it cites (hollenbach-allocation-plan REJECTED 2026-09-05):
+    # G11-G13 + R97: the golden read against the SOURCES it cites (a task REJECTED 2026-09-05):
     # a deadline attributed to a source that never gave one; the inputs' own conditions and
     # prohibitions ledger; one item carrying two unit costs; a month split no criterion scores.
     "G11": "GOLD-FID", "G12": "GOLD-FID", "G13": "GOLD-FID",
     # G14: the golden's dispute tab adjudicates an account no correspondence input names
-    # (commission-review-q2 AutoEval golden_source_fidelity 2/5, 2026-09-05).
+    # (an AutoEval golden_source_fidelity 2/5, 2026-09-05).
     "G14": "GOLD-FID",
-    # G34: a prose direction to a tab for a column label another tab carries (commission-review-q2 reviewer round 5, 2026-09-14).
+    # G34: a prose direction to a tab for a column label another tab carries (a reviewer round, 2026-09-14).
     "G34": "GOLD-FID",
-    "G37": "GOLD-FID",      # an identifier two inputs share, cited in a golden paragraph or cell that names neither owner (standby-generator round 7, 2026-09-14)
+    "G37": "GOLD-FID",      # an identifier two inputs share, cited in a golden paragraph or cell that names neither owner (a late round, 2026-09-14)
     # R103: a positive enumerating N>=5 items on a prose tab with fewer than N short cells to count
-    # (commission-review-q2 golden check 0/3 on C7, 2026-09-10).
+    # (a golden check 0/3 on C7, 2026-09-10).
     "R103": "GOLD-LAND",
     # R105: a positive ordering claim ("leads with") coordinating two determiner-led objects,
-    # two verdicts in one row (freight-audit-review refinement golden check 2/3, 2026-09-11).
+    # two verdicts in one row (a golden check 2/3, 2026-09-11).
     "R105": "RUBQ-ATOM",
     # G15: a person the golden assigns an action to whom no input and not the prompt names
-    # (dfl-freight-audit adjudication note, 2026-09-09: "Hector Ybarra").
+    # (an adjudication note, 2026-09-09: a surname no input carried).
     "G15": "GOLD-FID",
-    "G16": "GOLD-FID",   # a memo author line / docProps creator no input and not the prompt names (po-conformance-review 2026-09-10)
-    "G17": "GOLD-FID",   # a header line gives a named person a title no input and not the prompt carries (dock-to-stock-review adjudication, 2026-09-10)
-    "G18": "GOLD-FID",   # an owner-dated golden row carrying a date no input and not the prompt states (tessendorf-channel-split adjudication, 2026-09-10)
-    "G19": "GOLD-FID",   # a prose "X's quarter moves up/down" claim the correction column's sign contradicts (commission-review-q2 review round 3, 2026-09-10)
-    "G20": "GOLD-FID",   # a full date a golden prose cell states that neither the prompt nor an input carries (commission-review-q2 review round 4, 2026-09-10)
+    "G16": "GOLD-FID",   # a memo author line / docProps creator no input and not the prompt names (2026-09-10)
+    "G17": "GOLD-FID",   # a header line gives a named person a title no input and not the prompt carries (an adjudication, 2026-09-10)
+    "G18": "GOLD-FID",   # an owner-dated golden row carrying a date no input and not the prompt states (an adjudication, 2026-09-10)
+    "G19": "GOLD-FID",   # a prose "X's quarter moves up/down" claim the correction column's sign contradicts (a review round, 2026-09-10)
+    "G20": "GOLD-FID",   # a full date a golden prose cell states that neither the prompt nor an input carries (a review round, 2026-09-10)
     # S1 sits here, not with the prose rules: a superlative in a solution cell is a
-    # CLAIM the fidelity axis re-derives from the neighbouring table, and vondrak run 2
+    # CLAIM the fidelity axis re-derives from the neighbouring table, and one run
     # failed it 2/5 because "cheapest of the four" named the wrong counter. The remedy
     # is verifying the claim against its own numbers, not deleting the sentence.
     "S1": "GOLD-FID",
@@ -521,10 +519,10 @@ PRIMARY = {
     # of generation, and a stop rather than a cleanup.
     "G2b": "LLM-PKG",       # G2a, G2c and G2d retired 2026-09-15 (see check_input_authorship)
     # A13: a formula workbook shipped without xl/calcChain.xml reads as all-values-
-    # hard-coded to the extractor's package scan (june-price-review, 2026-08-24)
+    # hard-coded to the extractor's package scan (2026-08-24)
     "A13": "LLM-PKG",
     # A14: an Openpyxl generator string in docProps is the same package-provenance
-    # tell surfacing at gate 2 - a reviewer reads file properties (june-price-review)
+    # tell surfacing at gate 2 - a reviewer reads file properties
     "A14": "LLM-PKG", "A19": "LLM-PKG",
     "A5": "LLM-SHAPE",
     # A15: machine-generated number series in input CSVs (strict cycling, near-uniform
@@ -533,7 +531,7 @@ PRIMARY = {
     "A8": "LLM-NUM", "A9": "LLM-NUM", "F1": "LLM-NUM",
     # Stage 2c
     "R27": "RUBQ-ATOM", "R49": "RUBQ-ATOM", "R54": "RUBQ-ATOM", "R55": "RUBQ-ATOM", "W12": "RUBQ-SCHEMA",
-    # R112: a bare golden-only tab name in criterion prose (weldon-bridge-plan Rubric Quality Review, 2026-09-11).
+    # R112: a bare golden-only tab name in criterion prose (a Rubric Quality Review, 2026-09-11).
     "R112": "RUBQ-SCHEMA",
     # Stage 2d
     "A11": "DATA-SUFF", "A12": "DATA-SUFF", "A16": "DATA-OPEN", "A7": "DATA-BUDGET",
@@ -546,7 +544,7 @@ PRIMARY = {
     # Stage 3
     "A6": "REV-PROSE", "A10": "REV-PROSE",
     # A20: a missing comma before a clause-joining conjunction, or three or more clauses in one
-    # sentence - the two mechanical shapes of the sentence rule the lift-truck-fleet-plan reviewer
+    # sentence - the two mechanical shapes of the sentence rule a reviewer
     # wrote out by hand and rejected on (2026-09-05). REV-REGISTER stays in NO_DETECTOR because the
     # serial comma, the comma splice and the rest of the rule are still a read.
     "A20": "REV-REGISTER",
@@ -563,7 +561,7 @@ PRIMARY = {
     "R107": "RUBQ-GROUND",  # a positive pins a record id that sits only past row 28 of an input sheet
     "R108": "GOLD-LAND",    # a citation-by-file-name claim whose file name the golden never states
     "R109": "GOLD-LIVE",    # a gated "formula rather than a keyed date" clause over TEXT()-rendered dates
-    "R125": "GOLD-LIVE",    # a gated count clause on a lone COUNT footer under a column of another head (twincreek 2026-09-14)
+    "R125": "GOLD-LIVE",    # a gated count clause on a lone COUNT footer under a column of another head (2026-09-14)
     "R110": "RUBQ-GROUND",  # a citation claim for a key whose records some input sheet holds only past row 28
     "A21": "REV-PROSE",     # a document whose sentences are half or more the status-report skeleton
     "G23": "GOLD-FID",
@@ -574,7 +572,7 @@ PRIMARY = {
     "G26": "GOLD-FID",      # a standard number, or a class/type/level/tier beside a standard, in the golden that no input and not the prompt carries
     "G28": "GOLD-FID",      # a prompt description title-cased into an organisation name in the golden (2026-09-14)
     "G29": "GOLD-FID",      # a banded input table with a shared endpoint, no inclusion rule, data on the line (2026-09-14)
-    "G30": "GOLD-FID",      # a money column directly after a Yes/No column headed with a charge's name (kesselring refinement, 2026-09-14)
+    "G30": "GOLD-FID",      # a money column directly after a Yes/No column headed with a charge's name (2026-09-14)
     "G31": "GOLD-FID",      # an open status claimed for every key with no source beside it while another input closes one
     "R115": "PRE-COVER",    # mapped 2026-09-11 for a check another session registered without a family
     "L4": "DATA-LEAK",      # mapped 2026-09-11 for a check another session registered without a family
@@ -593,22 +591,22 @@ PRIMARY = {
     "A26": "REV-PROSE",     # a solution free-text column carrying one identical line on every populated row
     "R121": "RUBQ-RIGID",   # a positive presenting a named answer as "one acceptable answer" or "for example"
     "G33": "GOLD-FID",      # a prose superlative record count over a long CSV
-    "G40": "GOLD-FID",      # a read-through label pointing the opposite way from its source row's label (tessendorf adjudication, 2026-09-15)
-    "G39": "GOLD-FID",      # two docx tables keyed on the same rows with a like-named value column carrying different figures (crandall 2026-09-15)
-    "G36": "GOLD-FID",      # a citation form (policy 4.1, ITB 5) no input uses (twincreek 2026-09-14)
-    "R122": "RUBQ-RIGID",   # a positive scoring one business disposition against a named alternative (freight-audit-review adjudication, 2026-09-12)
-    "H7": "PRE-PACK",       # a chronological reference CSV longer than the adjudication preview window (freight-audit-review, 2026-09-14)
+    "G40": "GOLD-FID",      # a read-through label pointing the opposite way from its source row's label (an adjudication, 2026-09-15)
+    "G39": "GOLD-FID",      # two docx tables keyed on the same rows with a like-named value column carrying different figures (2026-09-15)
+    "G36": "GOLD-FID",      # a citation form (policy 4.1, ITB 5) no input uses (2026-09-14)
+    "R122": "RUBQ-RIGID",   # a positive scoring one business disposition against a named alternative (an adjudication, 2026-09-12)
+    "H7": "PRE-PACK",       # a chronological reference CSV longer than the adjudication preview window (2026-09-14)
     "H8": "PRE-PACK",       # a golden-cited id's input row in the hidden middle of a sheet longer than 40 rows
-    "H9": "PRE-PACK",       # an input CSV field containing a comma, split naively by adjudication (dfl-freight-audit, 2026-09-15)
-    "R134": "PRE-COVER",    # every prompt ask mapped to a golden anchor and a positive rubric row in clause-map.md (dfl-freight-audit rejection, 2026-09-15)
-    "G41": "GOLD-FID",      # an action row defers an asked-for artifact, or one schedule stands in for one form per record (dfl-freight-audit rejection, 2026-09-15)
-    "G42": "GOLD-FID",      # a phrase recorded in struck-phrases.md back anywhere in the package (dfl-freight-audit rejection, 2026-09-15)
-    "G43": "GOLD-FID",      # verify_golden.py missing, failing, or a near flip the golden never settles (dfl-freight-audit rejection, 2026-09-15)
-    "P8": "REV-CREDIBLE",   # a prompt due date or golden Date line under 21 days after the build (dfl-freight-audit rejection, 2026-09-15)
-    "R130": "GOLD-FID",     # a positive criterion citing a numbered section no solution file names (crandall-program-allocation refinement, 2026-09-14)
-    "R123": "GOLD-LAND",   # an identifier borrowed from an input written with a space or dash variant for its hyphen (standby-generator round 4, 2026-09-12)
-    "R131": "GOLD-LAND",   # a positive criterion's section cite the golden states only past the read head of long prose cells (rempel-buyout-plan refinement round 2, 2026-09-14)
-    "R133": "GOLD-LAND",   # a pinned decimal on a rounding tie or a rounded-first chain the single rounding disagrees with (hx4180-fa26-spec-rev3 adjudication, 2026-09-15)
+    "H9": "PRE-PACK",       # an input CSV field containing a comma, split naively by adjudication (2026-09-15)
+    "R134": "PRE-COVER",    # every prompt ask mapped to a golden anchor and a positive rubric row in clause-map.md (a rejection, 2026-09-15)
+    "G41": "GOLD-FID",      # an action row defers an asked-for artifact, or one schedule stands in for one form per record (a rejection, 2026-09-15)
+    "G42": "GOLD-FID",      # a phrase recorded in struck-phrases.md back anywhere in the package (a rejection, 2026-09-15)
+    "G43": "GOLD-FID",      # verify_golden.py missing, failing, or a near flip the golden never settles (a rejection, 2026-09-15)
+    "P8": "REV-CREDIBLE",   # a prompt due date or golden Date line under 21 days after the build (a rejection, 2026-09-15)
+    "R130": "GOLD-FID",     # a positive criterion citing a numbered section no solution file names (2026-09-14)
+    "R123": "GOLD-LAND",   # an identifier borrowed from an input written with a space or dash variant for its hyphen (2026-09-12)
+    "R131": "GOLD-LAND",   # a positive criterion's section cite the golden states only past the read head of long prose cells (2026-09-14)
+    "R133": "GOLD-LAND",   # a pinned decimal on a rounding tie or a rounded-first chain the single rounding disagrees with (an adjudication, 2026-09-15)
 }
 
 # a check that also predicts another gate; shown, never double-counted
@@ -648,43 +646,6 @@ NON_DEBTABLE = ("REV-PROSE",)
 # REV-CREDIBLE has H2/H3 since 2026-09-04 but stays listed: names and metadata are still
 # a human read.
 NO_DETECTOR = ("REV-REGISTER", "REV-CREDIBLE", "RUBQ-RIGID", "REV-TRACE")
-
-# --- review tiering ------------------------------------------------------------------
-# How review_check.py tiers a registry finding on ANOTHER contributor's task. BAR rules
-# are the ones docs/reviewer/platform/reviewer-guidelines-v5.1.md states in terms (file
-# names and inputs named, substantial and readable inputs, golden accuracy, no answer
-# leakage, no programme vocabulary, clean provenance, atomic and objective criteria, the
-# rubric's form). Everything else is this repo's own authoring convention: it predicts an
-# oracle flake or a platform check that is the submitter's problem, never a send-back.
-# A rule absent here reads as HOUSE.
-REVIEW_TIER = {
-    "PRE-FILES": "BAR", "PRE-SOURCES": "BAR", "PRE-NAME": "BAR", "PRE-PACK": "BAR",
-    "PRE-FORM": "BAR", "PRE-OBJ": "BAR",
-    "GOLD-FID": "BAR", "DATA-LEAK": "BAR", "DATA-SUFF": "BAR", "DATA-OPEN": "BAR",
-    # LLM-PKG was BAR until the team ruling of 2026-09-04 in #ec-geranium-project. ECs are
-    # allowed to use an LLM to assist with inputs and goldens, so an openpyxl or python-docx
-    # string is usually an artifact of permitted use, and the library is in any case a
-    # legitimate way to load data faster than typing it. It is reviewer discretion, "not a
-    # blanket or hard bounce back", and on some tasks the string is even appropriate to
-    # leave. A generator string alone is therefore HOUSE on another contributor's task and
-    # goes in the note as an observation, never as the reason it is going back.
-    "LLM-PKG": "HOUSE",
-}
-# Per-code overrides where a rule's checks straddle the line: R27 (three or more figures in
-# one criterion) is the atomicity shape the guidelines describe, the other RUBQ-ATOM shapes
-# are house; R18 (grader-instruction wording) is a platform pre-check, not reviewer bar.
-# A19 is the one LLM-PKG code that stays BAR: the team ruled on 2026-09-04 that a docProps
-# creator or lastModifiedBy left as a placeholder such as the literal word "generated" is an
-# automatic send-back, because it asserts nothing about who authored the file, which is a
-# different thing from a tool name that records how it was written.
-REVIEW_TIER_CODE = {"R27": "BAR", "R18": "HOUSE", "A19": "BAR"}
-
-
-def review_tier(code):
-    """BAR or HOUSE for a coded finding on another contributor's task."""
-    if code in REVIEW_TIER_CODE:
-        return REVIEW_TIER_CODE[code]
-    return REVIEW_TIER.get(PRIMARY.get(code), "HOUSE")
 
 # Criteria carrying one of these are the ones observed to flake: the oracle cannot
 # reliably land on them, as opposed to criteria that are simply wrong.

@@ -43,11 +43,11 @@ _SLOGAN_RES = [
     (re.compile(r"\bthe one people forget\b|\bthe one thing everybody forgets\b", re.I), "slogan"),
     (re.compile(r"\bI am not spending my (?:fall|spring|summer|winter|year)\b", re.I), "slogan"),
     (re.compile(r"\bwould be buying it twice\b|\bpaying for it twice\b", re.I), "slogan"),
-    # 2026-08-31, delivery-zone-reset reviewer (gate 2 round 2): six passages quoted as
-    # "AI slop/slang" across two input memos; the reviewer's standard was "nobody with a
+    # 2026-08-31, a reviewer (gate 2 round 2): six passages quoted as "AI slop/slang"
+    # across two input memos; the reviewer's standard was "nobody with a
     # truly urgent issue speaks in less-than-clear language". Three new classes, probed
-    # portfolio-wide before coding (one true hit, task 33's memo carrying the same
-    # semicolon-balanced maxim; silent everywhere else). Catalog:
+    # portfolio-wide before coding (one true hit, an earlier task's memo carrying the
+    # same semicolon-balanced maxim; silent everywhere else). Catalog:
     # docs/reference/llm-prose-tells.md, classes 8-10.
     (re.compile(r"\bis (?:a|an) \w+;[^.;\n]{0,80}\bis (?:a|an) \w+\b", re.I),
      "aphoristic parallelism (semicolon-balanced maxim)"),
@@ -58,8 +58,8 @@ _SLOGAN_RES = [
     (re.compile(r"\bstand at (?:a|the) counter and defend\b", re.I), "idiom for a quantity"),
     (re.compile(r"\bhonestly,? that is fine with me\b", re.I), "first-person filler"),
     (re.compile(r"\bmeets? (?:it |them )?cold on a\b|\bmeet cold on\b", re.I), "idiom for a quantity"),
-    # 2026-09-10, review 30ce3cda (magnet-room line review, reviewer round 3): the
-    # reviewer's heading was "Remove unclear LLM slang" and the standard was "State it
+    # 2026-09-10 (reviewer round 3): the reviewer's heading was "Remove unclear LLM
+    # slang" and the standard was "State it
     # clearly". Two classes, both surviving into rev4 after the prompt was cleaned:
     # a physical surface standing in for the deliverable ("that is what goes on the
     # door", meaning the posted screening list), and an adverb-led opener whose clause
@@ -76,8 +76,8 @@ _SLOGAN_RES = [
 
 # The platform's LLM-authorship phrasing judge names three more classes in every FAIL
 # report ("no pre-counted lists, no 'the sections that follow…' roadmaps, no
-# self-describing titles like 'Golden Solution: …'"); pbw-rebate-reconciliation drew
-# llm-only 3/5 on 2026-08-31 with the reviewer-salvaged golden. These are scanned over
+# self-describing titles like 'Golden Solution: …'"); one task drew llm-only 3/5 on
+# 2026-08-31 with the reviewer-salvaged golden. These are scanned over
 # EVERY string cell and sheet title of the solution workbooks, not only prose-length
 # cells, because a self-describing title is short.
 _SELF_DESCRIBING_RES = [
@@ -99,7 +99,7 @@ _SELF_DESCRIBING_RES = [
 
 
 # Scanned over EVERY string cell and sheet title, like _SELF_DESCRIBING_RES and for the
-# same reason: on review 30ce3cda the metonymy was the sheet HEADING ("What goes on the
+# same reason: on one submission the metonymy was the sheet HEADING ("What goes on the
 # door" at Keep out!A1), far below the prose-length threshold the slogan list works over.
 # The "what goes on the X" framing is required — it is the subjectless relative that makes
 # the surface stand in for the document. A declarative with a real subject ("the notice
@@ -131,7 +131,7 @@ def check_llm_prose(folder):
                       if not _TAUTOLOGY_OK_RE.search(m.group(0))), None)
             if m:
                 emit("ERROR", f'[A10] {at}: tautology "{m.group(0).strip()[:60]}" — the highest-confidence '
-                              "LLM prose tell (three flagged in task 12, 2026-08-22: \"committed work is "
+                              "LLM prose tell (three flagged in one submission, 2026-08-22: \"committed work is "
                               "committed\", \"policy 6.3 is still policy\", \"paragraph 8 is the whole "
                               "story\"); state the rule and its consequence instead (docs/reference/llm-prose-tells.md)")
                 break
@@ -140,7 +140,7 @@ def check_llm_prose(folder):
             if m:
                 emit("ERROR", f'[A10] {at}: {kind} "{m.group(0).strip()[:60]}" — reviewers read these as '
                              "\"punchy phrases ... stylistic of an LLM trying too hard to sound real and "
-                             "busy\" (task 12, 2026-08-22); state the mechanism or the quantity instead "
+                             "busy\" (2026-08-22); state the mechanism or the quantity instead "
                              "(docs/reference/llm-prose-tells.md)")
     short = list(sources)
     for x in solution_files(folder, {".xlsx"}):
@@ -153,8 +153,8 @@ def check_llm_prose(folder):
             m = rx.search(text)
             if m and (at, kind) not in seen:
                 seen.add((at, kind))
-                emit("ERROR", f'[A10] {at}: {kind} "{m.group(0).strip()[:60]}" — the reviewer on '
-                             "30ce3cda headed this \"Remove unclear LLM slang\" and asked which artifact "
+                emit("ERROR", f'[A10] {at}: {kind} "{m.group(0).strip()[:60]}" — the reviewer '
+                             "headed this \"Remove unclear LLM slang\" and asked which artifact "
                              "the phrase means (\"a posted warning, an exclusion list, a brand level "
                              "restriction?\"); name the artifact instead "
                              "(docs/reference/llm-prose-tells.md, class 11)")
@@ -165,7 +165,7 @@ def check_llm_prose(folder):
                 emit("ERROR", f'[A10] {at}: {kind} "{m.group(0).strip()[:60]}" — the platform\'s '
                              "LLM-authorship phrasing judge names pre-counted lists, \"the sections that "
                              "follow\" roadmaps and self-describing titles (\"Golden Solution: ...\") in "
-                             "every FAIL report (pbw-rebate-reconciliation, 2026-08-31, llm-only 3/5); "
+                             "every FAIL report (2026-08-31, llm-only 3/5); "
                              "delete the sentence or give the thing its real title "
                              "(docs/submission/platform/style-guide-llm-tells.md)")
 
@@ -189,7 +189,7 @@ def check_emdash_docx(folder):
             continue
         emit(sev, f"[A6] {p.relative_to(folder)}: {em} em dashes in {words} words "
                   f"({per_k:.0f}/1000) — repeated 'clause — clause' punctuation reads as "
-                  "LLM-styled (reviewer fail, deadstock inputs 2026-08-19); rewrite with "
+                  "LLM-styled (reviewer fail, 2026-08-19); rewrite with "
                   "conventional punctuation, keep facts unchanged")
 
 
@@ -206,8 +206,8 @@ def check_emdash_text(folder):
 
 
 # ---- A20: sentence mechanics the reviewer corrects by hand ------------------------------
-# lift-truck-fleet-plan, REJECTED at first human review 2026-09-05. The reviewer rewrote the
-# prompt's opening sentence into three ("Sentence 1 ... Sentence 2 ... Sentence 3") and a
+# A task was REJECTED at first review 2026-09-05. The reviewer rewrote the prompt's
+# opening sentence into three ("Sentence 1 ... Sentence 2 ... Sentence 3") and a
 # golden paragraph into four, then stated the rule: "When two sentences are joined with 'and'
 # or 'so' or 'but' or 'or' or another coordinating conjunction, they need a comma ... No more
 # than 2 sentences can be joined with a comma and coordinating conjunction. Basic comma rules
@@ -324,7 +324,7 @@ def check_run_on_sentences(folder):
                     f'[A20] {at}: {joins + 1} independent clauses in one sentence ("{s[:100]}...")')
     for name, msgs in per_file.items():
         for msg in msgs[:_A20_CAP]:
-            emit("ERROR", msg + " - the lift-truck-fleet-plan reviewer rewrote these by hand and rejected "
+            emit("ERROR", msg + " - the reviewer rewrote these by hand and rejected "
                           "the task (2026-09-05): comma before and/but/so/or between clauses, never more "
                           "than two clauses in a sentence, serial comma in lists; prompt, inputs, golden "
                           "and rubric alike (docs/submission/workflows/02-prompt-writing.md)")
@@ -332,9 +332,9 @@ def check_run_on_sentences(folder):
             emit("ERROR", f"[A20] {name}: {len(msgs) - _A20_CAP} more sentences of the same shapes")
 
 
-# A21 (2026-09-11, hathi-replenishment-order-decision refinement round 4, LLM-authorship check
-# FAILED, llm-only 0.50 against 0.55): the platform's reader flagged an input memo, MEDIUM, for
-# "every section follows an identical formal-operational sentence pattern ('[Activity]
+# A21 (2026-09-11, LLM-authorship check FAILED, llm-only 0.50 against 0.55): the platform's
+# reader flagged an input memo, MEDIUM, for "every section follows an identical
+# formal-operational sentence pattern ('[Activity]
 # continued/remained/completed according to [established/standard] procedures; No [negative
 # event] was reported') with no variation across 13 distinct topic sections, consistent with
 # template-generated content". Thirty of its forty sentences matched that skeleton; the next
@@ -353,7 +353,7 @@ _A21_SHARE = 0.5
 def check_status_template_register(folder):
     """A document never carries the status-report sentence skeleton (remained / continue / completed according to procedure / no X was reported) on half or more of its sentences.
 
-    Since: 2026-09-11 (hathi-replenishment-order-decision refinement round 4).
+    Since: 2026-09-11.
     Source: the platform's LLM-authorship check (Claude reader, MEDIUM on an input, the check FAILED at 0.50).
     Drift-notes: measured on sentences of six words or more, twenty or more of them; the flagged
     file scored 0.75, its sibling audit report 0.32, every other input docx 0.14 or under.
@@ -377,12 +377,12 @@ def check_status_template_register(folder):
                 emit("ERROR", f"{path.name}: {len(hits)} of {len(sents)} sentences ({share:.0%}) are the status-report "
                              f"skeleton (remained / continue / completed according to procedure / no X was reported): "
                              f"\"{sample}\". The platform's authorship reader calls this template-generated content "
-                             "and failed the check at 0.50 (hathi-replenishment-order-decision 2026-09-11). Rewrite "
+                             "and failed the check at 0.50 (2026-09-11). Rewrite "
                              "in plain professional voice, varying the sentence shape section by section")
 
 
-# A32 (2026-09-14, hathi-replenishment-order-decision refinement round 9): the LLM-authorship
-# check FAILED at llm-only 0.25 on the golden alone, "partial generic section header sequence
+# A32 (2026-09-14): the LLM-authorship check FAILED at llm-only 0.25 on the golden alone,
+# "partial generic section header sequence
 # ('Executive Summary', 'Recommendations'): MEDIUM". The reader keeps a list of the headings a
 # model reaches for and reads two of them in one document as its outline. Across the portfolio
 # only this memo carried two; two goldens carry "Recommendation" alone.
@@ -409,7 +409,7 @@ def _a32_headings(path):
 def check_generic_heading_pair(folder):
     """A solution docx never carries two or more headings from the generic report outline (Executive Summary, Recommendations, Introduction, Overview, Background, Conclusion, Next Steps, Key Findings, Methodology); the authorship reader reads the pair as a model's outline and fails the golden on it.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 9).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, MEDIUM on the output file for exactly two such headings.
     Drift-notes: one generic heading is tolerated (two accepted goldens carry "Recommendation"); the
     prompt's own words stay in the body, so a section can be titled for its content ("Summary for
@@ -424,5 +424,5 @@ def check_generic_heading_pair(folder):
         if len(generic) >= 2:
             emit("ERROR", f"[A32] {path.name}: {len(generic)} headings from the generic report outline ({', '.join(generic)}) - "
                           "the platform's LLM-authorship check reads the pair as a model's outline and failed the "
-                          "golden at MEDIUM (hathi-replenishment-order-decision 2026-09-14). Title each section for "
+                          "golden at MEDIUM (2026-09-14). Title each section for "
                           "what it holds; the prompt's words stay in the body")

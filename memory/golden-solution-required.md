@@ -9,7 +9,7 @@ Open the moment anything says the creator does not produce a solution. It is wro
 mistake is expensive: the form cannot be submitted without the upload, and the rubric has nothing
 to be derived from.
 
-**The conflict (recorded 2026-09-21, the Hazy port).**
+**The conflict (recorded 2026-09-21).**
 
 The guidelines PDF (`docs/submission/platform/create-the-task-guidelines.md`) says it three times:
 
@@ -34,8 +34,8 @@ providing."
 
 **How to apply.**
 
-- Build a golden solution for every task. All of Geranium's golden-solution tooling and rules stay
-  in force: [[golden-fidelity]], `tools/golden_verify.py`, `verify_golden.py` at task-folder root.
+- Build a golden solution for every task. All the golden-solution tooling and rules stay in
+  force: [[golden-fidelity]], `tools/golden_verify.py`, `verify_golden.py` at task-folder root.
 - The rubric is derived from the golden, never from the prompt. Every pinned value is read off the
   golden and traced back to an input.
 - A doc sentence claiming no solution is produced gets **corrected with a pointer to this file**,

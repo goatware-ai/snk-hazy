@@ -11,10 +11,10 @@ from ..common import (MONTH_NAMES, MONTH_NUM, MONTHS_LOWER, MONTHS_RE, _G5_WORDS
 from ..core import check, emit, recommend, REPORT, OPTIONS
 
 
-# R29 (2026-08-22, task 20 oracle run 4): a criterion that says HOW a figure is derived
+# R29 (2026-08-22, an oracle run): a criterion that says HOW a figure is derived
 # ("the cell carrying that total adding the three clause lines above it") fails whenever
 # the figure sits in more than one cell, because the judge lands on whichever copy it
-# finds first. Run 4 quoted Briefing!E10, `='Not Claimed'!D8`, a plain reference, against a
+# finds first. The run quoted Briefing!E10, `='Not Claimed'!D8`, a plain reference, against a
 # criterion about a cell that adds three lines. The summary tab reads every headline figure
 # through from the tab that computes it, which is the design the liveness criteria want, so
 # every pinned total has at least two homes by construction. Three of this task's four
@@ -29,7 +29,7 @@ _DERIV_RE = re.compile(r"\badd(?:s|ing)\b|\bsum(?:s|med|ming)\b|\brather than (?
 def check_derivation_anchors(rows, folder):
     """A criterion stating how a figure is derived names a figure that sits in one golden cell only.
 
-    Since: 2026-08-22 (task 20 run 4).
+    Since: 2026-08-22.
     Source: the oracle, landing on a read-through copy.
     """
     homes = {}
@@ -56,7 +56,7 @@ def check_derivation_anchors(rows, folder):
                 emit("ERROR", f"C{num} [R29] says how {tok} is derived, but that value sits in "
                              f"{len(where)} cells ({', '.join(where[:3])}) — the judge lands on "
                              "whichever it finds first and fails the criterion when that is a "
-                             "read-through copy (task 20 run 4 quoted the briefing's plain "
+                             "read-through copy (an oracle run quoted the briefing's plain "
                              "reference). State the value here and leave the derivation to the "
                              "liveness criteria, which grade a tab rather than one figure")
                 break
@@ -70,7 +70,7 @@ SUPERLATIVE_RE = re.compile(r"\b(cheap|dear|high|low|large|small|big|costli)est\
 def check_superlatives(folder):
     """Every superlative in a solution text cell is re-verified against the table it summarises whenever the numbers move.
 
-    S1 (2026-08-23, vondrak run 2): the golden-source-fidelity axis hard-failed the task
+    S1 (2026-08-23): the golden-source-fidelity axis hard-failed the task
     on one sentence, a Scenarios footer naming the six point cap 'the cheapest of the four'
     while the tab's own table showed a counter at a tenth of its price. A superlative in a
     solution text cell is a conclusion the checker re-derives from the neighbouring table,
@@ -92,7 +92,7 @@ def check_superlatives(folder):
     if hits:
         emit("ERROR", f"[S1] superlative claim(s) in solution text cells ({', '.join(hits[:6])}) — "
                      "the fidelity axis re-derives such conclusions from the neighbouring table and "
-                     "hard-fails on a mismatch (vondrak run 2, 2026-08-23: 'cheapest of the four' "
+                     "hard-fails on a mismatch (2026-08-23: 'cheapest of the four' "
                      "named the wrong counter, axis 2/5). Verify each against the numbers it "
                      "summarizes, then accept as S1 with the verification stated")
 
@@ -161,7 +161,7 @@ def check_docx_deadline_pins(rows, folder):
                         emit("ERROR", f"C{num} [R71] says {b.group(0)} for every item, but {name} "
                                       f"table {ti + 1} (header '{body[0][i]}') carries a row dated "
                                       f"{dm.group(0)}: \"{row[0][:70]}\". The judge reads the "
-                                      "universal literally and failed po-conformance-review C30 "
+                                      "universal literally and failed a task's C30 "
                                       "3 of 3 oracle runs on one October 30 row under a 'before "
                                       "September 22' heading (2026-08-31). Date the item's "
                                       "pre-deadline step inside the bound or take it out of the "
@@ -175,7 +175,7 @@ ACTION_TOKEN_RE = re.compile(r"^(CHANGE|CANCEL|REPLACE)\b")
 STAY_STATUSES = {"DE MINIMIS", "AS QUOTED"}
 
 
-# G2 (2026-08-24, oskaloosa-count-adjustment AutoEval run 3): the golden's Tag detail tab
+# G2 (2026-08-24, AutoEval run 3): the golden's Tag detail tab
 # was written with EACHES and the USE flag one column to the left of the headers naming
 # them, and the two columns those headers reserved were never written at all. So the
 # reconciliation's =SUMIFS('Tag detail'!$I$6:$I$59, ..., 'Tag detail'!$K$6:$K$59,"use")
@@ -280,7 +280,7 @@ def check_unreproducible_cache(folder):
                           f"{cached:g} from {f}, but {arg} holds {what} — the cache "
                           "cannot be reproduced from the formula, so the figure "
                           "survives only until someone recalculates and the tab it "
-                          "feeds collapses (oskaloosa, 2026-08-24: a golden shipped "
+                          "feeds collapses (2026-08-24: a golden shipped "
                           "with two columns written one to the left of the headers "
                           "naming them, and the oracle judge, which reads caches, "
                           "scored it 0.96). Point the formula at the range that "
@@ -288,13 +288,13 @@ def check_unreproducible_cache(folder):
             break
 
 
-# G3 (2026-08-25, hollenbach-allocation-plan gate-3 reviewer): the briefing stated
+# G3 (2026-08-25, a grader): the briefing stated
 # "5,117 units of demand" and then enumerated the coverage beneath it, and those lines
 # added to 5,159. The 42-unit gap was the classified line quoting the quantity ORDERED
 # (580, rounded up to full cartons) where the identity needs the quantity APPLIED to
 # demand (538), and nothing on the page reconciled the two. Every cell in the block was
 # a live cross-sheet reference, so no liveness or cache rule could see it, and the oracle
-# judge scores each line separately and never adds the column up. A reviewer does add it
+# judge scores each line separately and never adds the column up. A grader does add it
 # up, and called it out in the first paragraph. The shape is mechanical: a contiguous run
 # of cells in ONE column, each a pure reference into the SAME other sheet, whose first
 # value is meant to be the total of the rest. Fire only when the block NEARLY ties (the
@@ -319,8 +319,8 @@ def _g3_target(formula):
 def check_summary_reconciliation(folder):
     """A front-page column of cross-sheet references whose head is the total of the lines under it ties, or carries a reconciliation cell for the difference.
 
-    Since: 2026-08-25 (hollenbach-allocation-plan gate-3 reviewer).
-    Source: reviewer.
+    Since: 2026-08-25.
+    Source: a grader.
     """
     sol = folder / "solution"
     for path in sorted(sol.glob("*.xlsx")) if sol.is_dir() else []:
@@ -346,10 +346,10 @@ def check_summary_reconciliation(folder):
                         total, parts = run[0][1], [x for _, x in run[1:]]
                         gap = total - sum(parts)
                         # A total-and-its-parts block: every part is a positive share of one
-                        # whole. open-order-cleanup's Briefing B14:B20 mixes an opening
+                        # whole. One task's Briefing B14:B20 mixes an opening
                         # balance, a target, a variance and three negative deductions, and
                         # is not an identity at all - the sign test is what tells them apart.
-                        # The near-tie band then keeps unrelated positives out (hollenbach was
+                        # The near-tie band then keeps unrelated positives out (the gap was
                         # 42 out of 5,117, 0.8%).
                         if (total > 0 and len(parts) >= 4
                                 and all(0 < x < total for x in parts)
@@ -363,14 +363,14 @@ def check_summary_reconciliation(folder):
                                      f" states {total:g} and the {len(parts)} source lines under it add "
                                      f"to {sum(parts):g}, {abs(gap):g} out, with no reconciliation cell "
                                      "beneath the block - the oracle judge scores those lines one at a "
-                                     "time and never adds the column up, but a reviewer does and opens "
-                                     "with it (hollenbach-allocation-plan, 2026-08-25: a coverage line "
+                                     "time and never adds the column up, but a grader does and opens "
+                                     "with it (2026-08-25: a coverage line "
                                      "quoting the quantity ORDERED where the identity needs the quantity "
                                      "APPLIED). Carry the difference in a cell that reads zero")
                     run = []
 
 
-# G4 (2026-09-01, vrm-exception-review AutoEval, golden_source_fidelity 2/5): the input
+# G4 (2026-09-01, AutoEval, golden_source_fidelity 2/5): the input
 # register carried four sales-order lines billed under the agreement price, and the
 # Summary's correcting-invoice table listed three - the build's shortbill pass filtered
 # on "entered at the January price" where the defect class is "billed below agreement",
@@ -446,7 +446,7 @@ _G5_CLAIM_RE = re.compile(r"\b(all |every one of )?(" + _G5_NUMWORD + r") of (?:
 
 
 def _g5_int(tok):
-    # thousands separators are stripped before the digit test: review 30ce3cda
+    # thousands separators are stripped before the digit test: an earlier run
     # (2026-09-10) read "36 of 1,134" as "36 of 1" and failed a correct golden,
     # because the numword pattern stopped at the comma.
     tok = tok.lower().strip().replace(",", "")
@@ -475,14 +475,14 @@ def _g5_split_paragraphs(folder):
 def check_narrative_count_claims(folder):
     """A count claim in the golden's prose is consistent with itself: in "X of the Y" X never exceeds Y, and the parts of a total split "in two forms" (ways, kinds, groups, parts) sum to that total or the paragraph states the overlap.
 
-    Split arm since 2026-09-15 (dfl-freight-audit rejection): "Thirty-four invoices carry a fuel
+    Split arm since 2026-09-15 (a rejection): "Thirty-four invoices carry a fuel
     surcharge ... in two forms. On thirteen invoices ... On 43 invoices ..." sums to 56 against 34 with
     the overlap never stated, and the rejection named it an internal count inconsistency. The head is a
     number and a plural noun followed within the sentence by "in two|three|four|five forms|ways|kinds|
     groups|parts|categories|shapes"; the parts are the next k "number noun" runs of the same noun in the
     paragraph; an overlap is stated by "both", "overlap", "counted once|twice" or "in each".
 
-    G5 (2026-09-02, flyer-program-review AutoEval golden_source_fidelity 2/5): the
+    G5 (2026-09-02, AutoEval golden_source_fidelity 2/5): the
     golden's narrative said 'four slots ran ... with no written support, three of the
     four lost money' while its own results tab held four negative unsupported slots and
     a counter reading 4. Every other check tests the rubric against the golden, so a
@@ -507,7 +507,7 @@ def check_narrative_count_claims(folder):
             # not a failure the tool can prove; the operator confirms each line by hand
             print(f'        info: [G5] {at}: count claim "{phrase}" - confirm the golden\'s '
                   "computed tab gives the same X of Y (a prose count the tab contradicts is "
-                  "the flyer-program-review fidelity hard fail, 2026-09-02)")
+                  "a fidelity hard fail, 2026-09-02)")
     for at, text in _g5_split_paragraphs(folder):
         for m in _G5_SPLIT_HEAD_RE.finditer(text):
             noun = m.group(2).lower()
@@ -523,14 +523,14 @@ def check_narrative_count_claims(folder):
             emit("ERROR", f'[G5] {at}: "{m.group(0)[:90]}" splits {total} {noun} into parts of '
                           f'{" and ".join(str(p) for p in parts)}, which sum to {sum(parts)}, and the paragraph states no '
                           "overlap - say how many sit in both, or give parts that add to the total "
-                          "(dfl-freight-audit rejection, 2026-09-15)")
+                          "(a rejection, 2026-09-15)")
 
 
-# G7 (2026-09-02, dfl-freight-audit gate-2 reviewer, Golden Quality): a docx table's total
+# G7 (2026-09-02, a grader, Golden Quality): a docx table's total
 # row did not equal its rows. A python-docx edit that addressed the total row by index landed
 # on the last DATA row instead (the under-billed table: DFL7718272's 1.18 became the 251.68
 # total, the real total row was fixed by a later string replace), the golden's own sum no
-# longer tied, and the reviewer read it in one pass while every figure the rubric quotes was
+# longer tied, and a grader read it in one pass while every figure the rubric quotes was
 # still present. Every solution docx table whose last row is a total (first cell empty or
 # reading All/Total/Sum) must sum, column by column, to that row.
 _G7_NUM_RE = re.compile(r"^-?\(?\$?-?[\d,]+(?:\.\d+)?\)?$")
@@ -553,8 +553,8 @@ def _g7_num(txt):
 def check_docx_total_rows(folder):
     """Every solution docx table with a total row sums, column by column, to that row.
 
-    Since: 2026-09-02 (dfl-freight-audit gate-2 reviewer, Golden Quality).
-    Source: reviewer.
+    Since: 2026-09-02 (Golden Quality).
+    Source: a grader.
     """
     for d in solution_files(folder, {".docx"}):
         doc = document(d)
@@ -580,18 +580,18 @@ def check_docx_total_rows(folder):
                 if sum(vals) != tot:
                     emit("ERROR", f"[G7] {d.name} table {ti + 1} column {ci + 1}: the total row reads "
                                   f"{last[ci].strip()} but its {len(vals)} rows sum to {sum(vals):,.2f} - "
-                                  "a golden table that does not tie to its own total is the reviewer's "
-                                  "one-read hard fail (dfl-freight-audit, 2026-09-02: an index-addressed "
+                                  "a golden table that does not tie to its own total is a grader's "
+                                  "one-read hard fail (2026-09-02: an index-addressed "
                                   "cell edit landed on the last data row instead of the total row)")
 
 
-# G21 (2026-09-10, review 6da90c8b adjudication, Golden Quality): a table's printed figures
+# G21 (2026-09-10, Golden Quality): a table's printed figures
 # must reproduce the table's own arithmetic AS PRINTED. This desk accepted a refrigeration
 # quote whose per-unit table showed 766 kWh/year and 5,366 kWh over seven years; 766 x 7 is
 # 5,362, and the same row pair was out by 3 on the second unit. Both printed figures were the
 # correct rounding of the true values (766.50 and 5,365.50), so a re-derivation at full
 # precision agreed with the golden and hid the defect completely - the re-derivation is what
-# this desk ran, and it passed. Adjudication read the printed numbers the way the customer
+# this desk ran, and it passed. A grader read the printed numbers the way the customer
 # would and sent the task back. So: where a column is a constant multiple of another across
 # every row, check the DISPLAYED values against that constant at the displayed precision.
 #
@@ -616,8 +616,8 @@ def _g21_display_tol(txt):
 def check_docx_displayed_ratios(folder):
     """Where one docx table column is a constant multiple of another, the printed figures multiply out at the displayed precision.
 
-    Since: 2026-09-10 (review 6da90c8b, overturned at adjudication).
-    Source: adjudication.
+    Since: 2026-09-10.
+    Source: a grader.
     Drift-notes: the defect is rounding, never the values; only multipliers a table would state are tried.
     """
     for d in solution_files(folder, {".docx"}):
@@ -653,8 +653,8 @@ def check_docx_displayed_ratios(folder):
                                   f"{ta.strip()} x {kr} is {a * kr:,.2f}, not {tb.strip()} "
                                   f"({len(bad)} of {len(pairs)} rows). The values are individually "
                                   "right and it is the ROUNDING that is inconsistent, so carry the "
-                                  "decimals rather than recalculating (review 6da90c8b, 2026-09-10: "
-                                  "adjudication sent this back after a full-precision re-derivation "
+                                  "decimals rather than recalculating (2026-09-10: "
+                                  "a grader sent this back after a full-precision re-derivation "
                                   "matched the golden and missed it)")
 
 
@@ -701,7 +701,7 @@ def _g6_value_forms(v):
 def check_parameter_provenance(folder):
     """A literal parameter whose source cell names a section of an input document appears in that section.
 
-    G6 (2026-09-03, pick-module-reslot AutoEval golden_source_fidelity 2/5): the
+    G6 (2026-09-03, AutoEval golden_source_fidelity 2/5): the
     golden's Params tab cited 'WH-4 section 7' as the source of three bin cubes it had
     in fact read off the location master, and section 7 stated three different figures
     (1,344 / 6,048 / 1,600 against 2,880 / 10,368 / 5,400). Every other fidelity check
@@ -759,8 +759,8 @@ def check_parameter_provenance(folder):
                         emit("ERROR", f"[G6] {at}, but that section states {', '.join(sorted(set(other)))} "
                                       "and not this figure - the golden cites a clause for a value it "
                                       "took from somewhere else, which the platform's golden_source_fidelity "
-                                      "axis reads as the golden contradicting its own source (pick-module-"
-                                      "reslot, 2026-09-03: bin cubes cited to WH-4 section 7 came off the "
+                                      "axis reads as the golden contradicting its own source "
+                                      "(2026-09-03: bin cubes cited to WH-4 section 7 came off the "
                                       "location master). Name the actual source, and make the documents agree")
                     else:
                         print(f"        info: [G6] {at}, and the section does not state it - confirm "
@@ -772,7 +772,7 @@ def check_parameter_provenance(folder):
 def check_register_shortbill(folder):
     """Every input register line billed under the golden's own agreement price appears on a golden row pairing the order and item with the correction.
 
-    Since: 2026-09-01 (vrm-exception-review).
+    Since: 2026-09-01.
     Source: AutoEval golden_source_fidelity 2/5.
     """
     import csv as _csv
@@ -850,8 +850,8 @@ def check_register_shortbill(folder):
                       f"{billed:g} against the golden's own agreement price {agreement:g} "
                       f"({round(agreement - billed, 2):g}/unit short), and no golden row "
                       "pairs that order and item with the agreement price or the gap - "
-                      "the correcting-invoice sweep missed it, which is the "
-                      "vrm-exception-review hard fail (2026-09-01, AutoEval "
+                      "the correcting-invoice sweep missed it, which is a "
+                      "hard fail (2026-09-01, AutoEval "
                       "golden_source_fidelity 2/5: a P10453 line mis-keyed at the load "
                       "was flagged on the Items and File Fixes tabs yet absent from the "
                       "Summary's correcting table, understating the stated total by 44%). "
@@ -866,7 +866,7 @@ def check_action_contradiction(folder):
     G1: a solution row that carries a stays-as-placed status in one cell and an
     imperative change instruction in another.
 
-    Rossville AutoEval hard fail (2026-08-24, golden_source_fidelity 2/5): the
+    An AutoEval hard fail (2026-08-24, golden_source_fidelity 2/5): the
     Purchase Orders tab read line 26's status from the schedule as DE MINIMIS (rides
     the five percent allowance, delivered as placed) while the typed action cell two
     columns over said CHANGE TO RW-D — mutually exclusive outcomes on one row, and
@@ -896,19 +896,19 @@ def check_action_contradiction(folder):
                     emit("ERROR", f"[G1] {path.name} '{ws.title}' row {r}: status "
                                   f"{statuses[0]!r} beside action {actions[0]!r} — the two "
                                   "outcomes are mutually exclusive and the judge scores the "
-                                  "contradiction against golden source fidelity (rossville "
+                                  "contradiction against golden source fidelity (a "
                                   "hard fail, 2026-08-24). Make one of them the canonical "
                                   "resolution everywhere")
                 if subs and keeps:
                     emit("ERROR", f"[G1] {path.name} '{ws.title}' row {r}: status 'SUBSTITUTE' "
                                   "beside action 'KEEP' — a replaced line cannot stay as "
                                   "placed; align the action tabs with the schedule "
-                                  "(rossville class, 2026-08-24)")
+                                  "(same class, 2026-08-24)")
         wb.close()
 
 
-# ---- G8 / G9 / G10: the reviewer's literal read of the golden ---------------------------
-# lift-truck-fleet-plan, REJECTED at first human review 2026-09-05 with seven golden findings
+# ---- G8 / G9 / G10: a grader's literal read of the golden ---------------------------
+# A task REJECTED 2026-09-05 with seven golden findings
 # the gate never saw, because every fidelity check then read the rubric against the golden or
 # the golden against itself. Three of the seven are mechanical:
 #   G8   the prompt says the deliverable is to be SIGNED and the golden carries no signature
@@ -944,7 +944,7 @@ _inputs_text = input_texts      # the shared extractor (common.input_texts), kep
 # September 4", and never a "sign-out sheet"
 _G8_SIGN_RE = re.compile(r"(?<![\w-])(?:to sign\b|signs? (?:it|from it|off|the \w+)\b|for (?:\w+ )?(?:to )?sign(?:ature)?\b"
                          r"|over (?:my|his|her|their) signature\b|ready (?:for|to) sign\b|signature (?:block|line|page)\b)", re.I)
-# a signature LINE, not a mention of one: task 45's golden said "ready for Darrell's signature on
+# a signature LINE, not a mention of one: one golden said "ready for Darrell's signature on
 # September 25" and carried nothing to sign
 _G8_BLOCK_RE = re.compile(r"_{5,}|\bsignature\s*:|\bsigned\s*:|\bsign here\b|\b(?:approved|authori[sz]ed|accepted) by\s*:"
                           r"|\bsignature (?:line|block)\b|/s/", re.I)
@@ -967,7 +967,7 @@ def check_signature_block(folder):
         return
     emit("ERROR", f'[G8] the prompt says the deliverable is to be signed ("...{prompt[max(0, m.start() - 40):m.end() + 40].strip()}...") '
                   "and no solution file carries a signature line (a Signature / ____ / approved-by block). "
-                  "lift-truck-fleet-plan was rejected for \"Missing tables summarizing order and elections notice, "
+                  "a task was rejected for \"Missing tables summarizing order and elections notice, "
                   "purchase order, signature block for Darrell to sign\" (2026-09-05): when the prompt says a "
                   "document is signed, the golden carries THAT document with addressee, reference, lines and a "
                   "signature-and-date line, not a table about it")
@@ -1048,19 +1048,19 @@ def check_actions_before_document_date(folder):
         emit("ERROR", f"[G9] the deliverable is dated {doc_date.strftime('%m/%d/%y')} ({doc_where}) but "
                       f"schedules or records {len(hits)} date(s) after the inputs' clock "
                       f"({floor.strftime('%m/%d/%y')}) and before its own date: {listed}. "
-                      "lift-truck-fleet-plan was rejected for \"Dated 9/22 but schedules work for 9/16-17\" "
+                      "a task was rejected for \"Dated 9/22 but schedules work for 9/16-17\" "
                       "(2026-09-05): date the deliverable the day the work is done, and every \"today\" "
                       "action on or after that date")
 
 
 _G10_ID_RE = re.compile(r"\b([A-Z]{1,4})-?(\d{4,7})\b")
 
-# G10 year-sequence arm (2026-09-15, recall-response refinement round 5): adjudication called the
+# G10 year-sequence arm (2026-09-15): a grader called the
 # golden's "Our reference WD-2026-0114" a value that "appears in no input file". The family test
 # above never saw it, because no input carries a WD- identifier at all. A PREFIX-YEAR-SEQUENCE
 # reference is the shape of a document number an author mints; typed in a golden, it must be
 # carried by an input or by the prompt. Probed over 51 goldens: two hits, this one and
-# rfq-response's BID-2026-0447.
+# another golden's BID-2026-0447.
 _G10_YEAR_SEQ_RE = re.compile(r"\b([A-Z]{2,5})-(20\d\d)-(\d{3,5})\b")
 
 
@@ -1095,8 +1095,8 @@ def _g10_year_sequence_refs(folder):
     if missing:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:8])
         emit("ERROR", f"[G10] {len(missing)} year-sequence reference(s) the golden types carry no source in any "
-                      f"input or the prompt: {listed}. Adjudication returned \"Our reference WD-2026-0114\" as a value "
-                      "that appears in no input file (recall-response refinement, 2026-09-15). Give the reference "
+                      f"input or the prompt: {listed}. A grader returned \"Our reference WD-2026-0114\" as a value "
+                      "that appears in no input file (2026-09-15). Give the reference "
                       "its source, in the prompt where the requester would know it or in the input that issues it, "
                       "or leave the number out")
 
@@ -1106,7 +1106,7 @@ def _g10_year_sequence_refs(folder):
 def check_cited_identifiers(folder):
     """Every invoice, PO or work-order style identifier the golden cites appears in an input.
 
-    Drift-notes: tightened 2026-09-15 (recall-response refinement round 5, adjudication): a typed
+    Drift-notes: tightened 2026-09-15: a typed
     year-sequence reference (WD-2026-0114, BID-2026-0447) in a family no input carries was never
     caught, because the family test needs the prefix in an input. Such a reference is flagged when
     neither an input nor the prompt carries the full string.
@@ -1120,8 +1120,8 @@ def check_cited_identifiers(folder):
         return
     # an id the golden BUILDS by formula from input data (="VRM-"&RIGHT(F99,4) on a part key
     # the cross-reference does not carry) is derived and reproducible, never remembered - the
-    # renumbering defect this check exists for lives only in TYPED ids (vrm-exception-review
-    # reviewer round, 2026-09-07: eight normalized part keys of the task's RET-PART device)
+    # renumbering defect this check exists for lives only in TYPED ids (2026-09-07: eight
+    # normalized part keys of the task's RET-PART device)
     from ..common import solution_files
     formula_cells = set()
     for x in solution_files(folder, {".xlsx"}):
@@ -1146,7 +1146,7 @@ def check_cited_identifiers(folder):
     if missing:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:8])
         emit("ERROR", f"[G10] {len(missing)} identifier(s) the golden cites exist in no input, although the "
-                      f"inputs carry the same family: {listed}. lift-truck-fleet-plan was rejected for \"Wrong "
+                      f"inputs carry the same family: {listed}. A task was rejected for \"Wrong "
                       "repair invoice numbers in inspection tab for U-05, 01, 04, and 02\" (2026-09-05): the "
                       "generator renumbered the invoices after the golden text was written. Every cited "
                       "identifier is looked up in the shipped input, never remembered; a deliberately new "
@@ -1154,7 +1154,7 @@ def check_cited_identifiers(folder):
 
 
 # "claim" is deliberately absent: a Claim Recap / Warranty Claims tab is a register the golden
-# FILES with a vendor or carrier (22, 31), not an answer to correspondence
+# FILES with a vendor or carrier, not an answer to correspondence
 _G14_SHEET_RE = re.compile(r"dispute|complaint|question|inquir", re.I)
 _G14_NAME_COLS = {"ACCOUNT", "NAME", "ACCOUNT_NAME", "CUSTOMER", "CUSTOMER_NAME", "VENDOR", "VENDOR_NAME",
                   "SUPPLIER", "SUPPLIER_NAME", "CARRIER", "CARRIER_NAME", "CLAIMANT"}
@@ -1202,7 +1202,7 @@ def _g14_entity_names(folder):
 def check_dispute_entities(folder):
     """Every account a golden dispute or claim tab adjudicates is one the correspondence names.
 
-    G14 (2026-09-05, commission-review-q2 AutoEval golden_source_fidelity 2/5): the golden's
+    G14 (2026-09-05, AutoEval golden_source_fidelity 2/5): the golden's
     Disputes tab answered Boyd's bonus claim on Horse Cave Cafe, the account his statement had
     paid the bonus on, while his email in commission_disputes.docx named Cave City Diner, another
     representative's account that cleared the test. The answer was right on the figures and
@@ -1254,16 +1254,16 @@ def check_dispute_entities(folder):
     if missing and anchored:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:6])
         emit("ERROR", f"[G14] {len(missing)} account(s) the golden's dispute tab names appear in no "
-                      f"correspondence input: {listed}. commission-review-q2 failed golden_source_fidelity "
+                      f"correspondence input: {listed}. A task failed golden_source_fidelity "
                       "(2026-09-05) answering Boyd's bonus claim on Horse Cave Cafe when his email named "
                       "Cave City Diner: a dispute answer is read against the claimant's own words, so either "
                       "the email names the account the answer adjudicates, or the answer says which account "
                       "the claimant named and why the ruling lands elsewhere")
 
 
-# G15 (2026-09-09, dfl-freight-audit adjudication note): the golden's action table assigned the
+# G15 (2026-09-09, a grader's note): the golden's action table assigned the
 # dock actions to "Hector Ybarra", a dock lead no input and not the prompt ever named. The
-# adjudicator: "this name appears in no input file. Remove it or replace it with a role
+# grader: "this name appears in no input file. Remove it or replace it with a role
 # description." A person a golden hands an action to is a fact the judge reads against the
 # inputs, like G10's identifiers and G14's accounts: every Firstname Lastname in an owner-style
 # column of a solution table (WHO / OWNER / RESPONSIBLE / ASSIGNED TO / LEAD) must appear in the
@@ -1272,7 +1272,7 @@ def check_dispute_entities(folder):
 _G15_HDR_RE = re.compile(r"^\s*(?:who|owners?|owned by|responsible|responsibility|assigned(?: to)?|assignee"
                          r"|lead|by whom|person|action owner|who does it)\s*$", re.I)
 # a greedy title-case span: "Middle Georgia Truck Refrigeration" is one organisation, not two
-# people, so a span of three or more words is skipped as a business name (cold-chain-review)
+# people, so a span of three or more words is skipped as a business name
 _G15_NAME_RE = re.compile(r"\b([A-Z][a-z]+(?:\s+(?:[A-Z]\.|[A-Z][a-z]+(?:-[A-Z][a-z]+)?)){1,4})\b")
 _G15_ROLE_RE = re.compile(
     r"\b(?:Manager|Managers|Lead|Leads|Supervisor|Desk|Team|Department|Dept|Clerk|Buyer|Controller|Dock|Office"
@@ -1320,8 +1320,8 @@ def _g15_owner_cells(folder):
 def check_owner_names_in_inputs(folder):
     """Every person the golden assigns an action to is named in the prompt or an input.
 
-    Since: 2026-09-09 (dfl-freight-audit adjudication note).
-    Source: adjudication.
+    Since: 2026-09-09.
+    Source: a grader.
     """
     cells = _g15_owner_cells(folder)
     if not cells:
@@ -1342,14 +1342,14 @@ def check_owner_names_in_inputs(folder):
     if missing:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:6])
         emit("ERROR", f"[G15] {len(missing)} person(s) the golden assigns an action to appear in no input "
-                      f"and not in the prompt: {listed}. The dfl-freight-audit adjudicator sent the task "
+                      f"and not in the prompt: {listed}. A grader sent the task "
                       "back on an invented dock lead (2026-09-09): a name the inputs never carry reads as "
                       "fabrication. Use a person the inputs name, or a role description in the owner cell")
 
 
-# G16 (2026-09-10, po-conformance-review adjudication note): the golden memo's From line and
+# G16 (2026-09-10, a grader's note): the golden memo's From line and
 # its docProps creator / lastModifiedBy carried "Carla Hershberger", an analyst the prompt
-# (first person, unnamed) and the inputs never mention; the adjudicator listed the name as
+# (first person, unnamed) and the inputs never mention; the grader listed the name as
 # fabricated even though it sat in no graded position. G15 reads owner columns; the same rule
 # holds for the author fields of a memo (From / Prepared by / Signed / Reviewed by) and for
 # the creator stamps of every shipped solution file: each Firstname Lastname must be in the
@@ -1382,10 +1382,10 @@ def _g16_author_fields(path):
     return out
 
 
-# G16 second surface (2026-09-10, tessendorf-channel-split adjudication note): the fabricated
+# G16 second surface (2026-09-10, a grader's note): the fabricated
 # name sat in a Briefing CELL, "Prepared by Verla Stroman for Stan Hemmen, 08/26/2026", which
 # is neither a docx header line nor a colon-led field, so the line regex above never saw it
-# (only the docProps stamp fired). The adjudicator called it the one major issue. An
+# (only the docProps stamp fired). The grader called it the one major issue. An
 # attribution cue anywhere in the golden's text - a docx paragraph or an xlsx string cell -
 # is read the same way as a From line: prepared / signed / reviewed ... by|for <Name>.
 # The cue words are case-insensitive, the name is not: under a global re.I the name group
@@ -1443,16 +1443,16 @@ def check_author_names_in_inputs(folder):
     if missing:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:6])
         emit("ERROR", f"[G16] {len(missing)} author name(s) on the golden appear in no input and not in the "
-                      f"prompt: {listed}. The po-conformance-review adjudicator listed such a From-line name "
+                      f"prompt: {listed}. A grader listed such a From-line name "
                       "as fabricated (2026-09-10) although nothing graded it: write the author field as the "
                       "requester's role when the prompt never names them, and set the file's creator and "
                       "lastModifiedBy stamps to the same")
 
 
-# G17 (2026-09-10, dock-to-stock-review adjudication note): the golden memo's header gave
+# G17 (2026-09-10, a grader's note): the golden memo's header gave
 # Randy Tackett as "General Manager", Sherry Adkins as "Counter Manager" and Jenna Caudill as
 # "Purchasing and Inventory Analyst". No input carried any of the three (the procedure names
-# Dwayne Sizemore as warehouse manager and nothing else), and the adjudicator listed them as
+# Dwayne Sizemore as warehouse manager and nothing else), and the grader listed them as
 # the memo's only unsupported claims after tracing every other name, date and figure. G16
 # anchors the person on a header line; this anchors the TITLE bound to a person there
 # ("Name, Title" on a To / Cc / From / Prepared-for line) to the prompt or an input, read
@@ -1540,11 +1540,11 @@ def check_header_titles_in_inputs(folder):
     """A header line on the golden gives a named person only a title an input or the prompt states beside that name.
 
     Since: 2026-09-10 (docx memo headers, the title phrase anywhere in the corpus).
-    Tightened: 2026-09-14 (weldon-bridge-plan refinement round 4): xlsx header cells are read,
+    Tightened: 2026-09-14: xlsx header cells are read,
     'Name (Title)' is a pair, and the title must sit within 160 characters of the name in the
     prompt or an input. The original briefing carried 'To: Gail (Purchasing Manager)' on an
     xlsx cell while the email said only 'my purchasing manager' and the policy 'the purchasing
-    manager'; the phrase existed, the binding did not, and adjudication traced it three rounds
+    manager'; the phrase existed, the binding did not, and a grader traced it three times
     running as inferred rather than sourced.
     """
     from ..common import solution_files
@@ -1564,27 +1564,27 @@ def check_header_titles_in_inputs(folder):
     if missing:
         listed = "; ".join(f"{k} ({w})" for k, w in list(missing.items())[:6])
         emit("ERROR", f"[G17] {len(missing)} header title(s) on the golden are not stated beside that person's "
-                      f"name in any input or the prompt: {listed}. The dock-to-stock-review adjudicator "
-                      "(2026-09-10) listed three unsupported memo titles as fabrications, and the weldon-bridge-plan "
-                      "adjudicator (2026-09-12 to 09-14) traced a briefing's 'Gail (Purchasing Manager)' to an email "
+                      f"name in any input or the prompt: {listed}. A grader "
+                      "(2026-09-10) listed three unsupported memo titles as fabrications, and a grader "
+                      "(2026-09-12 to 09-14) traced a briefing's 'Gail (Purchasing Manager)' to an email "
                       "saying only 'my purchasing manager' and called it inferred, not sourced: give a named person "
                       "only a title an input or the prompt states beside their name, or none")
 
 
-# G18 (2026-09-10, tessendorf-channel-split adjudication note): "four action-item dates are
+# G18 (2026-09-10, a grader's note): "four action-item dates are
 # planning dates with no input anchor". The golden's action list gave the agreement signing
 # 08/28, the portal test 09/04, the first statement audit 10/09 and the spring return list
 # 01/15/2027; none of the four stands in any input or in the prompt, while the load date
-# (Tammy's "Tuesday, September 8") and the memo's "Wednesday the 26th" do. The adjudicator's
+# (Tammy's "Tuesday, September 8") and the memo's "Wednesday the 26th" do. The grader's
 # stated method is that every claim traces to the exact input source, and a date on a row that
 # also carries an owner is a claim. Anchors are read generously: a full date in any common
 # form, a month-day without a year ("September 8"), a bare day ("the 26th"), an ordinal
 # weekday ("the first Tuesday of the month") resolved in every month of the corpus year, and
 # "the end of <month>". Rows with no owner cell are not read (a schedule table is data, not a
-# commitment), which keeps the check silent on 43-dfl-freight-audit's remittance dates.
-# Probed portfolio-wide on 2026-09-10 before coding: exactly the four adjudicated rows on this
-# task, and owner-dated rows on 32-pavelka-exposure-workup (3) and 34-delivery-zone-reset (6)
-# that predate the check, left as their own debt.
+# commitment), which keeps the check silent on one task's remittance dates.
+# Probed portfolio-wide on 2026-09-10 before coding: exactly the four flagged rows on this
+# task, and owner-dated rows on two earlier tasks (3 and 6 of them) that predate
+# the check, left as their own debt.
 _G18_MONTHS = list(MONTHS_LOWER)
 _G18_MON = "|".join(_G18_MONTHS + [m[:3] for m in _G18_MONTHS])
 _G18_WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
@@ -1596,7 +1596,7 @@ def _g18_mon(tok):
 
 _G18_FULL = [
     (re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b"), lambda m: (int(m[3]), int(m[1]), int(m[2]))),
-    # mm/dd/yy, the form a CSV export carries (dfl-freight-audit's invoice dates read 04/07/26 and
+    # mm/dd/yy, the form a CSV export carries (a task's invoice dates read 04/07/26 and
     # G20 called the memo's "April 7, 2026" unsupported, 2026-09-10)
     (re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{2})\b(?!\d)"), lambda m: (2000 + int(m[3]), int(m[1]), int(m[2]))),
     (re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b"), lambda m: (int(m[1]), int(m[2]), int(m[3]))),
@@ -1720,16 +1720,16 @@ def check_action_dates_anchored(folder):
             bad.append(f"{where} {mo:02d}/{d:02d}/{y}")
     if bad:
         emit("ERROR", f"[G18] {len(bad)} owner-dated row(s) on the golden carry a date no input and not the "
-                      f"prompt states: {'; '.join(bad[:6])}. The tessendorf-channel-split adjudicator listed "
+                      f"prompt states: {'; '.join(bad[:6])}. A grader listed "
                       "four such action dates as planning dates with no input anchor (2026-09-10): date each "
                       "action off something the inputs say (a stated load day, a visit, a window end, a "
                       "deadline the memo names) and say the anchor in the action's own text, or leave the "
                       "date off the row")
 
 
-# G19 (2026-09-10, commission-review-q2 reviewer round 3): the golden's Representative Notes said
+# G19 (2026-09-10): the golden's Representative Notes said
 # "Dwight's quarter moves up" and "Frank's quarter moves down" while the Review tab's CORRECTION
-# column carried -190.54 and +407.25, and the reviewer sent the task back for material
+# column carried -190.54 and +407.25, and a grader sent the task back for material
 # contradictions in representative-facing text that "could misinform employees", asking for a
 # consistency criterion as well. The prose had been written against an earlier generation of the
 # data and never re-read against the final tab. The mechanical half: a sentence of the form
@@ -1795,19 +1795,19 @@ def check_direction_claims(folder):
                 if (val > 0) != (direction == "up"):
                     emit("ERROR", f"[G19] {x.name} {where} says \"{m.group(0)}\" while {src} carries {val:g} for "
                                   f"{name} - representative-facing prose contradicting the deliverable's own signed "
-                                  "figure. commission-review-q2 went back at its third human review (2026-09-10) on "
-                                  "two such sentences, with the reviewer noting the text could misinform employees. "
+                                  "figure. A task went back (2026-09-10) on "
+                                  "two such sentences, with the grader noting the text could misinform employees. "
                                   "Re-read every note against the final tab and state the direction the figure carries")
 
 
-# G20 (2026-09-10, commission-review-q2 reviewer round 4): the golden's first page was dated
+# G20 (2026-09-10): the golden's first page was dated
 # "Tuesday, September 1, 2026", a day no input and not the prompt states (the requesting note is
-# dated August 28), and the reviewer asked to "remove or correct the unsupported dates". Rule 2 of
+# dated August 28), and a grader asked to "remove or correct the unsupported dates". Rule 2 of
 # docs/submission/workflows/04-golden-solution.md already says a date the golden states as fact is
 # written in an input or derived by a stated rule; G18 coded it for owner-dated action rows only.
 # This is the general form: every full date (month, day and year) a solution prose cell or
 # paragraph states must be a full date the prompt or an input carries. Month-day pairs and bare
-# months are left to the hand read, and the docProps stamps are not text the reviewer sees.
+# months are left to the hand read, and the docProps stamps are not text the grader sees.
 _G20_COMMIT_HDR_RE = re.compile(r"^(?:by when|due|due date|target|target date|deadline|complete by|completion date|when)$", re.I)
 
 
@@ -1850,8 +1850,8 @@ def _g40_row_label(ws, r):
 def check_readthrough_label_direction(folder):
     """A read-through cell's row label never points the opposite way from the label on the row it references.
 
-    Since: 2026-09-15 (tessendorf-channel-split adjudication).
-    Source: the adjudicator set Items!A36 "Web orders a year moving to their bench" beside
+    Since: 2026-09-15.
+    Source: a grader set Items!A36 "Web orders a year moving to their bench" beside
     Briefing!A9 "Web orders a year moving off Dean's bench", the front page reading =Items!C36,
     and noted the inconsistency; one figure labelled as moving to a bench and off a bench is two
     readings of one number.
@@ -1885,8 +1885,8 @@ def check_readthrough_label_direction(folder):
                     if len(_g40_lemmas(here) & _g40_lemmas(there)) >= 2 and opposed:
                         emit("ERROR", f"[G40] {path.name} {ws.title}!{c.coordinate} labels the figure \"{here}\" "
                                       f"while the row it reads, {m.group(1)}!{m.group(2)}{m.group(3)}, labels it "
-                                      f"\"{there}\" - opposite directions on one number (tessendorf adjudication, "
-                                      "2026-09-15). Word both labels the same way, the front page's wording "
+                                      f"\"{there}\" - opposite directions on one number "
+                                      "(2026-09-15). Word both labels the same way, the front page's wording "
                                       "being the one the reader sees first")
 
 
@@ -1898,12 +1898,12 @@ def check_stated_dates_anchored(folder):
     if pf.exists():
         corpus += "\n" + pf.read_text(encoding="utf-8", errors="ignore")
     # Widened 2026-09-10, the day it was coded: the first cut anchored on FULL dates only
-    # and fired on tessendorf's Briefing dateline (08/26/2026, the memo's "Wednesday the
+    # and fired on a golden's Briefing dateline (08/26/2026, the memo's "Wednesday the
     # 26th") and title (09/08/2026, Tammy's "Tuesday, September 8") - dates the inputs DO
     # carry, in the partial forms G18 already reads generously. One anchor reader for both
     # checks: a golden full date is anchored by a corpus full date, a month-day pair or a
     # bare ordinal day (each taken in a corpus year), with ordinal weekdays and month ends
-    # resolved by _g18_anchors. commission-review-q2's true positive (09/01/2026 against a
+    # resolved by _g18_anchors. The true positive (09/01/2026 against a
     # corpus carrying only August 28) still fires: no partial form names September 1.
     fd, md, days = _g18_anchors(corpus)
     if not (fd or md or days):
@@ -1913,10 +1913,10 @@ def check_stated_dates_anchored(folder):
     # or an input names ("within 180 days of the invoice date" puts April 7 + 180 = October 4 on
     # the schedule). And a plan table's own target column (BY WHEN / DUE / TARGET / DEADLINE) is
     # the deliverable's commitment, not an assertion about the record, so its dates are not
-    # fabrications (dfl-freight-audit, 2026-09-10).
+    # fabrications (2026-09-10).
     import datetime
     spans = {int(m) for m in re.findall(r"\b(\d{1,3}) days\b", corpus)}
-    # 2026-09-14 (kesselring-service-coverage refinement): a warranty or plan TERM the inputs
+    # 2026-09-14: a warranty or plan TERM the inputs
     # state in months ("twenty four months from the date of commissioning", "eighteen months")
     # derives an end date the same way a day count does, and the register's own date cells
     # (commissioning, cover-to) are dates the inputs carry even though they are not strings.
@@ -1974,13 +1974,13 @@ def check_stated_dates_anchored(folder):
             seen.setdefault((y, mo, d), where)
     for (y, mo, d), where in sorted(seen.items()):
         emit("ERROR", f"[G20] {where} states {mo}/{d}/{y}, a full date neither the prompt nor any input "
-                      "carries - commission-review-q2's first page was dated September 1, 2026 with the "
-                      "requesting note dated August 28, and the reviewer sent it back to \"remove or correct "
+                      "carries - a golden's first page was dated September 1, 2026 with the "
+                      "requesting note dated August 28, and a grader sent it back to \"remove or correct "
                       "the unsupported dates\" (2026-09-10). Anchor the date to an input (the note it "
                       "answers, the statement it corrects) or leave it off")
 
 
-# G23 (2026-09-11, hathi-replenishment-order-decision refinement round 4, entity grounding check):
+# G23 (2026-09-11, entity grounding check):
 # the memo wrote "TXN-644093 on June 18 and TXN-644328 on June 19" and "completed on June 17".
 # Every one of those dates is the transaction's own date cell in warehouse_inventory_transactions
 # .xlsx, stored as a datetime and displayed mm-dd-yy; the platform read the inputs as text, found
@@ -2040,7 +2040,7 @@ def _g23_date_cells(folder):
 def check_spelled_date_only_a_cell(folder):
     """A month-day date the golden spells out is carried verbatim by some input text or the prompt, never only by a workbook date cell.
 
-    Since: 2026-09-11 (hathi-replenishment-order-decision refinement round 4).
+    Since: 2026-09-11.
     Source: the platform's golden solution entity grounding check (three dates listed as fabricated).
     Drift-notes: a spelled date absent from the cells too is G20's business; this fires only when a
     date value in an input workbook is the sole support, the case the platform reads as absent.
@@ -2078,8 +2078,8 @@ def check_spelled_date_only_a_cell(folder):
     if missing:
         emit("ERROR", f"[G23] the golden spells out {', '.join(missing)}, and no input text or the prompt carries "
                      "the date; its only support is a date value in an input workbook, which the platform's entity "
-                     "grounding check reads as absent and lists as fabricated (hathi-replenishment-order-decision "
-                     "2026-09-11, three dates). Write the date as the cell displays it, or leave it out")
+                     "grounding check reads as absent and lists as fabricated "
+                     "(2026-09-11, three dates). Write the date as the cell displays it, or leave it out")
 
 
 _G24_KEY_RE = re.compile(r"^[A-Z]{2,4}-?\d{3,6}$")
@@ -2127,8 +2127,8 @@ def _g24_csv_aggregates(folder):
 def check_typed_aggregate_drift(folder):
     """A typed numeric column in the golden that mirrors a per-key aggregate of an input CSV equals that aggregate on every key.
 
-    Since: 2026-09-11 (pick-module-reslot reviewer round).
-    Source: the reviewer re-summed pick_lines_jun12_aug28.csv and found Items!M (twelve-week
+    Since: 2026-09-11.
+    Source: a grader re-summed pick_lines_jun12_aug28.csv and found Items!M (twelve-week
     units) off on 223 of 320 SKUs (HG1041 227 against 232), which moved a required cube across
     the shelf-bin line and invalidated the move list; the lines column beside it matched exactly.
     Drift-notes: a column is read as that aggregate when 80 percent of its keys sit within five
@@ -2174,12 +2174,12 @@ def check_typed_aggregate_drift(folder):
                         if len(near) < 0.8 * len(shared) or len(match) == len(shared):
                             continue
                         bad = [r for r in shared if r not in set(match)]
-                        # reconciled drift is a DEVICE, not an error (returns-cage 2026-09-14):
+                        # reconciled drift is a DEVICE, not an error (2026-09-14):
                         # credited quantities short in the cage differed from the log sums on
                         # exactly the keys its Chargebacks schedule reconciles. When one column
                         # anywhere in the workbook carries, per bad key, exactly the difference,
                         # the mismatch is the task's shortage/variance mechanism - skip. The
-                        # pick-module known-bad (223 assorted drifts, no reconciling column)
+                        # known-bad case (223 assorted drifts, no reconciling column)
                         # still fires; proven both ways on 2026-09-14.
                         diffs = {keys[r]: acc[keys[r]] - typed[r] for r in bad}
                         try:
@@ -2207,19 +2207,19 @@ def check_typed_aggregate_drift(folder):
                         emit("ERROR", f"[G24] {x.name} {ws.title} \"{header}\" reads as the per-{key} sum of "
                                       f"{name} {col} ({len(match)} of {len(shared)} keys match) but {len(bad)} keys "
                                       f"differ, e.g. {keys[r0]} row {r0}: {typed[r0]:g} against {acc[keys[r0]]:g} - the "
-                                      "reviewer re-sums the input and calls the golden's source data incorrect "
-                                      "(pick-module-reslot, 2026-09-11: 223 of 320 units off, one item's required "
+                                      "grader re-sums the input and calls the golden's source data incorrect "
+                                      "(2026-09-11: 223 of 320 units off, one item's required "
                                       "cube crossed the shelf-bin line and the move list followed). Retype the column "
                                       "from the input and recalculate everything downstream")
 
 
-# G25 (2026-09-12, hathi-replenishment-order-decision refinement round 5, adjudication note): round
-# 1 put "Phoenix Distribution Center" in the body subtitle and left "Hathi Fragrances Distribution
+# G25 (2026-09-12, a grader's note): an early
+# draft put "Phoenix Distribution Center" in the body subtitle and left "Marwood Fragrances Distribution
 # Center" in word/footer1.xml, and four gates passed the memo, because every docx reader in this
 # package opens word/document.xml only (python-docx's .paragraphs never lists a header or footer
-# part). The adjudicator reads the rendered page and quoted the footer back, four times. Names of
+# part). The grader reads the rendered page and quoted the footer back, four times. Names of
 # organisations and facilities are the entity class the platform's grounding check and the
-# adjudicator both trace, so every part of a golden docx is read for them and each one is looked up
+# grader both trace, so every part of a golden docx is read for them and each one is looked up
 # in the inputs and the prompt.
 _G25_SUFFIX = (r"(?:Center|Centre|Warehouse|DC|Inc\.?|LLC|Corp\.?|Corporation|Company|Co\.|Ltd\.?|Limited|Supply|"
                r"Lines|Group|Holdings|Brothers|Logistics|Freight|Industries|Enterprises|Partners|Wholesale|"
@@ -2249,9 +2249,9 @@ def _g25_docx_parts(path):
 def check_named_organisation_grounded(folder):
     """An organisation or facility name a solution docx carries, in its body or in a header or footer part, is carried by some input text or the prompt.
 
-    Since: 2026-09-12 (hathi-replenishment-order-decision refinement round 5, adjudication note).
-    Source: the adjudicator listed the footer's "Hathi Fragrances Distribution Center" as a fabricated
-    entity after the body subtitle had been fixed in round 1; the gate's docx readers open
+    Since: 2026-09-12.
+    Source: a grader listed the footer's "Marwood Fragrances Distribution Center" as a fabricated
+    entity after the body subtitle had been fixed earlier; the gate's docx readers open
     word/document.xml only, so four gates passed the memo with the footer untouched.
     Drift-notes: a name is a capitalised run ending in an organisation or facility word. A
     sentence-initial word is trimmed once before the lookup ("Move Castor Valley Supply"), and a run
@@ -2291,20 +2291,20 @@ def check_named_organisation_grounded(folder):
             if missing:
                 where = "body" if part == "body" else f"{part}, a part the body readers never open"
                 emit("ERROR", f"[G25] {path.name} {where}: \"{'\", \"'.join(missing[:4])}\" names an organisation or "
-                              "facility that no input text and not the prompt carries. The adjudicator reads the "
+                              "facility that no input text and not the prompt carries. A grader reads the "
                               "rendered page, headers and footers included, and lists such a name as a fabricated "
-                              "entity (hathi-replenishment-order-decision 2026-09-12: the footer kept the name the "
-                              "round 1 subtitle fix removed, and four gates passed it). Use the name the inputs use, "
+                              "entity (2026-09-12: the footer kept the name an "
+                              "earlier subtitle fix removed, and four gates passed it). Use the name the inputs use, "
                               "in every part of the document")
 
 
-# G26 (2026-09-12, standby-generator-recommendation refinement round 3, adjudication note): the fuel
+# G26 (2026-09-12, a grader's note): the fuel
 # paragraph opened "NFPA 110 Class 72 wants 72 hours of fuel on site" where the prompt says only "The
 # set has to hold 72 hours of fuel on site at full load" and no input mentions a Class 72. The same
 # note traced "voltage dip inside the NFPA 110 allowance" (no input cites one) and "at full voltage
-# with no soft starter" (the prompt says "starts across the line"), and round 1's panel had already
+# with no soft starter" (the prompt says "starts across the line"), and an earlier pass had already
 # removed an NFPA 25 mention and a 10-second start. A standard's number, and a class, type, level or
-# tier stated in the same sentence as a standard, is a citation the adjudicator traces to the prompt
+# tier stated in the same sentence as a standard, is a citation a grader traces to the prompt
 # or an input; each one is looked up in the prompt and in every input, PDF data sheets included.
 _G26_BODIES = ("NFPA|NEC|IEEE|ISO|IEC|ANSI|ASTM|ASME|UL|ASHRAE|NEMA|OSHA|EPA|CFR|IBC|NSF|SAE|DIN|CSA|FMCSA|DOT"
                "|GAAP|ASC|IFRS|HACCP|USDA|FDA")
@@ -2352,9 +2352,9 @@ def _g26_golden_parts(folder):
 def check_standard_references_grounded(folder):
     """A standard cited by number in the golden (NFPA 110, ISO 8528, UL 2200), and a class, type, level or tier stated in the same sentence as a standard (Class 72), is carried by the prompt or by some input, PDF inputs included.
 
-    Since: 2026-09-12 (standby-generator-recommendation refinement round 3, adjudication note).
-    Source: the adjudicator traced "NFPA 110 Class 72", "the NFPA 110 allowance" and "no soft starter"
-    to the prompt's plain owner rule and found no input carrying them; round 1's panel had already
+    Since: 2026-09-12.
+    Source: a grader traced "NFPA 110 Class 72", "the NFPA 110 allowance" and "no soft starter"
+    to the prompt's plain owner rule and found no input carrying them; an earlier pass had already
     struck an NFPA 25 mention and a 10-second start the same way.
     Drift-notes: a body token without a number (bare "EPA", "NFPA") is not checked, only the number
     beside it and a class-type-level-tier qualifier in its sentence; "Tier 2" beside "EPA" passes when
@@ -2388,13 +2388,13 @@ def check_standard_references_grounded(folder):
                         missing.append(k)
         if missing:
             emit("ERROR", f"[G26] {fname} cites {', '.join(missing[:5])}, a standard number or a class stated beside a "
-                          "standard that no input text and not the prompt carries. The adjudicator traces every code "
-                          "reference to a source (standby-generator-recommendation 2026-09-12: \"NFPA 110 Class 72\" "
+                          "standard that no input text and not the prompt carries. A grader traces every code "
+                          "reference to a source (2026-09-12: \"NFPA 110 Class 72\" "
                           "against a prompt that says only 72 hours of fuel on site). State the owner's rule in the "
                           "prompt's words, or cite the standard the way an input does")
 
 
-# G27 (2026-09-13, hathi-replenishment-order-decision refinement round 7): the dataset quality
+# G27 (2026-09-13): the dataset quality
 # check hard-failed cross-document consistency at 2 of 5 because every adjustment the memo
 # cited carried a Related Transaction ID absent from the 514-row transaction log (TXN-840104
 # against a log that ends at TXN-645279), and the reference documents on the two sides of one
@@ -2410,7 +2410,7 @@ _G27_PANEL_RE = re.compile(r"_\d+$")
 def _g27_unpanel(header, rows):
     """A CSV laid out in side-by-side panels (H7: headers repeated with _2, _3 suffixes) is read
     as the flat table it stands for, block after block, empty panel cells dropped. Added
-    2026-09-14 (receipt-variance-review refinement round 4): the join check read po_ref_2 as a
+    2026-09-14: the join check read po_ref_2 as a
     column of its own and called every second-panel reference dangling."""
     suffixed = [j for j, h in enumerate(header) if _G27_PANEL_RE.search(h or "")]
     if not suffixed:
@@ -2514,7 +2514,7 @@ def _g27_reported_missing(golden_text, ident):
 def check_cited_record_joins(folder):
     """A record the golden cites carries no related-record id of another input's key family that the input set does not hold.
 
-    Since: 2026-09-13 (hathi-replenishment-order-decision refinement round 7).
+    Since: 2026-09-13.
     Source: the dataset quality check's cross-document consistency axis, hard fail at 2 of 5 ("the
     formal ID keys linking adjustments to transactions are broken for every critical record in
     the task scope").
@@ -2546,7 +2546,7 @@ def check_cited_record_joins(folder):
                 for m in _G27_ID_RE.finditer(v):
                     fam = (m.group(1), len(m.group(2)))
                     if fam != own and fam in ids and m.group(0) not in ids[fam][1]:
-                        # 2026-09-14 (kesselring-service-coverage refinement): a gap the golden
+                        # 2026-09-14: a gap the golden
                         # itself reports as unsettled (an item number the item file does not
                         # carry, a plan against a serial number not on the register) is the
                         # task's designed question, not a broken key; the dataset check reads
@@ -2558,13 +2558,13 @@ def check_cited_record_joins(folder):
     if dangling:
         emit("ERROR", f"[G27] {len(dangling)} related-record id(s) on records the golden cites join to nothing: "
                       f"{'; '.join(dangling[:8])}. The dataset quality check's cross-document consistency axis "
-                      "hard-fails at 2 on this (hathi-replenishment-order-decision 2026-09-13: every cited "
+                      "hard-fails at 2 on this (2026-09-13: every cited "
                       "adjustment's Related Transaction ID absent from the 514-row log, and quantities that tied "
                       "by inference did not save it). Point the field at the record the golden pairs it with, and "
                       "match the reference documents on both sides of the event")
 
 
-# G28 (2026-09-14, standby-generator-recommendation refinement, platform entity grounding check):
+# G28 (2026-09-14, platform entity grounding check):
 # the prompt describes the owner as "a regional medical center in northern New Mexico" and the
 # memo's subtitle title-cased it into "Regional Medical Center, Northern New Mexico". The
 # grounding check read the capitalised run as an organisation name, found no such name in any
@@ -2574,7 +2574,7 @@ def check_cited_record_joins(folder):
 def check_description_not_title_cased_into_name(folder):
     """An organisation-style capitalised run in a solution docx that the prompt or an input carries only in lowercase, as a description, is written in that lowercase form; title-casing a description makes a name the grounding check cannot find.
 
-    Since: 2026-09-14 (standby-generator-recommendation refinement, entity grounding check).
+    Since: 2026-09-14 (entity grounding check).
     Source: the platform's entity grounding check listed "Regional Medical Center" as fabricated
     against a prompt that says "a regional medical center in northern New Mexico".
     Drift-notes: reads the same capitalised runs as G25 and fires only on the ones G25 grounds,
@@ -2610,7 +2610,7 @@ def check_description_not_title_cased_into_name(folder):
             emit("ERROR", f"[G28] {path.name} writes \"{'\", \"'.join(flagged[:4])}\" with capitals where the prompt or an "
                           "input carries it only in lowercase, as a description; the platform's entity grounding "
                           "check reads the capitalised run as an organisation name and lists it as fabricated "
-                          "(standby-generator-recommendation 2026-09-14, \"Regional Medical Center\" against \"a "
+                          "(2026-09-14, \"Regional Medical Center\" against \"a "
                           "regional medical center\"). Write it the way the source does")
 
 _G29_RANGE_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s+(?:to|-|\u2013)\s+(\d+(?:\.\d+)?)\s*$")
@@ -2645,8 +2645,8 @@ def _g29_docx_bands(path):
 def check_band_boundary_convention(folder):
     """A banded lookup table in an input (rate, surcharge or tier rows written "a to b") whose adjacent rows share an endpoint states which row a value on the line takes, when a lookup value in the data lands exactly on a shared endpoint, because the golden's figure is otherwise not uniquely determined.
 
-    Since: 2026-09-14 (dfl-freight-audit adjudication, items 2 and 4).
-    Source: adjudication read Appendix B's "3.65 to 3.70" at 24.0 and "3.70 to 3.75" at 25.0 with no
+    Since: 2026-09-14 (items 2 and 4).
+    Source: a grader read Appendix B's "3.65 to 3.70" at 24.0 and "3.70 to 3.75" at 25.0 with no
     inclusion rule against a diesel index of exactly 3.70 for the week one shipment moved, and called
     the exactly-graded rated and claim totals underdetermined.
     Drift-notes: reads docx tables whose first column is "a to b"; a convention sentence anywhere in the
@@ -2729,13 +2729,13 @@ def check_band_boundary_convention(folder):
                 emit("ERROR", f"[G29] {fname} table {ti}: rows \"{below[2]}\" and \"{above[2]}\" share the "
                               f"endpoint {ep} and the document states no inclusion rule, while {'; '.join(hits)} "
                               "land exactly on it, so the golden's figure for those rows is not uniquely "
-                              "determined (dfl-freight-audit adjudication 2026-09-14: the week of June 29 at 3.70 "
+                              "determined (2026-09-14: the week of June 29 at 3.70 "
                               "left the rated and claim totals underdetermined). Add the convention to the "
                               "document ('a price on the line between two rows takes the row that begins at "
                               "that price') or move the data off the line")
 
 
-# G30 (2026-09-14, kesselring-service-coverage-determination-2027 refinement round 2, golden
+# G30 (2026-09-14, golden
 # solution role check): Table 2 of the golden read "... | Re-entry inspection required | Amount
 # payable" and the SN-209410 row "... | Yes | 537.45". The judge read 537.45 as the inspection
 # charge and failed the golden against Exhibit A's 285.00, because the money cell that follows
@@ -2753,7 +2753,7 @@ _G30_MONEY_RE = re.compile(r"^\(?\$?\s*\d{1,3}(?:,\d{3})*(?:\.\d{2})\)?$|^\(?\$?
 def check_yesno_charge_column_beside_money(folder):
     """A golden docx table never sets a money column directly after a Yes/No column headed with a charge's name unless that money column is headed with the same name.
 
-    Since: 2026-09-14 (kesselring-service-coverage-determination-2027 refinement round 2).
+    Since: 2026-09-14.
     Source: the golden solution role check read Table 2's "Re-entry inspection required | Amount
     payable" row "Yes | 537.45" as the inspection charge and failed it against Exhibit A's 285.00.
     """
@@ -2780,11 +2780,11 @@ def check_yesno_charge_column_beside_money(folder):
             emit("ERROR", f"[G30] {name} table {ti + 1}: the {hdr[j + 1].strip()!r} money column sits directly "
                           f"after the Yes/No column {hdr[j].strip()!r}, so a judge reads the money as the "
                           f"{m.group(1).lower()} itself ({sample}); put the {m.group(1).lower()}'s own column "
-                          f"between them or head the money column with its name (kesselring refinement "
-                          f"2026-09-14: 'Yes | 537.45' was failed against Exhibit A's 285.00)")
+                          f"between them or head the money column with its name "
+                          f"(2026-09-14: 'Yes | 537.45' was failed against Exhibit A's 285.00)")
 
 
-# G31 (2026-09-14, hathi-replenishment-order-decision refinement round 9): the contradiction
+# G31 (2026-09-14): the contradiction
 # checker lifted "every SKU carried Under Review with an Inventory Control case open" out of a
 # sentence that opened "Cycle count records establish ..." and read it against the 1005
 # paragraph, where the adjustment is completed and its queue closed. The claim was true of the
@@ -2825,7 +2825,7 @@ def _g31_status_vocab(tables):
 def check_universal_status_claim(folder):
     """A golden sentence asserting an open status for every, all or each of the cited keys names the record it reads within six words of the status, whenever another input carries a closed status for one of those keys; the contradiction checker reads the claim without its sentence.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 9).
+    Since: 2026-09-14.
     Source: the platform's internal-contradiction check ("every SKU carried Under Review" against a
     completed adjustment with its review queue closed).
     Drift-notes: status values come from the inputs' own status-like columns; open is review, pending,
@@ -2906,12 +2906,12 @@ def check_universal_status_claim(folder):
             emit("ERROR", f"[G31] the golden says \"{sent.strip()[:140]}\" - an open status claimed for every key with "
                           f"no source named beside it, while {k0} carries {sorted(closed_for[k0])[0]}. The "
                           "contradiction checker lifts the claim out of its sentence and reads it against the "
-                          "per-item detail (hathi-replenishment-order-decision 2026-09-14). Qualify the status "
+                          "per-item detail (2026-09-14). Qualify the status "
                           "where it stands: \"Under Review on the count sheet\"")
             return
 
 
-# G33 (2026-09-14, harlow-route-rebalancing-proposal refinement round 9, attribution / role check
+# G33 (2026-09-14, attribution / role check
 # 1 of 32): "West also has the fewest visits logged in the quarter at just 19" was the one failed
 # claim. The judge reads a 117-row log in slices, listed 18 West ids from its last slice, added
 # "prior slices" from memory (the true remainder was one row, V-6199 on the line before the slice)
@@ -2939,7 +2939,7 @@ def _g33_hit(text):
 def check_prose_superlative_count(folder):
     """A golden's prose never states a per-group record count over a long CSV as a superlative claim ("the fewest visits at just 19"); the count lives in a ledgered table and the prose keeps the comparison.
 
-    Since: 2026-09-14 (harlow-route-rebalancing-proposal refinement round 9).
+    Since: 2026-09-14.
     Source: the platform's attribution / role check (the judge re-counts the file in slices and miscounts).
     Drift-notes: docx prose only, and only when some input CSV runs past 40 lines; the portfolio probe found
     the shape nowhere else.
@@ -2957,7 +2957,7 @@ def check_prose_superlative_count(folder):
                 emit("ERROR", f"{d.name}: prose states a per-group record count as a superlative "
                              f"(\"{hit}\") over {long_csv[0]}, which runs past "
                              f"{_G33_LONG_CSV} lines: the attribution judge re-counts the file in slices and failed "
-                             "the true count of 19 (harlow-route-rebalancing-proposal 2026-09-14). Keep the count in "
+                             "the true count of 19 (2026-09-14). Keep the count in "
                              "a ledgered table and the comparison in the prose without the figure")
 
 
@@ -2968,10 +2968,10 @@ _G34_STOP = {"UPHELD", "NOT UPHELD", "YES", "NO", "TOTAL", "Q1", "Q2", "Q3", "Q4
 
 @check(codes=['G34'], rules=['GOLD-FID'], needs=['solution'], params=['folder'])
 def check_tab_header_citations(folder):
-    """A prose cell that sends the reader to a named tab for an upper-case column label names a label that tab's header rows carry; a label that lives on another tab is a wrong direction the reviewer follows and reports.
+    """A prose cell that sends the reader to a named tab for an upper-case column label names a label that tab's header rows carry; a label that lives on another tab is a wrong direction a grader follows and reports.
 
-    Since: 2026-09-14 (commission-review-q2 reviewer round 5).
-    Source: Disputes!D6 read "The Invoices tab carries both figures, STMT GP against GROSS PROFIT"; STMT GP is a Statement Lines header and the reviewer sent the task back on it with three other prose slips.
+    Since: 2026-09-14.
+    Source: Disputes!D6 read "The Invoices tab carries both figures, STMT GP against GROSS PROFIT"; STMT GP is a Statement Lines header and a grader sent the task back on it with three other prose slips.
     Drift-notes: a tab is named by "the <Title> tab"; a label is two or more upper-case tokens of two or more characters, checked case-insensitively against the string cells of the named tab's first eight rows; an unknown tab name is ignored (R112 owns that).
     """
     import openpyxl
@@ -3010,7 +3010,7 @@ def check_tab_header_citations(folder):
         wb.close()
         if bad:
             emit("ERROR", f"[G34] {x.name}: {len(bad)} prose direction(s) to a tab for a label that tab does not carry: "
-                          f"{'; '.join(bad[:4])}. commission-review-q2 was sent back (2026-09-14) on 'The Invoices tab "
+                          f"{'; '.join(bad[:4])}. A task was sent back (2026-09-14) on 'The Invoices tab "
                           "carries ... STMT GP', a Statement Lines header; name the tab that carries the label")
 
 
@@ -3052,8 +3052,8 @@ def _r129_golden_sections(folder):
 def check_cited_section_in_golden(rows, folder):
     """A positive criterion that cites a numbered section ("Section 3.2") names a section the golden's own text cites somewhere; a section the golden never names fails the criterion on every oracle run, whatever the golden says in substance.
 
-    Since: 2026-09-14 (crandall-program-allocation-2026q1 refinement round 2).
-    Source: C14 read "left out of the demand to which Section 5.4 applies, under Section 3.2 of the program customer terms"; the golden cited Section 3.1 only and the oracle failed C14 on all three runs at 0.98, while round 1's golden-versus-rubric table had recorded the row as landing.
+    Since: 2026-09-14.
+    Source: C14 read "left out of the demand to which Section 5.4 applies, under Section 3.2 of the program customer terms"; the golden cited Section 3.1 only and the oracle failed C14 on all three runs at 0.98, while an earlier golden-versus-rubric table had recorded the row as landing.
     Drift-notes: a cite is "Section N.N" in a positive-weight row; the golden's cites are read from every solution docx paragraph and xlsx string cell, and "Sections A to B" on one major number expands to every minor between; the document a section belongs to is not checked, and a range or bare "N.N" in a criterion is not a cite.
     """
     named = None
@@ -3071,19 +3071,19 @@ def check_cited_section_in_golden(rows, folder):
         if missing:
             emit("ERROR", f"C{num} [R130] cites Section {', '.join(missing)}, which no solution file names: "
                           f"the judge looks for the section by number and fails the row on every run. "
-                          "crandall-program-allocation-2026q1 lost C14 3 of 3 oracle runs (2026-09-14) on a "
+                          "a task lost C14 3 of 3 oracle runs (2026-09-14) on a "
                           "Section 3.2 cite the golden never made; name the section in the golden where "
                           "the criterion's point is stated, or drop the cite from the criterion")
 
 
-# G37 (2026-09-14, standby-generator-recommendation refinement round 7, attribution / role check
+# G37 (2026-09-14, attribution / role check
 # 1 of 51 points): feature code B600-2 sits on two input data sheets with different figures, the
 # DQCB table at 3,313 kVA and the DQGAB table at 5,743 kVA (Cummins reuses alternator codes across
 # models). The memo's compliance table cell read "3,313 kVA starting capacity on winding B600-2
 # against 1,200 kVA inrush", naming no model; the attribution check matched the code to the DQGAB
 # sheet and called the figure a contradiction. The two prose mentions named the DQCB and passed.
 # The first probe keyed on any identifier two inputs share and lit up 20 lines in four other
-# refinements whose record ids (TXN-, HLD-, NB-, SN-, PCN-) join the same record across a workbook
+# goldens whose record ids (TXN-, HLD-, NB-, SN-, PCN-) join the same record across a workbook
 # and a memo; the defect is a code whose figures DIFFER by input, so the check keys on a figure the
 # golden paragraph carries that sits beside the code in one owning input and not in another.
 _G37_ID_RES = (re.compile(r"\b[A-Z]{1,5}\d{2,5}-\d{1,4}\b"), re.compile(r"\b[A-Z]{2,5}-\d{2,6}\b"))
@@ -3122,7 +3122,7 @@ def _g37_figures(text):
 def check_shared_identifier_scoped(folder):
     """An identifier two inputs carry with different figures beside it (an alternator feature code reused across data sheets) is scoped, in every golden paragraph or table cell that cites it with one input's figure, by that input's file name or a token only that file's name carries.
 
-    Since: 2026-09-14 (standby-generator-recommendation refinement round 7, attribution check).
+    Since: 2026-09-14 (attribution check).
     Source: the platform's attribution / role check matched an unscoped "winding B600-2" in a
     compliance cell to the DQGAB sheet (5,743 kVA) instead of the DQCB sheet (3,313 kVA).
     Drift-notes: fires only when the paragraph carries a figure (three or more digits, not a plain
@@ -3180,11 +3180,11 @@ def check_shared_identifier_scoped(folder):
             emit("ERROR", f"[G37] {path.name}: \"{snippet}\" cites {tok}, which {', '.join(names)} each carry with "
                           "different figures beside it, and names none of them in that paragraph or cell. The "
                           "attribution check matches the identifier to whichever input it finds first and calls the "
-                          "figure a contradiction (standby-generator-recommendation 2026-09-14: \"winding B600-2\" at "
+                          "figure a contradiction (2026-09-14: \"winding B600-2\" at "
                           "3,313 kVA read against the DQGAB sheet's 5,743). Name the model or the file beside the identifier")
 
 
-# G36 (2026-09-14, twincreek-bid-worksheet refinement round 3, attribution / role check 1/64): the
+# G36 (2026-09-14, attribution / role check 1/64): the
 # golden labelled its parameters "Class margins for bid work (policy 4.1)" and the judge failed the
 # term: "terminology 'policy 4.1' does not appear in any input". The policy numbers its own clauses
 # bare ("4.1  Class margins ...") and cross-refers to them bare ("under 4.2"); the addendum cites the
@@ -3203,10 +3203,10 @@ _G36_HOUSE_STYLE_NOUNS = {"section", "article", "clause", "paragraph"}
 def check_coined_citation_terms(folder):
     """A citation the golden writes as a document noun and a number ("policy 4.1", "ITB 5") appears in that exact form in some input; a citation form the inputs never use is coined terminology the attribution check fails.
 
-    Since: 2026-09-14 (twincreek-bid-worksheet refinement round 3).
+    Since: 2026-09-14.
     Source: the platform's attribution / role check ("terminology 'policy 4.1' does not appear in any input").
-    Tightened: 2026-09-15 (weldon-bridge-plan refinement round 5): formula cells are read by their cached text, since the judge reads values.
-    Drift-notes: nouns policy, section, ITB, RFP, RFQ, addendum, article, clause, paragraph, exhibit; fires only when the noun itself occurs in some input, so a golden citing a document the inputs never name is left to the sourcing checks. Matching is case-insensitive with whitespace collapsed, and "No." is part of the form ("ITB 27-04" fails where the inputs write "ITB No. 27-04"). Narrowed 2026-09-15 (crandall-program-allocation-2026q1 refinement round 3): "Section 6.4" passes when some input cross-refers with the same noun and a dotted number ("subject to Section 2.3") and 6.4 is a numbered clause heading in some input, because that is the inputs' own citation style applied to a clause they carry; the golden had scored 1.0 on two oracle runs with twenty such cites. Only section, article, clause and paragraph are narrowed; "policy 4.1" and "ITB 5" still fail. Narrowed again 2026-09-15 (dfl-freight-audit adjudication round): the same pass for a bare integer, "section 4" passes when some input cross-refers with the same noun and an integer ("a certificate under section 8") and 4 is an integer clause heading ("4. Discount and minimum charge") in some input; the adjudicator itself wrote "Agreement section 4 states 68 percent discount" against that agreement.
+    Tightened: 2026-09-15: formula cells are read by their cached text, since the judge reads values.
+    Drift-notes: nouns policy, section, ITB, RFP, RFQ, addendum, article, clause, paragraph, exhibit; fires only when the noun itself occurs in some input, so a golden citing a document the inputs never name is left to the sourcing checks. Matching is case-insensitive with whitespace collapsed, and "No." is part of the form ("ITB 27-04" fails where the inputs write "ITB No. 27-04"). Narrowed 2026-09-15: "Section 6.4" passes when some input cross-refers with the same noun and a dotted number ("subject to Section 2.3") and 6.4 is a numbered clause heading in some input, because that is the inputs' own citation style applied to a clause they carry; the golden had scored 1.0 on two oracle runs with twenty such cites. Only section, article, clause and paragraph are narrowed; "policy 4.1" and "ITB 5" still fail. Narrowed again 2026-09-15: the same pass for a bare integer, "section 4" passes when some input cross-refers with the same noun and an integer ("a certificate under section 8") and 4 is an integer clause heading ("4. Discount and minimum charge") in some input; a grader wrote "Agreement section 4 states 68 percent discount" against that agreement.
     """
     import openpyxl
     from ..common import input_texts, solution_files
@@ -3235,7 +3235,7 @@ def check_coined_citation_terms(folder):
             except Exception:
                 continue
             # typed strings, and the cached text of formula cells: a citation inside a formula's string
-            # literal reaches the attribution judge as the cell's value (weldon-bridge-plan 2026-09-15,
+            # literal reaches the attribution judge as the cell's value (2026-09-15,
             # Bridge_Buy!C33 "Director of Operations, policy 2.4" and its briefing read-through)
             for ws, wsv in zip(wb.worksheets, wbv.worksheets):
                 for row, rowv in zip(ws.iter_rows(), wsv.iter_rows()):
@@ -3271,7 +3271,7 @@ def check_coined_citation_terms(folder):
             emit("ERROR", f"[G36] {path.name}: {len(bad)} citation(s) in a form no input uses: {'; '.join(bad[:6])}"
                           f"{' ...' if len(bad) > 6 else ''}. The attribution check reads a document noun "
                           "plus a number as a term and fails it when no input carries that exact form "
-                          "(twincreek-bid-worksheet 2026-09-14, 'policy 4.1' where the policy cites its "
+                          "(2026-09-14, 'policy 4.1' where the policy cites its "
                           "clauses bare). Cite in the input's own form: the bare clause number, "
                           "'ITB Section 5', 'ITB No. 27-04'")
 
@@ -3284,8 +3284,8 @@ _FROM_LOC_HDR_RE = re.compile(r"^\s*FROM(?:\s+(?:BIN|LOCATION|SLOT))?\s*$", re.I
 def check_second_locations_on_move_list(folder):
     """Every second location the golden records for an item appears as a from-location on the golden's move list.
 
-    Since: 2026-09-14 (pick-module-reslot adjudication, Golden deliverable, Major).
-    Source: the adjudicator found four items the location master shows in two bins counted as
+    Since: 2026-09-14 (Golden deliverable, Major).
+    Source: a grader found four items the location master shows in two bins counted as
     "second bins cleared" on the Items tab while the crew move list, one row per moving item read
     by INDEX/MATCH on a single order column, could carry only each item's primary bin as its from
     bin; WH-4 section 10 and the requester's email require a from and a to bin on every line.
@@ -3322,7 +3322,7 @@ def check_second_locations_on_move_list(folder):
         if missing:
             emit("ERROR", f"[G38] {x.name}: {len(missing)} of {len(seconds)} second locations recorded under "
                           f"{seconds[missing[0]]} never appear as a from-location on the move list "
-                          f"({', '.join(missing[:4])}) - the adjudicator failed pick-module-reslot on exactly this "
+                          f"({', '.join(missing[:4])}) - a grader failed a task on exactly this "
                           "(2026-09-14, Major): a second bin counted as cleared is a modeled end state, not a "
                           "crew line. Give each second location its own ordered line with a from and a to "
                           "location, counted against the crew budget")
@@ -3335,7 +3335,7 @@ _G39_NUM_RE = re.compile(r"^-?[\d,]+(?:\.\d+)?$")
 def check_shared_value_header_across_tables(folder):
     """Two tables in a solution document that key their rows on the same first-column label never carry an identically named value column with different figures for the same row key; the numeric grounding audit reads the pair as one figure stated twice and reports an internal contradiction.
 
-    Since: 2026-09-15 (crandall-program-allocation-2026q1 refinement round 3).
+    Since: 2026-09-15.
     Source: the numeric grounding (method audit) failed in both evaluations with four D3_disagreement items, "NB-6010 / Program value — 160266.6 ... 182868.3", because the withheld schedule and the unfilled schedule both headed their money column "Program value" over the same five items.
     Drift-notes: docx tables only; tables are grouped by their first header cell, a row key is the first cell and a key repeated inside one table is skipped; both cells must read as numbers (commas allowed) and differ; renaming the header after what it values ("Program value withheld") clears it.
     """
@@ -3373,5 +3373,5 @@ def check_shared_value_header_across_tables(folder):
         if bad:
             emit("ERROR", f"[G39] {name}: {len(bad)} value column(s) named alike in two tables keyed on the same rows carry different "
                           f"figures: {'; '.join(bad[:4])}. The numeric grounding audit reads them as one figure stated twice and "
-                          "fails the golden on an internal contradiction (crandall-program-allocation-2026q1, 2026-09-15, "
+                          "fails the golden on an internal contradiction (2026-09-15, "
                           "'Program value' on the withheld and the unfilled schedules). Name each column after what it values")

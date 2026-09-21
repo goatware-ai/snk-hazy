@@ -14,7 +14,7 @@ from ..core import check, emit, recommend, REPORT, OPTIONS
 def check_leaked_enumeration(folder):
     """No input paragraph enumerates manufacturers across the golden's answer set.
 
-    Rossville leakage verdict (2026-08-24, ANSWER_LEAKED): RFI Question 8 named every
+    A leakage verdict (2026-08-24, ANSWER_LEAKED): RFI Question 8 named every
     approved substitute across six manufacturers in one parenthetical, handing the
     solver the complete non-compliant-to-replacement map the task exists to derive.
     Every other input carried one vendor's own facts and passed as raw data. The
@@ -62,13 +62,13 @@ def check_leaked_enumeration(folder):
             if len(hits) >= 4:
                 emit("ERROR", f"[L1] inputs/{path.name}: one paragraph names {len(hits)} of the "
                              f"manufacturers the solution tracks ({', '.join(sorted(hits)[:6])}) — "
-                             "the rossville leakage verdict (ANSWER_LEAKED, 2026-08-24) came from "
+                             "a leakage verdict (ANSWER_LEAKED, 2026-08-24) came from "
                              "exactly this shape, an RFI answer enumerating every approved "
                              "substitute. Read the paragraph: rulings on categories and procedure "
                              "are fine, an enumeration of the chosen products is the answer key")
 
 
-# L3 (2026-08-31, inbound-consolidation-plan AutoEval round 3, ANSWER_LEAKED): a memo
+# L3 (2026-08-31, an AutoEval run, ANSWER_LEAKED): a memo
 # rule that names the entity AND its verdict. Wessel memo rule 3 read "Vollintine already
 # orders above its floor every time and stays exactly as it is", and the prompt's own ask
 # ("any vendor that should stay as it is, said plainly with the why") was thereby answered
@@ -119,8 +119,8 @@ def check_leaked_stay_verdict(folder):
                     emit("ERROR", f"C{num} [L3] inputs/{path.name} hands over the stay verdict this "
                                   f"criterion scores: a paragraph names {name} beside a stay/no-change "
                                   f"verdict ({snippet!r}) - the answer-leakage check returned "
-                                  "ANSWER_LEAKED on exactly this (inbound-consolidation-plan, "
-                                  "2026-08-31: 'Vollintine already orders above its floor every time "
+                                  "ANSWER_LEAKED on exactly this "
+                                  "(2026-08-31: 'Vollintine already orders above its floor every time "
                                   "and stays exactly as it is'). Let the input state the rule and "
                                   "leave the named application of it to the solver")
                     break
@@ -147,7 +147,7 @@ _N1_NAME_RE = re.compile(
 
 
 _H1_SUFFIXES = (".xlsx", ".docx", ".md", ".csv", ".txt")     # what the audit_task sweep reads
-_H1_CODENAME_RE = CODENAME_RE    # common.py owns the pattern (Hazy + Geranium)
+_H1_CODENAME_RE = CODENAME_RE    # common.py owns the pattern (Hazy)
 
 
 @check(codes=['N1', 'H1'], rules=['PRE-NAME'], needs=['inputs', 'prompt', 'rubric', 'solution'], params=['folder'])
@@ -317,10 +317,10 @@ def check_tell_log(folder):
             continue
 
 
-# L4 (2026-09-11, packaging-consolidation adjudication note): C24 scored "Kraft paper and packing
+# L4 (2026-09-11, a ruling note): C24 scored "Kraft paper and packing
 # peanuts are listed as items a branch buys today for less than the recommended supplier's
 # price", and the Bay City manager's email said "The kraft paper and the peanuts are not"
-# (cheaper at the bidder). The adjudicator: the email "hands the solver the exact answer graded
+# (cheaper at the bidder). The ruling: the email "hands the solver the exact answer graded
 # by rubric line 24 instead of requiring the comparison to be computed from the invoice and bid
 # data". L3 catches a stay verdict on a named entity; this is the enumeration form, the items a
 # criterion scores as the found set named together in one input paragraph. An input may raise
@@ -334,8 +334,8 @@ _L4_LISTED_RE = re.compile(
 def check_leaked_listed_items(folder):
     """No input paragraph names together every item a positive criterion scores as the listed or flagged set.
 
-    Since: 2026-09-11 (packaging-consolidation adjudication note).
-    Source: the adjudicator ruled the Bay City email naming kraft paper and packing peanuts hands the solver the answer graded by the exceptions row.
+    Since: 2026-09-11 (a ruling note).
+    Source: the ruling found the Bay City email naming kraft paper and packing peanuts hands the solver the answer graded by the exceptions row.
     """
     inp = folder / "inputs"
     path = rubric_path(folder)
@@ -368,8 +368,8 @@ def check_leaked_listed_items(folder):
                 if all(re.search(rf"\b{re.escape(k)}\b", low) for k in keys):
                     emit("ERROR", f"C{num} [L4] inputs/{path.name} names together the items this "
                                   f"criterion scores as the listed set ({', '.join(items)}): "
-                                  f"{text[:140]!r}. The adjudicator sent packaging-consolidation "
-                                  "back on exactly this (2026-09-11, the Bay City email naming kraft "
+                                  f"{text[:140]!r}. A task was sent back on exactly this "
+                                  "(2026-09-11, the Bay City email naming kraft "
                                   "paper and peanuts). Let the input raise the concern and leave the "
                                   "members to be computed from the data")
                     break
@@ -379,8 +379,8 @@ def check_leaked_listed_items(folder):
 def check_golden_among_inputs(folder):
     """No input file is the deliverable or a copy of it: no input shares a golden file's basename, and no input workbook carries three or more of a golden workbook's sheet titles.
 
-    Since: 2026-09-14 (commission-review-q2 adjudication note).
-    Source: the adjudicator found q2_commission_review.xlsx among the platform's input files, every scored tab populated, and ruled it gives away every conclusion; the repo's i- zip never held it, so the upload put the deliverable in the input widget. The check reads whatever inputs are staged (a review packet's input zip included).
+    Since: 2026-09-14 (a ruling note).
+    Source: the ruling found the finished workbook among the platform's input files, every scored tab populated, and held that it gives away every conclusion; the repo's i- zip never held it, so the upload put the deliverable in the input widget. The check reads whatever inputs are staged.
     """
     import openpyxl
     inp, sol = folder / "inputs", folder / "solution"
@@ -405,7 +405,7 @@ def check_golden_among_inputs(folder):
         if f.name.lower() in names:
             emit("ERROR", f"[L5] inputs/{f.name} carries the deliverable's own name ({names[f.name.lower()]} in "
                           "solution/): the finished workbook is shipped as an input and hands over every "
-                          "conclusion (commission-review-q2 adjudication, 2026-09-14)")
+                          "conclusion (2026-09-14)")
             continue
         if f.suffix.lower() == ".xlsx" and sheets:
             try:
@@ -419,13 +419,13 @@ def check_golden_among_inputs(folder):
                 if len(shared) >= 3:
                     emit("ERROR", f"[L5] inputs/{f.name} carries {len(shared)} of {gname}'s sheet titles "
                                   f"({', '.join(sorted(shared)[:5])}): an input that is the deliverable under "
-                                  "another name (commission-review-q2 adjudication, 2026-09-14)")
+                                  "another name (2026-09-14)")
                     break
 
 
 
-# L6 (2026-09-14, hathi-replenishment-order-decision refinement round 9): ANSWER_LEAKED on three
-# comments written into inventory_adjustments.xlsx in an earlier round ("picks ... not posted,
+# L6 (2026-09-14): ANSWER_LEAKED on three comments written into
+# inventory_adjustments.xlsx earlier ("picks ... not posted,
 # timing, hold until WMS posts"; "bin corrected to QC hold, no qty change"; "242 short, cannot tie
 # to txns"). Each sat on a record the memo cites and stated the memo's diagnosis and action for
 # that SKU in the memo's own words. A note on a cited row may name a document or a bin; it may
@@ -465,9 +465,9 @@ def _l6_tables(folder):
 def check_conclusion_in_cited_note(folder):
     """A note or comment cell on an input row the golden cites carries no conclusion word (timing, duplicate, unexplained, cannot tie, no quantity change, hold until, should); the leakage check reads such a note as the answer handed over.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 9).
+    Since: 2026-09-14.
     Source: the platform's golden_solution_leakage_check, ANSWER_LEAKED on three adjustment comments
-    written in round 6 of the same refinement.
+    written earlier into the same file.
     Drift-notes: the row must be one the golden cites by id and the column note-like; the word list is
     closed and the golden's own wording is not required (the leak "cannot tie to txns" stood against a
     golden that said "do not account for the shortage"). A note naming a document or a bin is not read.
@@ -509,6 +509,6 @@ def check_conclusion_in_cited_note(folder):
     if leaks:
         emit("ERROR", f"[L6] {len(leaks)} note(s) on records the golden cites carry the golden's conclusion: "
                       f"{'; '.join(leaks[:5])}. The leakage check returned ANSWER_LEAKED on exactly this "
-                      "(hathi-replenishment-order-decision 2026-09-14: three adjustment comments stating the "
+                      "(2026-09-14: three adjustment comments stating the "
                       "diagnosis and the action). A note on a cited row names a document or a bin, never the "
                       "finding")

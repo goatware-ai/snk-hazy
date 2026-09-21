@@ -114,11 +114,3 @@ family at all. So the domain radio is, in practice, the occupation's own job fam
 | 62 | Treasurers and Controllers | 11-3031.01 | | Management |
 | 63 | Veterinary Assistants and Laboratory Animal Caretakers | 31-9096.00 | | Healthcare Support |
 | 64 | Zoologists and Wildlife Biologists | 19-1023.00 | | Life, Physical, and Social Science |
-
-## Overlap with the old Geranium desk
-
-Only two of Geranium's six Wholesale Trade codes survive here: **Purchasing Managers**
-(11-3061.00) and **Transportation, Storage, and Distribution Managers** (11-3071.00). The
-other four — Sales Managers 11-2022.00, Wholesale and Retail Buyers 13-1022.00, Sales
-Representatives 41-4012.00, and Shipping/Receiving Clerks 43-5071.00 — are **not on the
-Hazy list**. Any Geranium task idea built on them cannot be resubmitted here.

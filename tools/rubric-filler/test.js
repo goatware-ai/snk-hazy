@@ -88,10 +88,10 @@ eq(toRubricCsv(back.items.map((i) => ({ criterion: i["textarea-criterion"], weig
   src, "round trip is byte identical");
 
 // ---- taskNameFromFilename ----
-eq(taskNameFromFilename("rubric-june-price-review-7373c89f.csv"),
-  { taskName: "june-price-review", uid8: "7373c89f" }, "submission file name");
-eq(taskNameFromFilename("rubric-june-price-review.csv"),
-  { taskName: "june-price-review", uid8: "" }, "draft file name, no UID");
+eq(taskNameFromFilename("rubric-sample-task-7373c89f.csv"),
+  { taskName: "sample-task", uid8: "7373c89f" }, "submission file name");
+eq(taskNameFromFilename("rubric-sample-task.csv"),
+  { taskName: "sample-task", uid8: "" }, "draft file name, no UID");
 eq(taskNameFromFilename("something-else.csv"), { taskName: "", uid8: "" }, "unrecognised name");
 
 say(failures ? `\n${failures} of ${ran} checks FAILED` : `all ${ran} checks passed`);

@@ -100,7 +100,7 @@ def _finish(folder, brief):
     stale = [f"{'C' + n + ' ' if n else ''}{c}" for (n, c) in core.DEBT if (n, c) not in hit]
     if stale:
         # debt keyed to a renamed id or a finding since fixed shelters nothing and misleads the reader
-        # (14-wamhoff carried R39 lines after R39 became R90/R91; 24-vondrak two R9 lines no longer firing)
+        # (one task carried R39 lines after R39 became R90/R91; another two R9 lines no longer firing)
         print(f"  NOTE  .gate-debt line(s) matched no finding this run: {', '.join(stale)}; clear them at "
               "the task's next revision")
     holes = gate_families.unmapped({c for _, c, _, _ in FINDINGS if c})

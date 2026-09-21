@@ -9,7 +9,7 @@ from ..common import (MONTHS_RE, _COUNT_RE, _FIGURE_RE, _MONEY_RE, _YEAR_RE, _do
 from ..core import check, emit, recommend, REPORT, OPTIONS
 
 
-# R80 (2026-09-02, dfl-freight-audit AutoEval round 1, golden check 0.9792 / 1.0 / 1.0): an
+# R80 (2026-09-02, AutoEval round 1, golden check 0.9792 / 1.0 / 1.0): an
 # AGENTLESS COMPARATIVE in a positive criterion. "Invoice DFL7718186 has its fuel surcharge
 # rated on the 573.72 net linehaul rather than the base charge, a claim of 292.60" failed 1/3
 # on the golden, the judge reading the passive as the carrier's act ("the statement
@@ -34,7 +34,7 @@ _R80_COMPARATIVE_RE = re.compile(r"\brather than\b|\binstead of\b|\bnot (?:on|at
 def check_agentless_comparative(rows):
     """A positive comparative ('rather than', 'instead of') makes the deliverable its subject and names who did what, never the audited object alone.
 
-    Since: 2026-09-02 (dfl-freight-audit C6, 1/3).
+    Since: 2026-09-02 (a task's C6, 1/3).
     Source: the oracle.
     """
     for num, text, weight in rows:
@@ -48,7 +48,7 @@ def check_agentless_comparative(rows):
         emit("ERROR", f"C{num} [R80] agentless comparative: the subject is the audited object and the "
                       f"sentence turns on \"{cmp.group(0)}\" with no agent, so the judge can read the "
                       "comparison as either party's act and one reading contradicts the golden "
-                      "(dfl-freight-audit C6, 2026-09-02, 1/3: 'has its fuel surcharge rated on the net "
+                      "(a task's C6, 2026-09-02, 1/3: 'has its fuel surcharge rated on the net "
                       "linehaul rather than the base charge' was read as DFL's act). Make the deliverable "
                       "the subject and name who did what: 'The memo claims 292.60 on invoice X, where DFL "
                       "applied the surcharge to the base charge instead of the 573.72 net linehaul'")
@@ -75,7 +75,7 @@ def check_stated_figures(rows, folder):
     Codes:
       R20  every stated figure is a cached cell value somewhere in the golden
       R21  one sheet carries all of a criterion's figures
-    Since: 2026-08-20 (wamhoff run 1: C11 for R20, C4 for R21).
+    Since: 2026-08-20 (a task's run 1: C11 for R20, C4 for R21).
     Source: the oracle, which greps cached cell values.
     """
     bags = _solution_cell_values(folder)
@@ -100,7 +100,7 @@ def check_stated_figures(rows, folder):
             emit("ERROR", f"C{num} [R20] states {', '.join(absent)}, which no solution cell "
                           "carries as a value — the judge greps cached cell values and "
                           "reports the figure as absent even when the prose mentions it "
-                          "(wamhoff C11 failed 1/3 on an 8,000 that was only a briefing "
+                          "(a task's C11 failed 1/3 on an 8,000 that was only a briefing "
                           "sentence). Put the figure in a cell or restate the criterion on "
                           "figures that are already cells")
             continue
@@ -112,12 +112,12 @@ def check_stated_figures(rows, folder):
             if not whole:
                 emit("ERROR", f"C{num} [R21] no single sheet carries all of {', '.join(figs)}, "
                              "so the judge has to assemble the chain across tabs — that is "
-                             "the wamhoff C4 flake (failed 1/3 with the judge quoting the "
+                             "a known flake (failed 1/3 with the judge quoting the "
                              "one tab it landed on). Co-locate the figures on one row or "
                              "restate the criterion on the figures that already share a sheet")
 
 
-# R50 (2026-08-24, june-price-review oracle run 7): C32 said "a 10.80 credit" while the
+# R50 (2026-08-24, oracle run 7): C32 said "a 10.80 credit" while the
 # credit cell stores 10.8 - the judge's read_xlsx tools render RAW stored values, never
 # the number-format rendering, so it quoted the very row it was grading and still
 # verdicted the 10.80 not observed (failed 2/3). R20 never fired because
@@ -159,7 +159,7 @@ def _other_anchor(body, plain, folder):
 def _r94_stored_form_anchor(rows, folder):
     """A criterion quoting a figure in raw stored form names the sheet or row label holding it when the golden's prose spells the figure padded.
 
-    Since: 2026-08-25 (open-order-cleanup run 8, C14).
+    Since: 2026-08-25 (a task's run 8, C14).
     Source: the oracle.
     Drift-notes: R50's mirror; numbered R58 in the monolith until 2026-09-04.
     """
@@ -181,7 +181,7 @@ def _r94_stored_form_anchor(rows, folder):
             emit("ERROR", f"C{num} [R94] quotes {raw} as the cell stores it, but the golden's "
                          f"prose spells it {padded} and this criterion names no sheet and no row "
                          "label - the judge lands on the sentence and cannot match the raw form "
-                         "against it (open-order-cleanup run 8: C14 quoted 6407.6 and the judge "
+                         "against it (one run: C14 quoted 6407.6 and the judge "
                          "returned the briefing's \"taking $6,407.60 off the book\" as "
                          "unverifiable). Keep the stored form and name the row that holds it, "
                          "which is the anchor R50 asks for in the other direction")
@@ -194,7 +194,7 @@ def check_padded_figures(rows, folder):
     Codes:
       R50  a figure whose trailing zero lives only in the number format is quoted as stored (10.8, not 10.80)
       R94  a raw-form figure the prose spells padded is anchored on the sheet or row label holding the cell
-    Since: R50 2026-08-24 (june-price-review run 7); R94 2026-08-25 (open-order-cleanup run 8).
+    Since: R50 2026-08-24 (a task's run 7); R94 2026-08-25 (another task's run 8).
     Source: the oracle, whose tools render raw stored values.
     Drift-notes: R94 was a carve-out twin (numbered R58 in the monolith), merged back 2026-09-11.
     """
@@ -204,7 +204,7 @@ def check_padded_figures(rows, folder):
         return
     # search_xlsx greps SUBSTRINGS of the raw values, and a golden's own prose routinely
     # spells a figure out comma-formatted ("7,950.00 of margin the branches lost"), which
-    # is a hit the exact-cell test misses. Task 20 run 9: eleven of R50's twelve findings
+    # is a hit the exact-cell test misses. In one run, eleven of R50's twelve findings
     # on that rubric were echoed in the briefing prose in the padded form and had passed
     # 3/3 for rounds, while the twelfth, C44's 495,000.00, appeared nowhere in any comma
     # form and was the one the judge failed, quoting 'Position'!E23 = '495000' back. Test
@@ -217,29 +217,29 @@ def check_padded_figures(rows, folder):
         for fig in _PADDED_FIG_RE.findall(_without_cell_refs(text)):
             plain = fig.replace(",", "")
             # The prose carve-out holds only while the criterion hands the judge a SECOND
-            # anchor. open-order-cleanup C18 (2026-08-24, oracle run 6) said "The cancelled
+            # anchor. One criterion (2026-08-24, oracle run 6) said "The cancelled
             # lines total $18,508.10 at the cost carried on the order", named no sheet and
             # no row key, and the briefing's own "$18,508.10" did not save it: the judge
             # landed on Commitment!C55 = '18508.1' and verdicted unverifiable_from_
-            # deliverable, costing the run. Task 20's eleven survivors all carry a row key
+            # deliverable, costing the run. The eleven survivors above all carry a row key
             # or a sheet, which is what walks the judge to the prose in the first place.
             if (fig in blob or plain in blob) and _other_anchor(
                     _without_cell_refs(text), plain, folder):
                 continue
             stripped = plain.rstrip("0").rstrip(".")
             # a shortage or a credit is quoted unsigned but stored negative, so the
-            # padded figure has to be matched against both signs (oskaloosa C21 stated
+            # padded figure has to be matched against both signs (a task's C21 stated
             # 8,940.50 against a cell storing -8940.5 and R50 walked past it, 2026-08-24)
             if any(s in raw for s in (stripped, stripped + ".0",
                                       "-" + stripped, "-" + stripped + ".0")):
                 emit("ERROR", f"C{num} [R50] states {fig}, but the cell stores {stripped} - the "
                               "judge's tools render raw stored values, not number formats, so it "
                               "greps the padded figure, misses, and verdicts not-observed while "
-                              "quoting the very row (june-price-review C32 failed 2/3 on a 10.80 "
+                              "quoting the very row (one criterion failed 2/3 on a 10.80 "
                               "the cell stores as 10.8). Quote the figure as stored")
 
 
-# R51 (2026-08-24, june-price-review oracle run 8): C32 bound "a 10.8 credit" to the
+# R51 (2026-08-24, oracle run 8): C32 bound "a 10.8 credit" to the
 # H96284 row, and that row carries 10.8 TWICE (an overbilled column and a credit column,
 # =F34 mirroring the other) - the judge quoted the whole row in its evidence on three
 # submissions running and still stalled 1/3-2/3, because confirming WHICH 10.8 is the
@@ -270,13 +270,13 @@ def check_row_figure_twins(rows, folder):
         figs = {f for f in _FIGURE_RE.findall(clean)
                 if not _YEAR_RE.match(f.replace(",", ""))}
         # _FIGURE_RE keeps only decimals and thousands-separated money, so a bare unit
-        # quantity was invisible here: oskaloosa C26 bound 550 to PI-125 while the Cover
+        # quantity was invisible here: a task's C26 bound 550 to PI-125 while the Cover
         # order row carried 550 in THREE columns (POSITION, NEED and QTY), and the judge
         # failed it 1/3 (2026-08-24). Twinning is about the row, not about whether the
         # figure is money. The lookbehind keeps the digits of an item code (PI-125) out.
         # a slash on either side means the digits are part of a date literal (07/28/2027),
         # not a bare quantity: R51 bound 28 out of a criterion's sell-by date to an
-        # unrelated row pair and errored twice (chemical-lot-review, 2026-08-24)
+        # unrelated row pair and errored twice (2026-08-24)
         figs |= {m for m in re.findall(r"(?<![\d.,\-A-Za-z/])\d{2,6}(?!/|[\d,]|\.\d)", clean)
                  if not _YEAR_RE.match(m)}
         if not keys or not figs:
@@ -302,8 +302,8 @@ def check_row_figure_twins(rows, folder):
                                  f"{sorted(set(vals) & keys)[0]} ({name}:{ws.title} row "
                                  f"{row[0].row}), and that row carries {f} in {hits} cells - "
                                  "the judge cannot bind the figure to the named column and "
-                                 "stalls even while quoting the row (june-price-review C32, "
-                                 "three flaky submissions on 10.8 twinned across OVERBILLED "
+                                 "stalls even while quoting the row (three flaky "
+                                 "submissions on 10.8 twinned across OVERBILLED "
                                  "and CREDIT). Key the claim on a value unique on its row, "
                                  "or drop it")
                             break
@@ -312,7 +312,7 @@ def check_row_figure_twins(rows, folder):
                     break
 
 
-# R58 (2026-08-25, june-price-review oracle run 10): C24 tied the K118343 DC300 line to
+# R58 (2026-08-25, oracle run 10): C24 tied the K118343 DC300 line to
 # "the DWV never keyed cause" while the row's cause cell reads the opaque code pg2 -
 # zero shared tokens, so confirming the attribution means mapping the code through the
 # Summary cause table, and the judge quoted the row verbatim and still stalled 1/3 (the
@@ -363,13 +363,13 @@ def check_cause_attribution(rows, folder):
                  f"\"the {m.group(1)} cause\" and no word of that phrase appears on any row "
                  "carrying the key - the row holds only an opaque code, so the judge must "
                  "map it through another sheet and stalls while quoting the very row "
-                 "(june-price-review C24, pg2 vs 'DWV never keyed', 1/3). Anchor on figures "
+                 "(a criterion, pg2 vs 'DWV never keyed', 1/3). Anchor on figures "
                  "the row carries and leave the class to the cause-table criteria")
 
 
 # the trailing-hyphen exclusion keeps a document id PREFIX (the 26 of 26-4523) from
 # reading as a count, the mirror of the R27 tag-SUFFIX lesson (the 1 of HB-1);
-# semrad revision 2026-08-26, R31 false-positive on "the schedule's 26-4523 line"
+# a revision 2026-08-26, R31 false-positive on "the schedule's 26-4523 line"
 _CELL_CLAIM_RE = re.compile(
     r"(?:standing|stands|stand|sits|sitting)\s+in\s+a\s+cell|in\s+the\s+cell\s+(?:beside|below|above|next to)|"
     r"\bbeside\b|in\s+a\s+cell\s+(?:beside|below|above|next to)", re.I)
@@ -412,7 +412,7 @@ def _solution_numbers(folder):
 _CARRIES_COUNT_RE = re.compile(r"\b(?:carries|runs|lists)\s+\d{2,}\b", re.I)
 
 
-# R58 (2026-08-25, open-order-cleanup oracle run 8): R50's mirror, and a regression R50
+# R58 (2026-08-25, oracle run 8): R50's mirror, and a regression R50
 # itself caused. R50 makes a criterion quote money as the cell STORES it, because the judge's
 # tools render raw values; C14 and C18 were duly converted from $6,407.60 and $18,508.10 to
 # 6407.6 and 18508.1. C14 then came back unverifiable_from_deliverable with the judge quoting
@@ -433,7 +433,7 @@ def check_stated_counts(rows, folder):
     Codes:
       R26  every stated count is held by a golden cell (or carried in a cell's words)
       R31  a count the criterion says stands in a cell is a numeric cell, not prose
-    Since: 2026-08-21 (task 20 run 1, C10 0/3) for R26; june-price-review C2 for R31.
+    Since: 2026-08-21 (a task's run 1, C10 0/3) for R26; another task's C2 for R31.
     Source: the oracle.
     """
     nums, prose = _solution_numbers(folder)
@@ -461,7 +461,7 @@ def check_stated_counts(rows, folder):
             emit("ERROR", f"C{num} [R26] states the count(s) {', '.join(bad)}, which no "
                           "solution cell holds — a count is the first thing the judge "
                           "recomputes off the deliverable, and a stale one fails every "
-                          "oracle run (task 20 C10 said 31 late against the workbook's "
+                          "oracle run (one criterion said 31 late against the workbook's "
                           "own 28 and went 0/3). Recount it against the data, then put "
                           "the count in a cell so the judge reads it instead of tallying")
         if incell:
@@ -469,17 +469,17 @@ def check_stated_counts(rows, folder):
                           "(\"standing in a cell\" / \"beside\" / \"below\"), but the workbook "
                           "carries that number only inside a sentence — the judge reads the "
                           "cell the criterion points at, finds the other figure missing and "
-                          "fails it (june-price-review C2, 1/3, 987 only in briefing prose). "
+                          "fails it (a criterion, 1/3, 987 only in briefing prose). "
                           "Put the count in a numeric cell next to the one the criterion names")
 
 
-# R78 (2026-08-31, radke-price-protection Rubric Quality Review, [major]
+# R78 (2026-08-31, Rubric Quality Review, [major]
 # ungrounded_verification): "Criterion 5 requires exactly 8 action items, but task sources
 # do not enumerate 8 specific pre-filing actions or provide a bounded list to verify
 # against." R26 was satisfied because the golden held the 8 in a cell, but a count of PLAN
 # items (actions, steps, asks, recommendations, things to be done) is the solver's own
 # authoring choice, not a fact the inputs bound, so no cell can ground it. Portfolio measure
-# before coding: one other hit, frankfort C28 "the 8 things to be decided or signed", the
+# before coding: one other hit on another task, C28 "the 8 things to be decided or signed", the
 # same class. Score the milestones the sources name instead ("carries all four of the
 # recount, the verification, the signature and the filing").
 _R78_PLAN_COUNT_RE = re.compile(
@@ -487,7 +487,7 @@ _R78_PLAN_COUNT_RE = re.compile(
     r"recommendations|items? (?:to be done|on the list)|open items|to-?dos?)\b", re.I)
 
 
-# R79 (2026-08-31, radke-price-protection golden solution check, 1/3 on a weight-2 row):
+# R79 (2026-08-31, golden solution check, 1/3 on a weight-2 row):
 # "The front page carries the 09/08/2026 filing deadline BESIDE the figure to file" - the
 # date sits on Briefing row 14, the figure to file (3,415.09) on row 6. The judge that read
 # the layout literally failed it and was right to. A golden-adjacency detector was tried
@@ -513,7 +513,7 @@ _R79_LIT_RE = re.compile(r"\d{2}/\d{2}/\d{4}|\d[\d,]*\.\d{2}\b|\b\d{1,3}(?:,\d{3
 def check_placement_claims(rows, folder=None):
     """A placement claim ('beside', 'below') names the literal label next to the pinned value, never an abstract referent.
 
-    Since: 2026-08-31 (radke-price-protection C24, 1/3).
+    Since: 2026-08-31 (a task's C24, 1/3).
     Source: the oracle.
     """
     for num, text, weight in rows:
@@ -526,7 +526,7 @@ def check_placement_claims(rows, folder=None):
             emit("ERROR", f"C{num} [R79] places a pinned literal \"{pm.group(0)}\" - the neighbour is "
                           "an abstract referent the judge must resolve to a cell before it can "
                           "check adjacency, and in the golden it need not be adjacent at all "
-                          "(radke C24: the 09/08/2026 deadline sat eight rows from 'the figure "
+                          "(one criterion: the 09/08/2026 deadline sat eight rows from 'the figure "
                           "to file', 1/3, 2026-08-31). Name the label literally beside the value, "
                           "or drop the placement clause")
 
@@ -535,7 +535,7 @@ def check_placement_claims(rows, folder=None):
 def check_plan_counts(rows):
     """A criterion never pins a count of solver-authored plan items (actions, steps, recommendations).
 
-    Since: 2026-08-31 (radke-price-protection).
+    Since: 2026-08-31.
     Source: the Rubric Quality Review, ungrounded_verification [major].
     """
     for num, text, weight in rows:
@@ -545,12 +545,12 @@ def check_plan_counts(rows):
         if m:
             emit("ERROR", f"C{num} [R78] pins a count of solver-authored plan items (\"{m.group(0)}\") "
                           "- the Rubric Quality Review calls that ungrounded_verification [major] "
-                          "because no input bounds how many actions a plan lists (radke "
-                          "2026-08-31: 'sources do not enumerate 8 specific pre-filing actions'). "
+                          "because no input bounds how many actions a plan lists "
+                          "(2026-08-31: 'sources do not enumerate 8 specific pre-filing actions'). "
                           "Name the milestones the sources require and score their presence")
 
 
-# R35 (2026-08-23, branch-stocking-reset run 1): a positive criterion that asserts an
+# R35 (2026-08-23, run 1): a positive criterion that asserts an
 # attribute of ONE row, names that row by a key the golden repeats on several sheets, and
 # names neither the sheet nor a figure, lets the judge land on the wrong tab. C11 "The
 # CPVC ball valve on the Wausau base is held back from the class its dollars give it, its
@@ -625,14 +625,14 @@ def check_landable_literals(rows, folder):
         emit("ERROR", f"C{num} [R35] keys a one-row claim on {', '.join(amb)}, which the golden "
                      "carries on more than one sheet, and names no sheet and no figure in "
                      "digits, so the judge lands on whichever tab it reaches first "
-                     "(branch-stocking-reset run 1: the class-holdback claim failed 1/3 with "
+                     "(one run: the class-holdback claim failed 1/3 with "
                      "the judge quoting a tab that has no class column). Pin a figure in "
                      "digits or name the sheet")
 
 
-# R31 (2026-08-23, task 20 adjudication): a criterion that states the BASIS of a pinned
+# R31 (2026-08-23): a criterion that states the BASIS of a pinned
 # figure has to reproduce it by that basis. C38 pinned 1,097.90 as "two percent of the
-# purchases that leave Rademacher"; two percent of 54,894.70 is 1,097.894, so a solver
+# purchases that leave the branch"; two percent of 54,894.70 is 1,097.894, so a solver
 # computing it directly lands on 1,097.89 and is marked wrong. The golden reaches 1,097.90
 # by subtracting two separately rounded rebate amounts, which is the right business answer
 # and a different arithmetic path. State the path the deliverable actually takes.
@@ -652,7 +652,7 @@ _RATE_RE = re.compile(
 
 @check(codes=['R64', 'R87'], rules=['GOLD-LAND'], needs=['rubric', 'solution'], params=['rows', 'folder'])
 def check_stated_basis(rows, folder):
-    # R64 (2026-08-26, pavelka AutoEval): the Agentic Rubric Quality Review RE-DERIVES a
+    # R64 (2026-08-26, AutoEval): the Agentic Rubric Quality Review RE-DERIVES a
     # "percent of <base>" total from the raw inputs, and when the base's components span
     # two input files it can assemble the wrong subset - it netted one of the three Q2
     # credit memos (the one whose RGA row was authorized in the quarter; the second was
@@ -667,8 +667,8 @@ def check_stated_basis(rows, folder):
     Codes:
       R64  a total pinned as a percent of a base states the base figure inline
       R87  a figure pinned as N percent of something reproduces from a golden value at that rate to the cent
-    Since: 2026-08-23 (task 20 adjudication) for R87; 2026-08-26 (pavelka) for R64.
-    Source: adjudication and the Agentic Rubric Quality Review.
+    Since: 2026-08-23 for R87; 2026-08-26 for R64.
+    Source: the Agentic Rubric Quality Review.
     Drift-notes: R87 was emitted as R31 by this check until 2026-09-04.
     """
     for num, text, weight in rows:
@@ -682,8 +682,8 @@ def check_stated_basis(rows, folder):
         if len(figs) < 2:
             emit("ERROR", f"C{num} [R64] pins a total as a percent of an UNSTATED base - the "
                           "Agentic Rubric Quality Review re-derives the base from the raw "
-                          "inputs and can assemble the wrong component subset (pavelka "
-                          "2026-08-26: netted one of three Q2 credit memos and called the "
+                          "inputs and can assemble the wrong component subset "
+                          "(2026-08-26: netted one of three Q2 credit memos and called the "
                           "correct 812.96 a [major] arithmetic error). State the base figure "
                           "inline, co-located with the pinned total per R43")
 
@@ -714,19 +714,19 @@ def check_stated_basis(rows, folder):
                 emit("ERROR", f"C{num} [R87] pins {tok} as {token} percent of something, but that rate "
                              f"over {near[0]:,.2f} gives {near[0] * rate / 100.0:,.4f} — the stated "
                              "basis and the deliverable's own rounding path differ by a cent, and a "
-                             "solver computing the basis directly is marked wrong (task 20 "
-                             "adjudication, 2026-08-23: 1,097.90 against a direct 1,097.89). State "
+                             "solver computing the basis directly is marked wrong "
+                             "(2026-08-23: 1,097.90 against a direct 1,097.89). State "
                              "the path the workbook takes, or accept both cents")
                 break
 
 
-# R32 (2026-08-23, task 20 adjudication): an exact count of the FIGURES on a summary page is
+# R32 (2026-08-23): an exact count of the FIGURES on a summary page is
 # a presentation choice the prompt never fixes, so pinning it fails a solver who puts eleven
 # or thirteen useful figures up front. A count of data ROWS meeting a condition is different:
 # that one falls out of the inputs and is fair to pin.
 _SUMMARY_COUNT_RE = re.compile(
     r"\bexactly (\d+) (?:of them|figures?|cells?|references?|numbers?)\b"
-    # R32 widened 2026-08-26 (delivery-zone-reset gate-2 reviewer): "8 actions in all
+    # R32 widened 2026-08-26: "8 actions in all
     # beside a cell counting them" was called overfitting the golden - the prompt asked
     # for a name and a date on everything that has to happen, never for eight things.
     # The count of an author-composed LIST (actions, steps, recommendations, notes) is
@@ -743,7 +743,7 @@ _SUMMARY_CTX_RE = re.compile(r"\bsummary\b|\bfront (?:page|tab)\b|\bopening\b|\b
 def _r91_carried_counts(rows):
     """A criterion points at the count cell rather than saying the deliverable 'carries N items' with the count standing in a cell.
 
-    Since: june-price-review run 2 (C24, 1/3).
+    Since: an oracle run (C24, 1/3).
     Source: the oracle.
     Drift-notes: numbered R32 in the monolith until 2026-09-04.
     """
@@ -751,8 +751,8 @@ def _r91_carried_counts(rows):
         if weight > 0 and _CARRIES_COUNT_RE.search(text) and re.search(r"count\s+stand|that count", text, re.I):
             emit("ERROR", f'C{num} [R91] says the deliverable "carries N items" and that the count '
                           "stands in a cell — the judge sometimes recounts the list rather than "
-                          "reading the cell and flakes on headers and note rows (june-price-review "
-                          "run 2, C24, 1/3 with the count cell quoted as not_observed). Point the "
+                          "reading the cell and flakes on headers and note rows (an oracle "
+                          "run, C24, 1/3 with the count cell quoted as not_observed). Point the "
                           "claim at the count cell: \"closes with its count, N, computed in a cell\"")
 
 
@@ -763,8 +763,8 @@ def check_presentation_counts(rows):
     Codes:
       R32  no exact count of figures or author-composed list items on a summary page
       R91  a criterion points at the count cell rather than saying 'carries N items' with the count standing in a cell
-    Since: R32 2026-08-23 (task 20 adjudication), widened 2026-08-26 (delivery-zone-reset); R91 june-price-review run 2.
-    Source: adjudication, the gate-2 reviewer and the oracle.
+    Since: R32 2026-08-23, widened 2026-08-26; R91 an oracle run.
+    Source: the oracle.
     Drift-notes: R91 was a carve-out twin (numbered R32 in the monolith), merged back 2026-09-11.
     """
     _r91_carried_counts(rows)     # [R91] the carve-out twin, merged back 2026-09-11
@@ -775,13 +775,13 @@ def check_presentation_counts(rows):
         if m and _SUMMARY_CTX_RE.search(text):
             n_ = next(g for g in m.groups() if g)
             emit("ERROR", f"C{num} [R32] pins exactly {n_} figures on the summary, a "
-                         "presentation count the prompt does not fix — a reviewer called this out "
-                         "on task 20 (2026-08-23): grade that each NAMED summary figure is formula "
+                         "presentation count the prompt does not fix — this was called out on an "
+                         "earlier task (2026-08-23): grade that each NAMED summary figure is formula "
                          "derived and let a solver carry more. A count of data rows meeting a "
                          "condition is fair to pin; a count of cells on a front page is not")
 
 
-# R65 (2026-08-26, tessendorf AutoEval oracle run): a positive stating a NEW value beside
+# R65 (2026-08-26, AutoEval oracle run): a positive stating a NEW value beside
 # the OLD value it replaces ("moves to 17.95 from 12.95") flaked 1/3 - the judge searched
 # the row key AS-260, landed on the Items row, which carries the sides and the decision but
 # NEITHER price (both live only on the drop-ship pricing row), and verdicted the criterion
@@ -804,12 +804,12 @@ def check_two_price_moves(rows):
         if m:
             emit("ERROR", f"C{num} [R65] states the move \"{m.group(0)}\" with both the new and the "
                           "superseded value - the judge lands on whichever sheet holds the row key "
-                          "and the old price may not be there (tessendorf AS-260 flaked 1/3 at "
+                          "and the old price may not be there (a task's AS-260 row flaked 1/3 at "
                           "0.9796, 2026-08-26, while the one-figure template passed 3/3). State the "
                           "new value alone beside the row key")
 
 
-# R57 (2026-08-24, chemical-lot-review oracle run 2): the negative on the pan tablet lot
+# R57 (2026-08-24, oracle run 2): the negative on the pan tablet lot
 # quoted its printed month "EXP 01/2027", and the judge's search for the fragment 01/2027
 # landed on 'Lot Detail'!O23 = '04/01/2027' - a Brekke flux lot seven rows over whose
 # full date EMBEDS the month token ("04/[01/2027]") - and fired the negative against the
@@ -823,7 +823,7 @@ _MONTH_FRAG_RE = re.compile(r"(?<!\d)(?<!\d/)(?:0[1-9]|1[0-2])/20\d{2}\b")
 _MONTH_ROW_ID_RE = re.compile(r"\b[A-Z]{1,3}-?\d{3,6}[A-Z]?\b")
 
 
-# R43 (2026-08-24, task 20 oracle run 6): R21 asks whether SOME sheet carries all of a
+# R43 (2026-08-24, oracle run 6): R21 asks whether SOME sheet carries all of a
 # criterion's figures. The judge does not choose that sheet. C23 pinned 2,032.54 and
 # 135,502.60; the scorecard carried both, the claim tab carried only the first, and the
 # judge landed on the claim tab and failed it 1/3. Every sheet that carries the pinned
@@ -853,8 +853,8 @@ def _sheets_carrying(folder):
                         # whole premise is that the judge's tools render raw stored values,
                         # so a bag carrying only "12,019.23" hides the "12019.23" the judge
                         # actually greps, and R43/R56 then report a co-location failure
-                        # against a sheet that really does carry the figure (open-order-
-                        # cleanup C21, 2026-08-24: Supplier Calls holds 44016, 04/27/2026,
+                        # against a sheet that really does carry the figure (one
+                        # criterion, 2026-08-24: Supplier Calls holds 44016, 04/27/2026,
                         # 09/04 and 12019.23 on one row and R56 could not see the last one).
                         bag.append(f"{v:.10g}")
                         bag.append(str(v))
@@ -866,7 +866,7 @@ def _sheets_carrying(folder):
 def check_figure_colocation(rows, folder):
     """Every sheet that carries a criterion's pinned money figure carries the rest of that criterion's figures too.
 
-    Since: 2026-08-24 (task 20 run 6, C23).
+    Since: 2026-08-24 (an oracle run, C23).
     Source: the oracle.
     """
     sheets = _sheets_carrying(folder)
@@ -887,13 +887,13 @@ def check_figure_colocation(rows, folder):
                 emit("ERROR", f"C{num} [R43] {title} carries {pinned} but not "
                              f"{', '.join(missing)} — the judge lands on the first sheet holding "
                              "the pinned figure and fails the criterion when the rest of the chain "
-                             "is on another tab (task 20 run 6: the claim tab had 2,032.54 and the "
+                             "is on another tab (an oracle run: the claim tab had 2,032.54 and the "
                              "scorecard had the 135,502.60 behind it). Put the supporting figure on "
                              "the same row, or state only the figures that sheet already carries")
                 break
 
 
-# R56 (2026-08-24, open-order-cleanup run 5): R43 makes every sheet that carries a pinned
+# R56 (2026-08-24, run 5): R43 makes every sheet that carries a pinned
 # MONEY figure carry the rest of the chain too, and a criterion pinning a date to an order
 # needs the same thing in tokens R43 cannot see. "September 4 is named as the date the answer
 # on order 44243 is required" failed 2 of 3 runs. Both halves are in the golden and neither is
@@ -919,7 +919,7 @@ _R56_KEY_RE = re.compile(r"\b\d{4,}\b|\b[A-Z]{2,}[0-9][\w-]*\b")
 def _r93_month_fragment_landing(rows, folder):
     """A negative quoting a month token (MM/YYYY) names an item or lot code on the row carrying the exact token.
 
-    Since: 2026-08-24 (chemical-lot-review run 2).
+    Since: 2026-08-24 (an oracle run).
     Source: the oracle, whose substring search lands on any date embedding the token.
     Drift-notes: numbered R57 in the monolith until 2026-09-04.
     """
@@ -955,7 +955,7 @@ def _r93_month_fragment_landing(rows, folder):
                 emit("ERROR", f"C{num} [R93] quotes the month token {frag}, and the golden stores "
                               f"{len(embedded)} full date(s) embedding it ({embedded[0]} ...) - the "
                               "judge's substring search lands on whichever row greps first and fires "
-                              "the negative against it (chemical-lot-review run 2: EXP 01/2027 landed "
+                              "the negative against it (an oracle run: EXP 01/2027 landed "
                               "on a flux lot's 04/01/2027, 1/3). Name an item or lot code sitting on "
                               "the row that carries the exact token")
 
@@ -967,7 +967,7 @@ def check_date_key_colocation(rows, folder):
     Codes:
       R56  a date pinned to a row key sits beside that key on some golden sheet, in the form the criterion writes it
       R93  a negative quoting a month token (MM/YYYY) names an item or lot code on the row carrying the exact token
-    Since: R56 2026-08-24 (open-order-cleanup run 5); R93 2026-08-24 (chemical-lot-review run 2).
+    Since: R56 2026-08-24 (an oracle run); R93 2026-08-24 (another oracle run).
     Source: the oracle.
     Drift-notes: R93 was a carve-out twin (numbered R57 in the monolith), merged back 2026-09-11.
     """
@@ -992,14 +992,14 @@ def check_date_key_colocation(rows, folder):
         else:
             emit("ERROR", f"C{num} [R56] pins {', '.join(dates)} to {', '.join(keys)} and no "
                          "sheet in the golden carries them together — the judge greps one "
-                         "anchor, reads that sheet and finds the other missing (open-order-"
-                         "cleanup run 5: the 44243 branch answer failed 2/3, the briefing "
+                         "anchor, reads that sheet and finds the other missing (an oracle "
+                         "run: the 44243 branch answer failed 2/3, the briefing "
                          "spelling September 4 without the order and the supplier call row "
                          "carrying the order without a date). Write both anchors in the form "
                          "one row already carries, as R43 does for money")
 
 
-# R66 (2026-08-26, kolterman-valve-advisory golden_solution_check): a criterion whose
+# R66 (2026-08-26, golden_solution_check): a criterion whose
 # SECOND figure is a count, landing on a row of the golden that states that count
 # differently. "2,318 affected units were invoiced to customers across 41 accounts" failed
 # 2 of 3 runs, and both failing runs quoted the same row back: Briefing row 9 carries the
@@ -1086,14 +1086,14 @@ def check_landing_row_counts(rows, folder):
                 emit("ERROR", f"C{num} [R66] {title} row {rnum} carries the pinned {pinned} and "
                               f"states \"{same[0]} {noun}\" against the criterion's {want} - a "
                               "judge that greps the figure lands on this row and reads the count "
-                              "back as a contradiction (kolterman C9 failed 2 of 3 oracle runs on "
+                              "back as a contradiction (a task's C9 failed 2 of 3 oracle runs on "
                               "\"40 accounts and the counter\" beside 2318). Fix the DELIVERABLE: "
                               "put the criterion's own count on the landing row, live off the rows "
                               "it counts, and align any prose note beside it")
                 return
 
 
-# R70 (2026-08-31, po-conformance-review golden_solution_check): a completeness criterion
+# R70 (2026-08-31, golden_solution_check): a completeness criterion
 # that pins a COUNT of rows ("all 72 purchase orders ... one row each") flaked 2 of 3
 # oracle runs when the 72 rows were spread over seven attribute schedules, one of which
 # grouped its eleven orders into five rows. The judge reads tables one at a time and
@@ -1128,13 +1128,13 @@ def check_docx_row_count_landing(rows, folder):
         emit("ERROR", f"C{num} [R70] pins all {want} rows, one per item, but no single table in the "
                       f"golden docx has {want} data rows (tables carry {sorted(set(counts))}). The "
                       "judge counts one table at a time and sums across tables unreliably, and a "
-                      "grouped table makes 'one row each' literally false: po-conformance-review "
-                      "C26 failed 2 of 3 oracle runs with 72 orders over seven schedules "
+                      "grouped table makes 'one row each' literally false: one criterion "
+                      "failed 2 of 3 oracle runs with 72 orders over seven schedules "
                       "(2026-08-31). Add one consolidated schedule with exactly that many rows and "
                       "keep every other schedule one row per item")
 
 
-# R48 (2026-08-24, task 20 oracle run 8): a criterion ASSERTS a figure as a PERCENTAGE
+# R48 (2026-08-24, oracle run 8): a criterion ASSERTS a figure as a PERCENTAGE
 # ("on time delivery ... is 97.1 percent") where the cell holds 0.971 under a percent
 # format. search_xlsx greps cached VALUES, so "97.1" is nowhere in the workbook and the
 # judge reports "[no matches for pattern '97.1' across 9 sheet(s)]" and fails the
@@ -1197,12 +1197,12 @@ def check_percent_anchors(rows, folder):
             emit("ERROR", f"C{num} [R48] asserts {lit} percent, but no cell holds {lit} and none of "
                          f"the prose carries it - the workbook holds {declit} under a percent format "
                          "and search_xlsx greps cached VALUES, so the judge reports no matches and "
-                         "fails the criterion (task 20 run 8: \"[no matches for pattern '97.1' "
+                         "fails the criterion (an oracle run: \"[no matches for pattern '97.1' "
                          "across 9 sheet(s)]\" against a scorecard that really does read 97.1%). "
                          f"Name the stored figure in the criterion too, as C9 does with 0.853")
 
 
-# R63 (2026-08-26, task 20 oracle run 10): a criterion that quotes a FORMULA REFERENCE names
+# R63 (2026-08-26, oracle run 10): a criterion that quotes a FORMULA REFERENCE names
 # a sheet the workbook does not have. The submitted C44 asked for "a direct reference like
 # =Parameters!<cell>" while the golden's tab is Params and the cell really holds =Params!C15,
 # and the judge came back "Position!E23 contains the hardcoded value 495000 instead of a
@@ -1236,13 +1236,13 @@ def check_named_sheet_exists(rows, folder):
             emit("ERROR", f"C{num} [R63] quotes the formula reference ={name}! but the golden carries "
                          f"no such sheet ({', '.join(sorted(sheets))}) - nothing in the workbook can "
                          "satisfy the criterion as written, and the judge reports the cell as hard "
-                         "coded because its value-grep never reaches a formula anyway (task 20 run "
-                         "10: \"Position!E23 contains the hardcoded value 495000 instead of a formula "
+                         "coded because its value-grep never reaches a formula anyway (an oracle "
+                         "run: \"Position!E23 contains the hardcoded value 495000 instead of a formula "
                          "direct reference like =Params!C15\", weight 5 lost 1/3). Name the tab as the "
                          "workbook spells it, or drop the formula token and anchor on the value")
 
 
-# R112 (2026-09-11, weldon-bridge-plan refinement round 2, Rubric Quality Review [major]
+# R112 (2026-09-11, Rubric Quality Review [major]
 # misaligned_or_unjustified_rigidity): "Criteria 2, 5, and 13 require specific tab names
 # ('Briefing', 'Bridge_Buy', 'ROP_SS_Reset') that appear only in the golden workbook.
 # instruction.md requires a front tab briefing and working content but does not specify tab
@@ -1261,7 +1261,7 @@ def check_golden_only_tab_name(rows, folder):
     """A criterion names a golden worksheet only when the prompt or an input mandates that name; a bare golden-only tab name in prose is schema imposition the Rubric Quality Review fails as unjustified rigidity.
 
     Since: 2026-09-11
-    Source: weldon-bridge-plan refinement round 2 (three [major] findings on 'Briefing',
+    Source: the Rubric Quality Review (three [major] findings on 'Briefing',
     'Bridge_Buy' and 'ROP_SS_Reset' named in C2, C5 and C13; four more rows carried them).
     Drift-notes: sibling of W12 (Sheet!Cell, 'the X column', 'under HEADER'); exempts names
     present in the prompt or any input text, and names under four characters."""
@@ -1288,7 +1288,7 @@ def check_golden_only_tab_name(rows, folder):
         for n in sorted(golden_only):
             if re.search(r"(?<![\w!'])" + re.escape(n) + r"(?![\w!])", text):
                 emit("ERROR", f"C{num} [R112] names the golden-only tab '{n}' - the Rubric Quality Review "
-                              "failed weldon-bridge-plan (2026-09-11) as misaligned_or_unjustified_rigidity "
+                              "failed a task (2026-09-11) as misaligned_or_unjustified_rigidity "
                               "on exactly this: 'require specific tab names that appear only in the golden "
                               "workbook; the instruction does not specify tab names'. Name what the tab "
                               "IS (the transition order, the reset, the front tab, the open order row) and "
@@ -1296,7 +1296,7 @@ def check_golden_only_tab_name(rows, folder):
                               "mandates it")
 
 
-# R59 (2026-08-25, hollenbach-allocation-plan AutoEval run 4): C30 stated "897 unit
+# R59 (2026-08-25, AutoEval run 4): C30 stated "897 unit
 # months" and the judge's own evidence quoted BOTH cells that hold it - 'Buying Ahead'!G32
 # (=SUM(C32:F32), the month-end positions added across the four months, on a row labelled
 # ALL) and 'Buying Ahead'!C40 (=SUM(C37:C39), the same quantity added across the three
@@ -1322,7 +1322,7 @@ _R59_AGG_RE = re.compile(r"^=\s*(SUM|SUMIFS|SUMPRODUCT|COUNTA?|COUNTIFS?)\s*\(",
 def check_figure_sheet_twins(rows, folder):
     """A figure a criterion states is totalled once per sheet, never twice by different aggregations on two total rows.
 
-    Since: 2026-08-25 (hollenbach-allocation-plan run 4, C30).
+    Since: 2026-08-25 (an oracle run, C30).
     Source: the oracle, unverifiable_from_deliverable while quoting both cells.
     """
     d = folder / "solution"
@@ -1372,7 +1372,7 @@ def check_figure_sheet_twins(rows, folder):
                     emit("ERROR", f"C{num} [R59] states {fig}, which '{sheet}' totals twice by "
                                   f"different arithmetic ({where}) - the judge quotes BOTH total "
                                   "rows and then verdicts unverifiable_from_deliverable, because "
-                                  "nothing in the criterion picks one (hollenbach C30, 2026-08-25: "
+                                  "nothing in the criterion picks one (a task's C30, 2026-08-25: "
                                   "897 unit months added once across the months and once across the "
                                   "groups). Naming the sheet cannot fix it when both twins are on "
                                   "that sheet - leave one of the two totals on the tab, or key the "
@@ -1380,7 +1380,7 @@ def check_figure_sheet_twins(rows, folder):
                     break
 
 
-# R62 (2026-08-26, oskaloosa-count-adjustment AutoEval run 6): C4 said the late receipts
+# R62 (2026-08-26, AutoEval run 6): C4 said the late receipts
 # "are added to the book quantity, 3,490.02", and the judge quoted the very row it needed -
 # Corrections row 39, TYPE late, EXTENDED 3490.02, with the reference numbers and the keying
 # date beside it - and then FAILED the criterion rather than verdicting it unverifiable. It
@@ -1395,7 +1395,7 @@ def check_figure_sheet_twins(rows, folder):
 # Narrow by construction, and probed before coding. It needs all three of: a direction phrase
 # in the criterion, a magnitude the golden holds with BOTH signs, and NO row holding that
 # magnitude carrying the direction verb in its own text. On the catalogue as it stands it
-# fires zero times, and on the pre-fix oskaloosa workbook it fires once, on C4 alone - not on
+# fires zero times, and on the pre-fix workbook it fires once, on C4 alone - not on
 # C5 or C6, whose sign twins sit on rows that did say "taken off". That separation is the
 # point: the repair is the WORKBOOK saying the direction on the row that holds the figure,
 # not a reworded criterion (the house rule that a criterion must use the cell's own words,
@@ -1454,7 +1454,7 @@ def check_direction_sign_twins(rows, folder):
                           f"that figure with both signs ({where}) and no row holding it says "
                           f"\"{head}\" in its own words - the judge lands on one of them, settles "
                           "the direction against the criterion and FAILS it rather than calling it "
-                          "unverifiable, which costs the weight (oskaloosa C4, 2026-08-26: 3,490.02 "
+                          "unverifiable, which costs the weight (one criterion, 2026-08-26: 3,490.02 "
                           "positive on Corrections with no side named, negative on Adjustment under "
                           "\"put on book\"). Say the direction on the row that holds the figure")
             break
@@ -1467,7 +1467,7 @@ _R103_ENUM_RE = re.compile(r"\b(?:each|every|all)\s+(?:of\s+the\s+)?(\d{1,4}|[a-
 def check_enumeration_on_prose_tab(rows, folder):
     """A positive enumerating five or more items on a prose tab has at least that many short cells there, one per item, for the judge to count.
 
-    R103 (2026-09-10, commission-review-q2 golden check 0/3 at 0.9792): C7 scored the
+    R103 (2026-09-10, golden check 0/3 at 0.9792): C7 scored the
     Representative Notes tab on naming "each of the 10 new account bonuses", and every one of
     the ten sat at the tail of a 900-character paragraph, one per representative. All three
     judges reported the tab "contains only general commentary" and failed the row: a
@@ -1513,7 +1513,7 @@ def check_enumeration_on_prose_tab(rows, folder):
             if named and long >= 3 and short < best:
                 emit("ERROR", f"C{num} [R103] enumerates {best} items on the {title} tab of {fname}, whose text is "
                               f"{long} prose cell(s) of 300+ characters with only {short} short cell(s) to count: "
-                              "commission-review-q2's C7 failed all three golden-check runs (2026-09-10) on ten "
+                              "one criterion failed all three golden-check runs (2026-09-10) on ten "
                               "bonuses named at the tails of six paragraphs, the judges reading 'only general "
                               "commentary'. Give the items a row each on that tab (a small table under the prose, "
                               "verdicts as formulas off the tab that computes them) or score the enumeration on the "
@@ -1521,7 +1521,7 @@ def check_enumeration_on_prose_tab(rows, folder):
                 break
 
 
-# R108 (2026-09-11, standby-generator-recommendation refinement, golden check 0.9825 x 3): a +1
+# R108 (2026-09-11, golden check 0.9825 x 3): a +1
 # row said "Findings are tied to the four provided files, the three Cummins data sheets and
 # Diesel_Retail_Price_History.xlsx, each cited where its figures are used", and the memo named
 # no input file anywhere; it said "the three sheets" and "the price history". The judge grepped
@@ -1552,10 +1552,10 @@ def _r108_golden_text(folder):
 def check_cited_file_named_in_golden(rows, folder):
     """A positive that promises a citation of an input file by name lands only on that file name in the golden's own text.
 
-    Since: 2026-09-11 (standby-generator-recommendation refinement, 0.9825 in all three runs).
+    Since: 2026-09-11 (0.9825 in all three runs).
     Source: the oracle (golden solution check).
     Drift-notes: keyed on a citation verb beside the file name; a row that merely names a file as
-    the source of a figure (dfl-freight-audit, 16 rows) is not a citation claim and stays quiet.
+    the source of a figure (one task, 16 rows) is not a citation claim and stays quiet.
     """
     d = folder / "inputs"
     inputs = {p.name for p in d.glob("*")} if d.is_dir() else set()
@@ -1576,12 +1576,12 @@ def check_cited_file_named_in_golden(rows, folder):
         if missing:
             emit("ERROR", f"C{num} [R108] promises the deliverable cites {', '.join(missing)} by name, and no "
                          "solution file carries that name in its text; the judge greps the file name where "
-                         "the figure is used and fails the row in every run (standby-generator-recommendation "
-                         "2026-09-11, 0.9825 x 3 on \"the three sheets\" and \"the price history\"). Name the "
+                         "the figure is used and fails the row in every run "
+                         "(2026-09-11, 0.9825 x 3 on \"the three sheets\" and \"the price history\"). Name the "
                          "file in the sentence that uses its figure, or drop the citation claim")
 
 
-# R120 (2026-09-11, packaging-consolidation golden_solution_check 1/3, rewards 1.0 / 0.9792 / 0.9792):
+# R120 (2026-09-11, golden_solution_check 1/3, rewards 1.0 / 0.9792 / 0.9792):
 # "The agreement items' current cost of $21,536.05 is stated on the first page" failed 2 of 3 with
 # the judge reporting the figure "on the 'Summary' tab (cell B19) ... but not on the first
 # page/tab of the workbook, which is 'Crossref'". The house idiom "first page" means the summary,
@@ -1600,7 +1600,7 @@ _R120_SUMMARY_TITLE_RE = re.compile(
 def check_first_page_is_first_sheet(rows, folder):
     """When a positive row says first page or front page, the workbook's first worksheet is that page.
 
-    Since: 2026-09-11 (packaging-consolidation golden_solution_check, 2/3 runs).
+    Since: 2026-09-11 (golden_solution_check, 2/3 runs).
     Source: the judge read 'first page' as the first worksheet and found the figure only on the sixth.
     """
     import openpyxl
@@ -1627,15 +1627,15 @@ def check_first_page_is_first_sheet(rows, folder):
         if pages and first not in pages:
             emit("ERROR", f"[R120] {path.name}: the rubric's first-page rows read the '{', '.join(sorted(pages))}' "
                           f"sheet, but the first worksheet is '{first}'. The judge reads 'first page' as the "
-                          "first worksheet and reported the figure absent from it (packaging-consolidation "
-                          "2026-09-11, 2/3). Move the summary to the first tab")
+                          "first worksheet and reported the figure absent from it "
+                          "(2026-09-11, 2/3). Move the summary to the first tab")
         elif not pages and not _R120_SUMMARY_TITLE_RE.search(first):
             emit("ERROR", f"[R120] {path.name}: the rubric says 'first page' and the first worksheet is "
                           f"'{first}', a reference tab. The judge reads 'first page' as the first worksheet "
-                          "(packaging-consolidation 2026-09-11, 2/3). Move the summary to the first tab")
+                          "(2026-09-11, 2/3). Move the summary to the first tab")
 
 
-# R123 (2026-09-12, standby-generator-recommendation refinement round 4, golden check 1.0 / 0.9825 /
+# R123 (2026-09-12, golden check 1.0 / 0.9825 /
 # 1.0): the memo wrote the alternator feature code as "B601 2" where the Cummins sheet writes
 # "B601-2". The judge searched the deliverable for the sheet's token, found nothing, fell back on
 # a text read of the PDF's alternator table and concluded B601-2 was a 600 V winding. An
@@ -1664,7 +1664,7 @@ def _r123_source_text(folder):
 def check_borrowed_identifier_exact_form(folder):
     """An identifier the golden borrows from an input (a feature code, a document number, a credit memo id) is written in the input's exact hyphenated form, never with a space or a dash variant in place of the hyphen.
 
-    Since: 2026-09-12 (standby-generator-recommendation refinement round 4, 0.9825 in one of three runs).
+    Since: 2026-09-12 (0.9825 in one of three runs).
     Source: the oracle (golden solution check), which grepped the sheet's "B601-2" against the memo's "B601 2".
     Drift-notes: only identifiers some input or the prompt carries in the hyphenated form are checked, and an
     input that itself writes the loose form too is left alone. Shapes: letters+digits-digits and letters-digits.
@@ -1687,11 +1687,11 @@ def check_borrowed_identifier_exact_form(folder):
     for got, want in hits[:6]:
         emit("ERROR", f"[R123] the golden writes \"{got}\" where an input writes \"{want}\"; the judge greps the "
                       "input's exact token, misses it, and reads the source table by hand instead "
-                      "(standby-generator-recommendation 2026-09-12: \"B601 2\" cost a +1 row in one of three "
+                      "(2026-09-12: \"B601 2\" cost a +1 row in one of three "
                       "runs). Write the identifier exactly as the input does")
 
 
-# R131 (2026-09-14, rempel-buyout-plan refinement round 2, golden check 0.98 on 3 of 3): C25
+# R131 (2026-09-14, golden check 0.98 on 3 of 3): C25
 # graded "the front page states that PM-4 3.3 buys a revise and resubmit line on the basis of
 # design and names the two lines it applies to". The Briefing stated it twice, at character 250
 # of a 900-character water closet paragraph and at character 420 of the mixing valve paragraph.
@@ -1738,7 +1738,7 @@ def _r131_golden_units(folder, front_only=False):
 def check_section_cite_past_read_head(rows, folder):
     """A positive criterion citing a numbered section ("Section 3.2", "PM-4 3.3") finds that cite in the golden at the head of a cell or inside a short cell; a cite that occurs only past the first 200 characters of 500-character prose cells is read by the judge as the sentence around the hit and the row fails.
 
-    Since: 2026-09-14 (rempel-buyout-plan refinement round 2, golden check 0.98 on 3 of 3 runs).
+    Since: 2026-09-14 (golden check 0.98 on 3 of 3 runs).
     Source: C25 graded the front page stating that PM-4 3.3 buys a revise and resubmit line on the basis of design and naming the two lines; the Briefing stated it at character 250 of a 900-character WC-1 paragraph and at character 420 of the MV-1 paragraph, and every judge quoted the WC-1 sentence and reported the rule unstated.
     Drift-notes: cites are "Section N.N" and "<CODE>-<n> N.N" in positive rows, read case-insensitively over every solution xlsx string cell and docx paragraph; a row naming the front, first, cover or opening page, tab or sheet is read on the first worksheet of each workbook only (R120: "first page" is the first worksheet to the judge); a cite the golden never carries is R130's ground and is skipped here; one hit inside the head window, or inside a cell shorter than the long floor, clears the cite.
     """
@@ -1770,16 +1770,16 @@ def check_section_cite_past_read_head(rows, folder):
             scope = "the front page" if front else "the golden"
             emit("ERROR", f"C{num} [R131] cites {cite}, which {scope} states only past the read head of long "
                           f"prose cells ({shown}): the judge reads the sentence around the first hit as the whole "
-                          "claim and fails the row (rempel-buyout-plan lost C25 3 of 3 oracle runs, 2026-09-14). "
+                          "claim and fails the row (a task lost C25 3 of 3 oracle runs, 2026-09-14). "
                           "State the cited rule in the opening sentence of that cell or in a short cell of its own")
 
 
-# R133 (2026-09-15, hx4180-fa26-spec-rev3 refinement round 3, adjudication): a pinned figure
-# that sits on a rounding tie. C11 pinned the size L body length shortfall at -0.725, which the
+# R133 (2026-09-15): a pinned figure that sits on a rounding tie.
+# C11 pinned the size L body length shortfall at -0.725, which the
 # golden reached as ROUND(projection - spec, 3) over a projection already ROUNDed to three
-# places (28.0245 -> 28.025); the adjudicator recomputed 29.75 x 0.942 - 28.75 = -0.7255, which
-# rounds to -0.726, and returned the row twice over: "a correct single-rounding solver is marked
-# wrong" and "sits on a rounding boundary". Only formulas built from cell references, numbers,
+# places (28.0245 -> 28.025); a recomputation from the inputs gave 29.75 x 0.942 - 28.75 = -0.7255,
+# which rounds to -0.726, and the row came back twice over: "a correct single-rounding solver is
+# marked wrong" and "sits on a rounding boundary". Only formulas built from cell references, numbers,
 # + - * / ^ and ROUND, ABS, MIN, MAX are evaluated; anything else is skipped rather than guessed.
 _R133_FIG_RE = re.compile(r"(?<![\d.,])-?\d+\.\d{2,}\b")
 _R133_TOK_RE = re.compile(
@@ -1949,9 +1949,9 @@ class _R133Book:
 def check_pinned_figure_rounding_tie(rows, folder):
     """A decimal figure a positive pins is the single rounding of its unrounded inputs, and that unrounded value does not sit on a tie at the places the figure is printed to.
 
-    Since: 2026-09-15 (hx4180-fa26-spec-rev3 refinement round 3, adjudication, both items).
-    Source: C11 pinned -0.725 on a cell that rounded a difference of cells already rounded to three places; the adjudicator recomputed 29.75 x (1 - 0.058) - 28.75 = -0.7255, rounded it once half away from zero to -0.726, and called the row a boundary a correct solver fails.
-    Drift-notes: reads positive rows' decimals of two or more places, both signs, against every solution xlsx cell whose cached value equals one and whose formula's outermost call is ROUND; the cell is evaluated in exact decimals as written (skipped unless that reproduces the cache) and again with every ROUND beneath it to the outer places or more left unrounded (a ROUND to fewer places is a unit the chain means, cents or whole counts, and stays: without that floor the 2026-09-15 probe over 47 folders fired on ri-conversion-review C23, a ratio over a one-place applications count); fires when the stripped value is a tie at the outer places or rounds to another figure. Cross-workbook references, ranges and every other function are skipped, so a pin reached through SUM or a lookup is not read.
+    Since: 2026-09-15 (both items).
+    Source: C11 pinned -0.725 on a cell that rounded a difference of cells already rounded to three places; a recomputation from the inputs gave 29.75 x (1 - 0.058) - 28.75 = -0.7255, rounded once half away from zero to -0.726, which makes the row a boundary a correct solver fails.
+    Drift-notes: reads positive rows' decimals of two or more places, both signs, against every solution xlsx cell whose cached value equals one and whose formula's outermost call is ROUND; the cell is evaluated in exact decimals as written (skipped unless that reproduces the cache) and again with every ROUND beneath it to the outer places or more left unrounded (a ROUND to fewer places is a unit the chain means, cents or whole counts, and stays: without that floor the 2026-09-15 probe over 47 folders fired on one task's C23, a ratio over a one-place applications count); fires when the stripped value is a tie at the outer places or rounds to another figure. Cross-workbook references, ranges and every other function are skipped, so a pin reached through SUM or a lookup is not read.
     """
     figs = {}
     for num, text, weight in rows:
@@ -2008,7 +2008,7 @@ def check_pinned_figure_rounding_tie(rows, folder):
                                f"rounding once from the unrounded inputs gives {single}, because the formula "
                                "rounds cells that are already rounded")
                         emit("ERROR", f"C{num} [R133] pins {fig}, which {ws.title}!{c.coordinate} reaches as "
-                                      f"{formula}: {why}. The adjudicator recomputes from the inputs and marks the "
-                                      "row as failing a correct solver (hx4180-fa26-spec-rev3, 2026-09-15: -0.725 "
+                                      f"{formula}: {why}. A recomputation from the inputs marks the "
+                                      "row as failing a correct solver (2026-09-15: -0.725 "
                                       "against 29.75 x 0.942 - 28.75 = -0.7255). Pin a figure the chain reaches "
                                       "exactly, or carry the chain unrounded so the golden shows the exact figure")

@@ -83,14 +83,15 @@ The house check is T1: a standalone file, never inside an input or either zip.
   source of real difficulty.
 - **Put a step of the answer in a metadata column.** A status, flag, base-period or
   effective-date column that most solvers skim is where difficulty hides cheaply, and it is
-  the kind of column real extracts carry anyway. The best task reviewed to date derives its
-  whole contract mechanism, a five-month reference lag, from a `preliminary` flag and the
-  revision cycle it implies.
+  the kind of column real extracts carry anyway. The strongest task built to date derives
+  its whole contract mechanism, a five-month reference lag, from a `preliminary` flag and
+  the revision cycle it implies.
 - **Do not introduce inconsistencies in core facts** such as the entity, date range,
   currency or jurisdiction. Conflicts are planted in the figures and the records, never in
   what the task is about.
-- **Keep worked examples inside the first ~25 data rows** of an input; the reviewer's
-  tooling reads inputs through a window of about 28 rows (`memory/rubric-coverage-and-completeness.md`).
+- **Keep worked examples inside the first ~25 data rows** of an input; automated reads of
+  an input workbook have been observed to cover only about 28 data rows
+  (`memory/rubric-coverage-and-completeness.md`).
 
 ## Packaging rules
 

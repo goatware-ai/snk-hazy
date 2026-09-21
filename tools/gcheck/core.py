@@ -11,14 +11,13 @@ The registry is what lets the same checks serve both entry points. Each check de
   rules   the generalized rules those codes map to in gate_families.PRIMARY
   needs   what it reads: prompt, rubric, inputs, solution, metadata, folder,
           and 'originality' for the build-time recycling and packet forensics (U1 U2, G2b),
-          which the gate supplies only with --originality, review always, the CLI directly
+          which the gate supplies only with --originality, and the CLI directly
   params  its positional signature, drawn from ("rows", "folder"); `folder` arrives as the
           run's TaskState (gcheck/state.py), a Path carrying every parse already made
 
-autoeval_check runs every check whose needs the task folder satisfies; review_check builds
-a task-shaped folder from the review packet and runs every check whose needs THAT folder
-satisfies, so a check that reads metadata.json skips itself in review
-rather than erroring on a file that never existed there.
+autoeval_check runs every check whose needs the task folder satisfies, so a check that
+reads metadata.json skips itself on a folder that has none rather than erroring on a file
+that never existed there.
 """
 import re
 import sys
@@ -88,7 +87,7 @@ def emit(level, msg):
     """Findings are binary: a check either proves a defect (ERROR) or does not exist.
 
     The advisory tier was removed 2026-08-24 (user). An advisory nobody must act on is
-    noise, and worse, it gets triaged away: rossville accepted five flake-class advisories
+    noise, and worse, it gets triaged away: one task accepted five flake-class advisories
     as risk and then flaked the oracle on one of the criteria they named. Every check
     that survives here traces to a platform failure the feedback logs record; a check
     that cannot is deleted rather than demoted.

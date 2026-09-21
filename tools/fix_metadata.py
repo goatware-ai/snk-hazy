@@ -2,7 +2,7 @@
 
     .venv/bin/python tools/fix_metadata.py <task-folder> [--check]
 
-Why this exists (2026-08-31, review 9b44f1db + the task 21 rejection): a package
+Why this exists (2026-08-31, a rejection): a package
 whose files share one docProps write instant, or ship python-docx's default
 description string, carries the batch-generation signature reviewers and the
 platform flag ("package-level provenance evidence of batch generation is a

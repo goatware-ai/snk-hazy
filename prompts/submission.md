@@ -55,8 +55,8 @@ Record the domain, the occupation title and the code in `metadata.json`.
 6. `docs/submission/platform/style-guide-llm-tells.md`: on demand, when A10 fires or a
    sentence reads generated
 
-Where a workflow page or an inherited capture disagrees with those two platform documents, the
-form wins, then the guidelines.
+Where a workflow page or a capture disagrees with those two platform documents, the form
+wins, then the guidelines.
 
 ## Objective
 
@@ -73,9 +73,6 @@ Evaluations and Submit**. The three "Checks (optional)" panels (Task Instruction
 Task Rubric) are advisory and state that they do not submit or block anything, so a clean panel
 proves nothing. What blocks is the fourteen-box **Before You Submit** checklist: every box must be
 checked to submit, so every box must be true of the package before it is.
-`docs/submission/platform/task-lifecycle.md` describes a post-submission eval, human review and
-adjudication stack inherited from another project and unconfirmed for Hazy; build to its
-domain-agnostic parts, never rely on its specifics.
 
 ## Hard constraints (any miss is a send-back)
 
@@ -129,13 +126,13 @@ domain-agnostic parts, never rely on its specifics.
   balance re-derives from the registers date-filtered (G22): pick the cutoff first and clamp
   record dates to it.
 - A deliverable date the prompt gives ("I need it ...") and the golden's Date line fall at least 21
-  days after the build, or the prompt gives no due date (P8): review runs weeks after the build,
-  and a deadline already past reads as an impossible timeline.
+  days after the build, or the prompt gives no due date (P8): the package is read weeks after
+  the build, and a deadline already past reads as an impossible timeline.
 - **No answer leakage**: inputs never carry the solved output, pre-computed results the task asks
   for, or meta residue (L1, L2, L3, L4), including hidden tabs, hidden or filtered rows and columns,
   comments, tracked changes, document properties and file names. Remove any executive summary, key
   finding, total, recommendation or conclusion that shortcuts the required analysis. No project or
-  evaluation reference anywhere in any shipped file's content, name or metadata, and neither
+  evaluation reference anywhere in any shipped file's content, name or metadata, and no
   project codename appears in any shipped file (N1). A tell found and fixed while building goes in
   a standalone tell log, never inside an input or either zip (T1).
 - **Package provenance is a stop, not a cleanup:** batch generator strings, one shared write
@@ -155,8 +152,8 @@ domain-agnostic parts, never rely on its specifics.
   on live formulas with a cached value in every formula cell (A9, A17), output names matching the
   prompt exactly, every file opening cleanly (A16). Summary counts and conditional sums are
   COUNTIF/COUNTIFS/SUMIFS, dot products SUMPRODUCT(range,range) (R96).
-- It survives the reviewer's literal read against the inputs and the prompt before the rubric is
-  drafted (G8, G9, G10, G22; `docs/submission/workflows/04-golden-solution.md`, "The reviewer's
+- It survives the literal read against the inputs and the prompt before the rubric is
+  drafted (G8, G9, G10, G22; `docs/submission/workflows/04-golden-solution.md`, "The literal
   read"): every cited identifier exists in a shipped input, no action is dated before the
   document's own date, a signed document is carried with its signature line, and every dated
   claim is written in an input or derived by a stated rule.
@@ -211,7 +208,7 @@ domain-agnostic parts, never rely on its specifics.
   count row plus separate spot checks; negatives put the deliverable in the actor's seat ("The
   workbook wrongly books ...", R111); no golden-only tab name in any criterion, name what the tab
   is (R112).
-- **The rubric must fail the golden's own defects:** pin the facts a reviewer verifies (each
+- **The rubric must fail the golden's own defects:** pin the facts the literal read verifies (each
   cited identifier, the document's date, the signature line, the closed status of every policy
   class), so an error in the golden loses points under its own rubric.
 
@@ -231,8 +228,8 @@ domain-agnostic parts, never rely on its specifics.
   (Excel, Photoshop, DaVinci, SolidWorks, LabVIEW).
 - No spelling or grammar errors anywhere, no em dashes anywhere (A6).
 - **LLM authorship is the highest-severity gate:** the prompt is human-authored, and inputs and
-  golden read as human work (A10; mean score under 3.5 is NEEDS_REVISION, one HIGH tell is a
-  return without review, two MEDIUMs in one file compound to a HIGH).
+  golden read as human work (A10; one HIGH tell is a return without full review, and two
+  MEDIUMs in one file compound to a HIGH).
 - **The task is unique** (U1, U2). The platform publishes no map of accepted asks for this
   project, so uniqueness is checked against this portfolio: test the candidate's one-line sentence
   of what the solver actually does against every prompt already in `submissions/`, `accepted/`,
@@ -302,11 +299,11 @@ walkthroughs, no status commentary.
 4. Verify, quietly. Walk `docs/submission/workflows/07-pre-submission-audit.md` row by row
    against what you built and fix every failing gate, with particular attention to the rows
    with no coded check (natural voice, authentic files, frontier resistance, the rubric
-   alignment rows). Do the reviewer's read of the golden (Golden solution, above) before the
+   alignment rows). Do the literal read of the golden (Golden solution, above) before the
    rubric is final. Score the golden against the rubric criterion by criterion and fix whichever
    side is wrong if it lands under ~100. Write `verify_golden.py` from
    `tools/templates/verify_golden.py`: it reads only `inputs/`, reproduces every figure the golden
-   states, and lists every other reading a reviewer could take (rounding at each step, band
+   states, and lists every other reading the figures admit (rounding at each step, band
    boundaries, tolerances) with the phrase the golden uses to settle it, and the golden's method
    text states each of those phrases (G43). Write `clause-map.md` last, from the final prompt, golden
    and rubric (R134). Then run the Package sequence.

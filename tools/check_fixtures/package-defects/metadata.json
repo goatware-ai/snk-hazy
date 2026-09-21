@@ -1,0 +1,21 @@
+{
+  "task_name": "freight-audit",
+  "taskboard_uid": "04894e01-37a8-49ee-8cd4-7cd563ad8404",
+  "domain": "Management",
+  "onet_occupation": {
+    "code": "11-3071.00",
+    "title": "Transportation, Storage, and Distribution Managers"
+  },
+  "input_file_count": 7,
+  "tools": [
+    "Excel",
+    "Adobe Acrobat"
+  ],
+  "time_read_minutes": 25,
+  "time_files_minutes": 85,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 40,
+  "total_time_hours": 6.5,
+  "built_with": "claude-opus-5",
+  "build_session": "27317848"
+}

@@ -34,11 +34,6 @@ python3 .claude/skills/fetch-status/fetch_status.py
 
 Run it from the hazy repo root (`/Users/aladdin/projects/snk/hazy`). If invoked elsewhere, use the absolute path: the script resolves history, `submission-list.md`, `submissions/`, `drafts/` and `archived/` relative to its own location, so it works from any cwd.
 
-> **Refinery node not configured.** The production node is set and verified against the
-> platform (`Hazy_Task_Creation`). Hazy has no Refinery node configured yet, so the
-> refinement chart and `refinement-list.md` are skipped on every run. Set
-> `REFINE_PROJECT_ID` in `fetch_status.py` (and below) if and when one is assigned.
-
 The script does everything: calls `stb submissions list -p "cda2e943-8524-45f0-a966-469903337102"`, tallies the Assignment State column, diffs against the last snapshot, appends a new snapshot to `history.jsonl` in this directory, reconciles `submission-list.md` (see below), and prints the report. All timestamps it prints or writes are US Eastern (EST/EDT, follows DST).
 
 Add `--no-apply` to see what it would do to `submission-list.md` and the filesystem without doing it.
@@ -74,57 +69,10 @@ Payment lags status, so the useful number is not how many are pending overall bu
 A payment change with no state change appears in **Movement since then** prefixed `$`:
 
 ```
-    $ 33 semrad-date-recovery: payment PENDING to PAYOUT_SUBMITTED
+    $ 33 date-recovery: payment PENDING to PAYOUT_SUBMITTED
 ```
 
 Snapshots written before payment was tracked have no such field, and the script treats that as *no baseline* rather than as zero, so the first run after this change shows no deltas instead of a full-count jump.
-
-Refinement tasks live on their own project node (`REFINE_PROJECT_ID`, unset on this desk) and, once it is set, get their own chart and their own list file:
-
-```
-  Refinements (Hazy-Refinement project)
-  Review pending       ████████████████████████   6   .
-  Evaluation pending   ████████████████           4   .
-  Needs revision       ████                       1   .
-  Offered              ████                       1   .
-  --------------------------------------------------------
-  Total                                          12   .
-```
-
-They are submissions on that node, so they carry the same states as ordinary submissions and are charted the same way.
-
-**`refinement-list.md`** at the repo root is **one table**, not one per status — a refinement is addressed by its UID everywhere (`refinements/<uid>/`, and both `/refine-task` and `/revise-refinement` take the UID), so the UID leads and the status is a cell again:
-
-```
-| Task UID | Task name | Status | Updated | Note |
-|----------|-----------|--------|---------|------|
-| a784d07d-... | inbound-consolidation-plan | OFFERED | 2026-09-11 08:59 EDT | inbound-consolidation-plan |
-| 0206a5c5-... | skylark-brookstone-proposal | REVIEW_PENDING | 2026-09-11 08:59 EDT | - |
-```
-
-Rows are grouped in the `STATUSES` order, then by UID inside each status.
-
-**`Note` is the original task's name when the refinement is of one of ours**, resolved from the refinement's `origin_submission_id` against `submission-list.md`. A `-` means it refines another contributor's submission — which is most of them, so the column is really the "is this my own task" marker. The report ends with the count: `5 of 13 refine one of our own submissions.`
-
-`Task name` comes from `refinements/<uid>/metadata.json`, so a refinement the platform lists but nobody has fetched appears as a row and is reported under **Not fetched yet** with the `/refine-task <uid>` that would fetch it. A row the platform stops listing is reported but **left alone** — refinements have no archive automation, unlike submissions.
-
-If you hold review assignments, a second chart follows for them, from `stb reviews list -p <project>`:
-
-```
-  Review assignments (other contributors' tasks, assigned to me)
-  To review            ████████████████████████   5   .
-  (payment pending)                               5
-```
-
-Two states have been seen live: **`OFFERED`** (offered, not yet taken) and **`REVIEW_PENDING`**, labelled *To review*, meaning the assignment is yours and the review is not submitted. The full set is not documented, so any other state the platform returns is charted under its own name rather than being dropped or guessed at. `(payment pending)` counts assignments whose Payment Status is still `PENDING`.
-
-**`REVIEW_PENDING` means opposite things in the two charts.** In the submissions chart it is your task sitting with someone else's reviewer; in the review chart it is someone else's task sitting with you. That is why the labels differ.
-
-A reviews failure never takes the report down: if `stb reviews list` errors or you have no reviewer access, the section is simply absent.
-
-The four states that matter day to day lead — **Accepted, Review pending, Evaluation pending, Needs revision** — followed by any of `OFFERED`, `REJECTED`, `SKIPPED` that actually hold a task, so the bars always reconcile with the total. A state the script does not recognise is listed separately under "Unrecognised states" rather than charted.
-
-Deltas are against the previous recorded run, not a fixed window. If the last check was three days ago, that is the comparison, and the report says so. On the first ever run there is no baseline, so no deltas are shown.
 
 ## submission-list.md structure
 
@@ -132,7 +80,7 @@ Deltas are against the previous recorded run, not a fixed window. If the last ch
 
 Every table carries **Seq | Task name | Taskboard UID | Updated | Model**, where Model is the model that built the task (`metadata.json`'s `built_with`; for an accepted or rejected task the folder is gone, so the value persists in the table and is recovered with `tools/build_model.py attribute` if it is ever lost).
 
-**`NEEDS_REVISION` and `REJECTED` alone add a Note column**, since each is a state where something extra has to be written down: the next action for `NEEDS_REVISION`, and for `REJECTED` why the UID vanished plus its last known payment status. A row that had reached `ACCEPTED` before vanishing did not fail — the platform took it into the refinement pipeline, and it still pays out — so its Note reads `Payout submitted; refinement pipeline`. The payment status is recovered from the prior snapshot, since the vanished UID can no longer be queried directly.
+**`NEEDS_REVISION` and `REJECTED` alone add a Note column**, since each is a state where something extra has to be written down: the next action for `NEEDS_REVISION`, and for `REJECTED` why the UID vanished plus its last known payment status. A row that had reached `ACCEPTED` before vanishing did not fail — it left the board having already been accepted, and it still pays out — so its Note reads `Payout submitted; left the board after acceptance`. The payment status is recovered from the prior snapshot, since the vanished UID can no longer be queried directly.
 
 ## The three gates, and why REVIEW_PENDING is ambiguous
 
@@ -161,11 +109,11 @@ Any row whose section disagrees with what the platform reports means the platfor
 
 Two of these are more than a bookkeeping change. A move landing on `NEEDS_REVISION` or `REJECTED` prints a reminder to record the findings and the pending platform actions in that task's `feedback-log.md`; the table holds the status only.
 
-### A UID that vanishes is rejected and archived — or routed to the refinement pipeline
+### A UID that vanishes is rejected and archived
 
-A submission the platform stops listing has left `stb submissions list` for one of two reasons, and vanishing alone cannot tell them apart. The platform's own admin note on some vanished-after-acceptance tasks reads "This task has been sent to the refinement pipeline", not a rejection, and such a task can still pay out (discovered 2026-09-11, after the plain reject-and-archive path destroyed real, paid work by reducing it to `prompt.md`). So the script uses the row's prior status to route:
+A submission the platform stops listing has left `stb submissions list` for one of two reasons, and vanishing alone cannot tell them apart. A vanished-after-acceptance task is not a rejection and can still pay out (after the plain reject-and-archive path destroyed real, paid work by reducing it to `prompt.md`). So the script uses the row's prior status to route:
 
-- **The row had already reached `ACCEPTED`**: it went to the refinement pipeline rather than failing, so its Note records that and its last known payment status. It is archived like any other vanished UID.
+- **The row had already reached `ACCEPTED`**: it left the board after acceptance rather than failing, so its Note records that and its last known payment status. It is archived like any other vanished UID.
 - **The row never reached `ACCEPTED`**: a genuine rejection. The row moves to `REJECTED`, stamps Updated, then `submissions/{seq}-{task-name}/` is reduced to just `prompt.md` under `archived/{seq}-{task-name}/`, deleting the rest of the folder (the rubric CSV, zips, metadata.json, feedback-log.md). Reported under **Rejected and archived**.
 
 Both paths run every time and are idempotent — a row already in its target status whose move or archive didn't finish on a prior run gets the same attempt again. `--no-apply` lists what each path would do instead of doing it. If neither an `accepted/` zip, a `submissions/` folder, nor (for the reject path) a `prompt.md` can be found, the script reports the row under **Needs attention** rather than guessing.

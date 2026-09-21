@@ -1,7 +1,7 @@
 """Parse-once state for one gate run: the task folder plus every file it has already opened.
 
 Before 2026-09-11 each check opened the workbooks it needed itself, so one gate run on
-submissions/22-frankfort-stock-recovery opened workbooks 153 times (the golden 73 times).
+a single task folder opened workbooks 153 times (the golden 73 times).
 `TaskState` is the task folder (it IS a `pathlib.Path`, so every check keeps reading
 `folder / "solution"`, `folder.glob(...)` and `p.relative_to(folder)` unchanged) carrying
 lazy, memoised parses:

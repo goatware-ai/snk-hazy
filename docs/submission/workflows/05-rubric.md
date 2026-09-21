@@ -117,13 +117,12 @@ Good  [+2] The workbook states total damage revenue as $15,170.
   A rubric whose weight sits in presentation does not distinguish a correct deliverable
   from a plausible one.
 - **A rubric that would pass the golden's own errors is the rejection that survives a
-  0-error gate.** Pin the facts a reviewer verifies: each cited identifier, the
+  0-error gate.** Pin the facts the literal read verifies: each cited identifier, the
   deliverable's date, the signature line, the closed status of every policy class, the
   partial-period cost, the successor for a departing asset. Then ask of every row: if the
-  golden had this wrong, would the row fail it? history:
-  `../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`.
+  golden had this wrong, would the row fail it?
 - **Every prompt clause and every golden action row maps to a criterion** (R4, R13,
-  R101, R102); a reviewer builds that map before reading anything else.
+  R101, R102); build that map before reading anything else.
 
 ## Final screen before moving on
 
@@ -139,7 +138,7 @@ Good  [+2] The workbook states total damage revenue as $15,170.
 - [ ] File-name criterion present with the exact basename (R83)
 - [ ] **The last row is "Overall formatting and style of the deliverable"**
 - [ ] Golden solution scores ~100
-- [ ] Each fact the reviewer's read verified (`04-golden-solution.md`) has a row that would
+- [ ] Each fact the literal read verified (`04-golden-solution.md`) has a row that would
       fail if the golden had it wrong
 
 Platform note: the in-form Task Rubric Checks are advisory and block nothing

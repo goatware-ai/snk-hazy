@@ -8,7 +8,7 @@ Prompt-quality checks, in one place.
 Prompt rules had been scattered: P1 sat inline in the middle of `check_rubric()` in
 autoeval_check.py, the missing-file sweep in audit_task.py, prompt recycling in
 originality_check.py (which the gate never calls), and nothing at all covered the two
-platform checks that failed frankfort-stock-recovery on 2026-08-31. This module is the
+platform checks that failed a task on 2026-08-31. This module is the
 one home for the rules that read prompt.md, so a prompt finding lands beside its siblings
 instead of in whichever file grew last.
 
@@ -33,7 +33,7 @@ originality_check.py.
 
 P1 and P2 are a BAND on the same dial and that is why they sit together. Naming no input
 fails the platform's "Prompt input files reference check"; glossing nearly every input
-fails its "Prompt human voice check". frankfort-stock-recovery failed BOTH in one
+fails its "Prompt human voice check". One task failed BOTH in one
 afternoon, in that order, because the fix for the second overshot into the first.
 
 Generated 2026-09-04 from autoeval_check.py; every check body is verbatim.
@@ -48,9 +48,9 @@ from ..core import check, emit, recommend, REPORT, OPTIONS
 FILE_RE = r"[\w-]+\.(?:xlsx|csv|docx|pdf|pptx|json|xml|md)"
 
 # P1: the naming cues that make a filename read as THE OUTPUT rather than a prior file.
-# "One workbook back: X.xlsx" FAILed the platform's own output-filename check on
-# yearend-deadstock-plan (2026-08-19) because the elliptical colon parsed as a reference
-# to an existing workbook, so a bare mention never counts.
+# "One workbook back: X.xlsx" FAILed the platform's own output-filename check
+# (2026-08-19) because the elliptical colon parsed as a reference to an existing
+# workbook, so a bare mention never counts.
 NAME_CUE_RE = re.compile(
     r"sav\w{0,4}\s+(it\s+|the\s+\w+\s+)?as\b|nam\w+\b|call\w*\s+(it|the\s+file)"
     r"|file\s*name|under\s+the\s+name|titled", re.I)
@@ -66,7 +66,7 @@ CREATION_CUE_RE = re.compile(
 CATALOGUE_RE = re.compile(rf"\b(?:is|are|being)\s+(?:in\s+)?({FILE_RE})\b", re.I)
 
 # Calibrated on the one labelled platform FAIL and the 13 prompts that have not failed
-# this check. frankfort-stock-recovery as submitted: 12 definitions over 15 inputs = 0.80.
+# this check. The failing prompt as submitted: 12 definitions over 15 inputs = 0.80.
 # The rest of the catalogue: 0 to 6 definitions, ratio 0.60 and below, every one of them
 # naming 100% of its inputs. So the SHARE OF INPUTS NAMED is NOT the signal and a rule
 # built on it would fire on all thirteen - the signal is the definition construction.
@@ -100,7 +100,7 @@ def _findings(folder):
                             f"prompt mentions {p.name} but with no output-naming cue (saved as / "
                             "named / call it / file name) in the 80 chars before it - an elliptical "
                             "construction reads as a PRIOR file, not the deliverable "
-                            "(yearend-deadstock-plan 2026-08-19: 'One workbook back: X.xlsx' FAILed)"))
+                            "(2026-08-19: 'One workbook back: X.xlsx' FAILed)"))
 
     # ---- P2 and P3: the band ----------------------------------------------------------
     if ind.is_dir():
@@ -112,7 +112,7 @@ def _findings(folder):
                         "'Prompt input files reference check' FAILs a prompt that points only at "
                         "'the folder', since the uploaded archive's own filename does not count "
                         "and the deliverable is an output, not a source "
-                        "(frankfort-stock-recovery, 2026-08-31). Name the source whose precedence "
+                        "(2026-08-31). Name the source whose precedence "
                         "or governance changes the answer"))
         defined = sorted({m.group(1) for m in CATALOGUE_RE.finditer(text)} & inputs)
         ratio = len(defined) / len(inputs) if inputs else 0
@@ -123,7 +123,7 @@ def _findings(folder):
                         "the file holds. The platform's 'Prompt human voice check' FAILs this as a "
                         "STRONG structural tell, 'nearly every referenced file is paired with an "
                         "explanation of what it contains', and stage 4 names input cataloguing a "
-                        "prompt-verbosity tell (frankfort-stock-recovery, 2026-08-31, 12 of 15). "
+                        "prompt-verbosity tell (2026-08-31, 12 of 15). "
                         f"Definitions: {', '.join(defined[:4])}"
                         f"{'...' if len(defined) > 4 else ''}. Keep the ones whose precedence or "
                         "governance changes the answer and let the rest of the folder speak for "
@@ -152,20 +152,20 @@ def main(argv):
     return rc
 
 
-# P2 (2026-08-31, june-price-review pre-submission): the platform's Prompt human voice
+# P2 (2026-08-31, pre-submission): the platform's Prompt human voice
 # check FAILed a prompt it called "notably natural" on one structural rule - "nearly every
 # named file receives an individual content or purpose gloss", which it scores as a STRONG
 # tell whatever the surrounding voice. The glossed forms are mechanical: "<what it is> is
 # <file>", "<file> is/holds/carries <what it is>", and "<what it is> (<file>)". The
-# reviewer rule already in memory (weldon, 2026-08-17) says name every input file, woven
+# desk rule already in memory (2026-08-17) says name every input file, woven
 # into the narrative, with no purpose clause; the platform check adds the threshold:
 # gloss only the few distinctions that are genuinely unclear and let the names speak.
 _P2_FILE_RE = re.compile(r"[\w-]+\.(?:xlsx|docx|csv|pdf|pptx)\b")
 
 
-# 2026-09-10, harlow-route-rebalancing-proposal (a Refinery task): the platform FAILed
-# "harlow_visit_log.csv. It contains a row for every visit..." / "harlow_account_roster.csv
-# and includes the route assignment..." / "harlow_route_standards.docx. It defines..." as
+# 2026-09-10: the platform FAILed
+# "visit_log.csv. It contains a row for every visit..." / "account_roster.csv
+# and includes the route assignment..." / "route_standards.docx. It defines..." as
 # formulaic per-file glosses, and this check stayed silent: the before-window of 12 chars
 # ended in "the file " and the after-window never looked past the sentence break. Both
 # windows now reach the next sentence's opener.
@@ -178,23 +178,22 @@ _P2_AFTER_RE = re.compile(
     r"|[.;:]\s+(?:It|This|That|Which)\s+(?:" + _P2_GLOSS_VERBS + r")\b)")
 
 
-# P4 - PROMPT FRAME (2026-09-02, open-order-cleanup REJECTION). The task was rejected on
+# P4 - PROMPT FRAME (2026-09-02, a REJECTION). The task was rejected on
 # prompt quality alone: "the task itself, input files, golden solution, and rubric are
 # otherwise strong, but the prompt does not explicitly establish that the work is U.S.-based
 # and does not clearly frame the analyst's professional role or assumed purchasing expertise
 # level. Add a brief opening that identifies the requester/analyst as U.S.-based and states
 # the expected procurement or purchasing experience." Both halves sit in the project
-# guidelines (Geranium's project-guidelines-v5.1.md, deleted in the Hazy port: a workflow
-# "in the United States"; no job outside
-# the US), and a sweep found no prompt in this catalogue establishing either, so this is a
+# guidelines (a workflow "in the United States"; no job outside the US), and a sweep
+# found no prompt in this catalogue establishing either, so this is a
 # portfolio-wide exposure rather than one task's slip.
 #
-# Three parts, all read out of the prompt's OPENING (the reviewer asked for "a brief
+# Three parts, all read out of the prompt's OPENING (the rejection asked for "a brief
 # opening", and a state named four paragraphs down does not frame anything):
 #   P4a  the work is placed in the US - the state named, or the country said plainly. A town
-#        name alone does not carry it; a reviewer is not required to know where Kewanee is.
+#        name alone does not carry it; a reader is not required to know where Kewanee is.
 #   P4b  the requester says what they do. "my desk" does NOT count: the rejected prompt
-#        carried it and the reviewer still found no role framed.
+#        carried it and the finding still named no role framed.
 #   P4c  the prompt says what the reader is expected to already know (the purchasing or
 #        procurement experience assumed).
 # And the repair must not swing into the guidelines' own banned example, "You are a financial
@@ -237,10 +236,10 @@ _P4_STATE_ABBR_RE = re.compile(r",\s(?:" + _P4_STATE_ABBR + r")\b")
 
 
 # The requester's own role. "my desk", "my folder", "my inbox" are deliberately absent: they
-# name a place work lands, not a job, and the rejected prompt proved a reviewer reads them
+# name a place work lands, not a job, and the rejected prompt proved a reader reads them
 # that way too.
-# Hazy port, 2026-09-21 (docs/RULE-DELTAS.md D1). P4 and P6 used to read expert context
-# through a Wholesale Trade lexicon - purchasing, buying, procurement, distribution,
+# Hazy port, 2026-09-21. P4 and P6 used to read expert context
+# through a narrow trade lexicon - purchasing, buying, procurement, distribution,
 # wholesale, inventory, freight. Hazy spans 13 O*NET job families and 64 occupations, so
 # that lexicon misses almost every prompt this desk will now write: a phlebotomist's years
 # on the bench, a paralegal's docket, a surveyor's fieldwork. One shared vocabulary covers
@@ -299,22 +298,22 @@ _P4_EXPERIENCE_RE = re.compile(
     r"|\bexperience (?:in|with|as|around) (?:" + _DOMAIN_WORDS + r")\b"
     r"|\bsomeone who(?:'s| has| is)\b[^.\n]{0,60}\b(?:" + _DOMAIN_WORDS + r")\b"
     # credential forms, which carry the expert frame in most of Hazy's licensed
-    # occupations the way "years of purchasing" carried it in Wholesale Trade
+    # occupations the way "years of purchasing" carries it for a buying role
     r"|\b(?:board[- ]certified|licensed|registered|credentialed|chartered|"
     r"certified|accredited)\b[^.\n]{0,40}"
     r"|\b(?:RN|LPN|CNA|EMT|NP|PA|MD|DO|PhD|PE|RPh|CPA|JD)\b"
-    # woven forms (lift-truck-fleet-plan rejection, 2026-09-05): the experience stated as the
+    # woven forms (a rejection, 2026-09-05): the experience stated as the
     # reason for the handoff, addressed to the reader, rather than as a gate on "whoever picks
     # this up" - "you have a few years of distribution operations behind you"
     r"|\byou (?:have|know|can read)\b[^.\n]{0,60}\b(?:years|" + _DOMAIN_WORDS + r")\b",
     re.I)
 
 
-# P6 - the P4 frame delivered as a SELF-INTRODUCTION TO A COWORKER (lift-truck-fleet-plan,
-# REJECTED at first human review, 2026-09-05). The prompt opened "I run the warehouse and the
-# pipe yard for Ledford Pipe & Supply, a pipe, valve and fitting wholesaler in Chattanooga,
-# Tennessee ... Whoever picks this up should have a few years of distribution operations
-# behind them." The reviewer: "Why would you say this to someone who works with you at the
+# P6 - the P4 frame delivered as a SELF-INTRODUCTION TO A COWORKER (REJECTED, 2026-09-05).
+# The prompt opened by introducing the company, its trade and its town: "I run the warehouse
+# and the pipe yard for <Company>, a pipe, valve and fitting wholesaler in <Town>,
+# <State> ... Whoever picks this up should have a few years of distribution operations
+# behind them." The finding: "Why would you say this to someone who works with you at the
 # same company? They are your coworker. They know what the company is and what you do...
 # Remove the entire first paragraph which contains no useful info and sounds LLM generated.
 # If that info is needed for the LLM then include it, naturally, in the 'conversation'
@@ -372,7 +371,7 @@ def check_prompt_role_and_locale(folder):
                        "to bring")
     if missing:
         emit("ERROR", "[P4] prompt.md's opening does not establish " + "; ".join(missing) +
-                      " - open-order-cleanup was REJECTED on this alone (2026-09-02) with its "
+                      " - a task was REJECTED on this alone (2026-09-02) with its "
                       "inputs, golden and rubric all called strong. Add a brief opening in the "
                       "requester's own voice, inside the first ~900 characters")
     if _P4_PERSONA_RE.search(text):
@@ -392,7 +391,7 @@ def check_prompt_self_introduction(folder):
     m = _P6_SELF_INTRO_RE.search(text)
     if m:
         emit("ERROR", f'[P6] prompt.md introduces the company to a coworker: "{m.group(0)[:90]}..." - '
-                      "lift-truck-fleet-plan was REJECTED at first human review (2026-09-05) on this "
+                      "a task was REJECTED (2026-09-05) on this "
                       "paragraph (\"They are your coworker. They know what the company is and what you "
                       "do ... sounds LLM generated\"). Keep P4a-c but carry them inside the ask: the "
                       "state on a place the work touches, the role as ownership of the problem, the "
@@ -405,7 +404,7 @@ def check_prompt_self_introduction(folder):
                       "test for whoever picks it up")
 
 
-# P7 - REPETITIVE SENTENCE OPENERS (2026-09-10, harlow-route-rebalancing-proposal, Refinery).
+# P7 - REPETITIVE SENTENCE OPENERS (2026-09-10).
 # The platform's Prompt human voice check FAILed the deliverable paragraph as "a repetitive,
 # templated pattern ('It should show...', 'It should list...', 'It should recommend...',
 # 'Finally, it should be explicit...')" beside the per-file glosses P5 covers. Three or more
@@ -436,14 +435,14 @@ def check_repetitive_openers(folder):
                 emit("ERROR", f"[P7] {n} sentences in one paragraph of prompt.md open on '{stem} ...' - "
                               "the platform's Prompt human voice check FAILs this as a repetitive, "
                               "templated pattern ('It should show... It should list... It should "
-                              "recommend... Finally, it should be explicit', harlow-route-rebalancing-"
-                              "proposal 2026-09-10); vary the sentences so each ask carries its own shape")
+                              "recommend... Finally, it should be explicit', 2026-09-10); vary the "
+                              "sentences so each ask carries its own shape")
 
 
 def _p5_prompt_glosses(folder):
     """At most half of the input files the prompt names carry an individual content or purpose gloss.
 
-    Since: 2026-08-31 (june-price-review); both gloss windows widened 2026-09-10 (harlow-route-rebalancing-proposal).
+    Since: 2026-08-31; both gloss windows widened 2026-09-10.
     Source: the platform's Prompt human voice check ('nearly every named file receives an individual gloss').
     Drift-notes: emitted as P2 until 2026-09-04; P2 now means the prompt names no input source at all.
     """
@@ -467,7 +466,7 @@ def _p5_prompt_glosses(folder):
                       f"individual gloss ({', '.join(glossed[:3])}...) - the platform's Prompt human "
                       "voice check FAILs on 'nearly every named file receives an individual content "
                       "or purpose gloss' as a STRONG structural tell even when the voice reads human "
-                      "(june-price-review, 2026-08-31). Name the files in one natural run, gloss only "
+                      "(2026-08-31). Name the files in one natural run, gloss only "
                       "the one or two distinctions that are genuinely unclear, and let the filenames "
                       "speak for the rest")
 
@@ -482,7 +481,7 @@ def check_prompt_rules(folder):
       P2  the prompt names at least one input file
       P3  the prompt does not introduce five or more inputs, 70% or more of them, as '... is <filename>'
       P5  at most half of the input files the prompt names carry an individual content or purpose gloss
-    Since: P1 yearend-deadstock-plan 2026-08-19; P2 and P3 frankfort-stock-recovery 2026-08-31; P5 june-price-review 2026-08-31.
+    Since: P1 2026-08-19; P2 and P3 2026-08-31; P5 2026-08-31.
     Source: the platform's Prompt Quality Check, Prompt input files reference check and Prompt human voice check.
     Drift-notes: P5 was a carve-out twin (emitted as P2 until 2026-09-04), merged back 2026-09-11.
     """
@@ -517,9 +516,9 @@ def _p8_build_date(folder):
 
 @check(codes=['P8'], rules=['REV-CREDIBLE'], needs=['prompt', 'folder'], params=['folder'])
 def check_due_date_ahead_of_review(folder):
-    """A due date the prompt gives for the deliverable, and a Date line on the golden document, fall at least 21 days after the task was built, so the in-world deadline has not already passed when a reviewer reads the task.
+    """A due date the prompt gives for the deliverable, and a Date line on the golden document, fall at least 21 days after the task was built, so the in-world deadline has not already passed when the task is read.
 
-    Since: 2026-09-15 (dfl-freight-audit rejection).
+    Since: 2026-09-15 (a rejection).
     Source: the task was built on September 1 with "I need it Tuesday, September 8" and a memo dated
     September 8; eleven rounds later the rejection called the prompt's timeline impossible, the work
     "being prepared on September 17 but due September 8".
@@ -556,7 +555,7 @@ def check_due_date_ahead_of_review(folder):
             continue
         if when < floor:
             emit("ERROR", f"[P8] {where}: \"{phrase}\" is {(when - built).days} day(s) after the build on {built}; a "
-                          f"deliverable date must be on or after {floor}, or the prompt gives none, because review "
-                          "runs weeks after the build and a deadline already past reads as an impossible timeline "
-                          "(dfl-freight-audit rejection, 2026-09-15). Move the prompt's due date and the golden's "
+                          f"deliverable date must be on or after {floor}, or the prompt gives none, because a task is "
+                          "read weeks after the build and a deadline already past reads as an impossible timeline "
+                          "(a rejection, 2026-09-15). Move the prompt's due date and the golden's "
                           "Date line together")

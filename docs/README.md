@@ -17,10 +17,11 @@ Two things govern above everything else:
 2. **There is no fixed sector.** Each task picks one of 14 domains and one of 64
    occupations from a closed list. See `submission/platform/domains-and-occupations.md`.
 
-This desk was ported from Project Geranium (Wholesale Trade) on 2026-09-21.
-`RULE-DELTAS.md` records every rule that changed and is the reference for anything that
-still reads as Geranium's. Material inherited from Geranium and not yet confirmed against
-Hazy's platform carries a banner saying so; do not trust it until an assignment confirms it.
+The pipeline is short: fill the form's five sections, tick its fourteen-box checklist,
+submit. Two captures, `creating-input-files.md` and `style-guide-llm-tells.md`, carry a
+banner saying they were carried over from the desk this repo was built from and are not yet
+confirmed here; their guidance is domain-agnostic, but do not treat their specifics as this
+project's rules until an assignment confirms them.
 
 ---
 
@@ -29,18 +30,15 @@ Hazy's platform carries a banner saying so; do not trust it until an assignment 
 ```
 docs/
 ├── README.md                        ← this file
-├── RULE-DELTAS.md                   ← what changed in the Geranium→Hazy port (D0–D13)
 │
-├── submission/                      ← authoring a task (the whole job, for now)
+├── submission/                      ← authoring a task (the whole job)
 │   ├── platform/                    ← AUTHORITATIVE captures
 │   │   ├── platform-submission-form.md      the live form, section by section — TOP AUTHORITY
 │   │   ├── create-the-task-guidelines.md    the guidelines PDF; §0 holds the solution conflict
 │   │   ├── domains-and-occupations.md       the closed 14-domain / 64-occupation lists
 │   │   ├── onet-codes.md                    verified codes, job families, and the four traps
-│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage  [inherited]
-│   │   ├── style-guide-llm-tells.md         severity-keyed LLM tell tables            [inherited]
-│   │   ├── task-lifecycle.md                Geranium's stages after submit            [inherited]
-│   │   └── auto-eval-feedback-guide.md      Geranium's auto-eval boxes                [inherited]
+│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage
+│   │   └── style-guide-llm-tells.md         severity-keyed LLM tell tables
 │   └── workflows/                   ← our decomposition, one stage per file
 │       ├── 01-ideation.md           pick a domain, occupation and a task worth building
 │       ├── 02-prompt-writing.md     house prompt rules (P4/P6/A20)
@@ -50,22 +48,10 @@ docs/
 │       ├── 06-metadata.md           the form's fields: domain, occupation, times, tools
 │       └── 07-pre-submission-audit.md   package sequence, then the form's 14-box checklist
 │
-├── reviewer/                        ← INHERITED, unverified: Hazy offers no review tasks
-│   ├── platform/                        Geranium's Reviewers' Hub captures
-│   └── workflow.md                      orientation only
-│
-├── refinement/                      ← INHERITED, unverified: Hazy has no Refinery node
-│   ├── README.md
-│   └── platform/submission-guidelines.md
-│
 ├── rules.md                         ← GENERATED from the check registry: one line per check id
 │
 └── reference/                       ← this repo's own corpora, not platform documents
-    ├── llm-prose-tells.md           prose classes the style guide lacks (feeds check A10)
-    ├── reviewer-feedback-corpus.md  verbatim Geranium reviewer notes            [inherited]
-    ├── workflow-history.md          dated build lessons relocated from workflows 01-07
-    ├── tools-refactor-plan.md       execution record of the 2026-09-04 gcheck refactor
-    └── autoeval-check-catalog-archive.md   archived monolith docstring, superseded by rules.md
+    └── llm-prose-tells.md           prose classes the style guide lacks (feeds check A10)
 ```
 
 ## Reading order for a new task
@@ -83,3 +69,19 @@ docs/
 place to cite a check id from. Regenerate it after any check or family change, or it will
 state a band the gate no longer enforces. Tool usage — the package sequence, the gate, the
 harnesses — is documented in `../tools/README.md`, not here.
+
+## Open questions
+
+Two things the captures do not settle. Both are open until an assignment or a platform page
+answers them.
+
+1. **Nothing confirms that this project runs an automated evaluation after submission.**
+   The form's three in-form check panels are advisory and block nothing, and each section
+   ends in a Run Evaluations button, so evaluations run at submit time; what happens to a
+   submission afterwards is not documented anywhere available to this desk. Three checks
+   (R24, R73, R129) only make sense against a post-submission auto-eval and should be
+   dropped if there is none.
+2. **No prompt-length or criterion-length cap is documented.** Neither platform document
+   mentions one. R1 still rejects a criterion over 500 characters, but it now says so as a
+   house rule rather than citing a form cap that no capture carries. Raise or drop that
+   number freely; the reason to keep it is that the form asks for one thing per line.

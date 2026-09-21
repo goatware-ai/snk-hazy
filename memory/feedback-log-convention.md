@@ -38,15 +38,15 @@ feedback arrives for a task UID, edit and log that task's files and nothing else
 portfolio gate run stays diagnostic: report what it finds in other tasks in chat, leave
 their prompt, inputs, solution, rubric, log and `submission-list.md` row untouched, and fix each
 one when its own feedback round comes (the gate keeps flagging them until then). The
-user reverted a same-day rubric sweep across tasks 06, 11 and 12 on 2026-08-20 and asked
+user reverted a same-day rubric sweep across three tasks on 2026-08-20 and asked
 for this separation twice: first for the logs, then for the file changes, and a THIRD time
-the same day after the rempel R18 sweep touched tasks 12, 13, 15, 16 and 18. The rule means: run the checker over everything,
+the same day after one R18 sweep touched five task folders at once. The rule means: run the checker over everything,
 never edit what it flags elsewhere. Check `git status` before touching any file outside the
 task in hand.
 
-**Tightened 2026-08-22:** the diagnostic portfolio run is now off too. After task 21 was
+**Tightened 2026-08-22:** the diagnostic portfolio run is now off too. After one task was
 sent back I ran the new originality and authorship gates across the catalogue and reported
-in chat that every task folder failed them; the user retired task 21 and said not to make
+in chat that every task folder failed them; the user retired that task and said not to make
 that kind of review on other tasks again. So: still code every lesson into the gate, but
 re-run it on the task in hand, named explicitly, and do not report verdicts on other
 folders. `tools/originality_check.py` has no catalogue-wide mode for this reason.
@@ -62,8 +62,8 @@ feedback-log.md, then the check (new or tightened, docstring first), then `--rul
 dated line in the owning memory topic file citing the id, then prompts and docs cite the id.
 Never restate a rule in words in more than one layer: the 2026-09-11 audit found 4 to 9
 wordings per rule and five that contradicted the gate (R67, R81, R24, P2/P5, revision count).
-Dated per-task narrative goes to `docs/reference/reviewer-feedback-corpus.md` (Part 5) or
-`docs/reference/workflow-history.md`, never into a rule file or a prompt template.
+Dated per-task narrative stays in that task's own `feedback-log.md`, never in a rule file or a
+prompt template.
 
 Related: [[repo-layout-and-tooling]], [[rubric-anchoring-and-landing]],
-[[review-scope-single-task]].
+[[gate-scope-single-task]].

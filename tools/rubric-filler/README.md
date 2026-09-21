@@ -125,7 +125,7 @@ BOM, `NUMBER,CRITERION,WEIGHT` header, LF line endings, minimal quoting. So an u
 rubric diffs clean:
 
 ```
-diff submissions/23-june-price-review/rubric-june-price-review-7373c89f.csv \
-     ~/Downloads/rubric-june-price-review-from-form.csv
+diff submissions/23-sample-task/rubric-sample-task-7373c89f.csv \
+     ~/Downloads/rubric-sample-task-from-form.csv
 ```
 

@@ -1,4 +1,4 @@
-"""verify_golden.py for dfl-freight-audit: re-derive the audit's figures from inputs/ alone."""
+"""verify_golden.py for the freight-audit fixture: re-derive the audit's figures from inputs/ alone."""
 import csv, datetime as dt, os, re, sys
 from decimal import Decimal as D, ROUND_HALF_UP, ROUND_HALF_EVEN
 from pathlib import Path

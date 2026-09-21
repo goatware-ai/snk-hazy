@@ -1,9 +1,10 @@
 # Creating Input Files
 
-> **Inherited from the Geranium desk, not yet confirmed for Hazy.** This document was
-> captured on a different project and describes how to build input files that are authentic and do not leak the answer. It is kept because the guidance is
-> domain-agnostic, but nothing in it has been checked against Hazy's own platform. Where it
-> disagrees with `create-the-task-guidelines.md` or `platform-submission-form.md`, those win.
+> **Carried over from the desk this repo was built from and not yet confirmed here.** This
+> document describes how to build input files that are authentic and do not leak the answer.
+> It is kept because the guidance is domain-agnostic, but nothing in it has been checked
+> against Hazy's own platform. Where it disagrees with `create-the-task-guidelines.md` or
+> `platform-submission-form.md`, those win.
 
 How to build input files that are authentic to your domain, free of LLM tells, and never leak the answer.
 

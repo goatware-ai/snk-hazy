@@ -3,7 +3,7 @@
 and stays silent on the corrected one, and report how much of the catalog has a fixture.
 
     .venv/bin/python tools/fixture_suite.py            # every fixture, then coverage
-    .venv/bin/python tools/fixture_suite.py dfl-fixed  # named fixtures only
+    .venv/bin/python tools/fixture_suite.py package-corrected  # named fixtures only
 
 A fixture is a folder under tools/check_fixtures/ with a fixture.json:
 

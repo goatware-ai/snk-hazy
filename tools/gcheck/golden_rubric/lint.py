@@ -1,7 +1,7 @@
 """Lint rubric CSV files for wording patterns that fail the AutoEval oracle judge.
 
 Every check below corresponds to a failure actually observed on this portfolio
-(tasks 06/07/08, 2026-08-18). Run before every submission:
+(2026-08-18). Run before every submission:
 
     .venv/bin/python tools/rubric_lint.py                          # lint every rubric under submissions/
     .venv/bin/python tools/rubric_lint.py path/to/rubric-{task-name}-{uid8}.csv
@@ -18,13 +18,13 @@ Checks:
                              the legacy meet-style pin ("met only when ...") —
                              but see W9: prefer the defect-frame; the platform's
                              Agentic Rubric Quality Review misreads meet-style
-                             pins as inverted polarity (task 07
-                             needs_improvement, 2026-08-19, all four pinned
-                             negatives flagged major). The "... is not this
-                             defect" carve-out no longer counts and no longer
-                             belongs anywhere: the platform's negative polarity
-                             check fails it as scoring scaffolding (tessendorf
-                             pre-submission, 2026-08-26; autoeval R18).
+                             pins as inverted polarity (needs_improvement,
+                             2026-08-19, all four pinned negatives flagged
+                             major). The "... is not this defect" carve-out no
+                             longer counts and no longer belongs anywhere: the
+                             platform's negative polarity check fails it as
+                             scoring scaffolding (a pre-submission check,
+                             2026-08-26; autoeval R18).
   E2 any-quantifier          Negative-weight criterion states the defect over a bare
                              plural subject ("Key outputs ... are ...") instead of
                              "At least one ..." / "any ..." — quantifier ambiguity.
@@ -47,24 +47,24 @@ Checks:
   W6 liveness-mirror         Negative-weight formulas-vs-constants criterion. Judges
                              cannot verify the universal negative ("no key output
                              anywhere is typed") and deduct it deterministically —
-                             a polarity pin does NOT save it (proven on task 07 run 2,
+                             a polarity pin does NOT save it (proven on an oracle run,
                              5/120 lost on all 3 runs). Drop it: positive liveness
                              criteria already cover this. Only a tightly scoped
                              single-column check has a chance of surviving.
   W7 counterfactual          Criterion asks the judge to simulate a dynamic behavior
                              ("removing/changing X recomputes Y") on a static file —
-                             flaky 1-2 of 3 runs (marathon C32 run 3, hartwell C3/C9
-                             run 4, deadstock C18 run 3 — whose "re-quantifying ...
-                             re-sorts ... without manual edits" slipped the first
-                             regex, all 2026-08-19). Reword to the answer-keyed static
-                             form: name the golden cells/columns, disclaim look-alike
-                             intermediate columns, accept rounding above exact targets.
+                             flaky 1-2 of 3 runs (three criteria across three tasks,
+                             one of whose "re-quantifying ... re-sorts ... without
+                             manual edits" slipped the first regex, all 2026-08-19).
+                             Reword to the answer-keyed static form: name the golden
+                             cells/columns, disclaim look-alike intermediate columns,
+                             accept rounding above exact targets.
   W8 sibling-cost spot-check A positive criterion pins a dollar value to a net/invoice/
                              landed cost (or a specific price level) but carries no
                              answer-key anchor — no golden cell reference, no arithmetic
                              chain, no look-alike-column disclaimer. On rows carrying
                              several cost-like columns the oracle judge reads a sibling
-                             column 1-in-3 runs and fails a correct golden (hartwell C2
+                             column 1-in-3 runs and fails a correct golden (one task's C2
                              run 3, C3/C9 run 4, C8/C35 run 5, each a different criterion
                              per run — passing 3/3 once is NOT evidence of stability).
                              Anchor it: "(golden reference: Tab!Cell)", the multiplication
@@ -72,7 +72,7 @@ Checks:
   W10 chain-journey         Positive liveness criterion frames verification as a
                              reference chain or hop endorsement ("chain", "hop")
                              without telling the judge no tracing is needed. Flaked
-                             a different way each oracle run on marathon C29 even
+                             a different way each oracle run on one criterion even
                              with every hop pre-endorsed (run 4 sheet-stat misread,
                              run 5 arithmetic-hop stall, run 6 value-mode read of
                              the SUMIFS range reported "not_observed", all
@@ -86,7 +86,7 @@ Checks:
                              defect" carve-out alone. The Agentic Rubric Quality
                              Review then reads the defect sentence as what a correct
                              deliverable does and reports the whole negative block as
-                             inverted polarity (task 20, 2026-08-23, -16 exposure).
+                             inverted polarity (2026-08-23, -16 exposure).
                              The frame handles polarity and is the only marker
                              left: the carve-out itself is banned as scoring
                              scaffolding (2026-08-26, autoeval R18), and count
@@ -94,7 +94,7 @@ Checks:
   W19 ambiguous defect verb  Negative criterion whose MAIN verb (counts / shows / lists /
                              reports / tracks / identifies / records / flags) names something
                              a COMPLIANT deliverable also does. A defect frame does not save
-                             it: task 28 C29 read "The demand base counts invoice lines
+                             it: one criterion read "The demand base counts invoice lines
                              carrying a job number ... in violation of policy 4.2" and the
                              Agentic Rubric Quality Review still rated the polarity inverted
                              [critical], -4 exposure (2026-08-24), answering that a correct
@@ -107,13 +107,13 @@ Checks:
                              does not meet" language. The oracle scores it correctly,
                              but the Agentic Rubric Quality Review parses "does not
                              meet" as "compliant responses lose points" and rates the
-                             rubric needs_improvement (task 07, 2026-08-19). Reword to
+                             rubric needs_improvement (2026-08-19). Reword to
                              the defect-frame: state the fault with incorrectly /
                              violating / beyond-what-X-supports / contradicts, with no
                              carve-out sentence (banned 2026-08-26, autoeval R18).
   W11 universal-sweep positive A positive criterion sweeps "every/all <items/prices/
                              rows>" with no answer-key anchor. The judge cannot verify
-                             the sweep exhaustively and flakes: hartwell run 6 failed
+                             the sweep exhaustively and flakes: one oracle run failed
                              the 47-SKU completeness sweep (judge re-derived the count
                              and tripped on FROZEN/DEFERRED rows) and the rounding-grid
                              sweep (judge misread trailing-zero display 47.5 / 37 as
@@ -122,7 +122,7 @@ Checks:
                              exclusion arithmetic inline, name golden reference rows/
                              cells and a worked example, pin display quirks (no
                              trailing zeros), carve out held/excluded rows.
-                             Extended 2026-08-20 (hollenbach run 2): the criterion-
+                             Extended 2026-08-20 (an oracle run): the criterion-
                              initial quantifier now includes "Each ..." and the noun
                              list "action" — "Each action the plan calls for carries
                              an owner and a date" swept unstructured prose across the
@@ -131,17 +131,17 @@ Checks:
                              list with a stated row count), not a reword. Mid-text
                              "each" stays unmatched: "each line carried at a whole
                              multiple" inside an anchored figures criterion is a
-                             per-row qualifier, not a sweep (hollenbach C11 passes
+                             per-row qualifier, not a sweep (one criterion passes
                              3/3 with it).
   W12 golden-schema imposition Criterion cites a golden Sheet!Cell reference or a
                              named column ("the New Landed column", or the header token
                              directly: "carries 101 under ORDER PT" -- added 2026-08-24,
-                             task 28 run 6, same imposition in a form the "... column"
+                             an oracle run, same imposition in a form the "... column"
                              pattern missed; "under INV-4 8.3" is a policy clause and is
                              excluded). The Agentic
                              Rubric Quality Review rates this needs_improvement as
                              misaligned_or_unjustified_rigidity when the prompt never
-                             specifies that schema (hartwell 2026-08-19: 11 criteria,
+                             specifies that schema (2026-08-19: 11 criteria,
                              ~31 pts — the very "(golden reference: Repricing!R48)"
                              anchors added for oracle stability). Resolution that
                              satisfies BOTH judges: keep the numeric answer key and
@@ -151,7 +151,7 @@ Checks:
                              not the landed cost"), name no sheets/columns unless
                              the prompt mandates them (a prompt-required briefing
                              tab is fine to name). Fix a W12 BEFORE submission even
-                             on oracle-proven wording: deadstock C17 passed the
+                             on oracle-proven wording: one criterion passed the
                              oracle 3/3 with its golden refs, was left standing per
                              the don't-trim-proven-wording stance, and the quality
                              review then failed it (2026-08-19) — a standing W12 is
@@ -164,7 +164,7 @@ Checks:
                              Article 5", "which <doc> does not support/reach".
                              The oracle flags these ambiguous_negative_polarity
                              whatever the pin, the same as the W6 liveness mirrors
-                             and the W15 method sweeps (bergendahl run 1,
+                             and the W15 method sweeps (an oracle run,
                              2026-08-21: two such negatives flagged, rewards
                              [0.0, 0.0, 1.0], while the two content-fact negatives
                              on the same rubric passed clean). The judge has to
@@ -179,7 +179,7 @@ Checks:
                              of Y", "taken from ... rather than ..."). The oracle
                              flags these ambiguous_negative_polarity regardless of
                              pinning, the same way it does the formulas-vs-constants
-                             mirrors in W6 (wamhoff run 1, 2026-08-20: two such
+                             mirrors in W6 (an oracle run, 2026-08-20: two such
                              negatives flagged 3/3 and routed to manual review while
                              the content-fact negatives on the same rubric passed
                              clean). Drop them when positive criteria already pin the
@@ -188,7 +188,7 @@ Checks:
   W14 stacked negations      Negative criterion carrying 3+ negation tokens outside its
                              "is not this defect" pin. The oracle flags it
                              ambiguous_negative_polarity and routes it to manual review
-                             rather than scoring it (dillman's briefing negative, 3/3
+                             rather than scoring it (a briefing negative, 3/3
                              runs 2026-08-19). Every negative in the catalog that scored
                              cleanly sits at 0-2. submission.md already requires negatives
                              worded affirmatively ("[-5] The deliverable has X issue",
@@ -197,8 +197,8 @@ Checks:
                              to observe ("its new L1-L4 prices are blank or absent").
                              The judge's search tools grep cached values; absence
                              greps to nothing and the tool reports not_observed even
-                             while quoting the surrounding evidence (hartwell C14/C35
-                             run 7 — the judge quoted the frozen row note AND the
+                             while quoting the surrounding evidence (an oracle run
+                             — the judge quoted the frozen row note AND the
                              briefing bullet, then failed both criteria 1/3). Recast
                              in the C16 shape (3/3 stable): lead with the grep-able
                              positive fact, state that blank/absent/unchanged fields
@@ -206,10 +206,10 @@ Checks:
                              <positive evidence of the defect>". If the row shows
                              look-alike sibling values (current prices beside the
                              blank new-price fields), name them in the criterion as
-                             not-new-assignments — hartwell run 9 flaked C35 when
+                             not-new-assignments — a later run flaked C35 when
                              the judge read current prices 6.25/5.35/4.8/4.45 as
-                             "new L1-L4 prices assigned" (run-9 refinement; not
-                             separately lintable without workbook data).
+                             "new L1-L4 prices assigned" (not separately lintable
+                             without workbook data).
 
 Folded into gcheck on 2026-09-04; tools/rubric_lint.py is the command.
 """
@@ -221,7 +221,7 @@ from ..common import MONTHS_RE, load_rows, split_clauses
 
 
 # "not this defect" came out of the accepted markers 2026-08-26: the platform's negative
-# polarity check now fails the carve-out as scoring scaffolding (autoeval R18, tessendorf),
+# polarity check now fails the carve-out as scoring scaffolding (autoeval R18),
 # so it can no longer be the pin a negative leans on. The frame words W18 already accepts
 # (contrary to / although / despite and kin) joined the list in the same pass, since a
 # negative pinned by its frame word alone used to ride E1 on the carve-out.
@@ -249,17 +249,17 @@ ANCHOR_RE = re.compile(
     r"|\bx\s*[01]?\.\d|[×÷]|times the|between \$|/\s?\(1\s?-|not the (landed|net|invoice) cost", re.I)
 SCHEMA_REF_RE = re.compile(r"(?:'[^']+'|\b[A-Za-z_][A-Za-z0-9_]*)![A-Z]{1,3}\d+")
 SCHEMA_COL_RE = re.compile(r"\bthe ['\"]?[A-Z][\w /-]{0,25}['\"]? column\b")
-# W12 extension (2026-08-24, task 28 run 6): the "the X column" form is not the only way a
+# W12 extension (2026-08-24, an oracle run): the "the X column" form is not the only way a
 # criterion imposes the golden's schema. Naming the header token directly -- "carries 101
 # under ORDER PT", "the 620 under ADJ UNITS" -- cites exactly the same private column name
 # and reads the same way to the Agentic Rubric Quality Review. Hyphenated / numbered tokens
-# are excluded because "under INV-4 8.3" is a POLICY clause, not a header (yankton C45, the
+# are excluded because "under INV-4 8.3" is a POLICY clause, not a header (one criterion, the
 # only false positive the unguarded pattern produced portfolio-wide).
 SCHEMA_HDR_RE = re.compile(r"\bunder\s+([A-Z]{2,}(?:\s+[A-Z]{2,})*)\b(?![-\d])")
 
-# W19 (2026-08-24, task 28 run 6 Agentic Rubric Quality Review, [critical]
+# W19 (2026-08-24, Agentic Rubric Quality Review, [critical]
 # misaligned_or_unjustified_rigidity): a negative can carry a defect frame and STILL be read
-# as inverted when its main verb is one a compliant deliverable also performs. Task 28 C29
+# as inverted when its main verb is one a compliant deliverable also performs. One criterion
 # read "The demand base counts invoice lines carrying a job number as replenishment demand,
 # in violation of policy 4.2 ..." -- W18 passed it, because "in violation of" is present, but
 # the review answered that a correct base also "counts" those lines (it tracks them in a
@@ -274,7 +274,7 @@ AMBIG_DEFECT_VERB_RE = re.compile(
 ABSENCE_CLAIM_RE = re.compile(
     r"\b(are|is|left)\s+(blank|empty|absent)\b|\bcarr(y|ies) no\b|\breceives? no\b"
     r"|\bhas no\b|\bcontains? no\b"
-    # luebbert C16 (2026-08-20): "shown with no purchase price available after 11/01/2026"
+    # A criterion (2026-08-20): "shown with no purchase price available after 11/01/2026"
     # drew unverifiable_from_deliverable 1/3 while the judge quoted the very row carrying the
     # withdrawal marker. Same class as the blank-cell claims: the absence greps to nothing.
     r"|\b(shown|listed|marked|left|stands?|standing)\s+with no\b"
@@ -318,7 +318,7 @@ def lint_file(path: Path):
     if True:
         for num, text, weight in rows:
             if weight < 0:
-                # W18 (2026-08-23, task 20 quality review): the trailing carve-out is a
+                # W18 (2026-08-23, a quality review): the trailing carve-out is a
                 # NEAR-MISS clause, not a polarity marker on its own. Four negatives whose
                 # only marker was "... is not this defect" were all read as inverted, the
                 # review quoting the defect sentence back as "what a correct deliverable
@@ -333,7 +333,7 @@ def lint_file(path: Path):
                                      "(incorrectly / violating / contradicts / although / "
                                      "carrying no). A trailing \"is not this defect\" carve-out "
                                      "is a near-miss clause, not a polarity marker: the Agentic "
-                                     "Rubric Quality Review read all four of task 20's negatives "
+                                     "Rubric Quality Review read all four of one rubric's negatives "
                                      "as describing what a CORRECT deliverable does and scored "
                                      "-16 of exposure (2026-08-23). Put the frame in the sentence "
                                      "that states the fault"))
@@ -344,7 +344,7 @@ def lint_file(path: Path):
                                          f'negative states its defect with the verb "{m.group(1)}", '
                                          "which a COMPLIANT deliverable also does - a correct base "
                                          "counts/shows/lists the very rows it then excludes. A defect "
-                                         "frame does not save it: task 28 C29 carried \"in violation "
+                                         "frame does not save it: one criterion carried \"in violation "
                                          "of policy 4.2\" and the Agentic Rubric Quality Review still "
                                          "called the polarity inverted [critical], -4 exposure "
                                          "(2026-08-24). Name the prohibited act instead - includes / "
@@ -385,7 +385,7 @@ def lint_file(path: Path):
                 findings.append((path, num, "ERROR", "W14",
                                  "negative criterion stacks 3+ negations outside its polarity pin — the "
                                  "oracle reports ambiguous_negative_polarity and the criterion is sent to "
-                                 "manual review (dillman's briefing negative, 3/3 runs 2026-08-19: "
+                                 "manual review (a briefing negative, 3/3 runs 2026-08-19: "
                                  '"carries no ... does not surface ... cannot be run off it"). State the '
                                  "defect affirmatively (the deliverable HAS this fault) and let the pin be "
                                  "the only negation"))
@@ -394,7 +394,7 @@ def lint_file(path: Path):
                                  "negative sweeps over HOW a figure was computed or which source "
                                  "column it came from — the oracle flags these "
                                  "ambiguous_negative_polarity regardless of pinning, the same as the "
-                                 "W6 liveness mirrors (wamhoff run 1, 2026-08-20: the last-cost and "
+                                 "W6 liveness mirrors (an oracle run, 2026-08-20: the last-cost and "
                                  "the duty-mechanics negatives both flagged 3/3 and routed to manual "
                                  "review). Drop them where positives already pin the correct values, "
                                  "or restate the defect as a content fact about a quantity or value"))
@@ -404,7 +404,7 @@ def lint_file(path: Path):
                                  "or article to a record (carried onto / reset under / which X "
                                  "does not support) - the oracle flags these "
                                  "ambiguous_negative_polarity whatever the pin, the same as W6 "
-                                 "and W15 (bergendahl run 1, 2026-08-21: two such negatives "
+                                 "and W15 (an oracle run, 2026-08-21: two such negatives "
                                  "flagged, rewards [0.0, 0.0, 1.0], while the content-fact "
                                  "negatives on the same rubric passed clean). Drop them where "
                                  "positives already pin the values, or restate the defect as a "
@@ -412,15 +412,15 @@ def lint_file(path: Path):
             if weight < 0 and MEET_PIN_RE.search(text):
                 findings.append((path, num, "ERROR", "W9",
                                  'meet-style polarity pin ("met only when / does not meet") — the Agentic '
-                                 "Rubric Quality Review reads this as inverted polarity (task 07, "
-                                 "2026-08-19); reword to defect-frame (\"incorrectly/violating/beyond "
+                                 "Rubric Quality Review reads this as inverted polarity "
+                                 "(2026-08-19); reword to defect-frame (\"incorrectly/violating/beyond "
                                  'what X supports/contradicts"), with no carve-out sentence (banned '
                                  "2026-08-26, autoeval R18)"))
             if weight > 0 and LIVENESS_RE.search(text) and CHAIN_JOURNEY_RE.search(text) \
                     and not NO_TRACE_RE.search(text):
                 findings.append((path, num, "ERROR", "W10",
                                  "chain/hop-framed liveness verification with no no-tracing disclaimer — "
-                                 "judges flake tracing chains (marathon C29 runs 4-6, a different stall "
+                                 "judges flake tracing chains (one criterion over three runs, a different stall "
                                  "each run); anchor on the aggregation range's stored formulas, note "
                                  "displayed numbers are cached results, carve out downstream cells with "
                                  '"pass; no tracing needed"'))
@@ -428,7 +428,7 @@ def lint_file(path: Path):
                     and not re.search(r"golden|answer key", text, re.I) \
                     and LIVENESS_DEMAND_RE.search(text) \
                     and not re.search(r"\d[\d,]*\.\d|\d[\d,]{3,}", text):
-                # W16 (kolterman run 2, 2026-08-21): a sweep over rows PLUS a liveness
+                # W16 (an oracle run, 2026-08-21): a sweep over rows PLUS a liveness
                 # demand is the worst of both judge failure modes. "Each line of the
                 # return authorization detail draws its quantity and its unit price ...
                 # by cell reference" was true of every one of the 20 rows (=Layers!Q168,
@@ -439,7 +439,7 @@ def lint_file(path: Path):
                 findings.append((path, num, "ERROR", "W16",
                                  "liveness demand written as a row sweep (each/every line ...) — the "
                                  "judge reads displayed values back as typed and fails a golden that is "
-                                 "live on every row (kolterman C29, 2/3 oracle runs, weight 5). Name the "
+                                 "live on every row (a criterion, 2/3 oracle runs, weight 5). Name the "
                                  "handful of figures the criterion covers instead of sweeping the table"))
             elif weight > 0 and SWEEP_RE.search(text) and not ANCHOR_RE.search(text) \
                     and not re.search(r"golden|answer key", text, re.I):
@@ -448,20 +448,20 @@ def lint_file(path: Path):
             if weight > 0 and ABSENCE_CLAIM_RE.search(text) and not ABSENCE_OK_RE.search(text):
                 findings.append((path, num, "ERROR", "W13",
                                  "positive criterion asserts blankness/absence as an observable — judge "
-                                 "search tools grep values and report not_observed on absence (hartwell "
-                                 "C14/C35 run 7, judge quoted the evidence yet failed both); lead with a "
+                                 "search tools grep values and report not_observed on absence (an "
+                                 "oracle run, judge quoted the evidence yet failed both); lead with a "
                                  "POSITIVE observable instead: the flag, marking or zero value the golden "
                                  "actually carries. The old \"fails only if <defect>\" remedy is now banned "
-                                 "by the platform Rubric negative polarity check (kolterman 2026-08-20)"))
+                                 "by the platform Rubric negative polarity check (2026-08-20)"))
             if SCHEMA_REF_RE.search(text) or SCHEMA_COL_RE.search(text) \
                     or SCHEMA_HDR_RE.search(text):
                 findings.append((path, num, "ERROR", "W12",
                                  "criterion cites a golden sheet/cell reference or named column — the Agentic "
-                                 "Rubric Quality Review flags this as golden-only schema imposition (hartwell "
-                                 "2026-08-19, ~31 pts, needs_improvement); reword functionally (keep the numeric "
+                                 "Rubric Quality Review flags this as golden-only schema imposition "
+                                 "(2026-08-19, ~31 pts, needs_improvement); reword functionally (keep the numeric "
                                  "answer key and arithmetic chain, disambiguate siblings by VALUE not column "
                                  "name), unless the prompt itself mandates that sheet/column. Fix BEFORE "
-                                 "submission even on oracle-proven wording — deadstock C17 left a W12 standing "
+                                 "submission even on oracle-proven wording — one criterion left a W12 standing "
                                  "and the quality review failed it (2026-08-19)"))
             if COUNTERFACTUAL_RE.search(text):
                 findings.append((path, num, "ERROR", "W7",

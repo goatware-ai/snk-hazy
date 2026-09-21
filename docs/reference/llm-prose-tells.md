@@ -1,21 +1,20 @@
 # LLM prose tells
 
-> Scope: the prose classes the platform's own style-guide table does not list (the three-beat rhythm, tautology, aphorism and the shapes below), with the reviewer evidence for each.
+> Scope: the prose classes the platform's own style-guide table does not list (the three-beat rhythm, tautology, aphorism and the shapes below), with the flagged evidence for each.
 > The platform's list is `../submission/platform/style-guide-llm-tells.md`; read that first and this second.
 
-> Every phrase or pattern a Geranium reviewer has flagged as "this reads like an LLM",
-> collected so the next task is written clean instead of scrubbed after the fact.
-> Companion to `reviewer-feedback-corpus.md` (all reviewer feedback) and
-> `memory/prose-standard.md` (the grammar side).
+> Every phrase or pattern that has been flagged as "this reads like an LLM", collected so
+> the next task is written clean instead of scrubbed after the fact.
+> Companion to `memory/prose-standard.md` (the grammar side).
 >
-> Enforced mechanically by rule **A10** (`tools/gcheck/authorship/prose.py`, run by `tools/autoeval_check.py` and by `tools/review_check.py`), which scans
+> Enforced mechanically by rule **A10** (`tools/gcheck/authorship/prose.py`, run by `tools/autoeval_check.py`), which scans
 > `prompt.md`, every input `.docx` and the solution workbook's text cells. A10 is a
 > pattern net, not a substitute for reading the prose aloud.
 
-## Why reviewers catch it
+## Why it gets caught
 
-The 2026-08-22 note on task 12 named the mechanism precisely, and it is worth keeping
-verbatim because it describes a *structure*, not a word list:
+One flagged note named the mechanism precisely, and it is worth keeping verbatim because
+it describes a *structure*, not a word list:
 
 > LLM sounding language needs to be eliminated. It follows a pattern of messy workplace
 > detail --> artificial shorthand/idioms ---> analytical requirement.
@@ -36,13 +35,13 @@ length than a slogan would.
 
 ### 1. Tautology / "X is X"
 
-The highest-confidence tell. Reviewers flagged three of these in one task.
+The highest-confidence tell. Three of these were flagged in a single package.
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "Committed work is committed" | task 12 prompt AND purchasing_memo_0818.docx | 2026-08-22 |
-| "policy 6.3 is still policy" | task 12 purchasing_memo_0818.docx | 2026-08-22 |
-| "paragraph 8 is the whole story" | task 12 dorney_rep_email.docx | 2026-08-22 |
+| "Committed work is committed" | a prompt AND the input memo beside it | 2026-08-22 |
+| "policy 6.3 is still policy" | an input memo | 2026-08-22 |
+| "paragraph 8 is the whole story" | an input email | 2026-08-22 |
 
 **Fix:** say the rule and its consequence. "Committed work is committed" becomes "Released
 project work is covered before counter stock, and it does not get cut to protect the
@@ -54,13 +53,13 @@ Short declarative punch lines, usually opening or closing a paragraph.
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "September is use it or lose it" | task 12 golden briefing | 2026-08-22 |
-| "Chestnut Ridge is where the money hurts" | task 12 golden briefing | 2026-08-22 |
-| "leave them and they are gone and October is short by the same amount" | task 12 golden briefing | 2026-08-22 |
-| "nobody promises what is not coming" | task 12 golden briefing | 2026-08-22 |
-| "anything that goes short has to show as short" | task 12 prompt | 2026-08-22 |
+| "September is use it or lose it" | a golden briefing | 2026-08-22 |
+| "Chestnut Ridge is where the money hurts" | a golden briefing | 2026-08-22 |
+| "leave them and they are gone and October is short by the same amount" | a golden briefing | 2026-08-22 |
+| "nobody promises what is not coming" | a golden briefing | 2026-08-22 |
+| "anything that goes short has to show as short" | a prompt | 2026-08-22 |
 
-The reviewer's summary of the class: *"typical punchy phrases that are stylistic of an LLM
+The recorded summary of the class: *"typical punchy phrases that are stylistic of an LLM
 trying too hard to sound real and busy."*
 
 **Fix:** state the mechanism instead of the moral. "September is use it or lose it" becomes
@@ -70,10 +69,10 @@ trying too hard to sound real and busy."*
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "I would rather walk into that call knowing where we are naked than find out in November" | task 12 purchasing_memo_0818.docx | 2026-08-22 |
-| "what we leave on the counter where we cannot cover it" | task 12 prompt | 2026-08-22 |
-| "not quietly dropped" | task 12 prompt | 2026-08-22 |
-| "where he and the notice disagree, Steve is the one we go with" | task 12 prompt | 2026-08-22 |
+| "I would rather walk into that call knowing where we are naked than find out in November" | an input memo | 2026-08-22 |
+| "what we leave on the counter where we cannot cover it" | a prompt | 2026-08-22 |
+| "not quietly dropped" | a prompt | 2026-08-22 |
+| "where he and the notice disagree, Steve is the one we go with" | a prompt | 2026-08-22 |
 
 **Fix:** name the quantity. "What we leave on the counter" becomes "the counter sales we
 cannot fill, and the margin on them."
@@ -84,19 +83,19 @@ Narration of the author's own legwork, in shorthand.
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "I pulled the rest" | task 12 prompt | 2026-08-22 |
-| "the rest of it has to follow her without me rebuilding the file" (reviewer: "this one doesn't even make sense") | task 12 prompt | 2026-08-22 |
+| "I pulled the rest" | a prompt | 2026-08-22 |
+| "the rest of it has to follow her without me rebuilding the file" (flagged: "this one doesn't even make sense") | a prompt | 2026-08-22 |
 
-**Fix:** drop the narration, or make it a plain complete sentence. Note the reviewer read
-the second one as *incoherent*, not merely stylised: compressed shorthand stops parsing
+**Fix:** drop the narration, or make it a plain complete sentence. Note the second one was
+read as *incoherent*, not merely stylised: compressed shorthand stops parsing
 before the writer notices.
 
 ### 5. Fragment used as a heading inside prose
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "Front tab: what she needs to run that call" | task 12 prompt | 2026-08-22 |
-| "Terms. Subject to prior sale, and I mean that this month, the phone has not stopped since Sandusky put everybody on allocation. Net 15." | task 12 sowers_quotation_0814.docx | 2026-08-22 |
+| "Front tab: what she needs to run that call" | a prompt | 2026-08-22 |
+| "Terms. Subject to prior sale, and I mean that this month, the phone has not stopped since Sandusky put everybody on allocation. Net 15." | an input quotation | 2026-08-22 |
 
 The second was flagged as **not even clear** — a fragment, a comma splice and a second
 fragment in one breath. Trade documents do use terse terms lines, but they punctuate them.
@@ -105,21 +104,19 @@ fragment in one breath. Trade documents do use terse terms lines, but they punct
 
 ### 6. Em-dash density
 
-The first prose tell this portfolio was failed on, and the reason for the standing
-zero-em-dash house rule.
+The reason for the standing zero-em-dash house rule. One input was flagged for em dashes in
+its heading and in nearly every short paragraph; a second showed the pattern more strongly,
+with nine em dashes across four short messages.
 
-> controller_memo_0810.docx shows an LLM-style punctuation pattern, with em dashes used in
-> the heading and throughout nearly every short paragraph. ... vendor_rep_emails.docx shows
-> the same pattern more strongly, with nine em dashes across four short messages.
-> — task 07 revision notes, 2026-08-19
+**Fix:** zero em dashes in every artifact. Coded as A6.
 
-**Fix:** zero em dashes in every artifact. Coded as A6; portfolio scrubbed 2026-08-19.
-
-House note: the captures disagree on the severity. `../submission/platform/style-guide-llm-tells.md` lists em-dash overuse as HIGH; `../reviewer/platform/reviewer-rubric.md` scores it MEDIUM in its worked examples. The house rule does not depend on which is right: zero em dashes in every artifact (prompt, inputs, golden, rubric), coded A6 on both surfaces.
+House note: `../submission/platform/style-guide-llm-tells.md` lists em-dash overuse as HIGH.
+The house rule is stricter and does not depend on the severity band: zero em dashes in every
+artifact (prompt, inputs, golden, rubric), coded A6.
 
 ### 7. Run-ons, comma splices and missing punctuation
 
-The 2026-08-22 note opened with this, ahead of the style points:
+One note opened with this, ahead of the style points:
 
 > Fix run-on sentences, fragments, and missing punctuation throughout all docs.
 
@@ -131,11 +128,11 @@ See `memory/prose-standard.md`.
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "A charge a customer hears about from their salesman is a policy; a charge they meet cold on a statement is an insult, and I have watched an insult cost this house an account that took ten years to win." | task 34 sales_emails.docx | 2026-08-31 |
+| "A charge a customer hears about from their salesman is a policy; a charge they meet cold on a statement is an insult, and I have watched an insult cost this house an account that took ten years to win." | an input email set | 2026-08-31 |
 
 The balanced "X is a noun; Y is a noun" maxim is a class-2 slogan doubled: two aphorisms
-hinged on a semicolon. The same shape sits in task 33's memo ("... is a schedule; a missed
-date they discover is a lost ..."), found by the A10 probe the day this was coded.
+hinged on a semicolon. The same shape has turned up in another memo ("... is a schedule; a
+missed date they discover is a lost ..."), found by the A10 probe.
 
 **Fix:** state the consequence once, plainly. "A charge the salesman explains in advance is
 accepted as policy. A charge a customer first discovers on a statement causes lasting
@@ -145,9 +142,9 @@ resentment."
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "Word travels. Two things before the pencil comes out." | task 34 sales_emails.docx | 2026-08-31 |
+| "Word travels. Two things before the pencil comes out." | an input email set | 2026-08-31 |
 
-The reviewer's standard: *"Nobody but an LLM really speaks like that... nobody who has a
+The recorded standard: *"Nobody but an LLM really speaks like that... nobody who has a
 truly urgent issue that needs resolving immediately is going to speak in less-than-clear
 language."* Real senders open with the subject, not atmosphere.
 
@@ -158,12 +155,12 @@ before any changes are made."
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "The July statement has the outbound delivery line circled in my handwriting, and it is going to stay circled until the sheet we hand customers matches what the trucks cost." | task 34 bohlen_memo_0821.docx | 2026-08-31 |
-| "The seventy five was old when gas was cheap." | task 34 sales_emails.docx | 2026-08-31 |
-| "if a charge shows up they will drive to Quincy before they pay it, and honestly that is fine with me and probably with the trucks." | task 34 sales_emails.docx | 2026-08-31 |
-| "Just build it so I can stand at a counter and defend it, zone by zone, with the cost on paper." | task 34 sales_emails.docx | 2026-08-31 |
+| "The July statement has the outbound delivery line circled in my handwriting, and it is going to stay circled until the sheet we hand customers matches what the trucks cost." | an input memo | 2026-08-31 |
+| "The seventy five was old when gas was cheap." | an input email set | 2026-08-31 |
+| "if a charge shows up they will drive to Quincy before they pay it, and honestly that is fine with me and probably with the trucks." | an input email set | 2026-08-31 |
+| "Just build it so I can stand at a counter and defend it, zone by zone, with the cost on paper." | an input email set | 2026-08-31 |
 
-The reviewer's rule for the first: *"If there is urgency, state it."* An urgent memo says
+The rule recorded for the first: *"If there is urgency, state it."* An urgent memo says
 "This is urgent" and names the deadline; it does not stage a prop (the circled line, the
 pencil, the counter) and let the image carry the demand. The prompt side of the same round
 flagged "How did Emmett come out of a statement?" — metonymy that stops parsing.
@@ -177,16 +174,16 @@ customers has to be corrected before the October statements go out."
 
 | Flagged | Where | Round |
 | --- | --- | --- |
-| "that is what goes on the door" | review 30ce3cda prompt | 2026-09-08 |
-| "What goes on the door" | review 30ce3cda golden, `Keep out!A1` | 2026-09-08, survived into rev4 |
-| "Then the part their staff can act on the first morning." | review 30ce3cda prompt | 2026-09-08 |
-| "Whichever way a tech decides Vermed, they are wrong about between 35 and 56 items." | review 30ce3cda golden | 2026-09-08 |
-| "Read quickly that is the clean end of the account." | review 30ce3cda golden, `Suppliers!A2` | found 2026-09-10 |
+| "that is what goes on the door" | a prompt | 2026-09-08 |
+| "What goes on the door" | a golden, `Keep out!A1` | 2026-09-08 |
+| "Then the part their staff can act on the first morning." | a prompt | 2026-09-08 |
+| "Whichever way a tech decides Vermed, they are wrong about between 35 and 56 items." | a golden | 2026-09-08 |
+| "Read quickly that is the clean end of the account." | a golden, `Suppliers!A2` | found 2026-09-10 |
 
-This is another desk's reviewer, and their heading was **"Remove unclear LLM slang"** with the
-standing instruction **"State it clearly."** Two shapes sit under it. The first is a physical
+The heading for this class is **"Remove unclear LLM slang"**, with the standing instruction
+**"State it clearly."** Two shapes sit under it. The first is a physical
 surface standing in for the document: there is no door, and "what goes on the door" means the
-posted screening list. The reviewer's own test was that the phrase should say which artifact it
+posted screening list. The test is whether the phrase says which artifact it
 is — *"Is that a posted warning, an exclusion list, a brand level restriction?"* The second is a
 clause break left unpunctuated, so the sentence reads as a fragment and the sense only arrives
 in the next one.
@@ -210,12 +207,12 @@ room". And close the sentence: "Read quickly, that is the clean end of the accou
    human. Three in a page reads generated.
 5. **Punctuate fragments into sentences** unless the document form genuinely uses labels
    (an invoice line, a spec paragraph, a table cell).
-6. **Read the golden's prose under the same rule as the inputs.** Task 12's briefing was
-   flagged as hard as its memo: the deliverable is prose too.
+6. **Read the golden's prose under the same rule as the inputs.** A golden briefing has
+   been flagged as hard as the memo beside it: the deliverable is prose too.
 
 ## Prompt-specific corollary
 
-The same reviewer note pairs the style finding with a scope finding, and they share a root:
+The same note pairs the style finding with a scope finding, and they share a root:
 
 > The prompt is too prescriptive. It tells exactly where to find info and what to do with
 > it. Tell the LLM what you want, what files are included - nothing more. Let it figure out

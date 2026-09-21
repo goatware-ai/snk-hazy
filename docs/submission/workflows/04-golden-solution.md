@@ -24,27 +24,25 @@ agree character for character. H5 codes it. Outputs are concrete professional wo
 products: a spreadsheet, report, presentation, design file or revised document
 (`../platform/create-the-task-guidelines.md#4-define-expected-output-files`).
 
-## A worked example to model
+## A shape to model when the deliverable is a document
 
-`../../reviewer/platform/task-example-omnichannel-routing.md` is a **document** deliverable:
-an evaluation memo whose shape is worth copying when the ask is an assessment rather than a
-model. Its structure is executive summary, then numbered findings each carrying a stated
-rule, an impact count and one fully worked example, then an overall assessment and a
-remediation list. Every figure in it reconciles exactly, which is the standard a golden
-solution is held to.
+When the ask is an assessment rather than a model, the evaluation memo is the shape worth
+copying: executive summary, then numbered findings each carrying a stated rule, an impact
+count and one fully worked example, then an overall assessment and a remediation list.
+Every figure in it reconciles exactly, which is the standard a golden solution is held to.
 
 ## Say what the work does not settle
 
 Give the deliverable a short closing section naming what its own analysis cannot answer. The
-best golden reviewed on this desk closes on three: it prices the steel and not the other 38
+strongest golden built on this desk closes on three: it prices the steel and not the other 38
 per cent of the job, the published index is not the mill price actually paid, and the backtest
 is one three-year window chosen from a series that has ranged far wider.
 
 Nothing in that task's rubric scored the section, and it was still the clearest thing
-separating that golden from every other one read. It is what the omnichannel example means
-by evidentiary depth, and it is the difference between a deliverable that
-answers the question and one a manager can act on knowing the edges. Three sentences is
-enough; each one names a limit and why the files cannot close it.
+separating that golden from every other one read. It is what evidentiary depth means in
+practice, and it is the difference between a deliverable that answers the question and one
+a manager can act on knowing the edges. Three sentences is enough; each one names a limit
+and why the files cannot close it.
 
 ## Never let the file describe itself
 
@@ -58,11 +56,11 @@ The deliverable must not name its own category or production method — anywhere
 - **Title slides:** a real professional title ("Q3 Operations Review: Midwest
   Region"), never the file category ("Output File: Strategic Analysis").
 
-## The reviewer's read: the golden against the inputs and the prompt
+## The literal read: the golden against the inputs and the prompt
 
 The coded fidelity checks read the rubric against the golden or the golden against itself.
-A reviewer reads the golden against the inputs and the prompt, one claim at a time. Do that
-read before the rubric is drafted, and write the rubric so that each of these would lose
+The literal read is yours: go through the golden against the inputs and the prompt, one
+claim at a time. Do that read before the rubric is drafted, and write the rubric so that each of these would lose
 points (`05-rubric.md`):
 
 - Every identifier the golden cites (invoice, PO, serial, work order) exists in a shipped
@@ -89,10 +87,6 @@ Write down, as you go, the exact value behind every claim you will later grade. 
 quotes those values verbatim and is never allowed to estimate them
 (`05-rubric.md`), so a running list of figure-to-cell pairs saves a rebuild later.
 
-history:
-`../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`,
-`../../reference/workflow-history.md#commission-review-q2-needs_revision-rounds-2-4-2026-09-09-to-09-10`.
-
 ## Packaging rules
 
 - One flat `.zip` named `s-<task-name>.zip`; no subfolders; no empty files; no spaces or
@@ -113,7 +107,7 @@ history:
 - [ ] Client/manager-ready aesthetics; spreadsheets use live formulas with cached values
       (A9, A13, A17); no default LLM blues (A1); no paste walls (A5); no em dashes (A6)
 - [ ] File name matches the prompt exactly (H5); opens cleanly (A16); flat zip (H4)
-- [ ] **The reviewer's read done:** G10, G18, G20, G9, G8, G19, G21 and the three hand reads
+- [ ] **The literal read done:** G10, G18, G20, G9, G8, G19, G21 and the three hand reads
       above
 - [ ] Comma rules held in every text cell and paragraph (A20)
 - [ ] A list of every figure the rubric will cite, with the cell or paragraph it comes from

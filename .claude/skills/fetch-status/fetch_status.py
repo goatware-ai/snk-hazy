@@ -12,7 +12,7 @@ reconciled against what the platform actually reports:
 - A submission-list.md UID the platform no longer lists is either rejected and
   archived: the row moves to REJECTED and its folder is reduced to
   archived/{seq}-{name}/prompt.md. A row that had reached ACCEPTED before it
-  vanished went to the refinement pipeline rather than being failed, so its
+  vanished was withdrawn rather than failed, so its
   Note records that and its last known payment status, recovered from the
   previous snapshot (the vanished UID can no longer be queried). A row
   that never reached ACCEPTED is a genuine rejection: moved to REJECTED, its
@@ -40,43 +40,32 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-# Hazy project nodes. PROJECT_ID is the production node this desk submits to.
-# REFINE_PROJECT_ID is the Refinery node; Hazy may not have one, and while it holds the
-# port placeholder the refinement block is simply skipped (see run_refinements_cli).
+# The production project node this desk submits to.
 PROJECT_ID = "cda2e943-8524-45f0-a966-469903337102"
-# Refinements are submissions on their own project node, with their own list file.
-REFINE_PROJECT_ID = "TODO-HAZY-REFINEMENT-PROJECT-ID"
-
-
-def refinements_configured():
-    """False while REFINE_PROJECT_ID is still the port placeholder."""
-    return not REFINE_PROJECT_ID.startswith("TODO-HAZY-")
 
 
 def require_project_ids():
-    """Exit rather than call stb while the production project id is a placeholder.
+    """Exit rather than call stb while the project id is a placeholder.
 
-    Only PROJECT_ID blocks: it drives the submissions and reviews calls and the
-    submission-list.md reconciliation, so a placeholder there would either fail or, worse,
-    sync this desk against another project's board. A missing REFINE_PROJECT_ID only means
-    no Refinery node is configured, which is a normal state for a new desk.
+    PROJECT_ID drives the submissions call and the submission-list.md reconciliation, so a
+    wrong or unset id would either fail or, worse, sync this desk against another project's
+    board.
     """
-    if PROJECT_ID.startswith("TODO-HAZY-"):
+    if PROJECT_ID.startswith("TODO-"):
         sys.exit(
-            "fetch_status.py is not configured for Hazy yet: PROJECT_ID still holds the "
-            "port placeholder. Set it to Hazy's production project node id at the top of "
-            "this file (see PORTING.md), then re-run."
+            "fetch_status.py is not configured: PROJECT_ID still holds a placeholder. Set "
+            "it to the project node id at the top of this file, then re-run."
         )
+
+
 HISTORY = Path(__file__).resolve().parent / "history.jsonl"
 # .claude/skills/fetch-status/ -> repo root
 REPO = Path(__file__).resolve().parents[3]
 SUBMISSION_LIST = REPO / "submission-list.md"
-REFINEMENT_LIST = REPO / "refinement-list.md"
 SUBMISSIONS_DIR = REPO / "submissions"
 DRAFTS_DIR = REPO / "drafts"
 ARCHIVED = REPO / "archived"
 ACCEPTED_DIR = REPO / "accepted"
-REFINEMENTS_DIR = REPO / "refinements"
 EASTERN = ZoneInfo("America/New_York")
 
 # The order sections appear in submission-list.md (user instruction 2026-08-26):
@@ -92,7 +81,7 @@ STATUSES = [
 
 # NEEDS_REVISION and REJECTED are the two states that carry a Note column:
 # NEEDS_REVISION because the next action has to be written down, and REJECTED
-# because a row that vanished after reaching ACCEPTED went to the refinement
+# because a row that vanished after reaching ACCEPTED was withdrawn from the
 # pipeline rather than being failed, and its last known payment status (there
 # is still a payout) is worth keeping visible. Every table carries Model, the
 # model that built the task. A row leaving NEEDS_REVISION drops its note, which
@@ -124,35 +113,6 @@ SECONDARY = [
 ]
 KNOWN = [s for s, _ in PRIMARY] + [s for s, _ in SECONDARY]
 
-# Review assignment states. Only two have been observed live so far (OFFERED, then
-# REVIEW_PENDING once an assignment is taken), so this list orders what is known and
-# anything else the platform returns is charted under the name it gives.
-REVIEW_PRIMARY = [
-    ("OFFERED", "Offered"),
-    ("REVIEW_PENDING", "To review"),
-]
-
-# refinement-list.md is ONE table, not one per status (operator, 2026-09-11): a refinement
-# is addressed by its UID everywhere, so the UID leads and the status is a cell again.
-# Note carries the task name from submission-list.md when the refinement's
-# origin_submission_id is one of OUR submissions - which is exactly the "is this my own
-# task" question, since most refinements handed out are other contributors' work.
-REFINE_COLUMNS = ["Task UID", "Task name", "Status", "Updated", "Note"]
-REFINE_CELL_KEYS = {
-    "Task UID": "uid", "Task name": "name", "Status": "status",
-    "Updated": "updated", "Note": "note",
-}
-REFINE_PREAMBLE = """# Refinement List
-
-Refinement tasks on the Hazy-Refinement project node, newest first. `/fetch-status` owns this file and syncs it
-to the platform on every run.
-
-Each row's work lives in `refinements/<Task UID>/`. `/refine-task <uid>` does
-round 1; `/revise-refinement <uid>` does every round after.
-
-**Note** names the original task when it is one of ours, resolved from the refinement's
-`origin_submission_id` against `submission-list.md`. A blank Note means the refinement is
-of another contributor's submission."""
 
 SECTION_RE = re.compile(r"^## (\w+)(?:\s*\([^)]*\))?\s*$", re.MULTILINE)
 DRAFT_FOLDER_RE = re.compile(r"^(\d+)-(.+)$")
@@ -379,362 +339,7 @@ def payment_lines(records, prev_records, paid_when):
     return out
 
 
-def run_refinements_cli():
-    """Raw stdout from `stb submissions list` on the refinement project, or None.
-
-    Non-fatal like the reviews call: a refinement failure must not take the submissions
-    report down, and not every session has refinement work.
-    """
-    if not refinements_configured():
-        return None
-    cmd = ["stb", "submissions", "list", "-p", REFINE_PROJECT_ID]
-    try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    return proc.stdout if proc.returncode == 0 else None
-
-
-def parse_refinements(output, now=None):
-    """[{id, state, payment, created_date}] from the refinement project's table.
-
-    `Created At` comes back as "09/11 11:42" with no year, so the year is inferred:
-    this year, unless that would put the row in the future, in which case it is last
-    year's. Refinements are days old in practice, so this only matters across a New Year.
-    """
-    if not output:
-        return []
-    now = now or datetime.now(EASTERN)
-    rows = [ln.strip() for ln in output.splitlines() if ln.strip().startswith("\u2502")]
-
-    def cells(line):
-        return [c.strip() for c in line.strip().strip("\u2502").split("\u2502")]
-
-    idx = {}
-    for row in rows:
-        c = cells(row)
-        if "Assignment State" in c:
-            for name, key in (("Submission ID", "id"), ("Assignment State", "state"),
-                              ("Payment Status", "payment"), ("Created At", "created")):
-                if name in c:
-                    idx[key] = c.index(name)
-            break
-    if "state" not in idx or "id" not in idx:
-        return []
-
-    out = []
-    for row in rows:
-        c = cells(row)
-        if not c or not c[0].isdigit():  # header and separator rows
-            continue
-        rec = {k: (c[i] if i < len(c) else "") for k, i in idx.items()}
-        raw = rec.pop("created", "")
-        rec["created_date"] = ""
-        m = re.match(r"(\d{2})/(\d{2})", raw)
-        if m:
-            mo, day = int(m.group(1)), int(m.group(2))
-            year = now.year
-            try:
-                if datetime(year, mo, day, tzinfo=EASTERN).date() > now.date():
-                    year -= 1
-                rec["created_date"] = "%04d-%02d-%02d" % (year, mo, day)
-            except ValueError:
-                pass
-        if rec["state"] not in KNOWN:
-            found = [s for s in KNOWN if re.search(r"\b%s\b" % s, row)]
-            rec["state"] = found[0] if found else (rec["state"] or "UNKNOWN")
-        out.append(rec)
-    return out
-
-
-def refinement_meta(uid):
-    """(task_name, origin_submission_id) from refinements/<uid>/metadata.json."""
-    meta = REFINEMENTS_DIR / uid / "metadata.json"
-    if not meta.exists():
-        return "", ""
-    try:
-        d = json.loads(meta.read_text(encoding="utf-8"))
-    except (ValueError, OSError):
-        return "", ""
-    r = d.get("refinement") or {}
-    return d.get("task_name") or "", r.get("origin_submission_id") or ""
-
-
 UID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-
-
-def refine_header_columns(line):
-    """Column names of the refinement table header, or None.
-
-    split_row/header_columns above are submission-specific: they identify a data row by a
-    numeric Seq in the first cell and a header by the literal "Seq". A refinement row
-    leads with its UID and has no Seq at all, so it needs its own pair - without these the
-    file re-reads as empty and every row is re-added on every run.
-    """
-    if not line.strip().startswith("|"):
-        return None
-    cells = [c.strip() for c in line.strip().strip("|").split("|")]
-    return cells if cells and cells[0] == "Task UID" else None
-
-
-def refine_split_row(line):
-    """Cells of a refinement data row, identified by carrying a UID cell."""
-    if not line.strip().startswith("|"):
-        return None
-    cells = [c.strip() for c in line.strip().strip("|").split("|")]
-    if len(cells) < 4 or not any(UID_RE.match(c) for c in cells):
-        return None
-    return cells
-
-
-def parse_refinement_list(text):
-    """(preamble, rows) from refinement-list.md - one table, status in its own cell."""
-    lines = text.splitlines()
-    preamble, rows, columns = [], [], list(REFINE_COLUMNS)
-    for line in lines:
-        head = refine_header_columns(line)
-        if head:
-            columns = head
-            continue
-        cells = refine_split_row(line)
-        if not cells:
-            # The "## All refinements (n)" heading is re-emitted by the renderer, so it
-            # must not also be captured as preamble or it doubles on every write.
-            if not rows and not line.strip().startswith(("|", "## ")):
-                preamble.append(line)
-            continue
-        row = {"note": "", "status": "", "name": "", "updated": "-"}
-        for name, cell in zip(columns, cells):
-            key = REFINE_CELL_KEYS.get(name)
-            if key:
-                row[key] = "" if cell == "-" else cell
-        if row.get("uid"):
-            rows.append(row)
-    return "\n".join(preamble).rstrip("\n"), rows
-
-
-def load_refinement_list():
-    """(preamble, rows, {uid: row}) from refinement-list.md, or the skeleton if absent."""
-    if not REFINEMENT_LIST.exists():
-        return REFINE_PREAMBLE, [], {}
-    preamble, rows = parse_refinement_list(REFINEMENT_LIST.read_text(encoding="utf-8"))
-    return (preamble or REFINE_PREAMBLE), rows, {r["uid"]: r for r in rows}
-
-
-def render_refinement_list(preamble, rows):
-    """One table, grouped by the STATUSES order then newest first inside each status."""
-    order = {s: i for i, s in enumerate(STATUSES)}
-    rows = sorted(rows, key=lambda r: (order.get(r.get("status"), len(STATUSES)),
-                                       r.get("uid", "")))
-    parts = [preamble.rstrip("\n")] if preamble.strip() else []
-    body = ["| " + " | ".join(REFINE_COLUMNS) + " |",
-            "|" + "|".join("-" * (len(c) + 2) for c in REFINE_COLUMNS) + "|"]
-    for r in rows:
-        body.append("| " + " | ".join(r.get(REFINE_CELL_KEYS[c]) or "-"
-                                      for c in REFINE_COLUMNS) + " |")
-    parts.append("## All refinements (%d)\n\n%s" % (len(rows), "\n".join(body)))
-    return "\n\n".join(parts).rstrip("\n") + "\n"
-
-
-def refinement_zip(row):
-    """accepted/ file name for a refinement: r-{task-name}-{uid8}.zip.
-
-    Not {task-name}.zip: a task can be refined more than once, so the name alone
-    collides across rounds, and it can also collide with the submission of the same
-    name already in accepted/. The r- prefix and the uid stem keep all three apart.
-    """
-    return "r-%s-%s" % (row.get("name") or "unnamed", row["uid"][:8])
-
-
-def archive_accepted_refinement(row):
-    """Zip refinements/<uid>/ into accepted/r-{name}-{uid8}.zip and remove the folder.
-
-    The zip holds the folder under a <uid>/ top-level directory, so restoring it puts
-    it back exactly where /revise-refinement expects. Idempotent: a refinement already
-    zipped with no folder left is a no-op. Returns (ok, message).
-    """
-    uid = row["uid"]
-    src = REFINEMENTS_DIR / uid
-    stem = refinement_zip(row)
-    dst = ACCEPTED_DIR / ("%s.zip" % stem)
-    if not src.is_dir():
-        if dst.exists():
-            return True, "already archived"
-        return False, "no refinements/%s folder and no accepted/%s.zip" % (uid[:8], stem)
-    ACCEPTED_DIR.mkdir(parents=True, exist_ok=True)
-    shutil.make_archive(str(ACCEPTED_DIR / stem), "zip", root_dir=REFINEMENTS_DIR, base_dir=uid)
-    shutil.rmtree(src)
-    return True, "zipped into accepted/%s.zip, refinements/%s removed" % (stem, uid[:8])
-
-
-def restore_accepted_refinement(row):
-    """Unzip accepted/r-{name}-{uid8}.zip back into refinements/ and drop the zip.
-
-    The inverse, for a refinement that LEAVES ACCEPTED and has to be worked on again.
-    Without it the zip would sit in accepted/ while the row said NEEDS_REVISION and
-    /revise-refinement would find no folder - the drift that hit tasks 04, 10 and 22 on
-    the submissions side (2026-08-27).
-    """
-    uid = row["uid"]
-    stem = refinement_zip(row)
-    src = ACCEPTED_DIR / ("%s.zip" % stem)
-    dst = REFINEMENTS_DIR / uid
-    if dst.is_dir():
-        return (True, "already restored") if not src.exists() else (
-            False, "both refinements/%s and accepted/%s.zip exist" % (uid[:8], stem))
-    if not src.exists():
-        return False, "no accepted/%s.zip to restore" % stem
-    REFINEMENTS_DIR.mkdir(parents=True, exist_ok=True)
-    shutil.unpack_archive(str(src), str(REFINEMENTS_DIR), "zip")
-    if not dst.is_dir():
-        return False, "accepted/%s.zip did not contain a %s/ directory" % (stem, uid)
-    src.unlink()
-    return True, "restored to refinements/%s, accepted/%s.zip removed" % (uid[:8], stem)
-
-
-def sweep_accepted_refinements(rows, apply_changes):
-    """Zip every ACCEPTED refinement away, and restore any that left ACCEPTED."""
-    archived, restored = [], []
-    for r in rows:
-        uid = r.get("uid")
-        if not uid:
-            continue
-        if r["status"] == "ACCEPTED":
-            if not (REFINEMENTS_DIR / uid).is_dir():
-                continue
-            if not apply_changes:
-                archived.append((r, True, "would zip into accepted/%s.zip" % refinement_zip(r)))
-                continue
-            archived.append((r,) + archive_accepted_refinement(r))
-        elif (ACCEPTED_DIR / ("%s.zip" % refinement_zip(r))).exists():
-            if not apply_changes:
-                restored.append((r, True, "would restore from accepted/%s.zip" % refinement_zip(r)))
-                continue
-            restored.append((r,) + restore_accepted_refinement(r))
-    return archived, restored
-
-
-def sync_refinement_list(refs, now, apply_changes, tasks=None):
-    """Reconcile refinement-list.md against the platform. Returns report lines.
-
-    `tasks` is submission-list.md's {uid: row}, used to fill Note: a refinement whose
-    origin_submission_id is one of ours gets that task's name, and a blank Note means it
-    refines another contributor's submission.
-    """
-    preamble, rows, index = load_refinement_list()
-    tasks = tasks or {}
-    added, moved, unfetched, orphans = [], [], [], []
-    stamp = now_stamp(now)
-
-    for s in refs:
-        uid = s["id"]
-        name, origin = refinement_meta(uid)
-        own = (tasks.get(origin) or {}).get("name", "") if origin else ""
-        row = index.get(uid)
-        if row is None:
-            row = {"uid": uid, "name": name or "?", "status": s["state"],
-                   "updated": stamp, "note": own}
-            rows.append(row)
-            index[uid] = row
-            added.append("%s %s - %s" % (uid[:8], row["name"], s["state"]))
-        elif row["status"] != s["state"]:
-            moved.append("%s %s: %s -> %s" % (uid[:8], row.get("name") or "?",
-                                              row["status"], s["state"]))
-            row["status"] = s["state"]
-            row["updated"] = stamp
-        for key, val in (("name", name), ("note", own)):
-            if val and (not row.get(key) or row.get(key) == "?"):
-                row[key] = val
-        if not (REFINEMENTS_DIR / uid / "metadata.json").exists():
-            unfetched.append("%s %s (%s)" % (uid[:8], row.get("name") or "?", s["state"]))
-
-    on_platform = {s["id"] for s in refs}
-    for uid in sorted(set(index) - on_platform):
-        orphans.append("%s %s (row says %s)" % (uid[:8], index[uid].get("name") or "?",
-                                                index[uid]["status"]))
-
-    if apply_changes and (added or moved or not REFINEMENT_LIST.exists()):
-        REFINEMENT_LIST.write_text(render_refinement_list(preamble, rows), encoding="utf-8")
-
-    # An accepted refinement is finished work: zip it into accepted/ and drop the folder,
-    # the same steady state an accepted submission reaches.
-    archived, restored = sweep_accepted_refinements(rows, apply_changes)
-
-    out = []
-    verb = "Updated" if apply_changes else "Would update"
-    if added:
-        out.append("  %s refinement-list.md, added:" % verb)
-        out += ["    + %s" % a for a in added]
-    if moved:
-        out.append("  %s refinement-list.md, moved:" % verb)
-        out += ["    > %s" % m for m in moved]
-    if unfetched:
-        out.append("  Not fetched yet (no refinements/<uid>/):")
-        out += ["    ? %s - run /refine-task <uid>" % u for u in unfetched]
-    if orphans:
-        out.append("  Rows the platform no longer lists (left alone, check by hand):")
-        out += ["    - %s" % o for o in orphans]
-    if not out:
-        out.append("  refinement-list.md matches the platform exactly (%d)." % len(refs))
-    if archived:
-        out.append("  %s accepted refinements into accepted/:" % ("Archived" if apply_changes else "Would archive"))
-        out += ["    %s %s %s: %s" % ("+" if ok else "!", r["uid"][:8], r.get("name") or "?", msg)
-                for r, ok, msg in archived]
-    if restored:
-        out.append("  %s from accepted/ (no longer ACCEPTED):" % ("Restored" if apply_changes else "Would restore"))
-        out += ["    %s %s %s: %s" % ("+" if ok else "!", r["uid"][:8], r.get("name") or "?", msg)
-                for r, ok, msg in restored]
-    own_n = sum(1 for r in rows if r.get("note"))
-    out.append("  %d of %d refine one of our own submissions." % (own_n, len(rows)))
-    return out
-
-
-def run_reviews_cli():
-    """Raw stdout from `stb reviews list`, or None.
-
-    A reviews failure must never take the submissions report down with it: not every
-    contributor has reviewer access, and the section is additive.
-    """
-    cmd = ["stb", "reviews", "list", "-p", PROJECT_ID]
-    try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    return proc.stdout if proc.returncode == 0 else None
-
-
-def parse_reviews(output):
-    """[{id, state, payment, created}] from `stb reviews list`'s box-drawing table."""
-    if not output:
-        return []
-    rows = [ln.strip() for ln in output.splitlines() if ln.strip().startswith("\u2502")]
-
-    def cells(line):
-        return [c.strip() for c in line.strip().strip("\u2502").split("\u2502")]
-
-    idx = {}
-    for row in rows:
-        c = cells(row)
-        if "Assignment State" in c:
-            for name, key in (("Review ID", "id"), ("Assignment State", "state"),
-                              ("Payment Status", "payment"), ("Created At", "created")):
-                if name in c:
-                    idx[key] = c.index(name)
-            break
-    if "state" not in idx:
-        return []
-
-    out = []
-    for row in rows:
-        c = cells(row)
-        if not c or not c[0].isdigit():  # header and separator rows
-            continue
-        rec = {}
-        for key, i in idx.items():
-            rec[key] = c[i] if i < len(c) else ""
-        rec.setdefault("state", "UNKNOWN")
-        out.append(rec)
-    return out
 
 
 def label_for(sub, tasks):
@@ -910,8 +515,8 @@ def reject_and_archive(gone, now, prev_states=None):
     covering a prior run whose archive step didn't complete.
 
     The Note records what the row's own history says about why it vanished.
-    A row that had reached ACCEPTED did not fail: the platform took it into
-    the refinement pipeline, and it still pays out. That, plus its last known
+    A row that had reached ACCEPTED did not fail: it left the board having
+    already been accepted, and it still pays out. That, plus its last known
     payment status - read from the previous snapshot, since a vanished UID
     can no longer be queried - is what the Note carries.
     """
@@ -919,10 +524,10 @@ def reject_and_archive(gone, now, prev_states=None):
     newly_rejected, archive_results = [], []
     for r in gone:
         if r["status"] != "REJECTED":
-            went_to_refinement = r["status"] == "ACCEPTED"
+            was_accepted = r["status"] == "ACCEPTED"
             prev = prev_states.get(r["uid"]) or {}
             pay = PAYMENT_NOTE.get((prev.get("payment") or "").upper(), "")
-            bits = [b for b in (pay, "refinement pipeline" if went_to_refinement else "") if b]
+            bits = [b for b in (pay, "left the board after acceptance" if was_accepted else "") if b]
             r["status"] = "REJECTED"
             r["updated"] = now_stamp(now)
             r["note"] = "; ".join(bits)
@@ -1131,16 +736,13 @@ def main():
     ap.add_argument(
         "--no-apply",
         action="store_true",
-        help="report the submission-list.md and refinement-list.md changes without writing them",
+        help="report the submission-list.md changes without writing them",
     )
     args = ap.parse_args()
 
     require_project_ids()
 
     subs = parse(run_cli())
-    reviews = parse_reviews(run_reviews_cli())
-    now_for_refs = datetime.now(EASTERN)
-    refs = parse_refinements(run_refinements_cli(), now_for_refs)
     preamble, rows, tasks = load_tasks_md()
     counts = tally(subs)
     now = datetime.now(EASTERN)
@@ -1184,54 +786,6 @@ def main():
         lines.append("  Payment")
         lines.extend(pay)
 
-    if reviews:
-        prev_reviews = prev.get("review_counts") if prev else None
-        r_counts = {}
-        for r in reviews:
-            r_counts[r["state"]] = r_counts.get(r["state"], 0) + 1
-        charted_r = [(k, lab) for k, lab in REVIEW_PRIMARY if r_counts.get(k, 0)]
-        charted_r += [(k, k.replace("_", " ").capitalize())
-                      for k in sorted(r_counts) if k not in dict(REVIEW_PRIMARY)]
-        r_peak = max([r_counts[k] for k, _ in charted_r] or [0])
-
-        lines.append("")
-        lines.append("  Review assignments (other contributors' tasks, assigned to me)")
-        for key, label in charted_r:
-            n = r_counts[key]
-            before = prev_reviews.get(key, 0) if prev_reviews is not None else None
-            lines.append("  %-20s %-*s %3d   %s"
-                         % (label, BAR_WIDTH, bar(n, r_peak), n, fmt_delta(n, before)))
-        r_pay = payment_lines(reviews, prev.get("reviews") if prev else None, set())
-        if r_pay:
-            lines.append("  Payment")
-            lines.extend(r_pay)
-
-    if refs:
-        prev_refs = prev.get("refinement_counts") if prev else None
-        f_counts = {}
-        for r in refs:
-            f_counts[r["state"]] = f_counts.get(r["state"], 0) + 1
-        charted_f = [(k, lab) for k, lab in PRIMARY if f_counts.get(k, 0)]
-        charted_f += [(k, lab) for k, lab in SECONDARY if f_counts.get(k, 0)]
-        charted_f += [(k, k.replace("_", " ").capitalize()) for k in sorted(f_counts)
-                      if k not in KNOWN]
-        f_peak = max([f_counts[k] for k, _ in charted_f] or [0])
-
-        lines.append("")
-        lines.append("  Refinements (Hazy-Refinement project)")
-        for key, label in charted_f:
-            n = f_counts[key]
-            before = prev_refs.get(key, 0) if prev_refs is not None else None
-            lines.append("  %-20s %-*s %3d   %s"
-                         % (label, BAR_WIDTH, bar(n, f_peak), n, fmt_delta(n, before)))
-        lines.append("  %s" % ("-" * (22 + BAR_WIDTH + 10)))
-        lines.append("  %-20s %-*s %3d   %s"
-                     % ("Total", BAR_WIDTH, "", len(refs),
-                        fmt_delta(len(refs), sum(prev_refs.values()) if prev_refs else None)))
-        f_pay = payment_lines(refs, prev.get("refinements") if prev else None, {"ACCEPTED"})
-        if f_pay:
-            lines.append("  Payment")
-            lines.extend(f_pay)
 
     lines.append("")
     if prev is None:
@@ -1390,9 +944,6 @@ def main():
             % aligned
         )
 
-    if refs:
-        lines.append("")
-        lines.extend(sync_refinement_list(refs, now, not args.no_apply, tasks))
 
     print("\n".join(lines))
 
@@ -1402,12 +953,6 @@ def main():
             "counts": counts,
             "total": total,
             "submissions": subs,
-            "review_counts": {r["state"]: sum(1 for x in reviews if x["state"] == r["state"])
-                              for r in reviews},
-            "reviews": reviews,
-            "refinement_counts": {r["state"]: sum(1 for x in refs if x["state"] == r["state"])
-                                  for r in refs},
-            "refinements": refs,
         }
     )
 

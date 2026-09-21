@@ -1,6 +1,0 @@
-{
-  "about": "dfl-rejected plus verify_golden.py: G43's alternate-reading arm fires on the unstated rounding, and the stated band boundary passes.",
-  "base": "dfl-rejected",
-  "fires": [{"code": "G43", "contains": "banker's rounding flips DFL7718299"}],
-  "silent_contains": ["boundary takes the row that ends there flips"]
-}

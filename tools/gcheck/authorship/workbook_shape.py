@@ -135,19 +135,19 @@ def datetime_cells(path):
 
 
 def paste_walls(path):
-    """A5 — statistical-detector driver isolated on twincreek (task 08, runs 1-4):
-    a raw-paste sheet dominating the workbook's extracted text fails the chunked
+    """A5 — statistical-detector driver isolated on one task (runs 1-4): a
+    raw-paste sheet dominating the workbook's extracted text fails the chunked
     human-likeness detector. Calibrated on every big solution tab with a known
-    detector outcome (Aug 2026): marathon 1011r 43% letters / deadstock 429r 27%
-    passed; twincreek's 884r wall failed at 5% letters (numeric form, run 4) and
-    with a ~35-char desc column (runs 1-3); dillman's 141-row Settings wall failed
-    at 59 chars/row (run 1, detect 0.20). Detector scans solution files only.
+    detector outcome (Aug 2026): a 1011-row tab at 43% letters and a 429-row tab
+    at 27% passed; that task's 884r wall failed at 5% letters (numeric form, run 4)
+    and with a ~35-char desc column (runs 1-3); another task's 141-row Settings wall
+    failed at 59 chars/row (run 1, detect 0.20). Detector scans solution files only.
 
-    Row gate is 100, not 250: dillman's two walls were 141 and 138 rows and slipped
+    Row gate is 100, not 250: that task's two walls were 141 and 138 rows and slipped
     the old gate entirely. Mean-longest across every big tab with a known PASSING
-    outcome: marathon 1011r/8.2, weldon 1028r/16.8, deadstock 429r/18.2, stroebel
-    689r/22.3. Small tabs stay exempt by the row gate (hartwell's 58-row Repricing
-    sits at 37.4 and scored detect 1.00), so string length only bites at scale.
+    outcome: 1011r/8.2, 1028r/16.8, 429r/18.2 and 689r/22.3. Small tabs stay exempt
+    by the row gate (a 58-row Repricing tab sits at 37.4 and scored detect 1.00), so
+    string length only bites at scale.
     """
     findings = []
     try:
@@ -181,36 +181,36 @@ def paste_walls(path):
         where = f'sheet "{title}" ({nrows} rows, {share:.0%} of extracted text)'
         if nrows >= 250 and ratio < 0.15:
             findings.append(("ERROR", f"{where} is a near-letterless data wall ({ratio:.0%} letters) — "
-                             "the authorship detector reads these chunks as AI (twincreek run 4, detect 0.06); "
+                             "the authorship detector reads these chunks as AI (an earlier task, run 4, detect 0.06); "
                              "move the raw paste to inputs and keep a rollup, or anchor rows with real-word columns"))
         elif mean_longest > 45:
             findings.append(("ERROR", f"{where} repeats a sentence-length text column (mean longest string "
-                             f"{mean_longest:.0f} chars/row, pass band 8-23) — dillman run 1 failed at 59 "
+                             f"{mean_longest:.0f} chars/row, pass band 8-23) — a task failed run 1 at 59 "
                              "chars/row over 141 rows (detect 0.20); replace templated reason sentences with "
                              "trade shorthand plus a legend on a params tab, and drop columns the workbook "
                              "duplicates from another tab"))
         elif mean_longest > 25:
             findings.append(("ERROR", f"{where} carries a long text column (mean longest string "
                              f"{mean_longest:.0f} chars/row, pass band 8-23) — desc-style walls failed "
-                             "twincreek runs 1-3 (detect 0.04-0.08) and dillman run 1 (detect 0.20); "
+                             "runs 1-3 on one task (detect 0.04-0.08) and run 1 on another (detect 0.20); "
                              "prefer short vendor/branch-style word anchors or a rollup"))
-        # A5 dominant-tab signal (2026-08-26, delivery-zone-reset rounds 1 and 3, detect
-        # 0.13 twice): a word-ANCHORED register can still sink the detector when one tab
+        # A5 dominant-tab signal (2026-08-26, rounds 1 and 3, detect 0.13 twice): a
+        # word-ANCHORED register can still sink the detector when one tab
         # carries too much of the extracted fabric. The 792-row stop register sat at
         # 42% letters and mean-longest 17 — inside every per-row band above — yet 39/45
         # chunks read AI, because the tab held 80% of the workbook's text and prose was
-        # 5%. No accepted workbook has a tab above marathon's 67%. The repair that
-        # moved the composition to dillman/twincreek territory (sim 0.04 -> 0.22):
-        # drop columns the tab duplicates from another tab via a key (the register's
+        # 5%. No accepted workbook has a tab above 67%. The repair that moved the
+        # composition into passing territory (sim 0.04 -> 0.22): drop columns the
+        # tab duplicates from another tab via a key (the register's
         # DATE rode on RUN), and add a Working Notes tab of first-person desk prose
-        # (twincreek's accepted device) plus prose note lines on the small tabs.
+        # (an accepted task's device) plus prose note lines on the small tabs.
         elif share > 0.72:
             findings.append(("ERROR", f"{where} dominates the workbook's extracted text — even a "
                              "word-anchored register fails the chunked detector at this share "
-                             "(delivery-zone-reset, 2026-08-26: 80% share scored detect 0.13 twice; "
-                             "accepted maximum is marathon's 67%). Drop columns the tab duplicates "
+                             "(2026-08-26: 80% share scored detect 0.13 twice; the "
+                             "accepted maximum is 67%). Drop columns the tab duplicates "
                              "from another tab via a key, and grow prose mass: a Working Notes tab "
-                             "in first-person desk register (twincreek's accepted shape) plus note "
+                             "in first-person desk register (an accepted task's shape) plus note "
                              "lines on the small tabs"))
     return findings
 
@@ -256,25 +256,26 @@ def _input_extract_headers(folder):
 def input_extract_walls(path, folder):
     """A5, third signal - a VERBATIM input extract carrying too much of the solution's text.
 
-    boettcher-winter-earlybuy (2026-08-31, detect 0.15, 23 of 27 chunks AI): the solution
-    pasted the 81-row, 36-month usage CSV whole as a Usage tab. At 81 rows it slipped the
+    One task (2026-08-31, detect 0.15, 23 of 27 chunks AI): the solution pasted the
+    81-row, 36-month usage CSV whole as a Usage tab. At 81 rows it slipped the
     100-row gate of the two signals above, yet it held 36.5% of the workbook's extracted
     text at 26% letters, and two of the three passages the detector quoted came off it.
     The CSV already ships in the inputs, so the paste adds nothing a reader needs and a
     third of the fabric the detector reads as machine-made. The fix that lifted the chunk
-    simulator from 0.29 to 0.64 was the twincreek device: drop the paste, carry a 27-row
-    season rollup of typed pivot values, keep every decision formula live on top of it.
+    simulator from 0.29 to 0.64 was an accepted task's device: drop the paste, carry a
+    27-row season rollup of typed pivot values, keep every decision formula live on top
+    of it.
 
     Detection is structural, not textural: a solution sheet whose header row matches an
     input file's header (Jaccard >= 0.8) with at least 80% of that input's rows is a
     verbatim extract, and it errors when it holds more than 30% of the extracted text.
     Calibration (2026-08-31 probe, every accepted workbook and every submission): no
-    accepted workbook carries a verbatim extract at all (hartwell none, twincreek
-    deleted its Item Data extract on the way to its pass); boettcher's failing paste sat
-    at 36.5%; extracts that pass the gate today sit at 27.4% (radke Receipts), 13.4%
-    (semrad Price Page), 9.6% (delivery-zone-reset Runs), 8% (boettcher's own Stock and
-    Price Pages). One untested point above the bar: inbound-consolidation-plan's History
-    tab at 66.2%, no platform authorship verdict yet - if it passes, raise the bar.
+    accepted workbook carries a verbatim extract at all (one accepted task deleted its
+    Item Data extract on the way to its pass); the failing paste sat at 36.5%; extracts
+    that pass the gate today sit at 27.4% (a Receipts tab), 13.4% (a Price Page), 9.6%
+    (a Runs tab) and 8% (the same package's Stock and Price Pages). One untested point
+    above the bar: a History tab at 66.2%, no platform authorship verdict yet - if it
+    passes, raise the bar.
     """
     findings = []
     inputs = [x for x in _input_extract_headers(folder) if x[1]]
@@ -309,7 +310,7 @@ def input_extract_walls(path, folder):
                                  f"text) is a verbatim extract of {name} (header match {jacc:.0%}) - the "
                                  "input already ships the data, and a paste holding over 30% of the "
                                  "solution's text reads as machine-made whatever its row count "
-                                 "(boettcher-winter-earlybuy 2026-08-31, 81 rows at 36.5% scored detect "
+                                 "(2026-08-31, 81 rows at 36.5% scored detect "
                                  "0.15; no accepted workbook carries one). Drop the paste and carry a "
                                  "rollup of the season or period figures the decisions actually use, "
                                  "with the decision formulas live on top of it"))
@@ -319,7 +320,7 @@ def input_extract_walls(path, folder):
 
 @check(codes=['A15'], rules=['LLM-SHAPE'], needs=['inputs'], params=['folder'])
 def check_number_series(folder):
-    # A15 (2026-08-26, delivery-zone-reset LLM-authorship FAIL, detect 0.13): the
+    # A15 (2026-08-26, an LLM-authorship FAIL, detect 0.13): the
     # statistical detector reads input CSVs too, and machine-generated NUMBER SERIES
     # sank the whole package: run-log city miles cycled a strict period-5 sequence
     # [14,16,18,20,22] and hours a period-4 sequence across all 64 city rows with zero
@@ -337,7 +338,7 @@ def check_number_series(folder):
     # counts).
     """No input CSV column repeats a strict short cycle or holds a near-uniform amount distribution.
 
-    Since: 2026-08-26 (delivery-zone-reset, detect 0.13).
+    Since: 2026-08-26 (detect 0.13).
     Source: the LLM authorship statistical detector.
     """
     def _a15_cycles(vals, kmax=8):
@@ -390,8 +391,8 @@ def check_number_series(folder):
             if hits_:
                 emit("ERROR", f"[A15] inputs/{p_.name}: column {hdr_[i]!r} {hits_[0]} with zero "
                               "variation - the authorship detector calls strict cycling "
-                              "machine-generated, not a real log (delivery-zone-reset, "
-                              "2026-08-26, detect 0.13). Regenerate with realistic jitter, "
+                              "machine-generated, not a real log (2026-08-26, "
+                              "detect 0.13). Regenerate with realistic jitter, "
                               "preserving the planted counts and bands")
                 continue
             dec2_ = sum(1 for v in vals_ if "." in v and len(v.split(".")[-1]) == 2)
@@ -401,7 +402,7 @@ def check_number_series(folder):
                 emit("ERROR", f"[A15] inputs/{p_.name}: column {hdr_[i]!r} holds only "
                               f"{len(set(vals_))} unique values across {len(vals_)} rows - a "
                               "near-uniform repeating amount distribution reads as programmatic, "
-                              "not real invoice data (delivery-zone-reset, 2026-08-26). "
+                              "not real invoice data (2026-08-26). "
                               "Regenerate the amounts with a realistic spread, preserving each "
                               "row's price band")
 
@@ -451,7 +452,7 @@ def check_datetime_and_walls(folder):
     Codes:
       A2  no datetime-formatted cells (a date is stored as plain text in the source format)
       A5  no paste wall: a big tab that is near-letterless, repeats a sentence-length column, holds over 72% of the extracted text, or is a verbatim input extract over 30% of it
-    Since: twincreek runs 1-4 and dillman run 1 (Aug 2026); delivery-zone-reset 2026-08-26; boettcher 2026-08-31.
+    Since: runs 1-4 on one task and run 1 on another (Aug 2026); 2026-08-26; 2026-08-31.
     Source: the LLM authorship statistical detector.
     """
     for p in solution_files(folder, {".xlsx"}):
@@ -472,7 +473,7 @@ def check_hidden_precision(folder):
     """No stored value carries more precision than its own number format shows.
 
     The LLM-authorship reviewer reads CACHED VALUES, not the formatted display, and reads
-    a long tail of decimals as programmatic computation. It failed kolterman (2026-08-21,
+    a long tail of decimals as programmatic computation. It failed a task (2026-08-21,
     detect 1.00 / llm-only 0.50 / combined 0.85) on six cells: five MARGIN AT RISK values
     like 199.7626667 and 682.554687 behind a #,##0.00 format, and a briefing total of
     2121.543045 behind a currency format. fix_floats does not catch these: they are not
@@ -480,7 +481,7 @@ def check_hidden_precision(folder):
 
     Fix at the source, not with formatting: round the money the system would round (a
     unit margin is cents, a per-month usage figure is two places), so the stored value is
-    the value a reader sees. Kolterman's fix moved one pinned figure by ten cents and
+    the value a reader sees. That fix moved one pinned figure by ten cents and
     left every other answer untouched.
     """
     d = folder / "solution"
@@ -510,7 +511,7 @@ def check_hidden_precision(folder):
             emit("ERROR", f"[A8] {path.name}: {len(hits)} cells store more precision than their "
                           f"format shows (e.g. {'; '.join(hits[:3])}) — the authorship reviewer "
                           "reads cached values, not the display, and reads the tail as "
-                          "programmatic computation (kolterman FAIL 2026-08-21, combined 0.85). "
+                          "programmatic computation (a FAIL 2026-08-21, combined 0.85). "
                           "Round at the source with ROUND() so the stored figure is the figure a "
                           "reader sees; formatting alone does not fix it")
 
@@ -536,7 +537,7 @@ def check_stored_arithmetic(folder):
     The build injects cached values into the sheet XML because openpyxl leaves them
     empty, and it injects the ROUNDED money figure while the formula itself is
     unrounded. The file therefore ships one number and computes another the moment
-    anyone opens it with fullCalcOnLoad set. Task 20 (2026-08-21) shipped
+    anyone opens it with fullCalcOnLoad set. One task (2026-08-21) shipped
     `=E22*Params!C16` cached at 11,217.40 against a true 11,217.395, and a cell
     downstream subtracted two such cells and moved a rubric-pinned figure by a cent:
     1,097.90 in the rubric, in the prose and in the cache, 1,097.89 on recalculation.
@@ -603,7 +604,7 @@ def check_stored_arithmetic(folder):
             emit("ERROR", f"[A9] {path.name}: {len(bad)} cells store a value their own formula "
                           f"does not reproduce ({'; '.join(bad[:3])}) — the workbook changes on "
                           "open, and a rubric figure pinned to the stored value moves with it "
-                          "(task 20's rebate given up went 1,097.90 to 1,097.89 and the oracle "
+                          "(a rebate-given-up figure went 1,097.90 to 1,097.89 and the oracle "
                           "failed the criterion). Round inside the formula, not in the cache")
         if soft:
             emit("ERROR", f"[A9] {path.name}: {len(soft)} cells recompute a hair off their stored "
@@ -615,7 +616,7 @@ def check_stored_arithmetic(folder):
 def check_caches(folder):
     """Every formula cell carries exactly one cached <v>.
 
-    Since: 2026-08-31 (grunewald reviewer) for the multi-<v> case; empty caches since the first oracle misreads.
+    Since: 2026-08-31 (a reviewer) for the multi-<v> case; empty caches since the first oracle misreads.
     Source: reviewer; judges misread empty caches as typed.
     Drift-notes: --no-caches skips it; shared formulas are legal OOXML (fenced 2026-09-02).
     """
@@ -656,7 +657,7 @@ def check_caches(folder):
                              "cached <v> — judges misread empty caches; open the workbook in a "
                              "spreadsheet app and save to recalculate before zipping")
             if nmulti:
-                # A17 (2026-08-31, grunewald reviewer): a cell holding more than one <v> is
+                # A17 (2026-08-31, a reviewer): a cell holding more than one <v> is
                 # malformed OOXML (openpyxl reads the first and Excel repairs the file, so no
                 # loader catches it). Cause: a cache injector appending a value without
                 # stripping the empty <v></v> openpyxl writes after <f>. Exactly one <v> per

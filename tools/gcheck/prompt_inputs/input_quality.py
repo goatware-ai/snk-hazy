@@ -10,7 +10,7 @@ from ..common import (MONTH_NUM, MONTHS_RE, _solution_cell_values, _solution_raw
 from ..core import check, emit, recommend, REPORT, OPTIONS
 
 
-# R23 (2026-08-20, rempel run 1): a quotation term date the golden never lands on.
+# R23 (2026-08-20): a quotation term date the golden never lands on.
 _TERM_REL_RE = re.compile(
     r"(?:firm|good|valid|hold(?:s)?|guaranteed)[^.]{0,30}?for\s+"
     r"(sixty|thirty|ninety|forty five|\d{1,3})\s+days", re.I)
@@ -25,8 +25,8 @@ _TERM_RE = re.compile(
 def _a18_asof(folder):
     """No input records a completed event dated after the solution's own created stamp.
 
-    Since: 2026-08-21 (oskaloosa reviewer send-back, as-of evidence failure).
-    Source: reviewer.
+    Since: 2026-08-21 (a send-back on as-of evidence).
+    Source: task feedback.
     Drift-notes: scoped to columns whose header names a completed event; numbered A10 until 2026-09-04.
     """
     asof = _solution_asof(folder)
@@ -71,7 +71,7 @@ def _a18_asof(folder):
     for h in sorted(set(hits))[:6]:
         emit("ERROR", f"[A18] {h} records a completed event dated after the solution was prepared "
                       f"({asof}) — an input pulled for that deliverable cannot contain it "
-                      "(oskaloosa reviewer send-back 2026-08-21, as-of evidence failure)")
+                      "(a send-back on as-of evidence, 2026-08-21)")
 
 
 @check(codes=['R23', 'A18'], rules=['DATA-TIME'], needs=['inputs', 'solution'], params=['folder'])
@@ -81,8 +81,8 @@ def check_term_dates(folder):
     Codes:
       R23  a firm-price or validity date (or relative window) stated in an input appears in a solution cell
       A18  no input records a completed event dated after the solution's own created stamp
-    Since: R23 2026-08-20 (rempel run 1); A18 2026-08-21 (oskaloosa reviewer send-back).
-    Source: AutoEval golden_source_fidelity (R23) and the reviewer's as-of evidence read (A18).
+    Since: R23 2026-08-20; A18 2026-08-21 (a send-back on as-of evidence).
+    Source: AutoEval golden_source_fidelity (R23) and an as-of evidence read (A18).
     Drift-notes: A18 was a carve-out twin (numbered A10 in the monolith), merged back 2026-09-11.
     """
     _a18_asof(folder)     # [A18] the carve-out twin, merged back 2026-09-11
@@ -105,16 +105,16 @@ def check_term_dates(folder):
             if any(f in joined for f in forms):
                 continue
             emit("ERROR", f"[R23] {name} states a term date of {mon:02d}/{d:02d}/{y} "
-                          f'("{m.group(0)[:60]}") that no solution cell carries — rempel run 1 '
+                          f'("{m.group(0)[:60]}") that no solution cell carries — an earlier task '
                           "hard-failed golden_source_fidelity for applying a firm-price rule to one "
                           "vendor and silently skipping another; put the date on the plan even when "
                           "the answer is that it does not bind")
         for m in _TERM_REL_RE.finditer(text):
             # Cleared when the solution's own text carries the same window: the check's
             # remedy is that the window be visible on the plan, and a plan that states
-            # "hold ninety days" has done exactly that (returns-cage draft, 2026-08-24 —
-            # the Briefing carried the Halbrook hold verbatim and the check fired anyway,
-            # an unconditional error with no satisfiable clearing path). The rempel trap
+            # "hold ninety days" has done exactly that (a draft, 2026-08-24 — the
+            # briefing carried the hold verbatim and the check fired anyway, an
+            # unconditional error with no satisfiable clearing path). The original trap
             # stays caught: its window appeared in no solution cell.
             tok = m.group(1)
             variants = {f"{tok} days".lower()}
@@ -130,8 +130,8 @@ def check_term_dates(folder):
                 continue
             emit("ERROR", f"[R23] {name} states a relative term window "
                          f'("{m.group(0)[:50]}") that no solution cell mentions — work out the '
-                         "date it lands on and put the window on the plan, the same trap rempel "
-                         "run 1 failed on")
+                         "date it lands on and put the window on the plan, the same trap an "
+                         "earlier task failed on")
 
 
 @check(codes=['A11'], rules=['DATA-SUFF'], needs=['inputs'], params=['folder'])
@@ -142,23 +142,23 @@ def check_prose_source_floor(folder):
         if not stats:
             continue
         words = stats[1]
-        # 2026-08-24 vendor-terms-program dataset feedback: the content-thinness axis holds
+        # 2026-08-24 dataset feedback: the content-thinness axis holds
         # technical documentation (policy/SOP/manual/procedure files) to a 600-word floor,
         # not the general 500 (inventory_policy.docx scored 196/600 and was a top issue).
         floor = 600 if re.search(r"policy|sop|manual|procedure|instructions", p.name, re.I) else 500
         if words < floor:
             emit("ERROR", f"[A11] inputs/{p.name}: {words} words — a prose source document sits under "
                           f"the {floor}-word floor the Input Files Quality Check applies (600 for "
-                          "policy/SOP files per vendor-terms-program's 2026-08-24 dataset feedback; "
-                          "a reviewer sent task 16 back at 441 and 411 words). Grow it with material "
+                          "policy/SOP files per the 2026-08-24 dataset feedback; a task was sent "
+                          "back at 441 and 411 words). Grow it with material "
                           "the author would really have put in, adding nothing the solver is meant "
                           "to deduce")
 
 
 @check(codes=['A16'], rules=['DATA-OPEN'], needs=['inputs', 'solution'], params=['folder'])
 def check_package_parses(folder):
-    # A16 (2026-08-26, pavelka reviewer revision): every packaged office file must PARSE.
-    # Both pavelka xlsx inputs shipped a docProps/core.xml using dc:/dcterms:/xsi:
+    # A16 (2026-08-26, a revision request): every packaged office file must PARSE.
+    # Both xlsx inputs of one task shipped a docProps/core.xml using dc:/dcterms:/xsi:
     # prefixes with no namespace declarations - lxml refuses the part, so openpyxl
     # (and pandas, which a solver's tooling rides on) cannot open the file at all.
     # Worse, every load_workbook site in THIS gate swallows the exception and skips
@@ -169,8 +169,8 @@ def check_package_parses(folder):
     # itself, and it blinds every downstream check that silently continues past it.
     """Every packaged Office file parses: each XML part is well-formed and openpyxl opens each workbook.
 
-    Since: 2026-08-26 (pavelka reviewer revision).
-    Source: reviewer; an unreadable part also blinded the A12 thinness sweep, so this errors rather than skips.
+    Since: 2026-08-26 (a revision request).
+    Source: task feedback; an unreadable part also blinded the A12 thinness sweep, so this errors rather than skips.
     """
     from lxml import etree as _etree
     for p_ in sorted(list((folder / "inputs").glob("*.[xd][lo]*")) +
@@ -189,7 +189,7 @@ def check_package_parses(folder):
                                           f"well-formed XML ({e_}) — openpyxl/pandas refuse the "
                                           "whole file, a solver's tooling crashes on it, and this "
                                           "gate's own loaders silently skip it, blinding every "
-                                          "downstream check (pavelka 2026-08-26: the broken part "
+                                          "downstream check (2026-08-26: the broken part "
                                           "hid an A12 thinness failure)")
         except Exception as e_:
             emit("ERROR", f"[A16] {p_.relative_to(folder)}: unreadable as a zip package ({e_})")
@@ -204,16 +204,16 @@ def check_package_parses(folder):
 
 @check(codes=['A12'], rules=['DATA-SUFF'], needs=['inputs', 'solution'], params=['folder'])
 def check_input_thinness(folder):
-    # A12 (2026-08-23, vondrak run 2): the platform's content-thinness axis applies a
+    # A12 (2026-08-23): the platform's content-thinness axis applies a
     # 100-populated-cell floor to each input spreadsheet, with a 25-cell hard minimum and
-    # an aggregate-bundle carveout it grants grudgingly (vondrak's 45-cell purchase record
+    # an aggregate-bundle carveout it grants grudgingly (one 45-cell purchase record
     # passed "only under the aggregate-content carveout" and was named a top issue).
     # Clear the floor per file rather than leaning on the carveout.
-    # Extended to CSVs 2026-08-24: rossville's open_po_lines_0821.csv sat at ~72 cells,
+    # Extended to CSVs 2026-08-24: an open_po_lines_0821.csv sat at ~72 cells,
     # invisible to the xlsx-only sweep, and the dataset feedback named it a top issue.
     """Each input spreadsheet or CSV holds at least 100 populated cells, and never fewer than 25.
 
-    Since: 2026-08-23 (vondrak run 2); CSVs added 2026-08-24 (rossville).
+    Since: 2026-08-23; CSVs added 2026-08-24.
     Source: the Input Files Quality Check's content-thinness axis (100-cell floor, 25-cell hard minimum).
     """
     inp = folder / "inputs"
@@ -239,8 +239,8 @@ def check_input_thinness(folder):
         elif cells < 100:
             emit("ERROR", f"[A12] inputs/{p_.name}: {cells} populated cells — under the 100-cell "
                          "floor the content-thinness axis applies per spreadsheet; the aggregate "
-                         "carveout can save it but gets named a top issue (vondrak run 2, "
-                         "2026-08-23). Add the columns the record would really carry")
+                         "carveout can save it but gets named a top issue (2026-08-23). Add the "
+                         "columns the record would really carry")
 
 
 @check(codes=['A7'], rules=['DATA-BUDGET'], needs=['solution'], params=['folder'])
@@ -248,7 +248,7 @@ def check_reviewer_budget(folder):
     """The deliverable's extracted text stays within what an agentic reviewer can hold in one read.
 
     The Agentic Rubric Quality Review reads every input file AND the golden workbook
-    through its own tools, then reads rubrics.txt and instruction.md. Kolterman's review
+    through its own tools, then reads rubrics.txt and instruction.md. One task's review
     (2026-08-21) came back needs_improvement with a [critical] completeness finding and no
     rubric analysis at all: both of those files returned "[Prior result omitted from
     context to avoid token overflow]". They are the two SMALLEST files in the submission
@@ -276,7 +276,7 @@ def check_reviewer_budget(folder):
             emit("ERROR", f"[A7] {path.name} carries {chars:,} chars of text, against a 23k to 46k "
                          "band across the rest of the catalog. The Agentic Rubric Quality Review "
                          "reads the whole deliverable plus every input before it reads the rubric, "
-                         "and kolterman's review evicted rubrics.txt and instruction.md from its own "
+                         "and one task's review evicted rubrics.txt and instruction.md from its own "
                          "context at 260k chars total (2026-08-21). Carry row-level ledgers only "
                          "where an answer needs them")
 
@@ -302,14 +302,14 @@ def _solution_asof(folder):
     return min(stamps) if stamps else None
 
 
-# G22 (2026-09-11, returns-cage-disposition FINAL REJECTION): the 08/14 cage count
+# G22 (2026-09-11, a FINAL REJECTION): the 08/14 cage count
 # tagged goods under authorizations the RGA log issues on 08/15 and 08/16, and the
 # controller memo's suspense balance "at the close of business Friday, August 14"
 # equalled the credit register summed WITHOUT a date filter - three credit memos dated
 # 08/15-08/16 (736.76 at item cost) sat inside a stated 08/14 balance. The golden
 # inherited both, the rubric pinned the balance, and every fidelity re-derivation
 # "matched" because it summed the same undated register (a matching recomputation
-# proves consistency, not correctness). Adjudication rejected the task on this alone
+# proves consistency, not correctness). The task was rejected on this alone
 # after the revision limit. Two mechanical faces:
 #   (a) referential chronology: a snapshot input stamped _MMDD in its filename must not
 #       reference record ids another input dates AFTER the snapshot date;
@@ -347,10 +347,10 @@ def _g22_tables(folder):
     return out
 
 
-# G22 (c), 2026-09-14 (recall-response refinement round 3): a workbook input's PAST-EVENT date
+# G22 (c), 2026-09-14: a workbook input's PAST-EVENT date
 # column (returned_date, received_date, Transaction Date ...) never runs later than the file's
 # own dcterms:modified stamp. A Returns sheet dated 2026-08-24 sat inside a snapshot stamped
-# 2026-08-18, the notice's own day; adjudication read the return as includable or excludable
+# 2026-08-18, the notice's own day; the finding read the return as includable or excludable
 # and the pinned unaccounted figure as moving by one either way. Headers that name a future
 # event (due, expiry, deadline, planned, scheduled ...) are left alone.
 _G22_PAST_HDR_RE = re.compile(
@@ -402,9 +402,9 @@ def _g22_workbook_stamps(folder):
                 if d > stamp:
                     emit("ERROR", f"[G22] inputs/{os.path.basename(path)} sheet {ws.title!r} column {hdr[j]!r} "
                                   f"runs to {d.isoformat()} but the workbook's own modified stamp is {stamp.isoformat()} - "
-                                  "a record dated after the file was written. Adjudication read a return dated six days "
-                                  "after the notice as includable or excludable and the pinned unaccounted figure as "
-                                  "moving by one (recall-response refinement round 3, 2026-09-14). Date every record on "
+                                  "a record dated after the file was written. A return dated six days "
+                                  "after the notice was read as includable or excludable and the pinned unaccounted "
+                                  "figure as moving by one (2026-09-14). Date every record on "
                                   "or before the stamp, or move the stamp")
         wb.close()
 
@@ -413,8 +413,8 @@ def _g22_workbook_stamps(folder):
 def check_cutoff_chronology(folder):
     """A snapshot input stamped with a date never references records another input dates after it, and a stated as-of balance equals the date-filtered register sum.
 
-    Since: 2026-09-11 (returns-cage-disposition, rejected at adjudication after the revision limit).
-    Source: adjudication; a matching re-derivation over an undated register proves consistency, not correctness.
+    Since: 2026-09-11 (a task rejected after the revision limit).
+    Source: task feedback; a matching re-derivation over an undated register proves consistency, not correctness.
     Drift-notes: tightened 2026-09-14 (a workbook's past-event date column against its own modified stamp).
     """
     _g22_workbook_stamps(folder)
@@ -429,7 +429,7 @@ def check_cutoff_chronology(folder):
             continue
         ncol = max(len(r) for r in body)
         # a register dates its OWN records, whose id leads the row: only column 0 may
-        # feed the id map (narrowed 2026-09-11 after the first cut mapped frankfort's
+        # feed the id map (narrowed 2026-09-11 after the first cut mapped one task's
         # STOCK NO item codes, column 3 of an order backlog, to order dates)
         idc = datec = None
         col0 = [r[0] for r in body if r and r[0]]
@@ -470,9 +470,9 @@ def check_cutoff_chronology(folder):
                                for v, (d_, src) in late[:6])
             emit("ERROR", f"[G22] inputs/{name} is a snapshot stamped "
                           f"{cut[1]:02d}/{cut[2]:02d} but references records dated after it "
-                          f"({listed}) - the returns-cage 08/14 cage count carried "
-                          "authorizations issued 08/15-08/16 and the task was REJECTED at "
-                          "adjudication on the chronology (2026-09-11). Date every referenced "
+                          f"({listed}) - an 08/14 cage count carried "
+                          "authorizations issued 08/15-08/16 and the task was REJECTED "
+                          "on the chronology (2026-09-11). Date every referenced "
                           "record on or before the snapshot, or move the snapshot date")
 
     # (b) an as-of balance equal to an unfiltered register sum
@@ -536,9 +536,9 @@ def check_cutoff_chronology(folder):
                         emit("ERROR", f"[G22] inputs/{docname} states a balance of {m.group(1)} as of "
                                       f"{cut[1]:02d}/{cut[2]:02d}/{cut[0]}, and inputs/{name} reproduces "
                                       f"it only when summed WITHOUT the date cutoff (filtered sum "
-                                      f"{filt:,.2f}) - the returns-cage memo's 15,127.75 'at the close "
+                                      f"{filt:,.2f}) - one memo's 15,127.75 'at the close "
                                       "of business Friday, August 14' included credit memos dated "
-                                      "08/15-08/16 and the task was REJECTED at adjudication "
+                                      "08/15-08/16 and the task was REJECTED "
                                       "(2026-09-11). Set the stated balance to the date-filtered sum "
                                       "or redate the late records")
                         break

@@ -7,7 +7,7 @@ from ..common import _without_cell_refs, workbook
 from ..core import check, emit, recommend, REPORT, OPTIONS
 
 
-# R69 second wave (2026-08-31, dock-to-stock-review pre-submission): a rubric whose
+# R69 second wave (2026-08-31, a pre-submission check): a rubric whose
 # deliverable is a memo writes every criterion as "The memo <verb>s ...", so the passive
 # subject-verb signature both checks read never appears. _R70_WRAPPER_RE strips that
 # wrapper, and R70_CONCLUSION_VERBS is the set of verbs that make the criterion an
@@ -62,7 +62,7 @@ _R69_SV_RE = re.compile(
     r"(?:(?:incorrectly|wrongly|still|also|then)\s+)?(?P<verb>[a-z]+)", re.I)
 
 
-# R77 (2026-08-31, wanasek-credit-workup run 1, golden check 0.9444 / 1.0 / 1.0): an
+# R77 (2026-08-31, an oracle run, golden check 0.9444 / 1.0 / 1.0): an
 # OPEN-SCOPE fabrication negative. "The workup cites a reference figure, bank balance or
 # ledger entry beyond what the reference replies and the account register document" fired
 # 1/3 ON THE GOLDEN, the judge quoting the NSF sentence (check 4415 returned November 17,
@@ -89,7 +89,7 @@ _R77_OBJECT_RE = re.compile(
 def check_open_scope_fabrication(rows):
     """A fabrication negative names a closed class of invented content, never an open class of figures the judge must confirm one by one.
 
-    Since: 2026-08-31 (wanasek-credit-workup run 1, 1/3 on the golden).
+    Since: 2026-08-31 (an oracle run, 1/3 on the golden).
     Source: the oracle.
     """
     for num, text, weight in rows:
@@ -105,8 +105,8 @@ def check_open_scope_fabrication(rows):
                           f"figures ({obj.group(0)}) and its frame (\"{frame.group(0)}\") sends the judge "
                           "to confirm EVERY such figure in the deliverable against the sources; one it "
                           "cannot match (a CSV date, a derived deadline, a computed average) reads as "
-                          "cited beyond the record and the negative fires on the golden (wanasek run 1, "
-                          "2026-08-31, 1/3 on an NSF entry the register carries as 11/24/25). Narrow it "
+                          "cited beyond the record and the negative fires on the golden "
+                          "(2026-08-31, 1/3 on an NSF entry the register carries as 11/24/25). Narrow it "
                           "to a CLOSED class of invented content the golden plainly lacks ('cites a "
                           "credit bureau report or score, with no such report in the file'; 'cites a "
                           "policy section number with no such section in the policy')")
@@ -121,7 +121,7 @@ _R84_TRAILING_RE = re.compile(
 def check_negative_trailing_clause(rows):
     """A negative states its prohibited act once with the frame inside the sentence, never ending on a trailing rule-breach clause such as 'in violation of' or 'contrary to'.
 
-    R84 (2026-09-02, flyer-program-review gate-2 reviewer): 'Remove trailing clauses
+    R84 (2026-09-02, a gate-2 reviewer): 'Remove trailing clauses
     that bring negatively weighted items into negative language such as "in violation
     of..." or "contrary to...."'. A negative should state the prohibited act once; a comma
     clause at the end that restates it as a rule breach is the author arguing the case, and
@@ -135,16 +135,16 @@ def check_negative_trailing_clause(rows):
         m = _R84_TRAILING_RE.search(t.strip())
         if m:
             emit("ERROR", f'C{num} [R84] negative ends in a trailing rule-breach clause "{m.group(0).strip()[:50]}" '
-                          "- the gate-2 reviewer on flyer-program-review (2026-09-02) sent the rubric back on "
+                          "- a gate-2 reviewer (2026-09-02) sent the rubric back on "
                           "exactly this shape ('remove trailing clauses ... such as in violation of / contrary "
                           "to'). State the act once and carry the polarity frame inside the sentence as its "
                           "condition ('... although <source> documents no <thing>'), which E1 and W18 "
                           "all accept")
 
 
-# R111 (2026-09-11, inbound-consolidation-plan refinement round 2, Rubric Quality Review
-# rated needs_improvement): "Bracket money is incorrectly booked for a vendor on an invented
-# bracket, although the March letter grants the one percent to Kesselring alone" and "Plan
+# R111 (2026-09-11, Rubric Quality Review rated needs_improvement): "Bracket money is
+# incorrectly booked for a vendor on an invented bracket, although the March letter grants
+# the one percent to one vendor alone" and "Plan
 # freight is incorrectly priced at an invented rate, although no vendor's printed terms carry
 # it" were both read as INVERTED POLARITY at critical ("the sentence describes what a correct
 # deliverable does ... a fully compliant deliverable satisfies this sentence and loses 4
@@ -154,16 +154,16 @@ def check_negative_trailing_clause(rows):
 # of / although) is not what the review reads: it is the PASSIVE opening that puts the wronged
 # object in the subject slot and lets the sentence parse as a state the workbook is in. Both of
 # the platform's suggested rewrites put the deliverable in the actor's seat with a transitive
-# verb ("Books bracket money for a vendor other than Kesselring, inventing a bracket ...";
+# verb ("Books bracket money for a vendor other than the named one, inventing a bracket ...";
 # "Prices plan freight at a rate not found on any vendor's printed terms sheet"). The fix that
 # passed the gate: "The workbook wrongly books bracket money for ..., inventing a bracket
 # where ...". Narrowed to the adverb-carrying passive ("X is incorrectly <participle>") so the
 # verdict-cell shape "the standing column is marked for billing" (rubric-negatives memory,
 # accepted) stays clear; probed 2026-09-11 over 28 rubrics and 67 negatives: 4 hits in 3
-# other refinements, all this shape, none yet judged by the review.
+# other rubrics, all this shape, none yet judged by the review.
 _R111_PASSIVE_RE = re.compile(
-    # NOT widened to adverb-less passives (probed 2026-09-14 on the flyer-program-review
-    # penalty scope FAIL): dropping the adverb fired on 27 negatives across the portfolio,
+    # NOT widened to adverb-less passives (probed 2026-09-14 on a penalty scope FAIL):
+    # dropping the adverb fired on 27 negatives across the portfolio,
     # most of them the proven "At least one line is bought ..." any-quantifier shape. That
     # day's ruling was about the fabrication class.
     r"^\s*(?:the |a |an )?[\w'.,/ -]{2,70}?\s+(?:is|are)\s+(?:incorrectly|wrongly)\s+"
@@ -176,9 +176,9 @@ def check_negative_passive_opening(rows):
     """A negative names the deliverable as the actor of the defect; a passive opening ("<object> is incorrectly <done>") reads to the Rubric Quality Review as a description of a correct deliverable and is failed as inverted polarity.
 
     Since: 2026-09-11
-    Source: inbound-consolidation-plan refinement round 2 (Rubric Quality Review, two critical
-    misaligned_or_unjustified_rigidity findings on C25 and C26, both passive); the same review
-    read the earlier passive form of the same rows as inverted on 2026-08-31.
+    Source: the Rubric Quality Review (two critical misaligned_or_unjustified_rigidity
+    findings on C25 and C26, both passive); the same review read the earlier passive form of
+    the same rows as inverted on 2026-08-31.
     Drift-notes: narrowed to the adverb-carrying passive so the accepted verdict-cell shape
     ("the standing column is marked for billing") and bare passives stay clear; widen only
     on a second platform reading."""
@@ -189,14 +189,14 @@ def check_negative_passive_opening(rows):
         if m:
             emit("ERROR", f'C{num} [R111] negative opens in the passive voice ("{m.group(0).strip()[:60]}") '
                           "- the Rubric Quality Review read exactly this shape as INVERTED polarity twice on "
-                          "inbound-consolidation-plan (minor 2026-08-31, critical 2026-09-11): with the wronged "
+                          "one package (minor 2026-08-31, critical 2026-09-11): with the wronged "
                           "object in the subject slot the sentence parses as a state a correct deliverable is "
                           "in. Put the deliverable in the actor's seat with a transitive verb and keep the "
                           "a fabrication token inside the act ('The workbook wrongly books bracket money for a vendor "
-                          "other than Kesselring, inventing a bracket where ...')")
+                          "other than the named one, inventing a bracket where ...')")
 
 
-# R28 (2026-08-21, task 20 oracle run 3): C41 asked for fill "measured on the quantity
+# R28 (2026-08-21, an oracle run): C41 asked for fill "measured on the quantity
 # ordered rather than on the quantity acknowledged" and flaked 1/3 with the judge quoting
 # the golden's own "measures fill against the quantity they acknowledge rather than the
 # quantity we ordered" as its evidence. The deliverable was describing the term as it
@@ -238,7 +238,7 @@ def _rather_pairs(text):
 def check_inverted_pairs(rows, folder):
     """A criterion's 'X rather than Y' pair is stated in the order the deliverable states it.
 
-    Since: 2026-08-21 (task 20 run 3, C41 flaked 1/3).
+    Since: 2026-08-21 (an oracle run, C41 flaked 1/3).
     Source: the oracle, quoting the golden's reversed sentence as the contradiction.
     """
     strings = []
@@ -269,7 +269,7 @@ def check_inverted_pairs(rows, folder):
                     if ca2 & sb2 and cb2 & sa2:
                         emit("ERROR", f"C{num} [R28] states one order of a pair that "
                                      f"{title}!{ref} states the other way round — the judge "
-                                     "quotes that cell back as the contradiction (task 20 C41 "
+                                     "quotes that cell back as the contradiction (one criterion "
                                      "flaked 1/3 on fill measured on the quantity ordered "
                                      "against a briefing that described the term as it stands). "
                                      "Have the deliverable say both, the term as written and "
@@ -277,7 +277,7 @@ def check_inverted_pairs(rows, folder):
                         return
 
 
-# R33 (2026-08-22, hollenbach run 4): a positive criterion asserting a property
+# R33 (2026-08-22, an oracle run): a positive criterion asserting a property
 # "throughout the workbook" that the golden itself falsifies somewhere. C44 read
 # "Throughout the workbook, ordered quantities are whole units, no quantity is
 # negative ..." and failed 3 of 3 oracle runs on 'Base Recap'!E12 = -17, which is a
@@ -326,7 +326,7 @@ def check_universal_claims(rows, folder):
             emit("ERROR", f"C{num} [R33] claims no negative value workbook-wide, but the golden "
                           f"carries {len(negs)} ({', '.join(negs[:3])}) — the judge scans every tab, "
                           "so an unscoped universal is only as true as the least convenient cell "
-                          "(hollenbach C44 failed 3/3 oracle runs on a correct net-of-returns "
+                          "(a criterion failed 3/3 oracle runs on a correct net-of-returns "
                           "figure, 2026-08-22). Scope the claim to the columns it is about")
         if _CLAIM_WHOLE_RE.search(text) and fracs:
             emit("ERROR", f"C{num} [R33] claims whole-unit quantities workbook-wide, but the golden "
@@ -334,7 +334,7 @@ def check_universal_claims(rows, folder):
                           "the quantity columns it is about, not the whole file")
 
 
-# R34 (2026-08-23, open-order-cleanup run 2): a positive criterion that states a RULE
+# R34 (2026-08-23, an oracle run): a positive criterion that states a RULE
 # over an UNNAMED member of a class leaves the judge to choose its own rows, and it
 # chooses badly. "Two order lines the file shows as still due are closed because the
 # register shows the goods already received in full" failed 2 of 3 runs with the judge
@@ -369,13 +369,13 @@ def check_rule_anchors(rows):
             continue
         emit("ERROR", f"C{num} [R34] states a rule over an unnamed member of a class with a "
                      "causal clause and no identifier to land on — the judge picks its own "
-                     "rows and lands on a sibling the rule does not cover (open-order-cleanup "
-                     "run 2: the received-in-full claim failed 2/3 on the short-close rows, "
+                     "rows and lands on a sibling the rule does not cover (an oracle run: "
+                     "the received-in-full claim failed 2/3 on the short-close rows, "
                      "the aged-order claim 1/3 on an order cancelled for a different reason). "
                      "Name the order, line or row the golden means")
 
 
-# R37 (2026-08-23, open-order-cleanup run 3): a NEGATIVE criterion carrying a THRESHOLD
+# R37 (2026-08-23, an oracle run): a NEGATIVE criterion carrying a THRESHOLD
 # fires on the golden as soon as one cell crosses that threshold, whatever the causal
 # clause says. C37 read "left with open quantity still due that puts its position beyond
 # thirteen weeks of supply" and the judge landed on the one Position row standing at 14.4
@@ -439,12 +439,12 @@ def check_negative_thresholds(rows, folder):
                           f"golden already carries {len(over)} cell(s) past it "
                           f"({', '.join(sorted(set(over))[:3])}) — the judge lands on the cell and "
                           "fires the negative for its full weight, never reading the clause that "
-                          "was meant to exclude that row (open-order-cleanup run 3 lost 4 points "
-                          "to a deadstock row at 14.4 weeks whose open quantity is nil). Key the "
+                          "was meant to exclude that row (an oracle run lost 4 points to a "
+                          "deadstock row at 14.4 weeks whose open quantity is nil). Key the "
                           "negative on a two-column comparison read off one row instead")
 
 
-# R40 (2026-08-24, open-order-cleanup run 4): a negative whose defect is a COMPARISON of
+# R40 (2026-08-24, an oracle run): a negative whose defect is a COMPARISON of
 # two quantities makes the judge align two columns across a wide table, and it drifts by
 # one column. C37 read "more open quantity planned than the open allowed figure carried
 # beside it" and fired on the one Position row whose planned quantity (50, a line the plan
@@ -458,7 +458,7 @@ _NEG_COMPARE_RE = re.compile(
     r"|\bexceed(?:s|ing)?\b|\bin excess of\b", re.I)
 
 
-# R52 (2026-08-24, june-price-review oracle run 9): the honor-rule negative ("At least
+# R52 (2026-08-24, an oracle run): the honor-rule negative ("At least
 # one line ... is counted as mispriced") fired 1/3 on the GOLDEN, the judge quoting
 # Briefing prose about the near-miss the rule permits ("The Vondracek DWV invoice billed
 # right, because it rode quotation Q-26048"). A negative whose defect is MEMBERSHIP in a
@@ -509,14 +509,14 @@ def check_membership_negatives(rows, folder):
                  f"({', '.join(shared[:3])}) with the golden's own prose ({where}"
                  f"{' and ' + str(len(hits) - 1) + ' more' if len(hits) > 1 else ''}) - "
                  "the judge quotes the narrative about a correctly-classified near-miss "
-                 "as the defect and deducts (june-price-review honor negative, 1/3, "
+                 "as the defect and deducts (an honor negative, 1/3, "
                  "citing the very briefing sentence explaining why the line is NOT the "
                  "defect). Key the negative on a two-column same-row comparison or a "
                  "verdict cell, or drop it - the count pins already fail a "
                  "misclassifying solver")
 
 
-# R53 (2026-08-24, oskaloosa run 4): a negative reads as ambiguous_negative_polarity once
+# R53 (2026-08-24, an oracle run): a negative reads as ambiguous_negative_polarity once
 # it carries a SECOND negation beside the carve-out. Four negatives on one rubric shared
 # the identical frame - "The workbook's count of <verdict cell label> stands above zero,
 # at least one <defect>. A <boundary case> is not this defect." - and the oracle flagged
@@ -525,7 +525,7 @@ def check_membership_negatives(rows, folder):
 # said "rather than" and C36 also said "the records do not support". Two negative turns in
 # one criterion and the judge cannot tell which way it points. Say the defect positively.
 # The carve-out was the licensed single negation until 2026-08-26, when the platform's
-# polarity check started failing it as scoring scaffolding (R18, tessendorf) - a negative
+# polarity check started failing it as scoring scaffolding (R18) - a negative
 # now spends its negation budget on nothing at all, with the defect frame (in violation
 # of / contrary to / although) carrying the polarity.
 _NEGATION_RE = re.compile(
@@ -544,7 +544,7 @@ def check_negation_count(rows):
             continue
         emit("ERROR", f"C{num} [R53] spends {len(hits)} negations ({', '.join(sorted(set(h.lower() for h in hits)))}) "
                      "— a negative carrying a second negative turn beside its carve-out reads as "
-                     "ambiguous_negative_polarity, flagged 3/3 on three oskaloosa negatives across "
+                     "ambiguous_negative_polarity, flagged 3/3 on three negatives of one rubric across "
                      "two submissions while the fourth, identical but for spending its one negation "
                      "on the carve-out, was never flagged (2026-08-24). State the defect positively "
                      "with the frame word carrying the polarity; the carve-out that used to hold the "
@@ -554,7 +554,7 @@ def check_negation_count(rows):
 @check(codes=['R40'], rules=['GOLD-NEG'], needs=['rubric', 'solution'], params=['rows', 'folder'])
 def check_comparison_negatives(rows, folder):
     """A comparison negative lands on a single verdict cell."""
-    # A verdict cell's label is a sentence fragment, not a code: oskaloosa's "Transfer
+    # A verdict cell's label is a sentence fragment, not a code: one golden's "Transfer
     # lines drawing more than the sending branch can give up" runs to 62 characters, and
     # _solution_cell_values drops every string over 40, so C38 quoted its verdict cell and
     # R40 fired anyway (2026-08-24). Read the labels straight off the sheets instead.
@@ -580,7 +580,7 @@ def check_comparison_negatives(rows, folder):
             continue
         emit("ERROR", f"C{num} [R40] states its defect as a comparison of two quantities and quotes "
                      "no label of a single verdict cell, so the judge has to align two columns "
-                     "down the whole table and drifts by one (open-order-cleanup run 4: a negative "
+                     "down the whole table and drifts by one (an oracle run: a negative "
                      "naming OPEN ALLOWED fired on the neighbouring OPEN CORRECTED column). Put a "
                      "count of the failing rows in a cell and quote that cell's label here")
 
@@ -658,7 +658,7 @@ def _r69_subj_verb(t):
 #   R15: a negative criterion scores the same behaviour a positive criterion already
 #       scores, so one requirement swings twice.
 #
-#       Task 12 run 1 (2026-08-19): the Agentic Rubric Quality Review rated the rubric
+#       One submission (2026-08-19): the Agentic Rubric Quality Review rated the rubric
 #       needs_improvement on two [major] redundant_or_double_counted_criteria findings,
 #       C6/C27 (PO 78331 treated as cancelled) and C7/C26 (registration R-88214 shipped
 #       outside the ceiling). Its instruction both times: keep the positive, delete the
@@ -678,7 +678,7 @@ def _r69_subj_verb(t):
 #       sentences (carve-outs stripped) against every positive; a shared proper noun is a
 #       mirror suspect. Spend negatives on failures no positive scores.
 # R69:
-#   R69 (2026-08-31, boettcher pre-submission): DUAL POLARITY. The penalty scope check
+#   R69 (2026-08-31, a pre-submission check): DUAL POLARITY. The penalty scope check
 #   also fails a negative that scores the inverse of a positive - "Criterion 6 positively
 #   rewards 'The discount is taken at the five percent tier' while Criterion 30 negatively
 #   scores the mirrored error 'The program discount is incorrectly taken at a tier
@@ -687,7 +687,7 @@ def _r69_subj_verb(t):
 #   sides. Negatives that describe a prohibited ACT with its own verb passed the same
 #   check on the same rubric ("the order is stepped up", "the buy is written against"),
 #   so the test is subject+verb identity, not topic overlap.
-#   R69 second pass (2026-08-31, dock-to-stock-review pre-submission): the same dual
+#   R69 second pass (2026-08-31, a second pre-submission check): the same dual
 #   polarity ruling, on a rubric where every criterion is wrapped in "The memo <verb>s".
 #   The passive signature above never appears there, so nothing fired on C20 ("the memo
 #   concludes that purchasing's order timing is not a cause") against C32 ("the memo
@@ -697,7 +697,7 @@ def _r69_subj_verb(t):
 #   matter. Restricted to the conclusion verbs and to two shared content lemmas, because
 #   a reporting verb ("states", "reports") is shared by half a memo rubric's rows.
 # R104:
-#   R104 (2026-09-10, tessendorf-channel-split adjudication): "Criteria 15 (+1, March-cut
+#   R104 (2026-09-10, a ruling): "Criteria 15 (+1, March-cut
 #   items held on shelf) and 29 (-5, March-cut item planned DROP-SHIP) double-penalize the
 #   same error; merge or remove one." R69's subject+verb signature never fires on the pair
 #   ("items are held" vs "unit is planned") and R22 sees no shared number; what the two
@@ -705,12 +705,11 @@ def _r69_subj_verb(t):
 #   dispositions they score are mutually exclusive, so one act loses the positive AND
 #   incurs the penalty. The repair is the house doctrine: drop the positive and keep the
 #   negative (the defect class scores once), spending the freed weight inside the same
-#   cluster - instance-form wording did NOT save the tessendorf pair. Probed 2026-09-10
-#   across submissions/: fires on the pre-fix tessendorf pair and on
-#   43-dfl-freight-audit C24/C31 (section 9 exposure vs netting), 44-pick-module-reslot
-#   C11/C28 (section 6 floor bins vs above-floor lift) and 46-cold-chain-review C13/C24
-#   vs C32 and C21 vs C33 (exposed-delivery and claims rules) - each a pair where one
-#   act moves both scores, none yet adjudicated, left to their own tasks' next rounds.
+#   cluster - instance-form wording did NOT save the pair. Probed 2026-09-10
+#   across submissions/: fires on the pre-fix pair and on four other pairs across three
+#   packages (section 9 exposure vs netting; section 6 floor bins vs above-floor lift;
+#   exposed-delivery and claims rules) - each a pair where one act moves both scores,
+#   none yet ruled on.
 @check(codes=['R15', 'R22', 'R41', 'R69', 'R104'], rules=['PRE-DUP', 'PRE-SCOPE'], needs=['rubric'], params=['rows'])
 def check_mirrors(rows):
     """A negative criterion never mirrors a positive: not on shared record ids, shared figures, a shared subject, the same subject-and-verb or conclusion, or one rule anchor over the same matter.
@@ -721,10 +720,9 @@ def check_mirrors(rows):
       R41   a negative's operative sentences share no distinctive proper noun with a positive
       R69   a negative never has a positive's subject-and-verb signature, nor a conclusion on the same subject matter
       R104  a positive and a negative never share one rule anchor over the same governed objects
-    Since: R22 2026-08-19 (luebbert C37); R15 2026-08-19 (task 12 run 1); R41 2026-08-24 (vendor-terms-program);
-    R69 2026-08-31 (boettcher, dock-to-stock-review); R104 2026-09-10 (tessendorf adjudication).
+    Since: R22 2026-08-19; R15 2026-08-19; R41 2026-08-24; R69 2026-08-31; R104 2026-09-10.
     Source: the oracle, the Agentic Rubric Quality Review (redundant_or_double_counted) and the platform's Rubric
-    penalty scope check (dual polarity); adjudication for R104.
+    penalty scope check (dual polarity).
     Drift-notes: five detectors on one property, merged into one walk over the rubric on 2026-09-11; each code keeps
     its own 'matched on' detail.
     """
@@ -759,8 +757,8 @@ def check_mirrors(rows):
                 if len(shared) >= 2:
                     emit("ERROR", f"C{num} [R15] negative mirrors positive C{pn} on {', '.join(sorted(shared))} — "
                                  "the Agentic Rubric Quality Review reads a positive/negative pair scoring one "
-                                 "behaviour as double counting and rates the rubric needs_improvement (task 12 "
-                                 "run 1, two [major] findings); keep the positive and delete the mirror")
+                                 "behaviour as double counting and rates the rubric needs_improvement "
+                                 "(2026-08-19, two [major] findings); keep the positive and delete the mirror")
         # R22: matched on shared distinctive figures
         shared = sorted({lit for lit in NUM_LITERAL_RE.findall(text) if lit in pos_lits},
                         key=lambda x: -len(x))
@@ -768,7 +766,7 @@ def check_mirrors(rows):
             owners = sorted({n for lit in shared for n in pos_lits[lit]}, key=int)
             emit("ERROR", f"C{num} [R22] negative restates {', '.join(shared[:3])}, already scored by "
                          f"positive criterion {'/'.join('C' + o for o in owners[:3])} — the pair reads "
-                         "as a mirror. The oracle deducted exactly this shape 3/3 (luebbert C37, judge "
+                         "as a mirror. The oracle deducted exactly this shape 3/3 (one criterion, judge "
                          "quoting the golden's own pre-remedy sentence as evidence of the defect) and "
                          "the Rubric Quality Review flags it redundant_or_double_counted. Keep the "
                          "positive, drop the mirror, and spend negatives on failures no positive scores")
@@ -779,7 +777,7 @@ def check_mirrors(rows):
             if shared:
                 emit("ERROR", f"C{num} [R41] shares the subject {sorted(shared)} with positive "
                              f"C{pnum} outside its carve-outs — the Agentic Rubric Quality Review "
-                             "read four such pairs on vendor-terms-program (2026-08-24) as "
+                             "read four such pairs on one rubric (2026-08-24) as "
                              "double-counted requirements despite polarity pins, and rated the "
                              "rubric needs_improvement. Keep the positive and spend the negative "
                              "on a failure no positive scores")
@@ -789,7 +787,7 @@ def check_mirrors(rows):
         if sv and sv in pos_sv:
             emit("ERROR", f"C{num} [R69] scores the inverse of positive C{pos_sv[sv]}: both say "
                           f"\"{sv[0]} is {sv[1]}\" - the platform's Rubric penalty scope check FAILs this "
-                          "as dual polarity (boettcher, 2026-08-31: C6 'the discount is taken at the five "
+                          "as dual polarity (2026-08-31: C6 'the discount is taken at the five "
                           "percent tier' against C30 'the discount is incorrectly taken at a tier beyond "
                           "...'). Keep the positive and drop the mirror, or give the negative a prohibited "
                           "act of its own (stepped up past, written against, placed on)")
@@ -803,7 +801,7 @@ def check_mirrors(rows):
                     emit("ERROR", f"C{num} [R69] concludes on the same subject as positive C{pnum} "
                                   f"(shared: {', '.join(shared[:4])}) - the platform's Rubric penalty scope check "
                                   "FAILs a negative that scores the same finding in its incorrect form "
-                                  "(dock-to-stock-review, 2026-08-31: C20 \"purchasing's order timing is not a "
+                                  "(2026-08-31: C20 \"purchasing's order timing is not a "
                                   "cause\" against C32 \"late buying or vendor promise dates caused the delay\"). "
                                   "Rely on the positive, and spend the penalty on a prohibited act instead")
                     break
@@ -821,7 +819,7 @@ def check_mirrors(rows):
             tok, pnum, shared = hit
             emit("ERROR", f"C{num} [R104] shares the rule anchor \"{tok}\" and the subject matter "
                           f"({', '.join(shared)}) with positive C{pnum} - one act loses the positive "
-                          "and incurs the penalty, which adjudication reads as double jeopardy "
-                          "(tessendorf, 2026-09-10: 'merge or remove one'). Drop the positive and "
+                          "and incurs the penalty, which reads as double jeopardy "
+                          "(2026-09-10: 'merge or remove one'). Drop the positive and "
                           "keep the negative, the only place the defect class scores, and spend "
                           "the freed weight inside the same cluster")

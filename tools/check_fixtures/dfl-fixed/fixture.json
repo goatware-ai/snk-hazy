@@ -1,6 +1,0 @@
-{
-  "about": "dfl-rejected with the claim forms, the struck claim removed, the overlap stated, the rounding convention stated, a clause map and verify_golden.py. P8 is not asserted: its floor moves with the run date.",
-  "base": "dfl-rejected",
-  "silent": [{"code": "R134"}, {"code": "G41"}, {"code": "G42"}, {"code": "G43"}, {"code": "G5"}],
-  "stdout_contains": ["verify_golden.py reproduced 5 figure(s)"]
-}

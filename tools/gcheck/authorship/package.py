@@ -33,8 +33,8 @@ def core_props(path):
 
 @check(codes=['A13'], rules=['LLM-PKG'], needs=['solution'], params=['folder'])
 def check_calcchain(folder):
-    # A13 (2026-08-24, june-price-review authorship check): the platform's authorship
-    # extractor read the golden in value mode and reported "zero formulas across all six
+    # A13 (2026-08-24, an authorship check): the platform's authorship extractor read the
+    # golden in value mode and reported "zero formulas across all six
     # analytical sheets" against a workbook storing 2,127 <f> elements - every cached
     # formula result was counted among the "hard-coded numerics" (the per-sheet counts
     # matched formulas + plain numerics exactly), and the llm-only score sank to 3/5 for
@@ -45,7 +45,7 @@ def check_calcchain(folder):
     # + workbook rel), the one formula signal a package scan sees without parsing sheets.
     """A solution workbook with formulas ships xl/calcChain.xml.
 
-    Since: 2026-08-24 (june-price-review, llm-only 3/5).
+    Since: 2026-08-24 (llm-only 3/5).
     Source: the platform's LLM authorship extractor package scan.
     """
     for p in solution_files(folder, {".xlsx"}):
@@ -58,24 +58,24 @@ def check_calcchain(folder):
                     emit("ERROR", f"[A13] {p.relative_to(folder)}: {nf} formula cells but no "
                                   "xl/calcChain.xml - the authorship extractor's package scan "
                                   "counts zero formulas and features the workbook as "
-                                  "all-values-hard-coded (june-price-review, 2026-08-24, "
-                                  "llm-only 3/5). Write a calcChain part listing every "
+                                  "all-values-hard-coded (2026-08-24, llm-only 3/5). "
+                                  "Write a calcChain part listing every "
                                   "formula cell, caches untouched")
 
 
 @check(codes=['A14'], rules=['LLM-PKG'], needs=['inputs', 'solution'], params=['folder'])
 def check_generator_string(folder):
-    # A14 (2026-08-25, june-price-review gate-2 reviewer): all five input xlsx and the
-    # golden shipped with <Application>Microsoft Excel Compatible / Openpyxl 3.1.5
+    # A14 (2026-08-25, a gate-2 reviewer): all five input xlsx and the golden shipped
+    # with <Application>Microsoft Excel Compatible / Openpyxl 3.1.5
     # </Application> in docProps/app.xml, and the reviewer sent the package back on the
     # generator trace alone after clearing the entire analysis ("please open and re-save
     # them in Excel or LibreOffice so that metadata is cleared"). The originality gate
     # (G2a) already treats a generator string in a NEW build as a stop; this catches the
     # docProps tell on every task xlsx pre-submission.
     #
-    # REMEDY CORRECTED 2026-08-26 (branch-stocking-reset, user ruling: G2a governs). This
-    # check used to say "replace the Application/AppVersion pair at zip level", and that
-    # advice was followed on task 28 before anyone noticed it contradicts G2a in terms:
+    # REMEDY CORRECTED 2026-08-26 (user ruling: G2a governs). This check used to say
+    # "replace the Application/AppVersion pair at zip level", and that
+    # advice was followed on a task before anyone noticed it contradicts G2a in terms:
     # "REPLACE THE FILES; do not rewrite app.xml, which removes the evidence and leaves
     # the packet just as machine-made". Rewriting the pair asserts that Excel authored a
     # file openpyxl produced, which is a false statement about authorship to the screen
@@ -95,7 +95,7 @@ def check_generator_string(folder):
     # File > Properties pane as the workbook's Application string, so both are checked.
     """No shipped Office file names a python generator (Openpyxl, python-docx) in its docProps.
 
-    Since: 2026-08-25 (june-price-review gate-2 reviewer).
+    Since: 2026-08-25 (a gate-2 reviewer).
     Source: reviewer.
     Drift-notes: the string is evidence, not the defect; never hand-edit app.xml (G2a governs, user ruling
     2026-08-26); the remedy is a genuine Office re-save (tools/office_resave.py, available since 2026-09-02).
@@ -110,8 +110,8 @@ def check_generator_string(folder):
             if kind == "library":
                 emit("ERROR", f"[A14] {p.relative_to(folder)}: docProps names the generator "
                               f"({generator}) - a reviewer checks file properties and sends the "
-                              "package back on the trace alone (june-price-review gate 2, "
-                              "2026-08-25, after clearing the whole analysis). This is "
+                              "package back on the trace alone (gate 2, 2026-08-25, "
+                              "after clearing the whole analysis). This is "
                               "EVIDENCE of a batch-generated packet, not the defect itself: "
                               "re-save it through the real application "
                               "(.venv/bin/python tools/office_resave.py <task-folder>), which "
@@ -130,7 +130,7 @@ def check_docprops(folder):
     Codes:
       A3   creator is a sourced person or company (never empty, never a tool), a solution workbook has a title, created precedes modified, and no two files share a created stamp
       A19  creator and lastModifiedBy are never a placeholder such as 'generated' or 'unknown'
-    Since: twincreek run 2 (A3); A19 by team ruling 2026-09-04.
+    Since: an earlier task's run 2 (A3); A19 by team ruling 2026-09-04.
     Source: reviewers read File > Properties; A19 is an automatic send-back on another contributor's task.
     """
     created_seen = {}
@@ -144,8 +144,8 @@ def check_docprops(folder):
         is_solution = "solution" in p.parts
         cr = props["creator"]
         # A19: a creator or lastModifiedBy left as a placeholder asserts nothing about who
-        # authored the file. The team ruled on 2026-09-04 in #ec-geranium-project that this
-        # one is an automatic send-back on another contributor's task, unlike a tool name,
+        # authored the file. The team ruled on 2026-09-04 that this one is an automatic
+        # send-back on another contributor's task, unlike a tool name,
         # which records how the file was written and is reviewer discretion (A3 / A14).
         for field in ("creator", "lastModifiedBy"):
             val = (props.get(field) or "").strip()
@@ -157,7 +157,7 @@ def check_docprops(folder):
         elif not cr:
             emit("ERROR" if not is_solution else "ERROR", f"[A3] {rel}: docProps creator is empty — set a sourced person/company name")
         if is_solution and p.suffix == ".xlsx" and not props["title"]:
-            emit("ERROR", f"[A3] {rel}: docProps title empty (twincreek run-2 humanization added one)")
+            emit("ERROR", f"[A3] {rel}: docProps title empty (a run-2 humanization added one)")
         c, m = props["created"], props["modified"]
         if c and m:
             if c == m:
@@ -176,14 +176,14 @@ def check_docprops(folder):
 def check_input_authorship(folder):
     """Two or more input workbooks never share one zip write instant other than the 1980 epoch real Excel stamps.
 
-    Since: 2026-08-21 (task 21 reviewer).
+    Since: 2026-08-21 (a reviewer).
     Source: reviewer.
     Drift-notes: G2b narrowed 2026-09-02 (one workbook always shares an instant with itself, and Excel
     stamps every entry 1980-01-01). G2a, G2c and G2d were retired 2026-09-15: G2a repeated A14's
     generator-string test on input workbooks, and G2c (byte-identical docx components) and G2d (one
     shared Word rsidRoot) fired on every task holding two python-docx documents and survived a genuine
     Word re-save, so no task could clear them; the 2026-09-04 team ruling had already classed that
-    provenance as permitted LLM-assisted construction. Opt-in in the gate (--originality), always on in review.
+    provenance as permitted LLM-assisted construction. Opt-in in the gate (--originality).
     """
     inp = folder / "inputs"
     if not inp.is_dir():
@@ -196,8 +196,8 @@ def check_input_authorship(folder):
         for i in z.infolist():
             stamps["%04d-%02d-%02d %02d:%02d:%02d" % i.date_time].append(Path(f).name)
 
-    # 2026-09-02 (dfl-freight-audit revision): a single workbook always shares one instant
-    # with itself, and real Excel stamps every zip entry 1980-01-01 00:00:00 (the DOS epoch),
+    # 2026-09-02 (a revision): a single workbook always shares one instant with itself,
+    # and real Excel stamps every zip entry 1980-01-01 00:00:00 (the DOS epoch),
     # so a genuinely Office-resaved package looked batch-written. Two or more workbooks on a
     # non-epoch instant is the finding; the epoch is Excel's own signature, not a generator's.
     only = next(iter(stamps)) if len(stamps) == 1 else None
@@ -217,7 +217,7 @@ def check_input_authorship(folder):
 # Run this at the start of a revision. It answers one question for the whole catalog -
 # does any shipped file carry a package-level defect that is machine-checkable - and it
 # does so without opening a single judgment call, so it does not reopen the single-task
-# review scope (user ruling, memory: review-scope-single-task). Nothing here is an
+# gate scope (user ruling, memory: gate-scope-single-task). Nothing here is an
 # opinion about a task's content; every finding is a fact about the bytes.
 # 
 # The user's standing instruction (2026-09-02): sweep mechanically on every revision,
@@ -229,17 +229,17 @@ def check_input_authorship(folder):
 # 
 #   GENERATOR   docProps names a python library (Openpyxl, python-docx). A reviewer
 #               reads File > Properties and sends the package back on the trace alone
-#               (june-price-review gate 2, 2026-08-25). This is A14.
+#               (gate 2, 2026-08-25). This is A14.
 #   ABSPATH     xl/workbook.xml carries <x15ac:absPath>, the folder Excel was saving
 #               into. On this machine that spells out the operator's home directory and
 #               the programme codename inside a shipped input.
 #   CALCCHAIN   a workbook holds xl/calcChain.xml but was not written by Office, so the
-#               part is fix_package.py's synthetic one. Real Excel refused to OPEN the
-#               task 42 golden while it was present ("Parameter error", -50) - what a
+#               part is fix_package.py's synthetic one. Real Excel refused to OPEN a
+#               golden while it was present ("Parameter error", -50) - what a
 #               reviewer double-clicking the file would have hit.
 #   CANARY      the programme codename in any part of any file, metadata included.
 
-CODENAME = CODENAME_BYTES_RE      # common.py owns the pattern (Hazy + Geranium)
+CODENAME = CODENAME_BYTES_RE      # common.py owns the pattern (Hazy)
 OFFICE_APP = re.compile(rb"<Application>Microsoft[^<]*</Application>")
 
 
@@ -311,9 +311,9 @@ def sweep_main(argv):
 
 
 
-# A22 (2026-09-11, harlow-route-rebalancing-proposal refinement round 5, LLM-authorship check
-# FAILED at 2.0, llm_generated 2/5): "all 117 visit durations are exclusively multiples of 2 or
-# 5 ... while check-in times are non-round: the statistical signature of programmatic
+# A22 (2026-09-11, LLM-authorship check FAILED at 2.0, llm_generated 2/5): "all 117 visit
+# durations are exclusively multiples of 2 or 5 ... while check-in times are non-round:
+# the statistical signature of programmatic
 # generation (duration chosen first, check-out time back-calculated)". A HIGH on an input file
 # is a one-notch penalty and a hard fail on its own. The house probe over every numeric input
 # column found eleven such columns portfolio-wide, ten of them quantities, classes and prices
@@ -356,7 +356,7 @@ def _a22_int_columns(path):
 def check_clean_duration_column(folder):
     """A duration or time column in an input never holds only multiples of 2 or 5 across forty or more values; a computed time that is always clean reads as generated duration-first.
 
-    Since: 2026-09-11 (harlow-route-rebalancing-proposal refinement round 5).
+    Since: 2026-09-11.
     Source: the platform's LLM-authorship check (HIGH on an input file, hard fail at 2/5).
     Drift-notes: keyed on time-like headers with six or more distinct values; quantity, class and
     price columns are round by nature and stay out (ten of eleven portfolio hits on the broad rule).
@@ -372,15 +372,14 @@ def check_clean_duration_column(folder):
                 emit("ERROR", f"{path.name}: every one of the {len(vals)} values in \"{header}\" is a multiple of 2 or 5 "
                              f"({sorted(set(vals))[:12]}...): the platform's authorship reader calls a computed time "
                              "that is always clean a duration-first generation artifact, HIGH on an input and a hard "
-                             "fail (harlow-route-rebalancing-proposal 2026-09-11). Redistribute minutes within each "
+                             "fail (2026-09-11). Redistribute minutes within each "
                              "key so the totals hold and the values include odd, non-round numbers")
 
 
-# A23 and A24 (2026-09-12, harlow-route-rebalancing-proposal refinement round 7): the platform's
-# LLM-authorship check FAILED the package on two LOW findings that only count together, both on
-# the roster: 23 of 23 account names on the nature-word + landscape-feature + trade-descriptor
+# A23 and A24 (2026-09-12): the platform's LLM-authorship check FAILED the package on two
+# LOW findings that only count together, both on the roster: 23 of 23 account names on the nature-word + landscape-feature + trade-descriptor
 # pattern (Ferncrest Mechanical, Brookhaven HVAC Parts, Larkspur Mechanical), and 23 of 23
-# annual revenues exact multiples of 500. Round 5 had left both alone as LOW; the reader's
+# annual revenues exact multiples of 500. An earlier round had left both alone as LOW; the reader's
 # co-occurrence rule turned them into a fail (llm-only 0.50 against 0.70). The portfolio probe
 # over 36 input CSVs found either pattern on no other task, so each is coded on its own: A23
 # reads money-headed integer columns (the A22 column reader), A24 reads name-headed text columns.
@@ -393,7 +392,7 @@ _A23_MIN_DISTINCT = 8
 def check_round_money_column(folder):
     """A money column in an input never holds only exact multiples of 500 across twenty or more values; the authorship reader lists it as suspiciously clean and it co-occurs into a fail.
 
-    Since: 2026-09-12 (harlow-route-rebalancing-proposal refinement round 7).
+    Since: 2026-09-12.
     Source: the platform's LLM-authorship check (LOW, co-occurring with A24 into llm-only 0.50).
     Drift-notes: money-like headers only, eight or more distinct values; the portfolio probe found the
     pattern on no other input CSV.
@@ -409,7 +408,7 @@ def check_round_money_column(folder):
                 emit("ERROR", f"{path.name}: every one of the {len(vals)} values in \"{header}\" is a multiple of 500: "
                              "the platform's authorship reader lists a money column with no irregular value as "
                              "suspiciously clean, and with a naming-pattern finding it fails the package "
-                             "(harlow-route-rebalancing-proposal 2026-09-12). Give the figures irregular tails "
+                             "(2026-09-12). Give the figures irregular tails "
                              "and re-derive every golden figure that rests on them")
 
 
@@ -453,7 +452,7 @@ def _a24_text_columns(path):
 def check_nature_name_column(folder):
     """A name column in an input never runs mostly on the nature-word plus landscape-feature plus trade-descriptor pattern (Ferncrest Mechanical, Brookhaven HVAC Parts); the authorship reader knows that lexicon.
 
-    Since: 2026-09-12 (harlow-route-rebalancing-proposal refinement round 7).
+    Since: 2026-09-12.
     Source: the platform's LLM-authorship check (LOW "LLM naming habits", 23 of 23, co-occurring with A23 into a fail).
     Drift-notes: name-like headers, fifteen or more names, six in ten on the pattern; the portfolio probe found
     the shape on no other input CSV. Surname, initials, region and ampersand forms are the trade register.
@@ -472,13 +471,12 @@ def check_nature_name_column(folder):
                 emit("ERROR", f"{path.name}: {len(hits)} of the {len(distinct)} names in \"{header}\" follow the nature-word "
                              f"plus feature plus trade-descriptor pattern ({', '.join(sorted(hits)[:4])}...): the platform's "
                              "authorship reader names that lexicon as an LLM naming habit and, beside one more LOW, fails "
-                             "the package (harlow-route-rebalancing-proposal 2026-09-12). Rename in the trade register "
+                             "the package (2026-09-12). Rename in the trade register "
                              "(surnames, initials, regions, ampersands) through every file that carries the names")
 
 
-# A25 (2026-09-12, hathi-replenishment-order-decision refinement round 6): the platform's
-# LLM-authorship check FAILED (llm-only 0.50) on two input workbooks whose Notes and Comments
-# columns were filled on every one of 514 and 257 rows from ten and eleven stock phrases
+# A25 (2026-09-12): the platform's LLM-authorship check FAILED (llm-only 0.50) on two input
+# workbooks whose Notes and Comments columns were filled on every one of 514 and 257 rows from ten and eleven stock phrases
 # ("System record available.", "Routine exception record."), named "uniform log-entry template"
 # at MEDIUM. Two more columns in the same package had the same shape and were not named. A
 # real WMS free-text column is mostly empty, and what is there is tied to the row (a bin, a
@@ -488,7 +486,7 @@ _A25_HDR_RE = re.compile(r"(?:^|\b|_)(?:notes?|comments?|remarks?)(?:\b|_|$)", r
 _A25_MIN_ROWS = 100
 _A25_MAX_DISTINCT = 12
 _A25_FILL_SHARE = 0.9
-_A25_SMALL_ROWS = 40      # 2026-09-14 parts-quotation: 55 rows on four rotating phrases was MEDIUM
+_A25_SMALL_ROWS = 40      # 2026-09-14: 55 rows on four rotating phrases was MEDIUM
 _A25_SMALL_DISTINCT = 4
 
 
@@ -524,7 +522,7 @@ def _a25_text_columns(path):
 def check_uniform_note_column(folder):
     """A note or comment column in a tabular input, filled on nine rows in ten, never draws on twelve or fewer distinct phrases across a hundred rows or more, nor on four or fewer across forty or more; the authorship reader names that a uniform log-entry template.
 
-    Since: 2026-09-12 (hathi-replenishment-order-decision refinement round 6); the forty-row arm 2026-09-14 (parts-quotation refinement round 3, 55 customer notes on four phrases in fixed rotation, MEDIUM).
+    Since: 2026-09-12; the forty-row arm 2026-09-14 (55 customer notes on four phrases in fixed rotation, MEDIUM).
     Source: the platform's LLM-authorship check, FAILED at llm-only 0.50, MEDIUM on two workbooks
     ("Notes column contains only ~4 repeating short phrases across 515 rows").
     Drift-notes: keyed on note-like headers only; a status or type column with four values is a
@@ -552,13 +550,13 @@ def check_uniform_note_column(folder):
             emit("ERROR", f"[A25] {path.name}: \"{header}\" is filled on {len(filled)} of {n} rows from only "
                           f"{len(distinct)} phrases (\"{top}\" on {share / len(filled):.0%}) - the platform's "
                           "LLM-authorship check names this shape a uniform log-entry template and failed the "
-                          "package on two such columns (hathi-replenishment-order-decision 2026-09-12, llm-only "
+                          "package on two such columns (2026-09-12, llm-only "
                           "0.50). A real free-text column is mostly empty, and the rest is written from the "
                           "row's own bin, reference, quantity or initials")
 
 
-# A26 (2026-09-12, receipt-variance-review refinement round 2): the platform's LLM-authorship
-# check FAILED (llm-only 0.50, combined 0.85 against a floor the detector alone cleared) on a
+# A26 (2026-09-12): the platform's LLM-authorship check FAILED (llm-only 0.50, combined
+# 0.85 against a floor the detector alone cleared) on a
 # five-row golden tab whose action column carried one sentence on every row ("held, count
 # settled once the quarantine is cleared"), named "uniform-log-template" at MEDIUM. A25 keys
 # on inputs a hundred rows deep; the reader fires on a golden's free-text column at five.
@@ -573,16 +571,16 @@ _A26_MIN_WORDS = 3
 def check_uniform_solution_text_column(folder):
     """A free-text column on a solution worksheet, populated on three rows or more, never carries one identical multi-word phrase on every populated row; the authorship reader names that a uniform log template whatever the row count.
 
-    Since: 2026-09-12 (receipt-variance-review refinement round 2).
+    Since: 2026-09-12.
     Source: the platform's LLM-authorship check, FAILED at llm-only 0.50 on a five-row
     Quarantine tab ("all 5 rows are verbatim identical", MEDIUM uniform-log-template tell).
     Drift-notes: keyed on note-like headers (action and reason included, status and decision
     excluded: the policy's five fixed decision strings are a category, and a tab of one
     category is what a filter produces). Single-word or two-word values are skipped. The
     portfolio probe (16 goldens) fired on this tab and nothing else. Fix by writing each
-    line from the row's own reference, note and supplier. Narrowed 2026-09-14 (recall-response
-    refinement round 3): a phrase an INPUT prescribes verbatim (a procedure fixing the Quarantine
-    action at "hold for collection", pinned by a criterion on every row) is a category the input
+    line from the row's own reference, note and supplier. Narrowed 2026-09-14: a phrase an
+    INPUT prescribes verbatim (a procedure fixing the Quarantine action at "hold for
+    collection", pinned by a criterion on every row) is a category the input
     mandates, not a template; a rule that forbids what an input mandates is not a rule.
     """
     from ..common import workbook
@@ -612,12 +610,12 @@ def check_uniform_solution_text_column(folder):
                 emit("ERROR", f"[A26] {path.name} {ws.title}!\"{h}\": all {len(vals)} populated rows carry the one "
                               f"line \"{vals[0][:60]}\" - the platform's LLM-authorship check names that a "
                               "uniform-log-template tell and failed the package on a five-row tab "
-                              "(receipt-variance-review 2026-09-12, llm-only 0.50). Write each row's line from "
+                              "(2026-09-12, llm-only 0.50). Write each row's line from "
                               "its own reference, note and supplier")
 
 
-# A27 and A28 (2026-09-14, hathi-replenishment-order-decision refinement round 8): the
-# LLM-authorship check FAILED at mean 3.0 on two LOW tells sharing one input surface, which its
+# A27 and A28 (2026-09-14): the LLM-authorship check FAILED at mean 3.0 on two LOW tells
+# sharing one input surface, which its
 # escalation rule converts to a MEDIUM and a one-notch penalty. The first: 505 of 513 expiry
 # dates on the 28th, the generator's safe day, while the task's own SKUs sat on real month
 # ends. The second: twelve scent lines ("Amber Fig", "Neroli Sun", "Velvet Oud") carried by all
@@ -671,7 +669,7 @@ def _a27_date_columns(path):
 def check_fixed_day_dates(folder):
     """A date column in an input never puts eight in ten of forty or more dates, over six or more months, on one day of the month that is neither the first nor the month's last; a fixed safe day is generator residue.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 8).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, "expiration dates overwhelmingly ending in -28, a
     programmatic date-generation pattern" (LOW, escalated to MEDIUM by a second LOW on the surface).
     Drift-notes: the first and the last day of a month are exempt because billing periods, leases
@@ -698,8 +696,8 @@ def check_fixed_day_dates(folder):
                 continue
             emit("ERROR", f"[A27] {path.name}: {n} of the {len(vals)} dates in \"{header}\" fall on the {day}th of "
                           f"their month across {len(months)} months - a fixed safe day is the generator's residue, and "
-                          "the platform's LLM-authorship check listed it as a tell (hathi-replenishment-order-decision "
-                          "2026-09-14: 505 of 513 expiry dates on the 28th). Re-derive the day per record, month ends "
+                          "the platform's LLM-authorship check listed it as a tell "
+                          "(2026-09-14: 505 of 513 expiry dates on the 28th). Re-derive the day per record, month ends "
                           "and mid-month days mixed, the same date for the same lot in every file")
 
 
@@ -714,7 +712,7 @@ _A28_MIN_SHARED = 5
 def check_cross_brand_line_names(folder):
     """A product-name column in an input never carries the same line name under three or more competing brands for five or more lines; one scent or line vocabulary spread across every brand is the generator's, not the market's.
 
-    Since: 2026-09-14 (hathi-replenishment-order-decision refinement round 8).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, "identical fragrance collection names shared
     simultaneously across all competing brands, matches LLM naming habits" (LOW, corroborating,
     escalated with A27's tell on the same surface).
@@ -754,13 +752,13 @@ def check_cross_brand_line_names(folder):
                               f"are carried by {_A28_MIN_BRANDS} or more brands at once ({', '.join(shared[:6])}) - one "
                               "scent vocabulary spread across every competing brand reads as the generator's naming "
                               "habit, and the platform's LLM-authorship check listed it as a tell "
-                              "(hathi-replenishment-order-decision 2026-09-14: twelve lines under ten brands). Give each "
+                              "(2026-09-14: twelve lines under ten brands). Give each "
                               "brand its own lines, the same name for the same SKU in every file")
                 break
 
 
-# Panel merge (2026-09-14, parts-quotation refinement round 3): a reference CSV laid out in
-# side-by-side blocks for the adjudicator's preview (H7) carries its column three or five times
+# Panel merge (2026-09-14): a reference CSV laid out in side-by-side blocks for the
+# preview window (H7) carries its column three or five times
 # with _2, _3 suffixes, and the platform's authorship reader counts the blocks as one column
 # ("all 51 'notified' date entries", "every on-hand quantity across all part/branch cells").
 _PANEL_SUFFIX_RE = re.compile(r"_\d+$")
@@ -794,7 +792,7 @@ _A29_SHARE = 0.95
 def check_single_valued_date_column(folder):
     """A date column in an input never carries one date on nineteen in twenty of forty or more rows; an event column with no variation reads as a template stamp, not a record.
 
-    Since: 2026-09-14 (parts-quotation refinement round 3).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, "all 51 'notified' date entries are identically
     2025-01-06, with no variation across rows or columns" (MEDIUM, uniform log/entry template).
     Drift-notes: forty dates or more, read across panel suffixes; a two-value column (a batch
@@ -812,7 +810,7 @@ def check_single_valued_date_column(folder):
             if n >= _A29_SHARE * len(vals):
                 emit("ERROR", f"[A29] {path.name}: {n} of the {len(vals)} dates in \"{header}\" are {top}; the "
                               "platform's LLM-authorship check named a single-valued date column a uniform entry "
-                              "template at MEDIUM (parts-quotation 2026-09-14: 51 supersession notices on one day). "
+                              "template at MEDIUM (2026-09-14: 51 supersession notices on one day). "
                               "Date each record on its own")
 
 
@@ -826,12 +824,12 @@ _A30_LINE_FILE_RE = re.compile(r"^(?:invoice|inv|order|po|ticket|doc|document)(?
 def check_discrete_quantity_set(folder):
     """A quantity or stock column in a stock, count or master input never draws a hundred or more values from seven or fewer distinct figures; counted stock spreads, a generated set repeats, while an ordered quantity on a document line file (invoice, order, ticket) is a case-pack figure and stays out.
 
-    Since: 2026-09-14 (parts-quotation refinement round 3).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, "every on-hand quantity comes exclusively from
     {0, 1, 2, 3, 6, 10, 18}, consistent with generated rather than observed inventory" (MEDIUM).
     Drift-notes: quantity-like headers only, read across panel suffixes; a requested-quantity
     column on an order (1, 2, 4, 6, 10 across 55 lines) stays under the value floor. Narrowed
-    2026-09-14 (commission-review-q2 debt): a file whose first header is a document id
+    2026-09-14: a file whose first header is a document id
     (INVOICE, ORDER, PO, TICKET, DOC) is a line file whose QTY is the ordered case count, and
     1,028 lines drawn from {1, 2, 3, 4, 6, 8, 12} could not be respread without moving an
     extended amount (standard cost is one figure per item, so no line rescales), which moves
@@ -855,7 +853,7 @@ def check_discrete_quantity_set(folder):
             if len(distinct) <= _A30_MAX_DISTINCT:
                 emit("ERROR", f"[A30] {path.name}: the {len(vals)} values in \"{header}\" come from only "
                               f"{len(distinct)} figures {distinct}; the platform's LLM-authorship check named that "
-                              "generated rather than observed inventory at MEDIUM (parts-quotation 2026-09-14). "
+                              "generated rather than observed inventory at MEDIUM (2026-09-14). "
                               "Spread the figures, keeping every threshold a golden decision rests on")
 
 
@@ -868,7 +866,7 @@ _A55_SHARE = 0.8
 def check_round_group_totals(folder):
     """A money column in an input CSV whose rows carry cents never sums to a whole-dollar total for most of its keys (vendor, branch, account); ledger lines that land on round totals read as monthly figures engineered to hit predetermined targets.
 
-    Since: 2026-09-15 (vendor-terms-program refinement round 3).
+    Since: 2026-09-15.
     Source: the platform's LLM-authorship check, "all 12 vendor annual purchase totals are exactly divisible by $100 ... while individual monthly figures carry cents" (MEDIUM), with the shipment log's three round collect-freight totals as a corroborating MEDIUM; llm-only 0.50 failed the package.
     Drift-notes: the key is the first column whose values are not numeric; a money column is one whose every value has two decimals and whose non-zero values carry cents at least half the time; fires when at least three keys have a non-zero total and eight in ten of those totals end in .00 (the AP history summed to hundreds, the freight log to 4,140.00, 610.00 and 1,270.00, and a cents-bearing line lands a key on .00 about one time in a hundred). A file with a row per key (no grouping) stays out. Fix by giving one or two lines per key an irregular tail and re-deriving every golden figure and rubric pin that rests on the totals.
     """
@@ -913,7 +911,7 @@ def check_round_group_totals(folder):
                 emit("ERROR", f"[A55] {path.name}: \"{h}\" totals to a whole-dollar figure for {len(rnd)} of "
                               f"{len(nz)} {head[keycol]} keys ({sample}) while its lines carry cents; the platform's "
                               "LLM-authorship check read that as monthly figures engineered to round targets at "
-                              "MEDIUM (vendor-terms-program 2026-09-15). Give a line per key an irregular tail and "
+                              "MEDIUM (2026-09-15). Give a line per key an irregular tail and "
                               "re-derive every golden figure and rubric pin resting on the totals")
 
 
@@ -926,7 +924,7 @@ _A31_SHARE = 0.8
 def check_constant_step_ids(folder):
     """A key column, the first in an input CSV, never runs forty or more ids on one constant step larger than one (PN-30100, PN-30107, PN-30114); a numbering series is issued one at a time or with gaps, never on a fixed stride.
 
-    Since: 2026-09-14 (parts-quotation refinement round 3).
+    Since: 2026-09-14.
     Source: the platform's LLM-authorship check, "part numbers spaced exactly 7 apart" (LOW,
     systematic part numbering).
     Drift-notes: the first column only, read across panel suffixes: a target column such as a
@@ -962,5 +960,5 @@ def check_constant_step_ids(folder):
             if step > 1 and n >= _A31_SHARE * len(diffs):
                 emit("ERROR", f"[A31] {path.name}: {n} of {len(diffs)} consecutive ids in \"{header}\" step by "
                               f"exactly {step}; the platform's LLM-authorship check listed a fixed stride as "
-                              "systematic numbering (parts-quotation 2026-09-14). Move the ids nothing names off "
+                              "systematic numbering (2026-09-14). Move the ids nothing names off "
                               "the stride")

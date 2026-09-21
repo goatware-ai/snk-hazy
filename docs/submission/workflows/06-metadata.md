@@ -35,8 +35,8 @@ Keys in this order:
 rationale; that reasoning goes in the build summary and the task's feedback-log.md.
 
 `taskboard_uid` is always present and null until the operator fills it after submission; a
-missing key and a null one are not the same thing. `built_with` and `build_session` are
-unchanged from the ported convention (`memory/task-metadata.md`, `memory/model-routing.md`).
+missing key and a null one are not the same thing. `built_with` and `build_session` follow
+the house convention (`memory/task-metadata.md`, `memory/model-routing.md`).
 
 There is no `sector` field. The form has no sector, and no task carries one.
 
@@ -100,7 +100,7 @@ Rules that bind:
 - Exclude: learning missing domain knowledge, waiting on other people or approvals, breaks
   and unrelated distractions, and web research unless the prompt explicitly requires it.
 - The values must be consistent with where `01-ideation.md` said the hours go. Inflating
-  one field to clear the floor produces a profile a reviewer can read as padding.
+  one field to clear the floor produces a profile that reads as padding.
 
 ## Final screen
 
@@ -150,7 +150,7 @@ evaluations**. Treat them as precautions rather than as platform rules.
 - **The llm-only axis is dragged by co-occurring tells:** floating-point
   dust in stored data cells (`34.04799999999999` in a cost column; long decimals in cached
   formula cells are normal) (F1), 555-prefix phone numbers (H2), and invented company names
-  from the LLM-favored lexicon ("Hartwell"-class, corroborating only). One isolated tell
+  drawn from the LLM-favored lexicon (corroborating only). One isolated tell
   gets sole-signal suppression; two or more compound.
 - **Judges decompose each criterion into atomic statements and verify every one inside the
   deliverable.** A criterion pairing a method with a value (a policy tier plus one item's

@@ -1,11 +1,9 @@
 # Style Guide
 
-> **Inherited from the Geranium desk, not yet confirmed for Hazy.** This document was
-> captured on a different project and describes the LLM tells that get a file sent back. It is kept because the guidance is
-> domain-agnostic, but nothing in it has been checked against Hazy's own platform. Where it
+> **Carried over from the desk this repo was built from and not yet confirmed here.** This
+> document describes the LLM tells that get a file sent back. It is kept because the guidance
+> is domain-agnostic, but nothing in it has been checked against Hazy's own platform. Where it
 > disagrees with `create-the-task-guidelines.md` or `platform-submission-form.md`, those win.
-
-PROJECT GERANIUM
 
 Style Guide for Expert Contributors
 
@@ -13,7 +11,7 @@ Section 1: Recognizing LLM-Generated Files
 
 ## Purpose and Scope
 
-This tab of the Project Geranium Style Guide is a practical reference for recognizing LLM-generated files. It names the specific signals that reviewers flag when evaluating task submissions, explains which models produce them, and gives the fix directly.
+This tab of the Style Guide is a practical reference for recognizing LLM-generated files. It names the specific signals that reviewers flag when evaluating task submissions, explains which models produce them, and gives the fix directly.
 
 The "LLM Examples" tab includes screenshots of LLM generated files submitted on the task and explanations of why they are unacceptable. The "Reviewer Rubric" tab provides guidance to reviewers on when to reject, when to send back for revisions, and when to accept files.
 

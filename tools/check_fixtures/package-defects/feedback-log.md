@@ -1,4 +1,4 @@
-# Feedback log - dfl-freight-audit
+# Feedback log - freight-audit
 
 ## 2026-09-01 · source: build · verdict: DRAFT
 
@@ -143,8 +143,8 @@ Form actions:
   confirm the form still shows 27 criteria.
 - No zip change from this round. The 2026-09-02 Excel-resave entry rebuilt both zips after
   the AutoEval submission's timestamp (2026-09-01 23:46 EDT); if those two were not
-  re-uploaded then, upload i-dfl-freight-audit.zip and s-dfl-freight-audit.zip now and
-  confirm the upload took (see the tessendorf per-part re-upload lesson).
+  re-uploaded then, upload i-freight-audit.zip and s-freight-audit.zip now and
+  confirm the upload took (see the another package per-part re-upload lesson).
 - Resubmit.
 
 ## 2026-09-02 · source: AutoEval round 2, Rubric Quality Review · verdict: needs_improvement
@@ -173,7 +173,7 @@ Actions:
   prompt ask. Rows renumbered 1-26; positive 39, negative -9; clusters unchanged in weight.
 - tools/autoeval_check.py: R81 coded (a positive criterion whose verb hands an action to a
   Firstname Lastname). Catches the three old rows, passes the new ones and C19's "with an owner
-  named". Its first cut fired on semrad C5 ("names Pine Grove Creamery", a company), so the verb set was
+  named". Its first cut fired on another package's C5 ("names Pine Grove Creamery", a company), so the verb set was
   cut to assignment verbs and a business-word suffix excluded. Catalog re-run: this task 0
   errors; R81 fires on no other task; R80 and R81 registered in gate_families.py (GOLD-LAND,
   RUBQ-RIGID).
@@ -184,7 +184,7 @@ Form actions:
 - Rubric form, now 26 criteria: edit the row "The audit finds 50 invoices billed above the
   agreement" to the merged wording at weight 3; delete the row "The audit finds 66 invoices
   billed as the agreement reads"; replace the three DOCK rows with the C22-24 wording in
-  rubric-dfl-freight-audit-04894e01.csv; confirm the form shows 26.
+  rubric-freight-audit-04894e01.csv; confirm the form shows 26.
 - Prompt and both zips as already entered in round 1's actions (no change this round).
 - Resubmit.
 
@@ -246,7 +246,7 @@ Actions:
 
 Form actions:
 
-- Upload s-dfl-freight-audit.zip (golden changed). i-zip unchanged.
+- Upload s-freight-audit.zip (golden changed). i-zip unchanged.
 - Rubric form, 27 criteria: edit the eleven rows listed above and add the new C4 after the
   71 / 45 row; confirm the count reads 27.
 - Prompt unchanged from round 1.
@@ -301,9 +301,9 @@ Actions:
 
 Form actions:
 
-- Upload s-dfl-freight-audit.zip (golden changed). i-zip unchanged.
+- Upload s-freight-audit.zip (golden changed). i-zip unchanged.
 - Rubric form: the numbering moved wholesale, so re-enter all 32 criteria from
-  rubric-dfl-freight-audit-04894e01.csv, weights as listed; confirm the form reads 32.
+  rubric-freight-audit-04894e01.csv, weights as listed; confirm the form reads 32.
 - Prompt unchanged.
 - Resubmit.
 
@@ -313,7 +313,7 @@ Findings:
 
 - "Numerous exact numeric values (totals, counts, individual claim amounts) appear to be
   derived from the golden solution rather than being independently verifiable from
-  agent-visible inputs." The same verdict pick-module-reslot drew in its round 2 (2026-09-03):
+  agent-visible inputs." The same verdict another package drew in its round 2 (2026-09-03):
   every figure is deterministic from the inputs and the reviewer round confirmed them by
   re-rating, but the rows stated them bare, so the review had no path from an input to the
   figure.
@@ -343,7 +343,7 @@ Actions (rubric only; golden, prompt, inputs and zips untouched):
 
 Form actions:
 
-- Rubric form: re-enter all 32 criteria from rubric-dfl-freight-audit-04894e01.csv; the
+- Rubric form: re-enter all 32 criteria from rubric-freight-audit-04894e01.csv; the
   weights did not move from the previous round. Confirm the form reads 32.
 - Prompt and both zips unchanged from the previous round (make sure the s-zip from the
   reviewer round 2 revision was uploaded).
@@ -433,7 +433,7 @@ Findings:
 - Also found by the gate (checks coded 2026-09-05, after this task's last submission): P6 on
   the opening paragraph ("I run the operations desk at Loehr Brothers Supply, a plumbing and
   HVAC wholesaler in Muscatine, Iowa, and whoever picks this up should ...", the exact shape
-  lift-truck-fleet-plan was rejected on) and A20 on one three-clause sentence in the golden's
+  another package was rejected on) and A20 on one three-clause sentence in the golden's
   OC-DISC paragraph. Both fixed here rather than parked as debt, since the s-zip was being
   rebuilt anyway and the prompt paragraph is a known rejection trigger.
 
@@ -462,11 +462,11 @@ Actions:
   (fidelity, GOLD-FID) a Firstname Lastname in an owner-style column (WHO / OWNER /
   RESPONSIBLE / ASSIGNED TO / LEAD) of a solution table that appears in no input and not the
   prompt, with title-case roles and three-plus-word organisation names skipped (its first cut
-  read "Middle Georgia Truck Refrigeration" as two people on cold-chain-review). Registered in
+  read "Middle Georgia Truck Refrigeration" as two people on another package). Registered in
   gate_families and _order.
 - Gate: TOTAL: 0 errors, 32 criteria, 0 flake-prone, P(3/3) about 71%. Catalog re-run: R99
-  fires on 39-dock-to-stock-review (+3 top) and 46-cold-chain-review (+2 top); G15 on
-  46-cold-chain-review (Jorge Betancourt and Rita Mobley assigned actions, in no input); R100
+  fires on two other packages (+3 top and +2 top); G15 on the second of them
+  (Jorge Betancourt and Rita Mobley assigned actions, in no input); R100
   on no other task. The standing A20 / P4 / P6 / R82 / R84 / M2 / G8 / G10 / R101 errors on
   34, 35, 38, 39, 42, 44 and 46 are pre-existing and untouched. Package sweep: clean on this
   task; drafts/52-reel-deposit-recon carries three GENERATOR findings, left alone.
@@ -475,9 +475,9 @@ Form actions:
 
 - Replace the prompt with prompt.md in full (opening paragraph changed).
 - Rubric form, 32 criteria: set C2 to 4, C3 to 5, C4 to 4, C9 to 5, C32 to -5; re-enter the
-  wording of C21, C26, C27, C28, C29 and C30 from rubric-dfl-freight-audit-04894e01.csv (the
+  wording of C21, C26, C27, C28, C29 and C30 from rubric-freight-audit-04894e01.csv (the
   trailing owner-and-date clause removed, nothing else); confirm the form reads 32.
-- Upload s-dfl-freight-audit.zip (golden changed). i-zip unchanged.
+- Upload s-freight-audit.zip (golden changed). i-zip unchanged.
 - Resubmit.
 
 ## 2026-09-10 · source: Reviewer (gate 2, round 3) · verdict: NEEDS_REVISION (three items)
@@ -514,20 +514,20 @@ Actions:
   anyway: G17, the header's "Marvin Tegeler, Operations" title is in no input (the prompt says
   the outbound freight desk), so the From line is the name alone; R104, C24 (exposure to a
   balance bill under section 9) and the offsetting negative shared the section 9 anchor and
-  the disposition, the tessendorf adjudicator's double jeopardy, so C24 is dropped and its
+  the disposition, the another package adjudicator's double jeopardy, so C24 is dropped and its
   point moved to C23 (the reason on each under-billed invoice), 31 rows, positive 49,
   negative -10; G20 flagged five dates, all supported, so the check was refined rather than
   the memo: it now reads mm/dd/yy input dates (April 7 is invoice date 04/07/26), accepts a
   date that is an anchored date plus a day count the record names (October 4 is April 7 plus
   the agreement's 180 days) and exempts a plan table's own BY WHEN column (the action dates
   are the memo's commitments, not assertions about the record). Portfolio after the
-  refinement: G20 still fires on 22-frankfort-stock-recovery, 42-vrm-exception-review, 44-pick-module-reslot, 46-cold-chain-review, untouched.
+  rework: G20 still fires on four other packages, untouched.
 - Word resave with --force, fix_metadata, s-zip rebuilt; package sweep clean.
 - Gate: TOTAL: 0 errors.
 
 Form actions:
 
-- Upload s-dfl-freight-audit.zip (golden changed). i-zip unchanged.
+- Upload s-freight-audit.zip (golden changed). i-zip unchanged.
 - Rubric form, now 31 criteria: re-enter C21 as above; delete the row "The memo treats the
   under-billed invoices as exposure to a DFL balance bill ..."; set the row "The memo states
   for each of the six under-billed invoices what DFL left off the bill ..." to weight 2;
@@ -541,7 +541,7 @@ Form actions:
 verification trail and read "Supported", no action)
 
 1. The golden memo "appears among the extracted files" and would be a complete answer leak if
-   packaged as an input. It is not: i-dfl-freight-audit.zip holds the seven source files only
+   packaged as an input. It is not: i-freight-audit.zip holds the seven source files only
    (listed and confirmed); the adjudicator's extraction opened both zips. No change.
 2. and 4. (the same finding twice) Appendix B's "3.65 to 3.70" (24.0) and "3.70 to 3.75" (25.0)
    share the endpoint 3.70 with no inclusion rule; the week of 06/29/26 reads exactly 3.70 and
@@ -585,7 +585,7 @@ verification trail and read "Supported", no action)
 
 **Form actions**
 
-- Upload i-dfl-freight-audit.zip (agreement changed) and s-dfl-freight-audit.zip (memo
+- Upload i-freight-audit.zip (agreement changed) and s-freight-audit.zip (memo
   changed); confirm both uploads took.
 - Rubric form, now 29 criteria: delete "The memo sets the claims to be filed before the
   September 22 meeting in the prompt." and "The memo's action list carries the request to DFL
@@ -644,9 +644,9 @@ submission-list.md reads claude-opus-5.
 
 **Form actions**
 
-- Upload i-dfl-freight-audit.zip (two CSVs changed) and confirm uploadedAt moved. s-zip and the
+- Upload i-freight-audit.zip (two CSVs changed) and confirm uploadedAt moved. s-zip and the
   prompt are unchanged.
 - Rubric form, now 32 criteria: add three rows after "The deficit weight rule not applied
-  accounts for 552.78 ...", each weight 1, wording from rubric-dfl-freight-audit-04894e01.csv
+  accounts for 552.78 ...", each weight 1, wording from rubric-freight-audit-04894e01.csv
   rows 16, 17 and 18; confirm the form reads 32.
 - Resubmit.

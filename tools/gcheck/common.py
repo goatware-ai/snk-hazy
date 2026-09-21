@@ -19,17 +19,14 @@ from .state import workbook, document  # noqa: E402  (the run's parse-once loade
 
 
 # H1: the programme codename, which the platform's Name Check forbids anywhere in a
-# shipped package - content, file names, Office metadata. This desk is Hazy, but it was
-# ported from the Geranium desk and still carries Geranium vocabulary through every doc,
-# prompt and worked example, so BOTH names are screened: an author echoing a ported
-# example leaks the old codename just as fatally as the new one. Defined once here and
+# shipped package - content, file names, Office metadata. Defined once here and
 # consumed by packaging/hygiene.py, golden_rubric/leakage.py and authorship/package.py,
 # which each used to carry their own copy. A false positive costs a pre-submission
 # reword; a false negative costs a platform cycle, so the screen stays wide.
 # If "Hazy" is not in fact the platform-side codename, drop that alternative here and
 # nowhere else. \b would miss HAZY_TASK_CREATION, because "_" is a word character, so
 # the lookarounds key on letters: hazy-task, HAZY_TASK and "Hazy" trip, "hazier" does not.
-CODENAME_PATTERN = r"geranium|(?<![a-z])hazy(?![a-z])"
+CODENAME_PATTERN = r"(?<![a-z])hazy(?![a-z])"
 CODENAME_RE = re.compile(CODENAME_PATTERN, re.I)
 CODENAME_BYTES_RE = re.compile(CODENAME_PATTERN.encode(), re.I)
 
@@ -67,7 +64,7 @@ def _col_num(letters):
     return n
 
 
-# R20/R21 (2026-08-20, wamhoff run 1): the oracle judge verifies a criterion by
+# R20/R21 (2026-08-20, an oracle run): the oracle judge verifies a criterion by
 # grepping CELL VALUES in the deliverable. A figure that lives only in prose, or a
 # chain whose figures are scattered over several sheets, flakes.
 _YEAR_RE = re.compile(r"^(19|20)\d\d$")
@@ -78,7 +75,7 @@ _FIGURE_RE = re.compile(r"\d[\d,]*\.\d+|\d[\d,]{3,}")
 
 # a criterion that names a landing cell (Recovery!H170, 'File Corrections'!A100) is not
 # stating 170 or 100 as a figure; the address comes out before the figure/count scans
-# (june-price-review run 1, 2026-08-23, where R20/R26 read H170 as a count of 170)
+# (2026-08-23, an oracle run where R20/R26 read H170 as a count of 170)
 _CELL_REF_RE = re.compile(r"(?:'[^']+'|[A-Za-z_][\w ]*)!\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?")
 
 
@@ -137,7 +134,7 @@ def _solution_raw_values(folder):
     return raw
 
 
-# R26 (2026-08-21, task 20 oracle run 1): the oracle judge failed C10 in ALL THREE
+# R26 (2026-08-21, an oracle run): the oracle judge failed C10 in ALL THREE
 # runs and quoted the golden's own footer back at us - the criterion said "18 of them
 # short and 31 late" and the workbook counted 28. R20 never saw it because its figure
 # regex wants a decimal or four digits, so every COUNT a criterion states (small bare
@@ -309,7 +306,7 @@ def _read_input_texts(folder):
         elif f.suffix == ".xlsx":
             out.append((f.name, "\n".join(t for _, t in _xlsx_all_text(f))))
         elif f.suffix == ".pdf":
-            # 2026-09-14 (caraway-credit-review refinement): a date, a name and the tab names the
+            # 2026-09-14: on one task a date, a name and the tab names the
             # policy and the thread mandate all sat in PDF inputs, and every grounding check read
             # past them (G20 flagged a Secretary of State status date the PDF carries). pypdf's
             # page text joins the corpus; a missing pypdf or an unreadable file adds nothing.

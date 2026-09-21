@@ -78,9 +78,7 @@ run sampling programs of your own and will not need the permit conditions walked
 
 P4 reads the three parts out of the opening window and fires separately on the persona
 shape; P6 fires on the self-introduction sentence and the "whoever picks this up" gate. The
-rest is a read. history:
-`../../reference/workflow-history.md#open-order-cleanup-rejected-on-prompt-quality-2026-09-02`,
-`../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`.
+rest is a read.
 
 ## Sentence mechanics (A20)
 
@@ -90,14 +88,13 @@ rest is a read. history:
 
 A20 codes the first two shapes; the serial comma, the comma splice and compound sentences
 inside a subordinate clause are a read. It applies to the prompt, every input document,
-every golden text cell and the rubric. history:
-`../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`.
+every golden text cell and the rubric.
 
 ## Overspecification giveaways beyond step-by-step
 
 The guidelines call overspecification of HOW the most common mistake: if the instruction
 reads like a template to fill in rather than a task to perform, it is too prescriptive.
-Reviewers also send back these subtler forms:
+These subtler forms get a prompt sent back too:
 
 - Saying what a file is for (P5); name it and what it contains, and let how it enters the
   analysis be the solver's discovery.
@@ -113,9 +110,7 @@ Reviewers also send back these subtler forms:
 
 At the same time the prompt must be complete: every requirement the rubric grades is stated
 or is a thing any competent practitioner would know to do (R4, R13). Hidden requirements are
-a rubric defect, not difficulty. history:
-`../../reference/workflow-history.md#weldon-transition-buy-reviewer-feedback-august-2026`,
-`../../reference/workflow-history.md#yearend-deadstock-plan-reviewer-feedback-august-2026`.
+a rubric defect, not difficulty.
 
 ## The prompt has to fit the occupation you selected
 

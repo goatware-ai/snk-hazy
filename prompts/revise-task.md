@@ -1,7 +1,6 @@
 # Prompt: revise a task based on new feedback
 
 - **Task UID:** {TASK_UID}
-- **Feedback owner:** {AutoEval | Reviewer}
 - **Feedback:** {paste the full feedback text / verdict / scores below}
 
 ---
@@ -14,8 +13,8 @@ reporting, never as a license to fix other tasks in this run.
 
 **No `stb` CLI, hard limit:** never run any `stb` command during a revision: no `fetch-task`,
 no `download`, no status sync. Everything from the platform (feedback text, verdicts, scores,
-and the live prompt or criteria when a reviewer salvage may have changed them) arrives pasted
-by the operator. When you need a live part, ask for it.
+and the live prompt or criteria when an edit made on the platform may have changed them)
+arrives pasted by the operator. When you need a live part, ask for it.
 
 ## Steps
 
@@ -26,9 +25,9 @@ by the operator. When you need a live part, ask for it.
    `built_with` to match the model you happen to be.
 
 2. **Stop and ask for the feedback.** With the task verified, end the turn: report the folder,
-   the recorded model and the gate result, then ask for the feedback: owner (AutoEval or
-   Reviewer) and the full text, verdicts and scores. If the platform may hold parts the repo
-   does not (a reviewer salvage), ask for the fetch-task JSON alongside the feedback.
+   the recorded model and the gate result, then ask for the feedback: where it came from and
+   the full text, verdicts and scores. If the platform may hold parts the repo does not
+   (an edit made there after submission), ask for the fetch-task JSON alongside the feedback.
 
 3. **Diagnose.** Read the folder's `prompt.md`, `rubric-{task-name}-{uid8}.csv`,
    `feedback-log.md`, and the files the feedback names. Determine the root cause of each
@@ -70,10 +69,10 @@ by the operator. When you need a live part, ask for it.
    - Keep `verify_golden.py` and `clause-map.md` current: a moved figure, a new convention, a
      new ask landing or a renumbered rubric row changes them in the same revision.
 
-5. **Coded check.** If the feedback owner is AutoEval and the finding is generalizable beyond
-   this task and mechanically checkable, add or tighten the check in `tools/gcheck/` (the group
-   module that reads what the check reads, with a new id; see `tools/README.md`) and re-run it
-   portfolio-wide as reporting. If it is a one-off, say so in the feedback log rather than
+5. **Coded check.** If the finding is generalizable beyond this task and mechanically
+   checkable, add or tighten the check in `tools/gcheck/` (the group module that reads what
+   the check reads, with a new id; see `tools/README.md`) and re-run it portfolio-wide as
+   reporting. If it is a one-off, say so in the feedback log rather than
    silently skipping.
 
 6. **Gate.** The Package sequence ends in `tools/autoeval_check.py` at zero errors on the folder

@@ -1,7 +1,7 @@
 """Group 2: deliverable conformance (R134, G41, G42, G43).
 
 These checks read the prompt's asks against what the package actually delivers, where every
-other golden check reads the artifacts against each other. They come from dfl-freight-audit's
+other golden check reads the artifacts against each other. They come from one task's
 rejection (2026-09-15): eleven rounds of feedback and a clean gate on a golden that never
 produced the claim forms the prompt asked for, a phrase struck from the prose that survived
 in a table cell, and a rating engine that lived in a scratchpad and was never re-run.
@@ -139,7 +139,7 @@ def _clause_map(path):
 def check_clause_map(rows, folder):
     """Every deliverable ask in the prompt is mapped in the task's clause-map.md to a clause quoted verbatim from the prompt, a quoted anchor the golden contains and at least one positive rubric row, and once three returns are logged the map carries a Rebuilt date on or after the latest one.
 
-    Since: 2026-09-15 (dfl-freight-audit rejection).
+    Since: 2026-09-15 (a rejection).
     Source: the rejection's central finding, "it does not provide the 71 individual DFL claim forms
     required", held through eleven rounds and a clean gate, because no check and no rubric row read the
     prompt's asks against the deliverable; the eight reason-code groups went unscored the same way.
@@ -147,8 +147,7 @@ def check_clause_map(rows, folder):
     deliverable file, fragments under four words and date phrases dropped; an ask is covered when 60
     percent of its content words sit in one mapped clause. The map is a markdown table with columns
     whose headers contain "prompt", "golden" and "rubric". Returns are feedback-log.md headings naming a
-    reviewer, adjudication, AutoEval, a golden solution check, a Rubric Quality Review, a refinement
-    panel, NEEDS_REVISION, needs_improvement or REJECTED, counted by distinct date (PR19).
+    platform return, matched by _RETURN_RE and counted by distinct date (PR19).
     """
     folder = Path(folder)
     segs = ask_segments(folder)
@@ -158,7 +157,7 @@ def check_clause_map(rows, folder):
     if not cm.is_file():
         emit("ERROR", f"[R134] no clause-map.md: the prompt makes {len(segs)} deliverable asks (first: \"{segs[0]}\") "
                       "and nothing maps each one to where the golden delivers it and the rubric row that fails "
-                      "without it (dfl-freight-audit was rejected on an ask the golden never met, 2026-09-15). "
+                      "without it (a task was rejected on an ask the golden never met, 2026-09-15). "
                       "Write the table: | # | Prompt clause | Golden location | Rubric rows |, clauses and golden "
                       "anchors in double quotes")
         return
@@ -237,7 +236,7 @@ def _solution_tables(folder):
 def check_deferred_deliverable(folder):
     """The golden delivers every artifact the prompt asks for inside the deliverable itself: no action row hands the making or form-filing of an asked-for artifact to later work, and where an input requires one form per record the golden carries one form block per record rather than a single schedule.
 
-    Since: 2026-09-15 (dfl-freight-audit rejection).
+    Since: 2026-09-15 (a rejection).
     Source: the prompt asked for "the claims themselves in the form Dahlquist's claims desk will
     accept", the agreement and the claims desk required "DFL's claim form, one claim per invoice", and
     the golden gave a 71-row schedule plus the action "File the 71 claims on DFL's form"; the rejection
@@ -279,7 +278,7 @@ def check_deferred_deliverable(folder):
             emit("ERROR", f"[G41] {where}: the action \"{text[:110]}\" hands the {m.group('obj')} to later work, "
                           f"and the prompt asks for them in the deliverable (\"{next(s for s in segs if re.search(chr(92) + 'b' + re.escape(head), s, re.I))}\"). "
                           "Produce them in the golden; an action row may send what the deliverable already holds, "
-                          "never make it (dfl-freight-audit rejection, 2026-09-15)")
+                          "never make it (a rejection, 2026-09-15)")
     texts = input_texts(folder)
     items = list(texts.items()) if isinstance(texts, dict) else list(texts or [])
     seen = set()
@@ -314,7 +313,7 @@ def check_deferred_deliverable(folder):
                     emit("ERROR", f"[G41] {name} requires \"{m.group(0)}\" on a form and the prompt asks for the {m.group(1)}s, "
                                   f"but the golden carries {blocks} {m.group(1)} form block(s) against {expected} rows in "
                                   f"{schedule}. Give each {m.group(2)} its own {m.group(1)} form in the deliverable, the fields the "
-                                  "form requires filled, rather than one schedule (dfl-freight-audit rejection, 2026-09-15)")
+                                  "form requires filled, rather than one schedule (a rejection, 2026-09-15)")
 
 
 def _ledger(folder):
@@ -373,8 +372,8 @@ def _searchable(folder):
 def check_struck_phrases(folder):
     """No phrase recorded in the task's struck-phrases.md, as a literal or a pattern, appears anywhere in the prompt, the rubric, the Section 3 text, an input or a solution file, table cells and headers included.
 
-    Since: 2026-09-15 (dfl-freight-audit rejection).
-    Source: on 2026-09-10 a reviewer struck "figures that appear nowhere in Appendix B" and "carries no
+    Since: 2026-09-15 (a rejection).
+    Source: on 2026-09-10 two claims were struck, "figures that appear nowhere in Appendix B" and "carries no
     half point row at all"; the revision reworded both paragraphs and left the same claim in the
     reason-code table cell, "billed at a percentage Appendix B does not carry", which the rejection
     named as an internal inconsistency.
@@ -400,14 +399,14 @@ def check_struck_phrases(folder):
         if hits:
             emit("ERROR", f"[G42] struck phrase {label} is back in {len(hits)} place(s): " + "; ".join(hits[:4]) +
                           (" ..." if len(hits) > 4 else "") + ". A struck claim is removed from every copy, table "
-                          "cells and rubric rows included (dfl-freight-audit rejection, 2026-09-15)")
+                          "cells and rubric rows included (a rejection, 2026-09-15)")
 
 
 @check(codes=['G43'], rules=['GOLD-FID'], needs=['solution', 'folder'], params=['folder'])
 def check_golden_verification(folder):
     """The task folder carries verify_golden.py, which re-derives the golden's figures from the inputs alone and exits 0 with every figure reproduced, and every standing a reasonable alternate reading flips names a convention phrase the golden itself states.
 
-    Since: 2026-09-15 (dfl-freight-audit rejection).
+    Since: 2026-09-15 (a rejection).
     Source: the rating engine behind the golden was rebuilt in a scratchpad three times and never kept,
     so no revision re-ran it, and the rejection found "at least one underbilled invoice" marked correct:
     leaving the base charge unrounded moves DFL7718237 to under-billed by one cent, and four more
@@ -424,7 +423,7 @@ def check_golden_verification(folder):
     script = folder / "verify_golden.py"
     if not script.is_file():
         emit("ERROR", "[G43] no verify_golden.py: nothing re-derives the golden's figures from the inputs, so no "
-                      "revision re-checks them (dfl-freight-audit's engine lived in a scratchpad and was lost three "
+                      "revision re-checks them (one task's engine lived in a scratchpad and was lost three "
                       "times). Start from tools/templates/verify_golden.py")
         return
     env = dict(os.environ, HAZY_ROOT=str(Path(__file__).resolve().parents[3]))

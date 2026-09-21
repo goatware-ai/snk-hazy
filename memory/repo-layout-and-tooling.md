@@ -35,9 +35,8 @@ UID only when no file exists.
 - Keep only common tooling in `tools/` (see tools/README.md); per-task generators are session
   work product written in the scratchpad and never committed. Later revisions edit the delivered
   files directly (zip-level XML edits, office resave).
-- `submissions/`, `accepted/`, `archived/` and `memory/` are git-tracked; `drafts/`, `reviews/`
-  (other contributors' Not-for-Distribution files), `.venv/`, `__pycache__/` and `.DS_Store` are
-  ignored. `memory/` is symlinked from `~/.claude/projects/-Users-aladdin-projects-snk-hazy/memory`;
+- `submissions/`, `accepted/`, `archived/` and `memory/` are git-tracked; `drafts/`, `.venv/`,
+  `__pycache__/` and `.DS_Store` are ignored. `memory/` is symlinked from `~/.claude/projects/-Users-aladdin-projects-snk-hazy/memory`;
   recreate the symlink on a new machine.
 - Package order before every zip build: `office_resave.py` (`--force` after any python-docx edit)
   -> `fix_floats.py fix` -> `fix_metadata.py` -> build both zips -> gate (`autoeval_check.py`,
@@ -46,23 +45,21 @@ UID only when no file exists.
 ## prompts/ and commands
 
 Reusable operator prompt templates live in `prompts/`, one per slash command: `submission.md`
-(`/create-task`, with `create-task-brief.md` as the per-task brief), `revise-task.md`
-(`/revise-task`), `review.md` (`/review-task`), `refine-task.md` (`/refine-task`),
-`revise-refinement.md` (`/revise-refinement`). Commands in `.claude/commands/` route to
-per-model skills ([[model-routing]]); `/fetch-status` is a skill ([[submission-tracking]]).
+(`/create-task`, with `create-task-brief.md` as the per-task brief) and `revise-task.md`
+(`/revise-task`). Commands in `.claude/commands/` route to per-model skills
+([[model-routing]]); `/fetch-status` is a skill ([[submission-tracking]]).
 
 ## tools/gcheck/ (since 2026-09-04)
 
-`tools/autoeval_check.py` and `tools/review_check.py` are thin commands over one package,
-`tools/gcheck/`, in four groups: `prompt_inputs/` (prompt_frame, occupation, input_quality),
+`tools/autoeval_check.py` is a thin command over one package, `tools/gcheck/`, in four groups: `prompt_inputs/` (prompt_frame, occupation, input_quality),
 `golden_rubric/` (rubric_form, negatives, landing, liveness, fidelity, leakage, sourcing),
 `authorship/` (prose, package, workbook_shape), `packaging/` (hygiene). `core.py` holds
 emit/recommend/debt and the `@check(codes, rules, needs, params)` registry; `driver.py` runs
-submissions, `review.py` runs reviews. The five check tools (rubric_lint, prompt_check,
+submissions. The five check tools (rubric_lint, prompt_check,
 audit_task as H1-H5 under PRE-PACK, originality_check U1/U2 and G2a-G2d needing `originality`,
 package_sweep) are shims with unchanged output; repair tools (fix_*, office_resave) stay
-separate, the package only reads. Design record: docs/reference/tools-refactor-plan.md; old
-docstrings: docs/reference/autoeval-check-catalog-archive.md.
+separate, the package only reads. Each check's docstring first line is the canonical wording of
+its rule; `--rules` prints the catalog (docs/rules.md).
 
 - A new check is one `@check` function in the group that matches what it reads, with a NEW id
   (the registry refuses an owned id; ids are portfolio-shared across sessions, so check

@@ -2,12 +2,12 @@
 
     .venv/bin/python tools/office_resave.py <file-or-task-folder>... [--check] [--quiet]
 
-Why this exists (2026-09-02). The june-price-review gate-2 reviewer sent a whole
-package back on the docProps generator trace alone: "please open and re-save them
-in Excel or LibreOffice so that metadata is cleared". A14 has coded that ever
-since. The remedy was blocked because no Office install existed on this machine,
-so A14 hits were parked in each task's .gate-debt; the operator installed Word
-and Excel on 2026-09-02 and the sanctioned remedy is now available.
+Why this exists (2026-09-02). A gate-2 reviewer sent a whole package back on the
+docProps generator trace alone: "please open and re-save them in Excel or
+LibreOffice so that metadata is cleared". A14 has coded that ever since. The
+remedy was blocked because no Office install existed on this machine, so A14 hits
+were parked in each task's .gate-debt; the operator installed Word and Excel on
+2026-09-02 and the sanctioned remedy is now available.
 
 This tool performs THAT remedy and only that remedy. It drives Microsoft Excel /
 Microsoft Word over AppleScript to open the file and save it, so the application
@@ -53,7 +53,7 @@ TELLS = ("openpyxl", "python-docx")
 # an openpyxl string, not less: it asserts Excel authored the bytes while removing the
 # evidence that it did not, and because it no longer names a python generator it also
 # hides from this tool. Detect the stub so the forgery reaches its own remedy.
-# (semrad-date-recovery, 2026-09-02: five inputs carried the pair, the solution did not.)
+# (2026-09-02: on one task five inputs carried the pair, the solution did not.)
 _APP_CHILD_RE = re.compile(rb"<(\w+)[ />]")
 _REAL_OFFICE_MARKERS = (b"HeadingPairs", b"TitlesOfParts", b"Template", b"TotalTime",
                         b"DocSecurity", b"Pages", b"Words")
@@ -161,10 +161,10 @@ def strip_calcchain(path: Path) -> bool:
     """Drop a synthetic xl/calcChain.xml before handing the workbook to Excel.
 
     fix_package.py writes that part so the authorship extractor's package scan sees
-    the formulas (A13). Real Excel is stricter about it than the extractor is: the
-    task 42 golden could not be OPENED at all until the part came out ("Parameter
-    error", -50). Excel writes its own correct calcChain on save, which is a better
-    part than the synthetic one, so this removes it and lets Excel rebuild it.
+    the formulas (A13). Real Excel is stricter about it than the extractor is: one
+    golden could not be OPENED at all until the part came out ("Parameter error",
+    -50). Excel writes its own correct calcChain on save, which is a better part
+    than the synthetic one, so this removes it and lets Excel rebuild it.
     """
     with zipfile.ZipFile(path) as z:
         if CALCCHAIN not in z.namelist():
@@ -293,7 +293,7 @@ def resave(path: Path, log) -> bool:
         # A file Office already authored comes back with a byte-identical app.xml
         # (same Application, AppVersion and TitlesOfParts), so "app.xml unchanged" is
         # not proof of a no-op save: a golden edited at zip level after its first Excel
-        # save (flyer-program-review, 2026-09-02) was rolled back on that test alone.
+        # save (2026-09-02) was rolled back on that test alone.
         # Office wrote nothing only when the whole package is byte-identical.
         if (read_part(path, APP) == read_part(backup, APP)
                 and path.read_bytes() == backup.read_bytes()):

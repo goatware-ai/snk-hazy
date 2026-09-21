@@ -1,16 +1,14 @@
 ---
 name: rubric-negatives
-description: "What a negatively weighted criterion may penalise on Hazy (any specific unwanted outcome, R67's critical-only allowlist deleted 2026-09-21) and the shape rules that survive: one thing per line (R55), single negation (R53), affirmative phrasing of the defect (E1/W18/R84/R111, no carve-out sentence R18), a closed class not an open scope (R77), the policy's condition not its subject, objectively checkable off one verdict cell (R37/R40/R52), derivable from the inputs, and no double jeopardy with a positive (R15/R69/R104)"
+description: "What a negatively weighted criterion may penalise (any specific unwanted outcome, R67's critical-only allowlist deleted 2026-09-21) and the shape rules that survive: one thing per line (R55), single negation (R53), affirmative phrasing of the defect (E1/W18/R84/R111, no carve-out sentence R18), a closed class not an open scope (R77), the policy's condition not its subject, objectively checkable off one verdict cell (R37/R40/R52), derivable from the inputs, and no double jeopardy with a positive (R15/R69/R104)"
 metadata:
   type: feedback
 ---
 
 Open before writing or respending any negative. Siblings: [[rubric-liveness-criteria]],
 [[rubric-anchoring-and-landing]], [[rubric-coverage-and-completeness]], [[rubric-criterion-count]].
-Narratives: docs/reference/reviewer-feedback-corpus.md Part 5 (tasks 07, 08, 12, 15, 16, 18, 23,
-37, 39, 40, 41, 44, 35).
 
-## 1. What a penalty may be spent on (rewritten 2026-09-21, the Hazy port)
+## 1. What a penalty may be spent on (rewritten 2026-09-21)
 
 **Any specific, observable unwanted outcome.** The form
 (docs/submission/platform/platform-submission-form.md) reads: "Use negative weights where useful,
@@ -18,21 +16,21 @@ to penalize specific unwanted outcomes (extra items included that shouldn't be, 
 exceeded, wrong file type)." All three of its own examples are ordinary quality misses, so there
 is no critical class and no permission question left to answer.
 
-**Geranium's R67 is DELETED (2026-09-21).** Its allowlist reserved negative weight for safety
-harm, a privacy leak, an inverted or prohibited top-level decision, and fabrication, and rejected
-everything else as an ordinary miss. That rule came from Geranium's Rubric penalty scope check,
-which nothing shows Hazy runs, and the Hazy form states the opposite rule in its own words. Every
+**R67 is DELETED (2026-09-21).** Its allowlist reserved negative weight for safety harm, a
+privacy leak, an inverted or prohibited top-level decision, and fabrication, and rejected
+everything else as an ordinary miss. That rule came from a Rubric penalty scope check nothing
+shows this platform runs, and the form states the opposite rule in its own words. Every
 R67 arm goes with it: the literal token list, the conclusion-verb signature, the
 classification-is-not-a-decision ruling, the methodology-whatever-the-verb ruling, the weak
 fabrication forms. Do not answer a "can this be a negative?" question from an old rubric or an
 old feedback log.
 
-**No floor and no count.** Geranium's bar of at least two negatives, each -3 to -5, is gone with
+**No floor and no count.** The old bar of at least two negatives, each -3 to -5, is gone with
 the allowlist. Weight is any non-zero integer in -5..+5 ([[rubric-criterion-count]]), and a rubric
 with one negative, or with none where nothing specific is worth penalising, is legal. R61's 20
 percent penalty-share figure survives only as a NON-BLOCKING recommendation (team manager ruling
-2026-09-02, printed through `recommend()`, never a send-back in either direction) and is
-inherited from Geranium, unverified here.
+2026-09-02, printed through `recommend()`, never a send-back in either direction) and is carried
+over and not yet confirmed here.
 
 What is left is shape, and the shape rules below are unchanged: a negative still has to be one
 thing, readable in one direction, bounded, and checkable against the inputs and the golden.
@@ -48,33 +46,33 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
 ## 3. Single negation, and the defect stated affirmatively
 
 - **ONE negation per criterion (R53):** "not / never / no / without / rather than / instead of /
-  fails to" twice and the judge cannot tell which way the row points (oskaloosa: the identical
+  fails to" twice and the judge cannot tell which way the row points (on one rubric the identical
   frame passed on the row that spent its single negation on the carve-out). State the defect
   positively ("trimmed in quantity", "stock beyond what the records carry").
 - **The defect frame goes INSIDE the sentence:** incorrectly / violating / in violation of /
   contradicts / contrary to / although / even though / despite / wrongly / beyond what (E1's
   PIN_RE, W18's frame words). A negative with no frame word in the defect sentence reads as "what
-  a correct deliverable does" (task 20, -16 exposure). Frames other than "incorrectly" pass
+  a correct deliverable does" (one rubric, -16 exposure). Frames other than "incorrectly" pass
   E1/W18 when a reviewer objects to the adverb.
 - **No trailing ", in violation of ... / contrary to ..." clause (R84,** reviewer send-back
   2026-09-02: "remove trailing clauses that bring negatively weighted items into negative
   language"). State the act once and carry the frame as the act's condition: "... although
   <source> documents no <thing>", which E1, W18 and the reviewer all accept.
-- **The carve-out sentence is DEAD (R18,** tessendorf 2026-08-26): "... is not this defect" and
+- **The carve-out sentence is DEAD (R18,** 2026-08-26): "... is not this defect" and
   "does not count as this error" read as scoring scaffolding. A scope boundary that truly needs
   stating becomes an affirmative fact, or goes inside the defect ("open quantity due that CAUSES
   its post-plan position to exceed thirteen weeks").
-- **Never open in the passive voice (R111,** inbound-consolidation round 2, 2026-09-11): "Bracket
+- **Never open in the passive voice (R111,** a round 2, 2026-09-11): "Bracket
   money is incorrectly booked ... although ..." is read as inverted polarity whatever frame word
   it carries. Put the deliverable in the actor's seat with a transitive verb: "The workbook
-  wrongly books bracket money for a vendor other than Kesselring ...". "absent from every ..."
+  wrongly books bracket money for a vendor other than the named one ...". "absent from every ..."
   states a class with no negation, where "not found on any" draws W1.
 - **A bare plural negation of a nearby positive** ("Key outputs are constants") draws
   `ambiguous_negative_polarity` 3/3, because the judge grades each criterion as one true/false
   statement. The any-quantifier subject ("At least one ...") or the verdict-cell form ("The
   workbook's count of <verdict cell label> stands above zero, at least one ...") reads cleanly.
   The old meet-pin style ("met only when ...; X does not meet it") was retired 2026-08-19.
-- **The although-frame alone can still be read backwards** (packaging-consolidation, 2026-09-11,
+- **The although-frame alone can still be read backwards** (2026-09-11,
   two [critical] misaligned_or_unjustified_rigidity): "approves an award of one category to one
   bidder and another to the other" and "cites a tier price for an item that neither schedule
   lists" were both read as describing a compliant workbook. Name the defect class inside the act
@@ -86,21 +84,21 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
 
 - "cites a reference figure, bank balance or ledger entry beyond what the replies and the register
   document" makes the judge confirm EVERY figure and fired 1/3 on a verbatim register entry
-  (wanasek). Write "cites a credit bureau report or score ..., although no file in the record
+  on one run. Write "cites a credit bureau report or score ..., although no file in the record
   carries one", or "cites a policy section number, although the policy has no such section".
 - Prefer an although-clause the deliverable's own content proves ("although WH-2 ends at section
   10", the memo cites 3 to 9) over one naming what the INPUTS lack ("although no carrier billing
-  is among the inputs"), which came back unverifiable 3/3 (dock-to-stock). Answer-key the sibling
+  is among the inputs"), which came back unverifiable 3/3. Answer-key the sibling
   negative in the same pass even when it passed.
 
 ## 5. The policy's CONDITION, not its subject
 
-- hollenbach run 7, -5 in all three runs: "VP approval whenever a re-costed line is committed"
+- One rubric, run 7, -5 in all three runs: "VP approval whenever a re-costed line is committed"
   fired on two lines the policy tests and lets through (only a line under the 12 percent floor
   goes to the VP). Quote the trigger or respend.
 - **An act no source supports**, never a category the golden's correct line belongs to under one
   source: "written against a superseded model number although the letter prohibits it" fired on
-  ZC-224, superseded per the pages and correct per the rep's override (boettcher). Let a positive
+  ZC-224, superseded per the pages and correct per the rep's override. Let a positive
   carry the precedence call.
 
 ## 6. Objectively checkable
@@ -114,8 +112,8 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
   as the Excel function under R6; "ceiling"/"thirteen" shared with the page note under R52).
 - **Not a membership claim** ("is counted as mispriced", R52) and never over a defect class the
   golden itself narrates (exception logs, correction tables, before-and-after prose): the judge
-  quotes the golden's own explanation of a near miss as the defect (june-price-review run 9,
-  open-order run 1). The count pins already fail a misclassifier; drop the negative. An
+  quotes the golden's own explanation of a near miss as the defect (two rubrics, run 9 and
+  run 1). The count pins already fail a misclassifier; drop the negative. An
   exceptions/corrections tab is good for positives and poison for negatives.
 - **Item-code negatives test a VALUE, not a state**: once every detail tab lists the full row set,
   every code appears everywhere and presence proves nothing. "is incorrectly given an opening
@@ -126,7 +124,7 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
   Content-fact sweeps bounded to checkable data survive.
 - **A negative grades a VISIBLE field, never a timing fact**: "billed ahead of the signature"
   fails the outcome-focus check, "the standing column is marked for billing" passes.
-- **A presence-only negative draws ungrounded_verification** (harlow round 4, 2026-09-11): give it
+- **A presence-only negative draws ungrounded_verification** (a round 4, 2026-09-11): give it
   two checkable anchors on an account NO positive scores.
 
 ## 7. Derivable from the inputs
@@ -138,7 +136,7 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
   No hedged magnitude ("approximately", "roughly", "about", "~") in a negative that asserts a
   figure ([[rubric-anchoring-and-landing]]).
 - **A figure that appears NOWHERE in the deliverable**, never a value that sits legitimately
-  elsewhere on the row it points at (task 20's governing date lived correctly in the CONFIRMED
+  elsewhere on the row it points at (one rubric's governing date lived correctly in the CONFIRMED
   column beside the governing one). The judge greps it, finds nothing, and the defect is absent
   deterministically.
 
@@ -148,9 +146,9 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
   behaviour is redundant_or_double_counted. Back only requirements no positive already scores.
 - A positive rewarding the ABSENCE of a defect a negative penalises (contract zero-charges +2 vs
   contract-charge -4) is double jeopardy in adjudication: keep the negative, re-scope the positive
-  to a different property of the same tab (delivery-zone 2026-09-04).
+  to a different property of the same tab (2026-09-04).
 - A positive and a negative anchored on ONE rule, even in instance form ("March-cut items held"
-  +1 vs "March-cut item planned drop-ship" -5), is double jeopardy (R104, tessendorf 2026-09-10):
+  +1 vs "March-cut item planned drop-ship" -5), is double jeopardy (R104, 2026-09-10):
   drop the positive, keep the negative, spend the freed weight inside the cluster.
 - **Subject and verb distinct from every positive (R69):** a negative sharing a positive's subject
   and verb ("the discount is taken at ...") is DUAL POLARITY. Negatives naming a prohibited act
@@ -158,9 +156,9 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
   pass.
 - A positive and a negative sharing only an antonym pair (densities closer together / further
   apart) read as a mirror even though R15/R22/R104 see no shared anchor; keep the positive
-  (harlow round 4, 2026-09-11).
+  (a round 4, 2026-09-11).
 - Reviewers read a negative as a reversal when a positive states the same rule: drop the mirroring
-  POSITIVE or restate it as the instance (open-order 2026-08-24). Positive-to-positive double
+  POSITIVE or restate it as the instance (2026-08-24). Positive-to-positive double
   jeopardy stays a hand check (R41's shared-subject test fires on legitimate pairs).
 - De-enumerating a positive can dissolve an overlap the review flags without deleting either row.
 - Where the golden's correctness turns on one source overriding another, or the judge's quoted
@@ -169,15 +167,12 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
 
 ## Dated
 
-- 2026-09-15 (wholesale-purchasing-recommendation refinement dfa2b2d2, in-app Rubric negative
-  polarity check): the check reads "marks X PASS on its Y check" as scoring scaffolding even on a
+- 2026-09-15 (an in-app Rubric negative polarity check): the check reads "marks X PASS on its Y check" as scoring scaffolding even on a
   positive row. Make the verdict column the subject and state what it reads ("the recommendation
   table's case-pack check column reads PASS for the positive purchase lines"), and do not take the
   check's own suggestion when it opens on "Each" (W16). An R18 arm for "PASS on" is uncoded.
 - 2026-09-15: E1's message used to suggest "This criterion is met only when ...", the pin W9 and
   R18 ban; it now points at the in-sentence defect frame.
-- 2026-09-21 (the Hazy port): section 1 rewritten, R67 and the two-negatives bar deleted. Every
-  dated entry recording a Geranium penalty scope FAIL was cut with it (rossville, hartwell,
-  recall-response, hx4180 fc3c5a5c, flyer-program-review, rfq-response 253bad46); their rulings
-  were about what a penalty was allowed to cover, which is no longer a question. The narratives
-  are still in docs/reference/reviewer-feedback-corpus.md if the class ever returns.
+- 2026-09-21: section 1 rewritten, R67 and the two-negatives bar deleted. Every dated entry
+  recording a penalty scope FAIL was cut with it; those rulings were about what a penalty was
+  allowed to cover, which is no longer a question.

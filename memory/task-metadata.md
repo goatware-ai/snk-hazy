@@ -1,6 +1,6 @@
 ---
 name: task-metadata
-description: "metadata.json per task folder on Hazy: the key set after the 2026-09-21 port (domain replaces sector, onet_occupation {code,title} from the platform's closed 64, the five time values as four integer minute fields plus a total in hours, a tools list with at least one non-AI tool), taskboard_uid present and null until a UID is proven to belong to a draft, built_with for model gating, and the keys carried over from Geranium that no Hazy form field asks for"
+description: "metadata.json per task folder on Hazy: the key set after the 2026-09-21 port (domain replaces sector, onet_occupation {code,title} from the platform's closed 64, the five time values as four integer minute fields plus a total in hours, a tools list with at least one non-AI tool), taskboard_uid present and null until a UID is proven to belong to a draft, built_with for model gating, and the carried-over keys that no form field asks for"
 metadata:
   type: project
 ---
@@ -10,7 +10,7 @@ data, no need to explanation"). Keys in this order:
 
 ```json
 {
-  "task_name": "june-price-review",
+  "task_name": "<task-folder-name>",
   "taskboard_uid": "7373c89f-...",       // null until submitted
   "domain": "Management",                // one of the form's 14
   "onet_occupation": { "code": "11-3071.00", "title": "Transportation, Storage, and Distribution Managers" },
@@ -81,12 +81,12 @@ have to be re-entered on every revision.
 Photoshop, DaVinci, SolidWorks, LabVIEW". At least one entry, and at least one entry that is not
 an AI assistant. It is a required form field, so an empty list blocks submission.
 
-## Keys no Hazy form asks for
+## Keys no form field asks for
 
 `onet_tasks`, `onet_skills`, `multimodal`, `web_search_allowed` and `llm_starting_point` are
-carried over from Geranium's form, which had pickers for them. **Hazy's form has none of these
-fields.** They are kept because the ported gate still loads them and because a future Hazy form
-change may restore them; nothing on the live form reads them, so do not spend build time
+carried over from the desk this repo was built from, whose form had pickers for them. **This
+desk's form has none of these fields.** They are kept because the ported gate still loads them
+and because a future form change may restore them; nothing on the live form reads them, so do not spend build time
 researching values for them, and do not treat a thin one as a defect. Flagged 2026-09-21 for the
 tooling owner to settle.
 
@@ -112,5 +112,4 @@ which maps sequence prefix to task name to UID per status section ([[submission-
 [[repo-layout-and-tooling]]). submission-list.md is a status board, not a journal: no dates,
 findings or platform to-do lists beyond the short Note column under NEEDS_REVISION.
 
-- 2026-09-12 (boiler-replacement-recommendation refinement): the platform's Input Files Quality Check ruled a PDF-only input set "not multi-modal under the rule" and FAILed the form with multimodal Yes, after an earlier run of the same check had called Yes a match; the check is LLM-judged and flips, so set multimodal No for PDF-only sets and follow its FAIL ruling on resubmission. Geranium-side; Hazy's form has no multimodal field.
-- 2026-09-21 (the Hazy port): `sector` deleted, `domain` added, `manual_time_hours` replaced by the five time values, `tools` added. Input file count is now bounded below, not above: minimum 2, three or more strongly preferred, no upper bound.
+- 2026-09-21: `sector` deleted, `domain` added, `manual_time_hours` replaced by the five time values, `tools` added. Input file count is now bounded below, not above: minimum 2, three or more strongly preferred, no upper bound.

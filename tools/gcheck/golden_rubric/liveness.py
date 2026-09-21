@@ -10,7 +10,7 @@ from ..core import check, emit, recommend, REPORT, OPTIONS, FINDINGS
 
 # Anchored to the key: the verb must directly follow the range ("!C3:C30 store
 # SUMIFS"), else a later bare-range assertion gets misattributed to the previous
-# quoted key (marathon C29 chain wording, run-5 rework).
+# quoted key (an earlier task's chain wording, run-5 rework).
 FUNC_ASSERT_RE = re.compile(r"\A[\s,]{0,2}(?:all\s+|each\s+)?(?:stores?|contains?|holds?|carr(?:y|ies))\b[^.;)]{0,30}?\b(SUMIFS?|SUMPRODUCT|X?LOOKUP|VLOOKUP|INDEX|COUNTIFS?|IF)\b")
 
 
@@ -29,7 +29,7 @@ def _quoted_formula_after(text, start):
     """Extract a ' =FORMULA' snippet following a cell key, paren-balanced.
 
     Accepts paren-less reference/arithmetic hops too (=C3*D3, ='Usage Rollup'!E3
-    — the chain keys marathon run 5 showed judges trace hop by hop), ending them
+    — the chain keys an earlier run showed judges trace hop by hop), ending them
     at the first bare whitespace outside quotes/parens.
     """
     m = re.match(r"\s*(=['A-Z@_].*)", text[start:], re.S)
@@ -96,15 +96,15 @@ def check_key_values(rows, folder):
     R8: a criterion states a numeric answer AND keys a single golden cell, but
     that cell's cached value is not among the numbers the criterion states.
 
-    Answer-keyed criteria are what stabilised the oracle (task 06 C29/C32), and the
+    Answer-keyed criteria are what stabilised the oracle, and the
     judge takes a stated key at face value, so a key that has drifted away from the
     number beside it fails the run deterministically. R5 only proves the key
     RESOLVES; this proves it still says what the criterion claims. Cheap insurance
-    whenever the golden workbook is edited after the rubric was written (dillman
-    2026-08-19 rebuilt its settings and usage tabs under a finished rubric).
+    whenever the golden workbook is edited after the rubric was written (one task
+    rebuilt its settings and usage tabs under a finished rubric, 2026-08-19).
 
     Liveness criteria are exempt: they point at a cell to show WHERE a formula lives
-    and legitimately state no value (marathon C31, boettcher C29 both fire without
+    and legitimately state no value (two earlier criteria both fire without
     the carve-out).
     """
     sheets = _load_task_sheets_cached(folder)
@@ -150,7 +150,7 @@ def check_rubric_keys(rows, folder):
     Codes:
       R5  a key names a sheet the task workbooks carry, inside its used area, and its asserted or quoted formula is what the cell stores
       R7  a keyed range asserting a function stores pure single-call formulas, never compound ones
-    Since: 2026-08-19 (marathon C29 runs 4/6/7, R7).
+    Since: 2026-08-19 (an earlier task's runs 4/6/7, R7).
     Source: the oracle, which misreads compound cells as typed values.
     """
     sheets = _load_task_sheets(folder)
@@ -191,7 +191,7 @@ def check_rubric_keys(rows, folder):
                 # R7: a key over cells whose stored formula is COMPOUND (the named
                 # function plus further terms, e.g. =SUMIFS(...)+IF(...,SUMIFS(...)))
                 # is judge-illegible: oracle judges verified pure single-call ranges
-                # ('Program Scenarios'!B3:C7 =SUMIFS(...)) on every marathon run but
+                # ('Program Scenarios'!B3:C7 =SUMIFS(...)) on every run but
                 # misread the compound Usage Rollup C column as typed values in runs
                 # 4, 6, and 7 (run 7: "C3 contains typed 180", 3/3, wording-proof).
                 def _pure(v):
@@ -220,7 +220,7 @@ def check_rubric_keys(rows, folder):
                         emit("ERROR", f"C{num} [R7] key asserts '{name}'!{c1}{r1}:{c2 or c1}{r2 or r1} "
                                      f"store {func}, but {len(impure)} cell(s) store COMPOUND formulas "
                                      f"(e.g. {impure[0][:60]!r}) — judges misread compound cells as "
-                                     "typed values (marathon C29 runs 4/6/7); anchor the criterion on "
+                                     "typed values (an earlier task's runs 4/6/7); anchor the criterion on "
                                      "a pure single-call range, simplify the golden formula, or drop it")
                     break
                 continue
@@ -237,7 +237,7 @@ def check_rubric_keys(rows, folder):
 def _r90_function_tokens(rows):
     """A liveness criterion names no spreadsheet function token.
 
-    Since: 2026-08-24 (branch-stocking-reset run 5).
+    Since: 2026-08-24 (an oracle run).
     Source: the oracle (search_xlsx greps cached values and can never find the token).
     Drift-notes: numbered R39 in the monolith until 2026-09-04.
     """
@@ -250,7 +250,7 @@ def _r90_function_tokens(rows):
         emit("ERROR", f"C{num} [R90] names the function token(s) {', '.join(named)} in a liveness "
                      "criterion, but the judge's search tool greps cached VALUES, not formulas, "
                      "so that token is unfindable and the criterion passes only when the run "
-                     "happens to reach for the formula summary (branch-stocking-reset run 5: "
+                     "happens to reach for the formula summary (one run: "
                      "\"no matches for pattern 'COUNTIF' across 8 sheet(s)\" against a golden "
                      "that really does use COUNTIFS). Claim a read-through instead, plain cell "
                      "references into the named tab plus a cached value anchor, with no "
@@ -260,7 +260,7 @@ def _r90_function_tokens(rows):
 def _r44_function_range_liveness(rows):
     """Liveness is graded on plain read-through cells, never on a range storing a named function.
 
-    Since: june-price-review run 3 (2/3 despite W4/W10 anchoring).
+    Since: a run scoring 2/3 despite W4/W10 anchoring.
     Source: the oracle.
     Drift-notes: numbered R40 in the monolith until 2026-09-04.
     """
@@ -268,8 +268,8 @@ def _r44_function_range_liveness(rows):
         if weight > 0 and _FN_RANGE_LIVENESS_RE.search(text) \
                 and re.search(r"rather than typed|not (?:as )?a typed|typed (?:amounts|constants)", text, re.I):
             emit("ERROR", f"C{num} [R44] grades liveness on a range storing a named function — "
-                          "this flaked 2/3 on june-price-review run 3 despite full W4/W10 "
-                          "anchoring (value-mode read, the marathon run-6 stall). Grade cells "
+                          "this flaked 2/3 on an earlier run despite full W4/W10 "
+                          "anchoring (value-mode read, the run-6 stall). Grade cells "
                           "holding a plain =Tab!Cell reference instead, split into disjoint "
                           "cell sets if the weight needs two criteria")
 
@@ -282,7 +282,7 @@ def check_named_functions(rows, folder):
       R6   a criterion cites no function name: the judge greps cached values, never formula text, and fails on a token it cannot find
       R90  a liveness criterion names no spreadsheet function token
       R44  liveness is graded on plain read-through cells, never on a range storing a named function
-    Since: R6 deadstock run 4 and rademacher C44 (2026-08-24); R90 2026-08-24 (branch-stocking-reset run 5); R44 june-price-review run 3.
+    Since: R6 2026-08-24 (two oracle runs); R90 2026-08-24 (an oracle run); R44 an oracle run.
     Source: the oracle (search_xlsx greps cached values; the formula summary surfaces head functions only).
     Drift-notes: R90 and R44 were carve-out twins (numbered R39 and R40 in the monolith), merged back 2026-09-11.
     """
@@ -314,10 +314,10 @@ def check_named_functions(rows, folder):
             elif tok not in heads:
                 emit("ERROR", f"C{num} [R6] cites function {tok}, which appears only NESTED inside "
                               "other functions — judge tooling surfaces head functions and greps "
-                              "values, so the token is invisible (deadstock C18 run 4, 3/3 fail); "
+                              "values, so the token is invisible (an oracle run, 3/3 fail); "
                               "cite the outermost function or key on displayed values instead")
             else:
-                # Being a HEAD function is not enough. rademacher C44 named COUNTIF,
+                # Being a HEAD function is not enough. One criterion named COUNTIF,
                 # the golden stores eight head-function COUNTIFs, and the judge still
                 # failed it 3/3 reporting "No matches for pattern 'COUNTIF' across 9
                 # sheet(s)": search_xlsx greps cached VALUES, so it searched for the
@@ -325,16 +325,16 @@ def check_named_functions(rows, folder):
                 # a search the judge can lose.
                 emit("ERROR", f"C{num} [R6] cites function {tok}. It IS a head function here, but the "
                              "judge greps cached values, not formula text, and fails the criterion when "
-                             "the literal token returns nothing (rademacher C44 named COUNTIF over eight "
+                             "the literal token returns nothing (a criterion named COUNTIF over eight "
                              "stored head-function COUNTIFs and failed 3/3, 2026-08-24). State the "
                              "liveness demand without the token and give the judge a value and a label "
                              "to land on instead")
 
 
-# R30 (2026-08-23, vondrak run 1): a strict liveness criterion that names neither a head
+# R30 (2026-08-23, an oracle run): a strict liveness criterion that names neither a head
 # function nor "cell reference" gives the judge nothing to land on. C23 asked for "stored
 # formulas over the impact, move and rebate cells" and every one of those cells was a
-# compound =ROUND(...) expression, the shape R7 already reports reads as typed (marathon C29),
+# compound =ROUND(...) expression, the shape R7 already reports reads as typed,
 # but R7 only fires on a keyed range and C23 keyed none. The judge failed it 1/3 with the
 # cached values quoted back as evidence. Key strict liveness on a named pure single-call
 # head (COUNTIF over the verdict column, SUM over the savings column) or on plain cell
@@ -351,7 +351,7 @@ LIVENESS_LAND_RE = re.compile(
 def check_liveness_landing(rows):
     """A strict liveness criterion names a plain cell reference or a head function for the judge to land on.
 
-    Since: 2026-08-23 (vondrak run 1, C23).
+    Since: 2026-08-23 (an oracle run, C23).
     Source: the oracle.
     Drift-notes: superseded in part 2026-08-24 (R90): plain cell references are the surviving repair, never a function token.
     """
@@ -361,20 +361,20 @@ def check_liveness_landing(rows):
         body = re.sub(r"a plain cell reference to such a formula[^,.;]*", "", text, flags=re.I)
         if not LIVENESS_LAND_RE.search(body):
             emit("ERROR", f"C{num} [R30] strict liveness criterion names no head function and no "
-                         "plain cell reference for the judge to land on (vondrak run 1: 'stored "
+                         "plain cell reference for the judge to land on (one run: 'stored "
                          "formulas over the impact, move and rebate cells' sat over compound "
                          "ROUND formulas and flaked 1/3). Key it on plain cell references into "
                          "a named tab plus a cached value anchor; do NOT reach for a head "
-                         "function name to fix this, see R39 (branch-stocking-reset run 5), "
+                         "function name to fix this, see R39 (an oracle run), "
                          "because the judge greps cached values and can never find the token")
 
 
-# R72 (2026-08-31, inbound-consolidation-plan AutoEval round 1): a strict liveness
+# R72 (2026-08-31, AutoEval round 1): a strict liveness
 # criterion that claims reference-chain form ("cell references") and pins a decimal
 # anchor whose golden cell stores an ARITHMETIC formula flakes with nothing else wrong.
 # C11 pinned 4,545.38 as "reached through stored formulas whose operands are cell
 # references"; the judge landed on 'Vendors'!K6 (match: exact) every run, but K6 stores
-# =ROUND(E6-I6+J6,2), the compound shape R7 documents as judge-illegible (marathon runs
+# =ROUND(E6-I6+J6,2), the compound shape R7 documents as judge-illegible (an earlier task's runs
 # 4/6/7), and the criterion failed 1 of 3 oracle runs at 0.8958 with the platform
 # marking it flaky. R30 was satisfied by the words "cell references", so no check ever
 # compared the claim against the stored formula of the cell the value actually lives in.
@@ -447,14 +447,14 @@ def check_liveness_anchor_cells(rows, folder):
             emit("ERROR", f"C{num} [R72] pins {lit} as reached through cell references, but every "
                           f"golden cell carrying it stores an arithmetic or compound formula "
                           f"({ref} = {(f or 'typed constant')[:60]!r}), the shape judges misread as "
-                          "typed (marathon C29 runs 4/6/7; inbound-consolidation-plan C11 flaked "
+                          "typed (an earlier task's runs 4/6/7; a criterion flaked "
                           "1/3 on 'Vendors'!K6 =ROUND(E6-I6+J6,2), 2026-08-31). Re-key the "
                           "criterion on the value and its arithmetic chain in the workbook's own "
                           "nouns, or point the liveness demand at a plain reference-chain cell")
             break
 
 
-# R36 (2026-08-20, luebbert run 2): see the module docstring. A liveness criterion that
+# R36 (2026-08-20, an oracle run): see the module docstring. A liveness criterion that
 # names how wide the summed range is must match the stored formula of the cell that
 # actually carries the value it states, because that is the cell the judge opens.
 _SPAN_WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
@@ -483,7 +483,7 @@ _R96_DEMAND_RE = re.compile(r"\bformulas?\b|rather than (?:a )?(?:keyed|typed)|t
 def check_readthrough_targets(rows, folder):
     """A cell a plain reference points at never stores a SUMPRODUCT multiplying a comparison when the rubric demands live computation.
 
-    R96 (2026-09-04, pick-module-reslot golden_solution_check 2/3): a front-page cell was a
+    R96 (2026-09-04, golden_solution_check 2/3): a front-page cell was a
     plain reference (=Items!$D$345) into a summary cell storing
     =SUMPRODUCT((range="SEP 12-13")*range), and one judge followed the reference, read the
     boolean-product SUMPRODUCT as 'a hardcoded typed numeric value', and failed a +1
@@ -525,7 +525,7 @@ def check_readthrough_targets(rows, folder):
                     emit("ERROR", f"[R96] {path.name}: {ws.title}!{c.coordinate} reads through to "
                                   f"{sheet}!{tgt.coordinate}, which stores {f[:70]!r} - a boolean-product "
                                   "or arithmetic formula one oracle judge read as 'a hardcoded typed numeric "
-                                  "value' after following the reference (pick-module-reslot, 2026-09-04, "
+                                  "value' after following the reference (2026-09-04, "
                                   "0.9792 on a +1 'computed in a cell' row). Re-key the target as one pure "
                                   "call with no arithmetic in its arguments (COUNTIF / COUNTIFS / SUMIFS / "
                                   "SUMPRODUCT(range,range)) and leave the reference as it is")
@@ -542,7 +542,7 @@ def _col_index(letters):
 def check_sum_span(rows, folder):
     """A criterion stating how many columns or rows a total sums matches the stored SUM range of the cell carrying that total.
 
-    Since: 2026-08-20 (luebbert run 2, C28).
+    Since: 2026-08-20 (an oracle run, C28).
     Source: the oracle.
     """
     d = folder / "solution"
@@ -597,7 +597,7 @@ def check_sum_span(rows, folder):
             emit("ERROR", f"C{num} [R36] says the total is summed across {want} {m.group(2)}s, but "
                          f"the cell carrying the stated {f} sums a different width ({where}). The "
                          "judge opens the cell holding the number, not the cell you had in mind, "
-                         "and reads the mismatch as a typed value (luebbert C28 run 2, 1/3, the "
+                         "and reads the mismatch as a typed value (one oracle run, 1/3, the "
                          "only thing between 0.9868 and a pass). Match the stored formula to the "
                          "described span, or restate the span")
 
@@ -611,7 +611,7 @@ def check_compound_totals(folder):
 
     R16: a golden total cell stores an aggregation plus further terms
     (=SUM(L5:O5)+P5). The oracle judge's xlsx_formula_summary renders it normalised
-    (task 12 run 2, 2026-08-19: the judge quoted "Plan!Q5: =SUM(L5:P5)" for a stored
+    (2026-08-19: the judge quoted "Plan!Q5: =SUM(L5:P5)" for a stored
     =SUM(L5:O5)+P5) and the liveness criterion covering that column failed 1 of 3
     runs at weight 5, sinking the run to 0.9537. Widen the range so the total is one
     pure call, or keep the extra term in its own cell.
@@ -645,7 +645,7 @@ def check_compound_totals(folder):
         if hits:
             emit("ERROR", f"[R16] {path.name}: {len(hits)} aggregation cells store a compound total "
                          f"(e.g. {hits[0]}) — the judge's formula summary normalises these and a liveness "
-                         "criterion over that column flaked 1/3 on task 12 run 2 (0.9537); make the total a "
+                         "criterion over that column flaked 1/3 on an earlier run (0.9537); make the total a "
                          "single pure call over a widened range")
 
 
@@ -659,21 +659,21 @@ def check_liveness_count(rows):
     R17: a rubric carrying three or more formula-only liveness positives multiplies
     its own flake exposure.
 
-    Kolterman run 1 (2026-08-20): C25, C26 and C27 were near-identical liveness
+    One rubric (2026-08-20): C25, C26 and C27 were near-identical liveness
     criteria over three different tabs. C26 and C27 passed 3/3; C25 failed 2/3 with the
     judge quoting the exact SUMIFS it could not "observe", which alone sank two runs
     (0.9643 and 0.9306) and the submission. Shape does not predict which one flakes, so
     the only lever is how many of them are on the board: keep at most two, and drop any
-    that has flaked twice (the house 2-flaky-runs rule, deadstock C8 precedent).
+    that has flaked twice (the house 2-flaky-runs rule).
     """
     live = [n for n, t, w in rows if w > 0 and LIVENESS_CRIT_POS_RE.search(t)]
     if len(live) >= 3:
         emit("ERROR", f"[R17] {len(live)} formula-only liveness positives (C{', C'.join(live)}) — each carries an "
-                     "independent judge-variance risk and one flake fails the 3/3 rule (kolterman C25 failed 2/3 "
+                     "independent judge-variance risk and one flake fails the 3/3 rule (one rubric's C25 failed 2/3 "
                      "while its two twins passed 3/3, 2026-08-20); consolidate to at most two")
 
 
-# R114 (2026-09-11, weldon-bridge-plan refinement round 2, Rubric Quality Review [minor]
+# R114 (2026-09-11, Rubric Quality Review [minor]
 # redundant_or_double_counted_criteria): "Criteria 24 and 25 both score the transition order
 # total: criterion 24 awards +5 for the unit count and criterion 25 awards +5 for the dollar
 # total. These are the same underlying requirement (correct transition order sizing)". The two
@@ -703,10 +703,10 @@ def check_strict_pair_one_total_row(rows, folder):
     """The strict liveness rows pin figures from different deliverables' outputs; two strict rows whose figures sit on one total row of one sheet score one requirement twice (redundant_or_double_counted to the Rubric Quality Review).
 
     Since: 2026-09-11
-    Source: weldon-bridge-plan refinement round 2 (C24 469 units and C25 $31,918.95, Bridge_Buy
+    Source: the Rubric Quality Review (C24 469 units and C25 $31,918.95, Bridge_Buy
     M26 and N26, [minor] redundant_or_double_counted_criteria).
     Drift-notes: landing-based, same sheet and the SAME row only (an adjacent-row form matched a
-    reset count of 61 sitting one row above the order total, weldon fixed rubric); a figure found
+    reset count of 61 sitting one row above the order total in a fixed rubric); a figure found
     nowhere is R26/R60's business, not this check's."""
     strict = [(n, t, _r114_figure(t)) for n, t, w in rows if w >= 4 and LIVENESS_STRICT_RE.search(t)]
     strict = [(n, t, f) for n, t, f in strict if f is not None]
@@ -740,7 +740,7 @@ def check_strict_pair_one_total_row(rows, folder):
                 sa, ra, ca, rb, cb = sorted(hits)[0]
                 emit("ERROR", f"C{a} [R114] and C{b} are both strict liveness rows anchored on one total line "
                               f"('{sa}' row {ra} col {ca} and row {rb} col {cb}) - the Rubric Quality Review read "
-                              "weldon-bridge-plan's 469 units and $31,918.95 (Bridge_Buy M26/N26) as one "
+                              "a rubric's 469 units and $31,918.95 (Bridge_Buy M26/N26) as one "
                               "requirement scored twice (redundant_or_double_counted, 2026-09-11). Move one "
                               "strict row onto another deliverable's own output (a reset count cell, a "
                               "transfer value), never a sibling of the same total")
@@ -758,7 +758,7 @@ _R39_SWEEP_RE = re.compile(r"\bthe\s+([a-z][a-z ]{0,30}?)\s+(?:tab|sheet)'s\s+"
 def _r38_liveness_backing(rows, folder):
     """A strict liveness criterion naming a sheet lands on a shape the sheet holds: a sole-call head function it names, or a reference-chain cell.
 
-    Since: 2026-08-24 (branch-stocking-reset run 2, C5).
+    Since: 2026-08-24 (an oracle run, C5).
     Source: the oracle.
     Drift-notes: numbered R37 in the monolith until 2026-09-04.
     """
@@ -808,7 +808,7 @@ def _r38_liveness_backing(rows, folder):
                      "lands on that sheet: no head function it cites is the sole call in any of "
                      "the sheet's formulas, and no reference-chain cell backs a bare \"cell "
                      "references\" claim, so the judge opens compound wrappers and "
-                     "reads them as typed (branch-stocking-reset run 2: C5 flaked 1/3 over "
+                     "reads them as typed (one run: C5 flaked 1/3 over "
                      "=IF(K5=\"N\",\"-\",ROUNDUP(Q5+R5,0))). Sole calls available there: "
                      f"{', '.join(opts)}")
 
@@ -820,7 +820,7 @@ def check_tab_sweep_liveness(rows, folder):
     Codes:
       R39  a whole-tab liveness sweep never names a tab holding typed numeric constants
       R38  a liveness criterion naming a sheet lands on a sole-call head function it names, or a reference-chain cell, that the sheet holds
-    Since: R39 2026-08-24 (vendor-terms-program); R38 2026-08-24 (branch-stocking-reset run 2).
+    Since: R39 2026-08-24; R38 2026-08-24 (an oracle run).
     Source: the oracle.
     Drift-notes: R38 was a carve-out twin (numbered R37 in the monolith), merged back 2026-09-11.
     """
@@ -851,13 +851,13 @@ def check_tab_sweep_liveness(rows, folder):
                 emit("ERROR", f"C{num} [R39] sweeps the whole {hit} tab for liveness, but that tab "
                               f"holds {len(consts[hit])} typed numeric constants the judge quotes "
                               f"back as the violation (e.g. {'; '.join(consts[hit][:3])}) — "
-                              "vendor-terms-program run 1 failed its program-tab sweep 1/3 on the "
+                              "one run failed a program-tab sweep 1/3 on the "
                               "keyed 60,000 line, 1,456.30 repayment and 16,115 unclaimed figures. "
                               "Name the read-through cells with their cached values instead of "
                               "sweeping the tab")
 
 
-# R38 (2026-08-24, branch-stocking-reset run 2): R30 lets the bare phrase "cell references"
+# R38 (2026-08-24, an oracle run): R30 lets the bare phrase "cell references"
 # stand as a landing, and that is not enough on its own. C3 ("plain cell references into the
 # tabs that compute them") has passed every oracle run because the Briefing cells really are
 # reference chains, ='Inventory Effect'!F9. C5 used almost the same words over the Settings
@@ -879,7 +879,7 @@ _R38_CALL_RE = re.compile(r"\b([A-Z][A-Z0-9.]*)\s*\(")
 _R38_CHAIN_RE = re.compile(r"\A=\s*'?[^!()=]*'?!?\$?[A-Z]{1,3}\$?\d{1,5}\s*\Z")
 
 
-# R42 (2026-08-24, task 20 oracle run 6): a strict liveness criterion anchored on a value
+# R42 (2026-08-24, an oracle run): a strict liveness criterion anchored on a value
 # whose cell is a COMPOUND formula. The 11 sat in `=A53+A54`, two pure COUNTIFs added
 # together, and the judge read the sum as typed and failed a weight 5 criterion 1/3. R7
 # knows compound cells read as typed but only fires on a keyed range, and this criterion
@@ -891,7 +891,7 @@ _PURE_CALL_RE = re.compile(r"^=\s*[A-Z][A-Z0-9.]*\((?:[^()]|\([^()]*\))*\)\s*$",
 # A read-through is a cell that only forwards another cell. R42 carved out the
 # sheet-qualified form ='Commitment'!C5 but not the bare same-sheet form =C5, and a bare
 # reference is strictly simpler than the one already allowed - there is no operator for the
-# judge to open. open-order-cleanup, 2026-08-24: C4 anchored on 84866.21, which Briefing!B14
+# judge to open. 2026-08-24: C4 anchored on 84866.21, which Briefing!B14
 # reaches as ='Commitment'!C5 (allowed) and Commitment!E5 reaches as =C5 (flagged compound),
 # so the only clean anchors in the workbook were unreachable. Accept both forms.
 _READ_THROUGH_RE = re.compile(r"^='?[A-Za-z0-9 _]+'?![$A-Z0-9]+$|^=\$?[A-Z]{1,3}\$?[0-9]{1,5}$")
@@ -912,9 +912,9 @@ def _cells_holding(fwb, vwb, value, tol=0.005):
 def check_liveness_anchor_cell(rows, folder):
     """A strict liveness anchor value sits in a cell that is one pure function call or a plain read-through, never a compound formula.
 
-    Since: 2026-08-24 (task 20 run 6, =A53+A54).
+    Since: 2026-08-24 (an oracle run, =A53+A54).
     Source: the oracle.
-    Drift-notes: bare same-sheet read-throughs accepted 2026-08-24 (open-order-cleanup).
+    Drift-notes: bare same-sheet read-throughs accepted 2026-08-24.
     """
     d = folder / "solution"
     paths = sorted(d.glob("*.xlsx")) if d.is_dir() else []
@@ -925,7 +925,7 @@ def check_liveness_anchor_cell(rows, folder):
             continue
         anchors = [float(m) for m in re.findall(r"\bexactly (\d[\d,]*(?:\.\d+)?)\b", text.replace(",", ""))]
         # a shortage is quoted unsigned ("exactly 8,940.5 short") while the cell stores it
-        # negative, so scan both signs or the anchor is never checked at all (oskaloosa
+        # negative, so scan both signs or the anchor is never checked at all (a task's
         # C33, 2026-08-24: two of three candidate anchors were negative-only).
         anchors = [s * a for a in anchors for s in (1, -1)]
         if not anchors:
@@ -946,7 +946,7 @@ def check_liveness_anchor_cell(rows, folder):
                         continue                       # a plain read-through is fine
                     emit("ERROR", f"C{num} [R42] anchors liveness on {a:g}, which {title}!{ref} "
                                  f"reaches with the compound formula {formula} — the judge reads a "
-                                 "compound cell as typed and fails the criterion (task 20 run 6: "
+                                 "compound cell as typed and fails the criterion (an oracle run: "
                                  "`=A53+A54` cost a weight 5 criterion 1/3). Anchor on a cell that "
                                  "is one function call, or rebuild the cell so it is")
                     break
@@ -956,7 +956,7 @@ def check_liveness_anchor_cell(rows, folder):
 def check_liveness_anchor_overlap(rows):
     """A liveness criterion never anchors on a money figure another criterion already scores.
 
-    Since: 2026-08-24 (task 20).
+    Since: 2026-08-24 (an earlier task).
     Source: the platform's near identical criteria check.
     """
     owner = {}
@@ -973,13 +973,13 @@ def check_liveness_anchor_overlap(rows):
             if tok in owner:
                 emit("ERROR", f"C{num} [R45] anchors liveness on {tok}, which C{owner[tok]} already "
                              "scores — the platform's near-identical check reads the liveness "
-                             "criterion as subsuming the other one and FAILs the rubric (task 20, "
-                             "2026-08-24, and the same shape in round 1). R9 wants a displayed value "
+                             "criterion as subsuming the other one and FAILs the rubric "
+                             "(2026-08-24, and the same shape in round 1). R9 wants a displayed value "
                              "beside the liveness clause; pick one no other criterion states")
                 break
 
 
-# R46 (2026-08-24, task 20 oracle run 7): a strict liveness criterion whose anchor cell is a
+# R46 (2026-08-24, an oracle run): a strict liveness criterion whose anchor cell is a
 # COUNTIF over a TEXT pattern that many cells match. The count of lines measured against the
 # requested date sat in =COUNTIF(P5:P50,"*the requested date stands*") and eleven rows of that
 # column carry the phrase, so a judge sent to "the clause column" reads the rows and quotes
@@ -991,7 +991,7 @@ def check_liveness_anchor_overlap(rows):
 def check_anchor_twins(rows, folder):
     """A liveness anchor is never a COUNTIF over a text pattern that many cells on the sheet match.
 
-    Since: 2026-08-24 (task 20 run 7).
+    Since: 2026-08-24 (an oracle run).
     Source: the oracle.
     """
     d = folder / "solution"
@@ -1029,15 +1029,15 @@ def check_anchor_twins(rows, folder):
                         emit("ERROR", f"C{num} [R46] anchors liveness on {a:g}, which {title}!{ref} "
                                      f"counts with {formula}; {hits} cells on that sheet carry the "
                                      "phrase it matches, so the judge reads those rows and quotes "
-                                     "them back instead of reaching the count (task 20 run 7 lost a "
+                                     "them back instead of reaching the count (one run lost a "
                                      "weight 5 criterion that way, the second round running on the "
                                      "same column). Anchor on a figure with no textual twins")
                         return
 
 
-# R39 (2026-08-24, branch-stocking-reset run 5): a positive liveness criterion must not name
+# R39 (2026-08-24, an oracle run): a positive liveness criterion must not name
 # a spreadsheet FUNCTION TOKEN. The judge's evidence for the failing run was literally
-# "[no matches for pattern 'COUNTIF' across 8 sheet(s) in branch_stocking_reset.xlsx]" for a
+# "[no matches for pattern 'COUNTIF' across 8 sheet(s) in the golden]" for a
 # criterion keyed on =COUNTIFS(Settings!$B$5:$B$58,...). The token is really there, in the
 # formula; search_xlsx greps CACHED VALUES, so a function name can never be found that way,
 # and whether the criterion passes comes down to whether that run happened to reach for
@@ -1060,8 +1060,8 @@ def check_nested_literals(folder):
 
     The oracle judge's search_xlsx greps cached values and its formula summary
     surfaces head functions only; a constant buried in ROUND(D5*393900.0,2) is not
-    a thing it can land on. Task 26 (vendor-terms-program, 2026-08-23) flaked 1/3
-    on its Selzer merchandise-only negative because the Terms Economics row showed
+    a thing it can land on. One task (2026-08-23) flaked 1/3 on a
+    merchandise-only negative because the Terms Economics row showed
     456,300 of purchases and the 393,900 base lived only inside the formula. Put
     the figure in a cell and reference the cell.
     """
@@ -1094,11 +1094,11 @@ def check_nested_literals(folder):
             emit("ERROR", f"[R89] {path.name}: {len(hits)} formulas carry a nested money literal "
                          f"(e.g. {'; '.join(hits[:3])}) — the judge greps cached values and head "
                          "functions only and cannot land on a constant inside a formula "
-                         "(vendor-terms-program run 1, Selzer 393,900 base, 1/3). Give the figure "
+                         "(one run, the 393,900 base, 1/3). Give the figure "
                          "a cell and reference it")
 
 
-# R98 (2026-09-05, packaging-consolidation golden_solution_check 2/3, rewards 1.0 / 0.7917 /
+# R98 (2026-09-05, golden_solution_check 2/3, rewards 1.0 / 0.7917 /
 # 1.0): two +5 strict liveness rows promised that the first page's landed cost and annual
 # saving "reach their value through a cell reference into the branches tab or a sum over the
 # spend rows", and the golden reached both through same-sheet arithmetic, =MIN(B9,B13) and
@@ -1224,12 +1224,12 @@ def check_liveness_subject_cell(rows, folder):
                          f"over another sheet's rows for \"{label[:50]}\", but {path.name} {title}!{ref} "
                          f"holds {formula!r}: a same-sheet hop the judge stops at and quotes back as "
                          "'calculated within the sheet rather than through a cell reference' "
-                         "(packaging-consolidation 2026-09-05, both +5 rows failed 1/3 over =MIN(B9,B13) "
+                         "(2026-09-05, both +5 rows failed 1/3 over =MIN(B9,B13) "
                          "and =B5-B15). Anchor the row on a first-page cell that reads =Tab!Cell or one "
                          "aggregation call, or rebuild the cell so it does")
 
 
-# R106 (2026-09-11, rossville-material-compliance refinement, golden check 1.0 / 1.0 / 0.8913):
+# R106 (2026-09-11, golden check 1.0 / 1.0 / 0.8913):
 # the +5 allowance row anchored on "the allowance standing at exactly $16,189.44" after
 # naming "the allowance's running total" and "the allowance used" in the same sentence. Two
 # judges read the bare noun as the cap (Allowance!E5, 16,189.44, labelled "Allowance at five
@@ -1247,7 +1247,7 @@ _R106_ANCHOR_RE = re.compile(
 def check_liveness_anchor_label(rows):
     """A strict liveness row's value anchor is labelled in the cell's own words, never a bare noun the same sentence uses for another quantity.
 
-    Since: 2026-09-11 (rossville-material-compliance refinement, oracle run 3 of 3).
+    Since: 2026-09-11 (oracle run 3 of 3).
     Source: the oracle (golden solution check, 0.8913 on a +5 row two other runs passed).
     Drift-notes: fires only on a one- or two-word anchor label that recurs in its own criterion; a
     label of three words or more is read as the cell's label and left alone.
@@ -1265,12 +1265,12 @@ def check_liveness_anchor_label(rows):
             emit("ERROR", f"C{num} [R106] anchors liveness on \"the {label} standing at exactly\", and the "
                          f"same sentence uses \"{label}\" {len(uses)} times for different quantities; one "
                          "oracle run in three picks the other referent and fails the row on its value "
-                         "(rossville-material-compliance 2026-09-11, 0.8913 on a +5 that two runs passed). "
+                         "(2026-09-11, 0.8913 on a +5 that two runs passed). "
                          "Label the anchor in the words of the cell that holds it")
             break
 
 
-# R109 (2026-09-11, rossville-material-compliance refinement round 4, golden check 1.0 / 0.9783 /
+# R109 (2026-09-11, golden check 1.0 / 0.9783 /
 # 0.9783): a +1 row closed with "the arrival date cell a formula rather than a keyed date". The
 # cell, Schedule!V37, holds =IF(AD37="","",TEXT(AD37,"mm/dd/yyyy")); the judge QUOTED that
 # formula in its evidence and still wrote "keyed text dates ('10/07/2026') rather than formulas",
@@ -1286,7 +1286,7 @@ _R109_DATE_CLAUSE_RE = re.compile(r"\bformulas?\s+rather\s+than\s+(?:a\s+)?keyed
 def check_gated_clause_on_text_date(rows, folder):
     """A gated liveness clause never claims a date cell is a formula when the golden renders dates as text through TEXT().
 
-    Since: 2026-09-11 (rossville-material-compliance refinement round 4).
+    Since: 2026-09-11 (a golden check).
     Source: the oracle (golden solution check; the judge quoted the TEXT() formula and called the date keyed).
     Drift-notes: keyed on the clause wording plus any TEXT( formula in a solution workbook; the
     sibling "keyed word" flake on a nested-IF verdict cell is a one-off in the change log.
@@ -1311,14 +1311,14 @@ def check_gated_clause_on_text_date(rows, folder):
     for num in claims:
         emit("ERROR", f"C{num} [R109] claims a date cell is a formula rather than a keyed date, and the golden "
                      f"renders its dates through TEXT() in {text_dates} cells: the judge reads the text date "
-                     "as keyed even while quoting the formula (rossville-material-compliance 2026-09-11, "
+                     "as keyed even while quoting the formula (2026-09-11, "
                      "0.9783 in two runs of three). Drop the clause and let the date stand as a value, or "
                      "gate a numeric cell instead")
 
 
-# R117 (2026-09-11, packaging-consolidation Rubric Quality Review [major] redundant_or_double_counted):
+# R117 (2026-09-11, Rubric Quality Review [major] redundant_or_double_counted):
 # the two +5 strict rows both read first-page figures (Summary!B5 and Summary!B23) and the review
-# scored them as one traceability requirement graded twice. weldon-bridge-plan drew the same
+# scored them as one traceability requirement graded twice. An earlier task drew the same
 # finding on two strict rows over one order's count and total, and R114 codes only that landing
 # (one total row of one sheet). The pair has to sit on two different deliverables' outputs, and
 # the sheet a subject cell resolves to is the mechanical proxy for the deliverable.
@@ -1326,7 +1326,7 @@ def check_gated_clause_on_text_date(rows, folder):
 def check_strict_pair_sheets(rows, folder):
     """Two strict liveness rows resolve to cells on two different sheets, one deliverable's output each.
 
-    Since: 2026-09-11 (packaging-consolidation Rubric Quality Review, redundant_or_double_counted [major]).
+    Since: 2026-09-11 (Rubric Quality Review, redundant_or_double_counted [major]).
     Source: the review reads two first-page read-through rows as one traceability requirement scored twice; R114 covers only the one-total-row landing.
     """
     _R98_TRACE.clear()
@@ -1341,7 +1341,7 @@ def check_strict_pair_sheets(rows, folder):
             emit("ERROR", f"[R117] {', '.join(cells)} are strict liveness rows whose subject cells all sit "
                           f"on {fname} '{title}': the Rubric Quality Review scores two read-through rows "
                           "on one page as the same traceability requirement graded twice "
-                          "(packaging-consolidation 2026-09-11, [major]). Anchor the second row on "
+                          "(2026-09-11, [major]). Anchor the second row on "
                           "another deliverable's own output, a by-vendor table cell or a register "
                           "total on its own tab")
 
@@ -1359,7 +1359,7 @@ _R118_FIGURE_RE = re.compile(r"\d")
 def check_formula_only_gated_rows(rows):
     """At most one positive row is a formula-only gated clause with no figure; further gated clauses ride on value rows.
 
-    Since: 2026-09-11 (packaging-consolidation Rubric Quality Review, redundant_or_double_counted [major]).
+    Since: 2026-09-11 (Rubric Quality Review, redundant_or_double_counted [major]).
     Source: two mechanism-only formula rows read as one live-formula property scored twice.
     """
     from .rubric_form import LIVENESS_GATED_RE
@@ -1368,18 +1368,18 @@ def check_formula_only_gated_rows(rows):
     if len(bare) >= 2:
         emit("ERROR", f"C{', C'.join(bare)} [R118] are formula-only gated rows with no figure: the Rubric "
                       "Quality Review reads a second one as the same live-formula property scored twice "
-                      "(packaging-consolidation C5/C8, 2026-09-11, [major]). Keep one, and turn the others "
+                      "(C5/C8, 2026-09-11, [major]). Keep one, and turn the others "
                       "into value rows (the figure first, the formula clause as its condition) or plain "
                       "rule rows")
 
 
-# R125 (2026-09-14, twincreek-bid-worksheet refinement round 2, golden check 1.0 / 1.0 / 0.98): a
+# R125 (2026-09-14, golden check 1.0 / 1.0 / 0.98): a
 # +1 row read "The 47 count on the pricing tab's total row is a formula counting the priced lines
 # rather than a keyed figure". The cell, 'Bid Pricing'!H60, holds =COUNT(H6:H59) at the foot of a
 # column whose 47 other formulas are VLOOKUPs, and the label beside it types "(47 lines priced)".
 # One judge in three wrote "contains a hardcoded typed numeric value of 47": xlsx_formula_summary
 # reports a column by its dominant head, a lone COUNT under a lookup column is not in that
-# picture, and the value search_xlsx greps is the same 47 the label types. vondrak C24 (2026-08,
+# picture, and the value search_xlsx greps is the same 47 the label types. An earlier C24 (2026-08,
 # a sole =COUNTIF footer) failed 3/3 the same way. A count cell is gradeable when it sits in a
 # column of its own kind (a counter column, a labelled summary block); under a data column of
 # another head it is the shape to avoid, and the row is re-keyed onto the column the count
@@ -1394,9 +1394,9 @@ _R125_HEAD_RE = re.compile(r"\A=\s*([A-Z][A-Z0-9.]*)\s*\(", re.I)
 def check_lone_count_footer(rows, folder):
     """A gated liveness clause on a count never lands on a lone COUNT cell at the foot of a column whose other formulas share a different head.
 
-    Since: 2026-09-14 (twincreek-bid-worksheet refinement round 2, golden check 1.0 / 1.0 / 0.98 on a +1 row).
+    Since: 2026-09-14 (golden check 1.0 / 1.0 / 0.98 on a +1 row).
     Source: the oracle (xlsx_formula_summary lists a column by its dominant head; a lone COUNT under a lookup column reads as the typed 47 the label beside it carries).
-    Drift-notes: fires only when EVERY formula cell carrying the row's integer is such a footer; a count cell in a column of its own kind (its head shared by other formulas there, or no other formulas at all) is left alone, and four-digit years are skipped. vondrak C24 (a sole =COUNTIF footer, 3/3) is the wider shape, logged not coded.
+    Drift-notes: fires only when EVERY formula cell carrying the row's integer is such a footer; a count cell in a column of its own kind (its head shared by other formulas there, or no other formulas at all) is left alone, and four-digit years are skipped. An earlier C24 (a sole =COUNTIF footer, 3/3) is the wider shape, logged not coded.
     """
     from .rubric_form import LIVENESS_GATED_RE
     d = folder / "solution"
@@ -1456,8 +1456,8 @@ def check_lone_count_footer(rows, folder):
                           f"is a lone {own} at the foot of a column of {other_n} {other} formulas "
                           f"({name} {title}!{ref} = {formula}): xlsx_formula_summary lists that column "
                           f"by its dominant head, so one judge in three greps the cached {tok} and calls "
-                          "it typed (twincreek-bid-worksheet refinement 2026-09-14, 0.98 on a +1 two runs "
-                          "passed; vondrak C24 3/3). Re-key the row on the column the count summarises, "
+                          "it typed (2026-09-14, 0.98 on a +1 two runs "
+                          "passed; an earlier C24 3/3). Re-key the row on the column the count summarises, "
                           "as a column claim naming the count mid-sentence, or move the counter into a "
                           "column of its own kind")
             break

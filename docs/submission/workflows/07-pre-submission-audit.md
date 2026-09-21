@@ -47,7 +47,7 @@ folder's `.gate-debt`, never by editing the check.
 
 | Check | Gate | What it verifies | How to pass |
 | --- | --- | --- | --- |
-| A10, P7 | `natural_voice` | Written by you; none of the reviewer-flagged prose shapes; no three sentences opening on the same stem | Read aloud; `../../reference/llm-prose-tells.md` |
+| A10, P7 | `natural_voice` | Written by you; none of the flagged prose shapes; no three sentences opening on the same stem | Read aloud; `../../reference/llm-prose-tells.md` |
 | P6 | `expert_context` | The P4 frame is woven into the ask, never a self-introduction to a coworker | `02-prompt-writing.md#the-opening-frame-p4-p6` |
 | MANUAL | `named_context` | A named role, a named organization, and a stated reason the work is happening today | Checklist box 1 |
 | A20 | `comma_rules` | A comma before a clause-joining conjunction; never three clauses in one sentence | `02-prompt-writing.md#sentence-mechanics-a20`; the serial comma is a read |
@@ -117,11 +117,11 @@ folder's `.gate-debt`, never by editing the check.
 | MANUAL | `closing_criterion` | The **last** row is a general "Overall formatting and style of the deliverable" criterion | Checklist box 12; add it, or move it to the end |
 | MANUAL | `style_share` | Specific style and formatting rows stay a minority of the count, the closing criterion aside | Cut or down-weight style rows |
 | R83 | `file_name_criterion` | A criterion carries the deliverable's exact basename | Add it, grading content around the basename |
-| R5, R6, R7, R8, R72, R98, R96 | `liveness_lands` | Every liveness row keys a cell of the shape it claims; no function names the judge cannot see; read-throughs, not same-sheet arithmetic | `05-rubric.md#house-rules-on-top-of-the-capture` |
+| R5, R6, R7, R8, R72, R98, R96 | `liveness_lands` | Every liveness row keys a cell of the shape it claims; no function names a grader cannot see; read-throughs, not same-sheet arithmetic | `05-rubric.md#house-rules-on-top-of-the-capture` |
 | R12, R99 | `weights_clean` | Every weight a non-zero integer in −5..+5; at least one +4/+5; no flat weighting | Checklist box 11; re-tier weights; weights never in the text |
 | R81, R100 | `owner_rows` | Action rows score "a named person as owner and a calendar date", never the person | Rewrite the owner clause |
 | MANUAL | `not_prompt_restatement` | Criteria check outcomes, not the prompt's wording | Rewrite offenders against the golden solution |
-| MANUAL | `rows_fail_the_golden` | Each fact the reviewer's read verifies (`04-golden-solution.md`) has a row that would fail if the golden had it wrong | `05-rubric.md#house-rules-on-top-of-the-capture` |
+| MANUAL | `rows_fail_the_golden` | Each fact the literal read verifies (`04-golden-solution.md`) has a row that would fail if the golden had it wrong | `05-rubric.md#house-rules-on-top-of-the-capture` |
 
 ## F. Metadata
 

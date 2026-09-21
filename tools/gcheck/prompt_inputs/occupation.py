@@ -1,15 +1,8 @@
 """Group 1: the task's domain and O*NET occupation against the platform's closed list (M1-M3).
 
-Rewritten 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D1). The Geranium version of
-this module held a 200-line prompt-fit table keyed to six Wholesale Trade occupation codes
-and matched each O*NET task pick against prompt vocabulary. None of that survives the move:
-Hazy's form offers a CLOSED list of 14 domains and 64 occupations, only two of which
-overlap Geranium's six, and the form asks for no task picks at all. A check that cannot
-fire is indistinguishable from a broken one, so the table was deleted rather than ported.
-
-What replaces it is narrower and certain. The list is closed, so an occupation off the list
-cannot be submitted, and a domain that disagrees with the occupation's own O*NET job family
-is a form the reviewer will bounce. Both are mechanical.
+The form offers a CLOSED list of 14 domains and 64 occupations, which makes two things
+mechanical and certain: an occupation off the list cannot be submitted at all, and a domain
+that disagrees with the occupation's own O*NET job family is a form that gets bounced.
 
 Sources: docs/submission/platform/domains-and-occupations.md (the two lists as the form
 presents them) and docs/submission/platform/onet-codes.md (codes verified 2026-09-21
@@ -129,16 +122,6 @@ OCCUPATIONS = {
     "19-1023.00": ("Zoologists and Wildlife Biologists", None, "Life, Physical, and Social Science"),
 }
 
-# Geranium's six Wholesale Trade codes. Four are absent from Hazy's list entirely, so a
-# ported task idea built on one of them cannot be resubmitted here; M1 says so by name
-# rather than reporting a bare "not on the list".
-GERANIUM_ONLY = {
-    "11-2022.00": "Sales Managers",
-    "13-1022.00": "Wholesale and Retail Buyers, Except Farm Products",
-    "41-4012.00": "Sales Representatives, Wholesale and Manufacturing",
-    "43-5071.00": "Shipping, Receiving, and Inventory Clerks",
-}
-
 CODE_RE = re.compile(r"^\d{2}-\d{4}\.\d{2}$")
 
 
@@ -155,7 +138,7 @@ def check_metadata(folder):
       M1  the occupation code is one of the platform's 64
       M2  the domain is one of the platform's 14 and matches the occupation's O*NET job family
       M3  the recorded occupation title matches the code, and the metadata carries no legacy "sector" key
-    Since: 2026-09-21 (the Hazy port; docs/RULE-DELTAS.md D1).
+    Since: 2026-09-21.
     Source: docs/submission/platform/domains-and-occupations.md, onet-codes.md.
     """
     meta = load_metadata(folder)
@@ -167,7 +150,7 @@ def check_metadata(folder):
     title = (occ.get("title") or "").strip()
     domain = (meta.get("domain") or "").strip()
 
-    # --- M3a: the Geranium key ------------------------------------------------
+    # --- M3a: the legacy key --------------------------------------------------
     if "sector" in meta:
         emit("ERROR", "[M3] metadata carries a legacy \"sector\" key - Hazy has no fixed "
                       "sector. Replace it with \"domain\", one of the platform's 14 "
@@ -182,16 +165,11 @@ def check_metadata(folder):
                       "of the platform's 64 are detail codes ending .01 to .04, so the "
                       "suffix is never optional")
     elif code not in OCCUPATIONS:
-        if code in GERANIUM_ONLY:
-            emit("ERROR", f"[M1] {code} ({GERANIUM_ONLY[code]}) is a Geranium Wholesale Trade "
-                          "occupation and is NOT on Hazy's list - this task idea cannot be "
-                          "submitted here as written. Only 11-3061.00 Purchasing Managers and "
-                          "11-3071.00 Transportation, Storage, and Distribution Managers "
-                          "carry over")
-        else:
-            emit("ERROR", f"[M1] {code} is not one of the platform's 64 occupations. The list "
-                          "is closed: the guidelines say a domain or sector not visible in "
-                          "the form is not available (docs/submission/platform/onet-codes.md)")
+        emit("ERROR", f"[M1] {code} is not one of the platform's 64 occupations. The list is "
+                      "closed: the guidelines say a domain or sector not visible in the form "
+                      "is not available, so a task idea built on an off-list occupation "
+                      "cannot be submitted as written "
+                      "(docs/submission/platform/onet-codes.md)")
 
     # Every branch above is terminal: without a known code there is nothing for M2 and M3
     # to compare against. A missing return here walked a malformed code into the table
@@ -226,11 +204,9 @@ def check_metadata(folder):
 
 
 # ---------------------------------------------------------------------------
-# The form's own required fields, added 2026-09-21 in the Hazy port
-# (docs/RULE-DELTAS.md D7-D9). Geranium's form asked for one manual_time_hours
-# figure and no tool list; Hazy's asks for four minute fields, a total in hours
-# that must cover them, and at least one non-AI tool. None of it was checked
-# anywhere, and all of it blocks submission.
+# The form's own required fields, added 2026-09-21. The form asks for four minute
+# fields, a total in hours that must cover them, and at least one non-AI tool. None
+# of it was checked anywhere, and all of it blocks submission.
 # ---------------------------------------------------------------------------
 
 TIME_KEYS = (
@@ -257,7 +233,7 @@ def check_form_fields(folder):
       M4  four integer minute fields, and a total in hours at least their sum and over 3
       M5  at least one non-AI tool is logged
       M6  at least 2 input files are present, 3+ preferred
-    Since: 2026-09-21 (the Hazy port; docs/RULE-DELTAS.md D7, D8, D9).
+    Since: 2026-09-21.
     Source: docs/submission/platform/platform-submission-form.md section 3 (Times, Tools)
     and section 2 (File Uploader), with the Completed Task Checks panel's Difficulty note.
     """

@@ -4,30 +4,29 @@
 
 A13  a formula workbook shipped without xl/calcChain.xml. The authorship
      extractor's package scan counts zero formulas and features the workbook as
-     all-values-hard-coded (june-price-review, 2026-08-24, llm-only 3/5). The part
-     is written from the worksheets in workbook order, with its content-type
-     override and workbook relationship. Listing the formula cells that really
-     exist states nothing false about the file.
+     all-values-hard-coded (2026-08-24, llm-only 3/5). The part is written from
+     the worksheets in workbook order, with its content-type override and
+     workbook relationship. Listing the formula cells that really exist states
+     nothing false about the file.
 
      PREFER office_resave.py WHERE OFFICE IS AVAILABLE (2026-09-02). The part this
      tool synthesises satisfies the extractor but is not what Excel itself would
-     write, and on the task 42 golden Excel refused to OPEN the workbook at all
-     while it was present ("Parameter error", -50), which is what a reviewer
-     double-clicking the file would have hit. tools/office_resave.py drops the
-     synthetic part and lets Excel rebuild a real one during the save, which
-     settles A13 and A14 together. Use this tool only when the file cannot go
-     through Office.
+     write, and on one golden Excel refused to OPEN the workbook at all while it
+     was present ("Parameter error", -50), which is what a reviewer double-clicking
+     the file would have hit. tools/office_resave.py drops the synthetic part and
+     lets Excel rebuild a real one during the save, which settles A13 and A14
+     together. Use this tool only when the file cannot go through Office.
 
-A14  is deliberately NOT repaired here any more (2026-08-31, boettcher revision).
-     This tool used to swap docProps/app.xml's Openpyxl generator string for the
+A14  is deliberately NOT repaired here any more (2026-08-31, a revision). This
+     tool used to swap docProps/app.xml's Openpyxl generator string for the
      Application/AppVersion pair Excel writes, and that contradicts the 2026-08-26
      user ruling recorded on A14 in autoeval_check.py: the generator string is
      EVIDENCE of a machine-made file, rewriting it asserts Excel authored a file
-     openpyxl produced, and the only honest fix is a genuinely authored file. The
-     boettcher revision ran the old arm over two input workbooks before noticing
-     and had to restore them from git. Since 2026-09-02 the honest fix is actually
-     reachable: Word and Excel are installed, and office_resave.py performs a real
-     save. Hand editing the pair remains forbidden.
+     openpyxl produced, and the only honest fix is a genuinely authored file. That
+     revision ran the old arm over two input workbooks before noticing and had to
+     restore them from git. Since 2026-09-02 the honest fix is actually reachable:
+     Word and Excel are installed, and office_resave.py performs a real save. Hand
+     editing the pair remains forbidden.
 
 The edit is made at ZIP level, member by member, so every other part is copied
 byte for byte. An openpyxl round-trip is never the remedy: it wipes every cached

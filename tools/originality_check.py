@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Two gates the reviewer caught by hand on task 21 (2026-08-21).
+"""Two gates caught by hand on an earlier task (2026-08-21).
 
     .venv/bin/python tools/originality_check.py submissions/NN-task-name
 

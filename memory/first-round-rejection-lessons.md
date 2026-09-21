@@ -1,20 +1,18 @@
 ---
 name: first-round-rejection-lessons
-description: "Task 45 lift-truck-fleet-plan REJECTED at its first human review 2026-09-05 after a 0-error gate, operator ruled learn-not-fix: the prompt frame woven never a self-introduction (P6), the comma rules (A20), the reviewer's literal read of the golden against the inputs (G8/G9/G10 and the hand reads, detail in golden-fidelity), and a rubric that must fail the golden's own defects; returns-cage rejected at adjudication 2026-09-11 on cutoff chronology (G22)"
+description: "A task that gated at 0 errors was REJECTED outright at its first human review 2026-09-05 and the operator ruled learn-not-fix: the prompt frame woven never a self-introduction (P6), the comma rules (A20), the literal read of the golden against the inputs (G8/G9/G10 and the hand reads, detail in golden-fidelity), and a rubric that must fail the golden's own defects; a second task rejected at adjudication 2026-09-11 on cutoff chronology (G22); a third rejected after eleven returns 2026-09-15"
 metadata:
   type: feedback
 ---
 
-**What happened.** Task 45 lift-truck-fleet-plan passed `autoeval_check.py` at 0 errors on
-2026-09-04 and was rejected outright at its first human review on 2026-09-05: "major errors in
-the golden and rubric, along with minor revisions to clarity and sentence structure needed
-throughout." The operator's instruction: do not fix it; learn the lesson so no future task is
-rejected at a first-round review. The task stays REJECTED and archived; the verbatim note is in
-`docs/reference/reviewer-feedback-corpus.md` (Task 45). On 2026-09-11 returns-cage-disposition
-was rejected at adjudication after 14 platform verdicts and 4 human rounds on a fabric defect
-present since the first build (the cage count cited authorizations issued after its own date and
-the memo's as-of balance equalled the undated register sum); its narrative is in the corpus
-Part 5 and the rule is G22 in [[golden-fidelity]].
+**What happened.** A task passed `autoeval_check.py` at 0 errors on 2026-09-04 and was rejected
+outright at its first human review on 2026-09-05: "major errors in the golden and rubric, along
+with minor revisions to clarity and sentence structure needed throughout." The operator's
+instruction: do not fix it; learn the lesson so no future task is rejected at a first-round
+review. The task stayed REJECTED and archived. On 2026-09-11 a second task was rejected at
+adjudication after 14 platform verdicts and 4 human rounds on a fabric defect present since the
+first build (a count cited authorizations issued after its own date, and a memo's as-of balance
+equalled the undated register sum); the rule is G22 in [[golden-fidelity]].
 
 **Why the gate missed all of it.** Every coded fidelity check tested the rubric against the
 golden or the golden against itself. The reviewer did three reads none of the checks did: the
@@ -23,13 +21,13 @@ claim against the inputs and the prompt.
 
 **The lessons, and where each lives now:**
 
-1. **P4 woven, never a self-introduction (P6).** "I run the warehouse ... for Ledford Pipe &
-   Supply, a pipe, valve and fitting wholesaler in Chattanooga, Tennessee ... Whoever picks this
-   up should have ..." reads as LLM to a reviewer ("They are your coworker. They know what the
-   company is"). Carry the state on a place the work touches, the role as ownership of the
-   problem, the experience as the reason for the handoff addressed to the reader, and say in the
-   same sentence why each named event matters to the work. Coded P6
-   (`tools/gcheck/prompt_inputs/prompt_frame.py`). See [[prompt-overspecification-giveaways]].
+1. **P4 woven, never a self-introduction (P6).** "I run the warehouse ... for a pipe, valve and
+   fitting wholesaler ... Whoever picks this up should have ..." reads as LLM to a reviewer
+   ("They are your coworker. They know what the company is"). Carry the state on a place the work
+   touches, the role as ownership of the problem, the experience as the reason for the handoff
+   addressed to the reader, and say in the same sentence why each named event matters to the
+   work. Coded P6 (`tools/gcheck/prompt_inputs/prompt_frame.py`). See
+   [[prompt-overspecification-giveaways]].
 2. **Comma rules (A20).** Comma before and/but/so/or joining two independent clauses; never a
    third clause in a sentence; serial comma in every list; prompt, inputs, golden text cells and
    rubric alike. Coded A20 (`tools/gcheck/authorship/prose.py`, REV-REGISTER) for the
@@ -49,9 +47,14 @@ claim against the inputs and the prompt.
 
 **How to apply.** Both build skills say it: before a draft is called built, do the reviewer's read
 and the comma read. The first sweep of the new checks fired P6 on 22 of 24 prompts and A20 on
-every task in submissions/ and drafts/ (report only, per [[review-scope-single-task]]); those are
-the portfolio's habits, fixed task by task when each is next touched, never in a portfolio pass.
-A rejected task's own concept re-entering is the "recycling" flag shape, so returns-cage was not
-re-drafted. Hazy has no uniqueness map: Geranium's accepted-asks map was a list of asks accepted
-IN GERANIUM and was deleted with the port (2026-09-21), so keep the no-recycling habit by hand.
-- 2026-09-15: dfl-freight-audit REJECTED after eleven returns and a 0-error gate. Central finding: the golden gave one claims schedule where the prompt and the claims desk required a form per invoice. Also a struck claim left in a table cell, an unstated rounding convention a reviewer read differently, and a due date already past. Coded R134 G41 G42 G43 P8 and the G5 split arm; PR19 PR20.
+every task in submissions/ and drafts/ (report only, per [[gate-scope-single-task]]); those were
+authoring habits, fixed task by task when each is next touched, never in a portfolio pass.
+A rejected task's own concept re-entering is the "recycling" flag shape, so a rejected task is
+not re-drafted. This desk has no uniqueness map and no accepted-asks map, so keep the
+no-recycling habit by hand.
+
+- 2026-09-15: a third task was REJECTED after eleven returns and a 0-error gate. Central finding:
+  the golden gave one claims schedule where the prompt and the claims desk required a form per
+  invoice. Also a struck claim left in a table cell, an unstated rounding convention a reviewer
+  read differently, and a due date already past. Coded R134 G41 G42 G43 P8 and the G5 split arm;
+  PR19 PR20.

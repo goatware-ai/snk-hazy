@@ -55,20 +55,16 @@ Record the pair in `metadata.json` (`06-metadata.md`).
 ## Judgment is what makes a task hard. Volume is not.
 
 - **Row count buys build effort, not difficulty.** A 300-row task whose policy files hand
-  over every formula was solved perfectly by both platform models; a 9-series task beat
-  both. Before scaling a concept up, ask what decision the extra rows force that the first
-  twenty did not; if none, keep it small and spend the effort on the decision.
+  over every formula was solved perfectly by both platform models; a much smaller one built
+  on a single hard decision beat both. Before scaling a concept up, ask what decision the
+  extra rows force that the first twenty did not; if none, keep it small and spend the effort on the decision.
 - **Give them a candidate set to eliminate.** Put several candidates in front of the solver
   where each wrong one carries a different disqualifying property discoverable only in the
   files. The difficulty is in the set, not in the volume of any member, and it is cheaper
   to build than cross-referencing.
 - **Prefer real published data where the occupation offers it.** Real data carries its own
   ambiguity, discontinued series, revision flags and withheld cells; a fabricated pack has
-  to invent that friction, and reviewers notice when it has not (all-whole-dollar cost
-  figures, A15).
-
-history:
-`../../reference/workflow-history.md#reviews-of-other-contributors-tasks-2026-09-04-to-09-05`.
+  to invent that friction, and the absence shows (all-whole-dollar cost figures, A15).
 
 ## What makes a concept strong
 

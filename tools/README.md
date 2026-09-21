@@ -1,9 +1,6 @@
 # Common task tooling
 
-> **Ported from Geranium 2026-09-21.** The gate changed with the project: R67's negative
-> allowlist was deleted, R11 and R12 were rebanded, M1-M3 were rewritten around Hazy's
-> closed domain/occupation lists, and M4-M6, R135 and R136 are new. `../docs/RULE-DELTAS.md`
-> is the record. `../docs/rules.md` is generated from this tree and must be regenerated
+> `../docs/rules.md` is generated from this tree and must be regenerated
 > (`autoeval_check.py --rules`) after any check change.
 
 Generic, task-agnostic tools. Per-task build scripts are NOT kept in the repo —
@@ -59,7 +56,7 @@ symlink to it; recreate that symlink after moving to a new machine.
                               package_texts, generator_of, split_sentences/split_clauses, the
                               month table, the solution value bags
       gcheck/procedural.py    PR1-PR4, house rules with no detector, registered so they have an id
-      gcheck/driver.py        the submission runner; gcheck/review.py the review runner
+      gcheck/driver.py        the submission runner
 
   Every check declares its ids, its generalized rules and its `needs` (prompt, rubric,
   rubric_req, inputs, solution, metadata, folder, originality) and carries a structured
@@ -94,45 +91,6 @@ symlink to it; recreate that symlink after moving to a new machine.
   criterion count, the flake-prone count and the odds of clearing all three oracle runs.
   `--brief` prints only that view; multi-folder runs add a rollup.
 
-- **review_check.py** `reviews/<review-id>` — the review harness. Reads the fetch-task JSON
-  and the two zips, stages them as a task-shaped folder (`_task/`), and runs every
-  registered check whose needs that folder satisfies through the same `core.run_checks`
-  and TaskState the gate uses, tiered by `gate_families.REVIEW_TIER`: [BAR] for rules the
-  reviewer guidelines state, [HOUSE] for this repo's own conventions, never a send-back.
-  Platform verdicts, zip role matching, the fidelity ledgers and the package sweep stay
-  review-only, and so do its four hand sections (packaging, rubric_structure,
-  golden_vs_rubric, inputs_substance): they print context lines and reviewer-bar findings
-  the registry does not reproduce (an input the prompt never names, a criterion figure
-  absent from cells and prose alike, a golden with no formulas). Checks needing
-  metadata.json or the build folder skip themselves there and the run
-  says which.
-
-- **restore_submission.py** `<uid> [...] [--all-needs-revision] [--dry-run]` — rebuilds a
-  `submissions/{seq}-{name}/` folder from the platform. Needed because a UID that drops off
-  `stb submissions list` is archived (folder reduced to `archived/{seq}-{name}/prompt.md`), and
-  when the platform later re-lists it as NEEDS_REVISION the row comes back but the package does
-  not, so `/revise-task` has a row and nothing to revise. `stb submissions download` cannot help
-  ("has no uploaded file to download"); everything comes from `stb submissions fetch-task` —
-  prompt and criteria as text, the input and golden zips as S3 URIs pulled through stb's
-  presigned-get helper under stb's own interpreter. Rebuilds prompt.md, inputs/, solution/, both
-  flat zips, the rubric CSV, metadata.json from the form's own values, and a feedback-log entry;
-  then removes the archived/ folder. **What cannot come back:** build_session and any feedback-log
-  history the archive discarded. `built_with` comes from submission-list.md's Model column. Plain
-  `python3`, no .venv needed.
-
-- **fetch_refinement.py** `<uid> [--name task-name] [--force]` — pulls a Hazy-Refinement
-  task off the platform into `refinements/<uid>/`, ONE flat folder in the exact shape of a
-  submission folder (prompt.md, inputs/, solution/, rubric-<task-name>.csv, metadata.json with the O*NET code resolved from the form's dropdown, feedback-log.md,
-  both flat zips, and change.log / review-comment.md skeletons for what changed and the Section
-  3 paragraph), so every gate above runs on `refinements/<uid>` unchanged. Two pieces of the
-  hand-over are kept verbatim beside it, `original-prompt.md` and `feedback.md`; the rest is
-  downloaded to a scratch directory and removed. There is no `original/` and no `refined/`
-  (2026-09-11). `stb submissions download` cannot do this (it only serves the zip you
-  uploaded); the seed zips are S3 URIs inside the fetch-task JSON, fetched through stb's
-  presigned-get helper under stb's own venv. Re-running re-downloads the hand-over, rewrites
-  those two files and says whether the feedback changed. Plain `python3`, no .venv needed. The one `stb` use
-  `/refine-task` permits.
-
 - **rubric_lint.py**, **prompt_check.py**, **audit_task.py**, **originality_check.py**,
   **package_sweep.py** — since 2026-09-04 these are commands over code that lives in gcheck,
   kept for fast single-purpose iteration and for the workflows that name them:
@@ -151,13 +109,13 @@ symlink to it; recreate that symlink after moving to a new machine.
     (`gcheck/prompt_inputs/uniqueness.py`) and G2b input packet forensics
     (`gcheck/authorship/package.py`). Inside the gate they run only with `--originality`
     (a build-time gate for the task being built; G2c and G2d, retired 2026-09-15, held portfolio-wide on the
-    python-docx template and are not per-task debt), in review_check always. The command
+    python-docx template and are not per-task debt). The command
     keeps its single-folder contract and the G2 rule stays a STOP, never a cleanup.
   - `fixture_suite.py [fixture...]` — planted-defect fixtures in `check_fixtures/`: each one asserts
     which codes fire and which stay silent on a temporary copy, then the run prints how many
     catalog codes carry a fixture. Add a fixture with every new or narrowed check.
   - `package_sweep.py [root...]` — the portfolio-wide, report-only sweep; `inspect()` lives
-    in `gcheck/authorship/package.py` and review_check calls it there.
+    in `gcheck/authorship/package.py`.
 
 - **fix_floats.py** `scan|fix <xlsx...>` — rewrite float-repr tails in cached
   values (`34.04799999999999`) to shortest clean decimals. The LLM-authorship

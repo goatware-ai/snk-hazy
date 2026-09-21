@@ -7,16 +7,14 @@ metadata:
 
 Open after any rubric restructure, weight cut, reviewer coverage list or completeness FAIL.
 Siblings: [[rubric-criterion-count]] (the +39 budget these rows must fit), [[rubric-liveness-criteria]],
-[[rubric-anchoring-and-landing]], [[rubric-negatives]], [[reviewer-recovery-bridge-and-coverage]].
-Narratives: docs/reference/reviewer-feedback-corpus.md Part 5 (tasks 12, 15, 20, 23, 34, 37, 41,
-43, 44, 31, 48).
+[[rubric-anchoring-and-landing]], [[rubric-negatives]], [[golden-coverage-and-recovery]].
 
 ## 1. Every prompt requirement has its own row
 
 - The Rubric requirement mapping check walks every material requirement in the prompt and
   demands a dedicated criterion. After ANY restructure, split or weight cut, re-walk the prompt's
   deliverable sentences one at a time and name the row covering each; a weight cut is a coverage
-  change and has cost two submissions (hollenbach 2026-08-25 and 08-31). Ask what a deliverable
+  change and has cost two submissions (2026-08-25 and 08-31). Ask what a deliverable
   could omit while still passing every criterion.
 - An aggregate does not map a breakout ("66 units uncovered" does not cover "by item, by branch
   and by month with a reason"): write the breakout as a presence claim over rows keyed on the
@@ -54,7 +52,7 @@ Narratives: docs/reference/reviewer-feedback-corpus.md Part 5 (tasks 12, 15, 20,
   base-period rule; pinned 163 and 375 force 538).
 - The rubric must fail the golden's own defects: pin the facts a reviewer verifies (identifiers,
   the document date, the signature line, each policy class closed) so a wrong golden loses
-  points under its own rubric ("the rubric clearly did not catch the issues", task 45).
+  points under its own rubric ("the rubric clearly did not catch the issues", a task).
 
 ## 2. Cluster share (the completeness check) and scope (R73/R74)
 
@@ -114,11 +112,11 @@ Narratives: docs/reference/reviewer-feedback-corpus.md Part 5 (tasks 12, 15, 20,
 
 Owner and date rows are bounded on both sides:
 
-- R81 (2026-09-02, dfl-freight-audit Rubric Quality Review): a positive never fixes an action's
+- R81 (2026-09-02, Rubric Quality Review): a positive never fixes an action's
   owner to a named PERSON, even when the name sits in the prompt or inputs; a valid alternative
   assignment must not lose points. A golden should not invent an owner either (name one the inputs
   carry). One owner per action row when a row names the owner; a two-name row flaked 1/3.
-- R100 (2026-09-09, dfl-freight-audit adjudication): when the prompt never asks who owns an action
+- R100 (2026-09-09, adjudication): when the prompt never asks who owns an action
   or by when, a row must not score an owner or a date AT ALL ("so that credit turns on the
   substance of the change alone"); put the ask in the prompt if the task needs it.
 - Only when the prompt does ask for owners and dates does the reviewer round-3 wording apply: a
@@ -134,36 +132,36 @@ Owner and date rows are bounded on both sides:
 ## 5. The reviewer's input window (28 observed, 25 prescribed)
 
 - The Rubric Quality Review reads an input xlsx through a window of about 28 data rows (header at
-  row 3, rows 4-31 on returns-cage): a worked example anchored on tag T574 at row 77 was called
+  row 3, rows 4-31 on one task): a worked example anchored on tag T574 at row 77 was called
   "non-existent" and a count of 75 "could not be verified from the 28-tag cage count". The house
   rule keeps examples inside the first 25 data rows as a cushion of three. A count over the whole
-  file, or an example past the window, reads as golden-only (pick-module round 4: six hazmat, 30
+  file, or an example past the window, reads as golden-only (one round 4: six hazmat, 30
   no-pick, FT1319 at row 169); when the window holds no instance of a rule, the row is the rule
   and its section alone, and the oracle verifies it against the deliverable. Never pin a count of
   input rows unless the deliverable reports it in a labelled cell. Procedure parameters, the
   email's budget and the row count survive as figures. The oracle judge reads whole sheets but
   not the tails of long prose cells (R103, [[rubric-anchoring-and-landing]]).
 - Record ids past the window are the same miss, now coded (R107, RUBQ-GROUND, 2026-09-11): the
-  hathi refinement pinned transaction and adjustment ids sitting at rows 122 to 407 of the logs
+  one round pinned transaction and adjustment ids sitting at rows 122 to 407 of the logs
   and drew a [critical] ungrounded_verification on eleven rows; the review named rows 2 to 30 as
-  what it saw and read the cycle count's in-window Hathi rows as "no variance data". A deep
+  what it saw and read the cycle count's in-window rows as "no variance data". A deep
   record is scored as the deliverable's property (cites the records by id, what the finding
   states) with no id, quantity, date or status token; a docx or prompt fact is always in view.
-- The citation FRAME fails the window as surely as the id (R110, 2026-09-11, hathi round 3): "cites by
+- The citation FRAME fails the window as surely as the id (R110, 2026-09-11, round 3): "cites by
   transaction id the outbound pick transactions" for a SKU whose records sit past row 28 drew the
   same six [critical] findings as the id rows had. Rows the review passes state the memo's decision
   and reason in the memo's words; write an explanation row as what the explanation attributes or
   states, never as what a log shows or what the memo cites, and keep log names out of it.
 - A plain "by X and Y" ask needs a row cueing both dimensions (R115, PRE-COVER, 2026-09-11): the
-  packaging-consolidation adjudicator sent back "what we spend now by branch and vendor" graded by no
+  an adjudicator sent back "what we spend now by branch and vendor" graded by no
   row; a row carrying both nouns without a by/each/per cue on each (C6's "stay with the branches ...
   reported by vendor") covers nothing. R92 saw only batched-by and grouped-by.
-- Reviewer-ordered liveness/figure splits (task 23 precedent, tessendorf round 2): answer with a
+- Reviewer-ordered liveness/figure splits (precedent from an earlier round 2): answer with a
   plain value row per figure plus an unanchored front-page read-through at +5, record the R9
   findings as reviewer-ordered .gate-debt, never put the figure back in the liveness row.
 - Named-line and named-cell criteria, the correctly-billed class counted in cells, and the
-  recovery bridge are in [[reviewer-recovery-bridge-and-coverage]].
-- 2026-09-11 (harlow refinement round 3, R116): a completeness phrase ("all 10 accounts") repeated on a
+  recovery bridge are in [[golden-coverage-and-recovery]].
+- 2026-09-11 (a round 3, R116): a completeness phrase ("all 10 accounts") repeated on a
   sibling row that adds ordering or a named member is subsumption to the platform's near-identical check;
   the count lives on ONE row, and removing it from the sibling drops that sibling out of R13's completeness
   block, so re-check R13 (block over 10%) and the Quality Review's weighting read (a lead row per cluster) after the reword.
@@ -172,20 +170,20 @@ Owner and date rows are bounded on both sides:
   that split. A receiving-route pin ("joins the West route") reads to the review as forcing the wrong
   direction; carry the constraint as the target route's ratio falling, which any valid move satisfies.
 
-- 2026-09-12 (standby-generator-recommendation refinement round 3, adjudication): a compliance-summary cluster grades every term the owner lists, one per row or in the row that carries its siblings; 60 Hz sat ungraded beside 480Y/277 V three phase four wire and the adjudicator listed it under rubric coverage.
-- 2026-09-14 (recall-response refinement round 3, near identical criteria FAIL on re-entry): when a scope cluster is split into a COUNT row ("exactly the 12 item and lot combinations across the four lot codes") and a MEMBERS row ("the three withdrawn item references and no other item, four lots under each"), the members row is subsumed: passing the count passes it. A "no other X" row earns its place only by measuring something the count does not (a derived column's values, a rule each member follows: respent on date_made converting day-of-year to the 2026 date). The check accepts partial overlaps inside otherwise distinct rows (two rows both saying "last tab"). Coded R124 (exact-count over set members + figure-free closed-set row on one tab); "exactly 199 on hand" is a figure, not a count, so the pattern needs the set noun.
-- 2026-09-14 (dfl-freight-audit adjudication, PR13): a rubric row that grades a planning choice the golden adds on its own (claims filed before the meeting, a written confirmation asked of the carrier) is "an operational choice the prompt never requests" when the prompt scopes actions to "what we change on our own dock"; the golden may keep the choice, the rubric may not score it.
-- 2026-09-14 (vrm-exception-review adjudication): a prompt phrase with two limbs ("what is coming and when") needs a direct row per limb. The golden carried ROUTE DAY beside released lines and dollars and the rubric graded only the lines and dollars, so adjudication called the "when" ungraded twice in one note. Walk every conjunction inside a deliverable sentence, not only its nouns, and fund the row inside 39 from a presence row.
+- 2026-09-12 (a round 3, adjudication): a compliance-summary cluster grades every term the owner lists, one per row or in the row that carries its siblings; 60 Hz sat ungraded beside 480Y/277 V three phase four wire and the adjudicator listed it under rubric coverage.
+- 2026-09-14 (a round 3, near identical criteria FAIL on re-entry): when a scope cluster is split into a COUNT row ("exactly the 12 item and lot combinations across the four lot codes") and a MEMBERS row ("the three withdrawn item references and no other item, four lots under each"), the members row is subsumed: passing the count passes it. A "no other X" row earns its place only by measuring something the count does not (a derived column's values, a rule each member follows: respent on date_made converting day-of-year to the 2026 date). The check accepts partial overlaps inside otherwise distinct rows (two rows both saying "last tab"). Coded R124 (exact-count over set members + figure-free closed-set row on one tab); "exactly 199 on hand" is a figure, not a count, so the pattern needs the set noun.
+- 2026-09-14 (an adjudication, PR13): a rubric row that grades a planning choice the golden adds on its own (claims filed before the meeting, a written confirmation asked of the carrier) is "an operational choice the prompt never requests" when the prompt scopes actions to "what we change on our own dock"; the golden may keep the choice, the rubric may not score it.
+- 2026-09-14 (an adjudication): a prompt phrase with two limbs ("what is coming and when") needs a direct row per limb. The golden carried ROUTE DAY beside released lines and dollars and the rubric graded only the lines and dollars, so adjudication called the "when" ungraded twice in one note. Walk every conjunction inside a deliverable sentence, not only its nouns, and fund the row inside 39 from a presence row.
 
-- 2026-09-14 R126: a golden sheet whose labelled aggregation totals no positive grades is a requested output scored only negatively; never cut an output's only positive row to fund a restructure (tessendorf adjudication, spring-return list).
-- 2026-09-14 (dock-to-stock adjudication): an adjudicator-suggested general coverage row ("Every action item ... owner and date") is a W11 3/3-fail shape verbatim; keep its scope but reword to the mid-sentence table form ("on each of its action rows" of the named table), pin no count on a solver-discretionary list, and log the substitution.
-- 2026-09-14 R127 (flyer-program-review adjudication after acceptance): a golden column of verdict words under a TEST/CHECK/FLAG/VERDICT/CALL header is a rule the golden applies, and a positive criterion must name the header or a verdict word in the golden's casing; the cover-price row dropped to fit R24 left rule 6 ungraded ("a solver who violates rule 6 pricing could pass every criterion"), and the rows a later hand appended graded the percentages, not the verdict column, at +50 positive.
-- 2026-09-14 (hollenbach-allocation-plan 9266b8e2): R126 and R78 collide on a labelled total that counts the solver's own rows. The briefing's "Actions on this list" = 9 was graded by nothing (R126) and could not be graded, because a count of solver-authored plan items is ungrounded verification (R78). Resolution: delete the count line. A tally of your own action rows carries no information, the actions stay graded by the owner and due-date rows, and both checks clear.
+- 2026-09-14 R126: a golden sheet whose labelled aggregation totals no positive grades is a requested output scored only negatively; never cut an output's only positive row to fund a restructure (an adjudication, spring-return list).
+- 2026-09-14 (an adjudication): an adjudicator-suggested general coverage row ("Every action item ... owner and date") is a W11 3/3-fail shape verbatim; keep its scope but reword to the mid-sentence table form ("on each of its action rows" of the named table), pin no count on a solver-discretionary list, and log the substitution.
+- 2026-09-14 R127 (an adjudication after acceptance): a golden column of verdict words under a TEST/CHECK/FLAG/VERDICT/CALL header is a rule the golden applies, and a positive criterion must name the header or a verdict word in the golden's casing; the cover-price row dropped to fit R24 left rule 6 ungraded ("a solver who violates rule 6 pricing could pass every criterion"), and the rows a later hand appended graded the percentages, not the verdict column, at +50 positive.
+- 2026-09-14: R126 and R78 collide on a labelled total that counts the solver's own rows. The briefing's "Actions on this list" = 9 was graded by nothing (R126) and could not be graded, because a count of solver-authored plan items is ungrounded verification (R78). Resolution: delete the count line. A tally of your own action rows carries no information, the actions stay graded by the owner and due-date rows, and both checks clear.
 
-- 2026-09-15 R132: a rounding rule the sources state ("rounds up to the next figure ending in .95") is graded on the value it produces, never only on floor clearance and an ending an inflated figure also meets (tessendorf adjudication).
-- 2026-09-15 (dfl-freight-audit adjudication): when the prompt asks for dollars grouped by what went wrong and the golden reports eight groups, every group takes its own row with its figure and its input-side derivation; five named groups plus the aggregate total was read as partial coverage.
-- 2026-09-15 (dfl-freight-audit rejection, coded R134): every prompt ask is mapped in clause-map.md to a clause quoted from the prompt, a quoted golden anchor and a positive rubric row; the unmet claim-forms ask survived eleven rounds because nothing read the asks against the deliverable.
+- 2026-09-15 R132: a rounding rule the sources state ("rounds up to the next figure ending in .95") is graded on the value it produces, never only on floor clearance and an ending an inflated figure also meets (an adjudication).
+- 2026-09-15 (an adjudication): when the prompt asks for dollars grouped by what went wrong and the golden reports eight groups, every group takes its own row with its figure and its input-side derivation; five named groups plus the aggregate total was read as partial coverage.
+- 2026-09-15 (a rejection, coded R134): every prompt ask is mapped in clause-map.md to a clause quoted from the prompt, a quoted golden anchor and a positive rubric row; the unmet claim-forms ask survived eleven rounds because nothing read the asks against the deliverable.
 - 2026-09-15: submission.md and 05-rubric.md now say owner rows score an owner or a date only when the prompt asks who and by when (R100), which R81's statement also says; the unconditional "a named person as owner and a calendar date" is gone from both.
-- 2026-09-15 (delivery-policy-reset refinement 9b6459e0, our task 34): an adjudication note failed coverage on "Put a summary page first, ahead of the working sheets" because every front-page row graded content and none graded position. A prompt ask about ORDER (first sheet, lead page, before the schedules) takes its own row naming the worksheet position. The same round anchored G18 action dates by adding one mailing-date sentence to the owner's memo, not by inventing a date per step.
-- 2026-09-15 (rfq-response refinement 253bad46 round 2, adjudication): a column the tender makes mandatory on every row, filled by the golden (the Substitutions tab's equivalence statement, "why it meets the requirement"), takes its own positive row even when a sibling row already grades that table's other mandated column (the specification difference). The note returned the gap twice as missing coverage. Word the row without a sweep opener (W11): "The Substitutions tab gives the 48 alternates a statement of why each offered item meets the requirement."
-- 2026-09-17 (vondrak-negotiation-plan rules pass): R126 counts "total" and "count" as generic, so a footer labelled "LINE TOTALS" has one lemma and no criterion can cover it by words, and the value arm greps the cached figure without commas; relabel the footer with two content words ("LINE TOTALS, TWELVE MONTH BASE AND INCREASE") and let the criterion carry two of them.
+- 2026-09-15 (a revision round): an adjudication note failed coverage on "Put a summary page first, ahead of the working sheets" because every front-page row graded content and none graded position. A prompt ask about ORDER (first sheet, lead page, before the schedules) takes its own row naming the worksheet position. The same round anchored G18 action dates by adding one mailing-date sentence to the owner's memo, not by inventing a date per step.
+- 2026-09-15 (a round 2, adjudication): a column the tender makes mandatory on every row, filled by the golden (the Substitutions tab's equivalence statement, "why it meets the requirement"), takes its own positive row even when a sibling row already grades that table's other mandated column (the specification difference). The note returned the gap twice as missing coverage. Word the row without a sweep opener (W11): "The Substitutions tab gives the 48 alternates a statement of why each offered item meets the requirement."
+- 2026-09-17 (rules pass): R126 counts "total" and "count" as generic, so a footer labelled "LINE TOTALS" has one lemma and no criterion can cover it by words, and the value arm greps the cached figure without commas; relabel the footer with two content words ("LINE TOTALS, TWELVE MONTH BASE AND INCREASE") and let the criterion carry two of them.

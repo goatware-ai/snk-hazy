@@ -1,6 +1,6 @@
 """Group 2b: the golden read against the SOURCES it cites (GOLD-FID).
 
-Written 2026-09-05 from the hollenbach-allocation-plan rejection. Every other check in
+Written 2026-09-05 from a task rejection. Every other check in
 this package tests the rubric against the golden; the four defects that killed that task
 were all the golden against its own inputs, which nothing could see:
 
@@ -57,12 +57,12 @@ def _source_docs(folder):
     return docs
 
 
-# G11: the defect that killed hollenbach. Its action list carried "Base period recap ... to
+# G11: the defect that killed one task. Its action list carried "Base period recap ... to
 # Balliet" against "Friday 08/28/2026", and the briefing said "Balliet has asked for it by
 # Friday the 28th". Balliet's own message says only "Send me a recap by group and by month
 # ... I will put it in front of Sandusky myself" - no date at all. The 28th was the SOWERS
-# hold date, lifted out of a different document in the same packet. A reviewer checked the
-# source and rejected the task on it.
+# hold date, lifted out of a different document in the same packet. The source was checked
+# and the task rejected on it.
 #
 # The test is source-scoped, which is what makes it quiet: a dated obligation put on a
 # named person must carry a date that appears in a document mentioning that person. A
@@ -87,8 +87,8 @@ _DAY_ONLY = re.compile(r"\bthe\s+(\d{1,2})(?:st|nd|rd|th)\b", re.I)
 def check_attributed_dates(folder):
     """A deadline the golden attributes to a named person carries a date that appears in a document mentioning that person.
 
-    Since: 2026-09-05 (hollenbach-allocation-plan, rejected 2026-09-04).
-    Source: reviewer.
+    Since: 2026-09-05 (a task rejected 2026-09-04).
+    Source: task feedback.
     """
     docs = _source_docs(folder)
     if not docs:
@@ -133,15 +133,15 @@ def check_attributed_dates(folder):
                         emit("ERROR", f"[G11] {path.name} '{ws.title}'!{c.coordinate} has {who} "
                                       f"asking for something by {shown}, but no document that "
                                       f"mentions {who} carries that date - the golden is putting a "
-                                      "deadline on a source that never gave one (hollenbach-"
-                                      "allocation-plan, rejected 2026-09-04: \"Balliet has asked "
+                                      "deadline on a source that never gave one (a task "
+                                      "rejected 2026-09-04: \"Balliet has asked "
                                       "for it by Friday the 28th\" against a message that asks for "
                                       "a recap with no date at all, the 28th lifted from the Sowers "
                                       "hold in another input). Cite the date the source gave, or "
                                       "drop the attribution and own the deadline")
 
 
-# G12 (review ledger): the inputs' own conditions and prohibitions. Hollenbach was rejected
+# G12 (review ledger): the inputs' own conditions and prohibitions. That task was rejected
 # partly for planning October through December at the corrected 589 ceiling when Balliet's
 # message says only "I will put it in front of Sandusky myself ... Realistically a
 # correction lands with the October ceilings ... do not build September around a bigger
@@ -162,8 +162,8 @@ _CONDITION_RE = re.compile(
 def check_input_conditions(folder):
     """List every condition or prohibition the inputs state, for the builder to tick off against the golden (information only).
 
-    Since: 2026-09-05 (hollenbach-allocation-plan).
-    Source: reviewer; a rule that guessed which conditions bind would flag correct work.
+    Since: 2026-09-05.
+    Source: task feedback; a rule that guessed which conditions bind would flag correct work.
     """
     hits = []
     for name, text in _source_docs(folder).items():
@@ -182,15 +182,15 @@ def check_input_conditions(folder):
 
 
 # G13 (review ledger): one item carrying more than one unit cost across the inputs.
-# Hollenbach's blended job cost priced stock, the PO 78214 backlog and the new buy at the
+# That task's blended job cost priced stock, the PO 78214 backlog and the new buy at the
 # item file's 8.95, when the open order report carries those 23 backlog units at 9.33. Which
 # cost applies to which source is the builder's call; that two exist is mechanical.
 @check(codes=['G13'], rules=['GOLD-FID'], needs=['inputs'], params=['folder'])
 def check_multiple_unit_costs(folder):
     """List every item carrying more than one unit cost across the inputs, so a blended cost prices each source at its own (information only).
 
-    Since: 2026-09-05 (hollenbach-allocation-plan).
-    Source: reviewer.
+    Since: 2026-09-05.
+    Source: task feedback.
     """
     key_re = re.compile(r"^(item|catalog|sku|part|code|cat ?no|catalog ?no)\b", re.I)
     cost_re = re.compile(r"\b(cost|price)\b", re.I)
@@ -229,9 +229,9 @@ def check_multiple_unit_costs(folder):
 
 
 # R97: the prompt asks for a per-month view, the golden builds one, and no criterion states
-# a single figure out of it. Hollenbach's demand tab carries SEP/OCT/NOV/DEC columns and the
+# a single figure out of it. The rejected task's demand tab carries SEP/OCT/NOV/DEC columns and the
 # rubric scored only the basis and the totals, so a deliverable reporting one lump figure
-# for the period would have kept full marks - the reviewer's finding on the rejection
+# for the period would have kept full marks - the finding on the rejection
 # ("no criterion requires that demand be reported separately for Sept., Oct., Nov. and
 # Dec. as the prompt requires"). Fires per sheet, so a month-split table that IS pinned
 # elsewhere on the same sheet passes.
@@ -246,15 +246,15 @@ _PER_MONTH_PROMPT = re.compile(r"\beach of the \w+ months\b|\bby month\b|\bmonth
 def check_month_split_scored(rows, folder):
     """When the prompt asks for a per-month view and a golden sheet splits its figures by month, some criterion pins one month's figure from it.
 
-    Since: 2026-09-05 (hollenbach-allocation-plan, rejected 2026-09-04).
-    Source: reviewer.
+    Since: 2026-09-05 (a task rejected 2026-09-04).
+    Source: task feedback.
     """
     prompt = folder / "prompt.md"
     if not prompt.exists() or not _PER_MONTH_PROMPT.search(
             prompt.read_text(encoding="utf-8", errors="ignore")):
         return
     # only a criterion that NAMES a month and states a figure counts as scoring the split.
-    # A bare figure match passes on coincidence: hollenbach's "26 catalog numbers" collided
+    # A bare figure match passes on coincidence: that task's "26 catalog numbers" collided
     # with a 26 sitting in a month column and let two unscored tables through.
     month_name = re.compile(r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\b", re.I)
     stated = set()
@@ -289,15 +289,15 @@ def check_month_split_scored(rows, folder):
                                   f"{len(cols)} month columns and the prompt asks for the period "
                                   "month by month, but no criterion states a single figure out of "
                                   "them - a deliverable reporting one lump total for the period "
-                                  "keeps full marks (hollenbach-allocation-plan, rejected "
+                                  "keeps full marks (a task rejected "
                                   "2026-09-04: \"no criterion requires that demand be reported "
                                   "separately for Sept., Oct., Nov. and Dec.\"). Pin one month's "
                                   "figure from this sheet")
                 break
 
 
-# R107 (2026-09-11, hathi-replenishment-order-decision refinement, Rubric Quality Review
-# needs_improvement): eleven positives cited transaction, adjustment, hold and receipt ids
+# R107 (2026-09-11, Rubric Quality Review needs_improvement): eleven positives cited
+# transaction, adjustment, hold and receipt ids
 # (TXN-644093, ADJ-690649, HLD-4101, ...) that sit at rows 122 to 407 of the input logs. The
 # review reads each sheet through a window of about 28 rows (TXN-641436 at row 30 was the last
 # transaction it named) and rated every one of them [critical] ungrounded_verification: "could
@@ -355,8 +355,8 @@ _R132_VALUE_RE = re.compile(
 def check_rounding_rule_graded_on_value(rows, folder):
     """A rounding rule the prompt or an input states is graded on the value it produces, never only on conditions a higher value also meets.
 
-    Since: 2026-09-15 (tessendorf-channel-split adjudication).
-    Source: the adjudicator's rubric coverage axis - the memo's rule 6 says a floor-moved price
+    Since: 2026-09-15 (a rejection finding).
+    Source: the rubric coverage axis - the memo's rule 6 says a floor-moved price
     "rounds up to the next figure ending in .95", while the rubric graded only that each repriced
     price sat at or above the floor and ended in .95, so "an inflated .95 price would still earn
     full credit"; the repair was one row in the rule's own words, "the next figure ending in .95
@@ -375,7 +375,7 @@ def check_rounding_rule_graded_on_value(rows, folder):
     nums = " and C".join(str(n) for n, _ in cond)
     emit("ERROR", f"C{nums} [R132] grade the sources' rounding rule (\"{_R132_ROUNDING_RE.search(corpus).group(0)}\") "
                   "only by conditions any higher value also meets, so an inflated figure that clears them earns "
-                  "full credit - the adjudicator's coverage axis failed tessendorf on exactly this (2026-09-15: "
+                  "full credit - the coverage axis failed a task on exactly this (2026-09-15: "
                   "floor clearance and a .95 ending, never the next .95). Grade the value the rule produces, in "
                   "the source's own words")
 
@@ -387,7 +387,7 @@ def check_ids_inside_review_window(rows, folder):
     Codes:
       R107  a record id a positive pins sits only past row 28 of the input sheets and in no docx or the prompt
       R110  a positive claims the deliverable cites records for a key (a SKU, an account) whose rows in some input sheet all sit past row 28
-    Since: R107 2026-09-11 (hathi-replenishment-order-decision refinement round 2); R110 the same task, round 3,
+    Since: R107 2026-09-11; R110 the same task, later,
     when the id-free rewrite ("cites by transaction id the outbound pick transactions" for HAT-FRG-1001) drew the
     same [critical] ungrounded_verification six times over: the review looks for the key's records, not the id.
     Source: the Agentic Rubric Quality Review (ungrounded_verification, critical and major).
@@ -423,7 +423,7 @@ def check_ids_inside_review_window(rows, folder):
                              f"carry that key only past row {_R107_WINDOW} in {', '.join(deep_files)}; the Rubric "
                              "Quality Review looks for the key's records inside its window, id or no id, and "
                              "rated the id-free wording [critical] ungrounded_verification again "
-                             "(hathi-replenishment-order-decision round 3, 2026-09-11). Write the row as what the "
+                             "(2026-09-11). Write the row as what the "
                              "memo's explanation states, never as what a log shows or what it cites")
                 break
     deep = sorted((min(pos[t].values()), t, n) for t, n in toks.items()
@@ -434,6 +434,6 @@ def check_ids_inside_review_window(rows, folder):
     emit("ERROR", f"[R107] {len(deep)} record id(s) pinned by positives sit only past row {_R107_WINDOW} "
                  f"of the input sheets and in no docx or the prompt: {by_row}. The Rubric Quality Review "
                  "reads each sheet through a window of about 28 rows and rated every such id "
-                 "[critical] ungrounded_verification (hathi-replenishment-order-decision 2026-09-11). "
+                 "[critical] ungrounded_verification (2026-09-11). "
                  "Score the deliverable's property instead (cites the records by id, states their "
                  "status) and keep the id out of the criterion")
