@@ -5,6 +5,11 @@ metadata:
   type: feedback
 ---
 
+> **Caveat (2026-09-21, the Hazy port):** inherited from Geranium and unverified for Hazy. No Hazy
+> submission has come back yet, and Hazy has no Refinery node (D12), so the refinement half of
+> this file has nothing to run against. The no-stb rule and the operator-controls-the-platform
+> rule are house policy and still stand.
+
 ## No stb in a revision (2026-08-31)
 
 `/revise-task` and `/revise-refinement` never run any `stb` command: no fetch-task, no download,
@@ -50,7 +55,7 @@ golden is not exempt from the authorship catalog (fix_floats, A2 datetime cells,
 A14, A5 tab share); the same pre-zip gates apply when it is resubmitted.
 
 **Debt cannot shelter a rubric going back through the form.** The platform re-judges the rubric
-under its CURRENT rules on every resubmission, so an old acceptance is not evidence: R67/R24/R22
+under its CURRENT rules on every resubmission, so an old acceptance is not evidence: R24/R22
 findings are fixed before resubmitting; debt is reserved for judge-landing lints (R29/R50/R51,
 W4/W12) on wording the oracle passed 3/3 against labels the golden still carries. A rubric the
 platform has already passed to the reviewer is not re-entered for a nicety

@@ -1,8 +1,13 @@
 ---
-description: Review another contributor's Hazy task end to end (Wholesale Trade)
+description: Review another contributor's task end to end. INHERITED from Geranium; Hazy offers no review assignments yet.
 argument-hint: <review-id>
 model: opus
 ---
+> **INHERITED FROM GERANIUM, NOT VERIFIED FOR HAZY.** Hazy offers no review assignments: `stb reviews list` and `stb adjudications list` both
+> return "no available task" for this project. The procedure below
+> still describes Geranium's Wholesale Trade rules and was not updated in the
+> 2026-09-21 port. See `docs/RULE-DELTAS.md` D12.
+
 
 ## Arguments
 

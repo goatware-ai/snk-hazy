@@ -184,7 +184,8 @@ _P2_AFTER_RE = re.compile(
 # and does not clearly frame the analyst's professional role or assumed purchasing expertise
 # level. Add a brief opening that identifies the requester/analyst as U.S.-based and states
 # the expected procurement or purchasing experience." Both halves sit in the project
-# guidelines (project-guidelines-v5.1.md: a workflow "in the United States"; no job outside
+# guidelines (Geranium's project-guidelines-v5.1.md, deleted in the Hazy port: a workflow
+# "in the United States"; no job outside
 # the US), and a sweep found no prompt in this catalogue establishing either, so this is a
 # portfolio-wide exposure rather than one task's slip.
 #
@@ -238,6 +239,44 @@ _P4_STATE_ABBR_RE = re.compile(r",\s(?:" + _P4_STATE_ABBR + r")\b")
 # The requester's own role. "my desk", "my folder", "my inbox" are deliberately absent: they
 # name a place work lands, not a job, and the rejected prompt proved a reviewer reads them
 # that way too.
+# Hazy port, 2026-09-21 (docs/RULE-DELTAS.md D1). P4 and P6 used to read expert context
+# through a Wholesale Trade lexicon - purchasing, buying, procurement, distribution,
+# wholesale, inventory, freight. Hazy spans 13 O*NET job families and 64 occupations, so
+# that lexicon misses almost every prompt this desk will now write: a phlebotomist's years
+# on the bench, a paralegal's docket, a surveyor's fieldwork. One shared vocabulary covers
+# all of them, ordered by family. It stays a list of DOMAIN nouns, never generic words like
+# "work" or "experience", because P4 fires on the pairing of a duration with a domain.
+_DOMAIN_WORDS = (
+    # management, purchasing, compliance, HR, finance, quality
+    r"purchasing|buying|procurement|supply|sourcing|vendor|contract|compliance|regulatory|"
+    r"human resources|personnel|hiring|marketing|treasury|controller|budget|audit|"
+    r"quality (?:control|assurance)|operations|"
+    # healthcare practitioner and support
+    r"clinical|clinic|patient care|patient|bedside|nursing|ward|floor|triage|"
+    r"phlebotomy|venipuncture|draw|specimen|respiratory|dental|hygien\w*|pharmacy|"
+    r"dispensing|prehospital|ambulance|EMS|paramedic|transcription|"
+    r"(?:occupational|physical) therapy|home care|long[- ]term care|"
+    # life, physical and social science
+    r"laborator\w+|\blab\b|bench|assay|sampling|field ?work|survey work|specimens?|"
+    r"research|analytic\w*|geolog\w*|atmospheric|environmental|soil|agronom\w*|"
+    r"microbiolog\w*|biochem\w*|toxicolog\w*|econometric\w*|"
+    # legal
+    r"legal|litigation|docket|casework|caseload|title|conveyanc\w*|abstract\w*|"
+    r"paralegal|chambers|mediation|arbitration|deposition|discovery|"
+    # architecture and engineering
+    r"engineering|design|drafting|CAD|survey(?:ing)?|geodetic|structural|electrical|"
+    r"civil|manufacturing|fabrication|tolerance|"
+    # production, installation, transport, grounds, food
+    r"machining|machine shop|shop floor|inspection|metrolog\w*|packaging|production|"
+    r"maintenance|repair|fleet|dispatch|warehouse|distribution|inventory|freight|"
+    r"wholesale|logistics|materials handling|housekeeping|janitorial|custodial|"
+    r"food service|kitchen|front of house|back of house|line cook|"
+    # community, social service, education, library
+    r"counsel(?:l)?ing|behavioral health|substance (?:abuse|use)|social work|case management|"
+    r"curriculum|instructional|classroom|cataloguing|cataloging|collections|circulation"
+)
+
+
 _P4_ROLE_RE = re.compile(
     r"\bI(?:'m| am) (?:the|a|an|one of the)\s+[a-z]"
     r"|\bI (?:buy|do the buying|run|manage|handle|head|oversee|supervise|purchase|source"
@@ -251,18 +290,23 @@ _P4_ROLE_RE = re.compile(
 # should have been filed", which is not an expertise statement.
 _P4_EXPERIENCE_RE = re.compile(
     r"\b(?:few|several|couple of|\d+|ten|five|three|two)\s*(?:\+|plus)?\s*years?\b[^.\n]{0,60}"
-    r"\b(?:purchasing|buying|procurement|distribution|wholesale|inventory|supply|behind (?:them|you|it))\b"
-    r"|\byears? of (?:purchasing|buying|procurement|inventory|distribution|wholesale|supply)\b"
+    r"\b(?:" + _DOMAIN_WORDS + r"|behind (?:them|you|it))\b"
+    r"|\byears? (?:of|in|on) (?:the )?(?:" + _DOMAIN_WORDS + r")\b"
     r"|\bshould (?:already )?(?:know|be comfortable|be familiar|understand|be able to read)\b"
     r"|\bshould have\b[^.\n]{0,40}\b(?:experience|years|background|behind)\b"
     r"|\bneeds? to (?:know|be comfortable|be familiar)\b"
-    r"|\b(?:purchasing|procurement|buying|distribution|wholesale) (?:experience|background)\b"
-    r"|\bexperience (?:in|with|as|around) (?:purchasing|procurement|buying|distribution|wholesale|inventory)\b"
-    r"|\bsomeone who(?:'s| has| is)\b[^.\n]{0,60}\b(?:purchasing|buying|procurement|rebates?|costing|freight|inventory)\b"
+    r"|\b(?:" + _DOMAIN_WORDS + r") (?:experience|background)\b"
+    r"|\bexperience (?:in|with|as|around) (?:" + _DOMAIN_WORDS + r")\b"
+    r"|\bsomeone who(?:'s| has| is)\b[^.\n]{0,60}\b(?:" + _DOMAIN_WORDS + r")\b"
+    # credential forms, which carry the expert frame in most of Hazy's licensed
+    # occupations the way "years of purchasing" carried it in Wholesale Trade
+    r"|\b(?:board[- ]certified|licensed|registered|credentialed|chartered|"
+    r"certified|accredited)\b[^.\n]{0,40}"
+    r"|\b(?:RN|LPN|CNA|EMT|NP|PA|MD|DO|PhD|PE|RPh|CPA|JD)\b"
     # woven forms (lift-truck-fleet-plan rejection, 2026-09-05): the experience stated as the
     # reason for the handoff, addressed to the reader, rather than as a gate on "whoever picks
     # this up" - "you have a few years of distribution operations behind you"
-    r"|\byou (?:have|know|can read)\b[^.\n]{0,60}\b(?:years|purchasing|procurement|distribution|wholesale|inventory|freight)\b",
+    r"|\byou (?:have|know|can read)\b[^.\n]{0,60}\b(?:years|" + _DOMAIN_WORDS + r")\b",
     re.I)
 
 
@@ -280,7 +324,9 @@ _P4_EXPERIENCE_RE = re.compile(
 #   P6b  "whoever picks this up should ..." - gating the reader instead of addressing them
 _P6_SELF_INTRO_RE = re.compile(
     r"\bI (?:run|am|manage|handle|head|oversee|buy|work|cover)\b[^.\n]{0,90}?\b(?:for|at|with) [A-Z][^.\n]{0,60}?,\s*an? "
-    r"[^.\n]{0,70}?\b(?:wholesaler|distributor|supply house|supplier|dealer|company|manufacturer|jobber)\b"
+    r"[^.\n]{0,70}?\b(?:wholesaler|distributor|supply house|supplier|dealer|company|manufacturer|jobber"
+    r"|practice|clinic|hospital|health system|laborator\w+|firm|partnership|agency|"
+    r"district|authority|department|institute|university|college|library|nonprofit)\b"
     r"[^.\n]{0,60}?\bin [A-Z][a-z]+(?: [A-Z][a-z]+)?,\s*[A-Z]")
 _P6_GATEKEEP_RE = re.compile(
     r"\b(?:whoever|whomever|anyone who|anybody who) (?:picks|takes|gets|has|ends up with|inherits) (?:this|it)\b"
@@ -288,7 +334,9 @@ _P6_GATEKEEP_RE = re.compile(
 
 
 _P4_PERSONA_RE = re.compile(
-    r"\bYou are (?:a|an|the)\b|\bAs (?:a|an|the) [a-z ]{0,30}(?:analyst|buyer|manager|agent)\s*,\s*you\b"
+    r"\bYou are (?:a|an|the)\b|\bAs (?:a|an|the) [a-z ]{0,30}(?:analyst|buyer|manager|agent|"
+    r"engineer|scientist|technician|nurse|aide|therapist|counsel(?:l)?or|paralegal|"
+    r"supervisor|coordinator|specialist|inspector|machinist|surveyor|librarian)\s*,\s*you\b"
     r"|\b(?:utilizing|leveraging) your (?:expertise|experience|knowledge)\b", re.I)
 
 

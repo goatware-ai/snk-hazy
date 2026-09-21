@@ -1,5 +1,11 @@
 # Refinement
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> the refinement (Refinery) loop. Hazy has no Refinery node, and no refinement
+> assignment has been seen. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../RULE-DELTAS.md`.
+
 Documentation for **Hazy Refinery** (platform node: *Hazy-Refinement*): previously
 completed tasks that come back needing targeted fixes to their prompt, inputs, golden
 solution, or rubrics. Tiered payment on acceptance.

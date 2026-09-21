@@ -171,7 +171,7 @@ Advisory only. Reviews:
 ## 5. Before You Submit — Task Creation Checklist
 
 "Confirm each item below applies to your submission before you check it off. **All boxes
-must be checked to submit.**" Fifteen items:
+must be checked to submit.**" **Fourteen** boxes, in four labelled groups:
 
 **Task Instruction**
 
@@ -210,5 +210,7 @@ must be checked to submit.**" Fifteen items:
 14. If someone with real expertise in this domain — but no access to my rubric — read only
     my instruction and files, they could produce work that passes my rubric.
 
-*(The form numbers these as fifteen boxes; items 1-6 are Task Instruction, 7-8 Input Files,
-9-13 Task Rubric, 14 Final Check.)*
+The boxes are unnumbered on the form and carry their group name as a prefix instead. The
+numbering above is this capture's, for citation: 1-6 Task Instruction, 7-8 Input Files,
+9-13 Task Rubric, 14 Final Check. Counted from the 2026-09-21 screen capture; if the live
+form ever shows a box not listed here, add it rather than assuming this list is complete.

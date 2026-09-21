@@ -102,12 +102,17 @@ RULES = {
         "rejected at first review (2026-09-05) for writing the frame as a self-introduction to a coworker. "
         "Before this family existed P4 and P6 mapped to the report heading and never reached docs/rules.md."),
     "PRE-OCC": ("PRE-PROMPT",
-        "The occupation and every O*NET task pick match the prompt's actual work.",
-        "Three distinct failure modes, all seen: the occupation wrong for the sector, "
-        "the occupation wrong for the scenario, and carried-over task picks the prompt "
-        "gives no signal of. Wording never saves a mismatch — frankfort failed twice on a "
-        "reframed prompt and passed untouched once the occupation moved. Pick only from "
-        "docs/submission/platform/platform-wholesale-trade-occupations.md."),
+        "The domain, occupation and the form's own metadata fields are all on the platform's closed lists and agree with each other.",
+        "Rewritten 2026-09-21 for Hazy (docs/RULE-DELTAS.md D1, D7-D9). The form offers a "
+        "CLOSED list of 14 domains and 64 occupations, so three things are mechanical and "
+        "certain: an occupation off the list cannot be submitted at all, a domain that "
+        "disagrees with the occupation's own O*NET job family is a form a reviewer bounces, "
+        "and the required time, tool and input-count fields are either there or they are "
+        "not. The four First-Line Supervisor rows are the standing trap: they sit in four "
+        "different job families and none of them is Management. Pick only from "
+        "docs/submission/platform/domains-and-occupations.md, and confirm the code in "
+        "docs/submission/platform/onet-codes.md - eight of the 64 are detail codes ending "
+        ".01 to .04."),
     "PRE-FILES": ("PRE-PROMPT",
         "The prompt names the deliverable file it expects, explicitly.",
         "V5.1 requires that when a prompt names exact file names, a criterion checks the "
@@ -181,7 +186,9 @@ RULES = {
         "The submission form's own bands are respected.",
         "500-char criteria, weights outside +1..+5 / -3..-5, and criterion count outside "
         "15-60 are rejected by the form or its structure check "
-        "(docs/submission/platform/project-guidelines-v5.1.md)."),
+        "(Geranium's project-guidelines-v5.1.md, deleted in the 2026-09-21 port; Hazy's form "
+        "and guidelines state no US-setting rule, so this is house practice now - see "
+        "docs/RULE-DELTAS.md)."),
     "PRE-FOCUS": ("PRE-RUBRIC",
         "Criteria grade the finished file, not the order the work was done in.",
         "A delivered file carries no drafting timeline, so a process-ordering clause "
@@ -360,7 +367,10 @@ RULES = {
 # coded check -> the generalized rule it implements (exactly one)
 PRIMARY = {
     # Stage 1a
-    "M1": "PRE-OCC", "M2": "PRE-OCC", "M3": "PRE-OCC", "P1": "PRE-FILES", "P2": "PRE-PROMPT",
+    "M1": "PRE-OCC", "M2": "PRE-OCC", "M3": "PRE-OCC",
+    # Added 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D7-D9): the form's
+    # required time breakdown, non-AI tool list and input-file count.
+    "M4": "PRE-OCC", "M5": "PRE-OCC", "M6": "PRE-OCC", "P1": "PRE-FILES", "P2": "PRE-PROMPT",
     "P2": "PRE-SOURCES", "P3": "PRE-VERBOSE", "P4": "PRE-FRAME", "P0": "PRE-FILES",
     "P5": "PRE-VERBOSE",    # file glosses (was P2 until 2026-09-04; a branch of check_prompt_rules since 2026-09-11)
     # P6: the P4 frame written as a self-introduction to a coworker - lift-truck-fleet-plan was
@@ -384,9 +394,10 @@ PRIMARY = {
     # W19: a negative whose main verb a compliant deliverable also performs reads as
     # inverted polarity (task 28 run 6 quality review; drafts 2026-08-24).
     "W19": "PRE-POL",
-    # R67: what a penalty may be spent on, which the polarity rules never constrained —
-    # the platform failed two negatives E1, W18 and W19 all passed (2026-08-27).
-    "R67": "PRE-SCOPE", "R69": "PRE-SCOPE",
+    # R67 (what a penalty may be spent on) was DELETED 2026-09-21 in the Hazy port: it
+    # reserved negatives for four critical classes, and the Hazy form explicitly invites
+    # negatives on ordinary quality misses. See docs/RULE-DELTAS.md D4.
+    "R69": "PRE-SCOPE",
     "R104": "PRE-SCOPE",  # a positive and a negative sharing one rule anchor score the same disposition both ways (tessendorf adjudication, 2026-09-10: C15 held vs C29 planned, "merge or remove one")
     "R10": "PRE-DUP", "R15": "PRE-DUP", "R22": "PRE-DUP", "R41": "PRE-DUP",
     "R47": "PRE-DUP",
@@ -396,6 +407,9 @@ PRIMARY = {
     "R92": "PRE-COVER",     # grouped presentation demanded, no criterion pins it (was R46's second arm)
     "R4": "PRE-COVER", "R13": "PRE-COVER", "R126": "PRE-COVER", "R132": "PRE-COVER", "R24": "PRE-COVER", "R73": "PRE-COVER", "R74": "PRE-COVER", "R76": "PRE-COVER",
     "E0": "PRE-FORM", "R1": "PRE-FORM", "R11": "PRE-FORM", "R12": "PRE-FORM",
+    # Added 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D5, D6): the form's
+    # mandatory closing formatting-and-style criterion, and its ban on hedged figures.
+    "R135": "PRE-FORM", "R136": "PRE-FORM",
     # R61: the 20% penalty share (negative weight against positive) — pure weight
     # arithmetic, so it sits with the other band checks, but it is NON-BLOCKING as of the
     # team manager's ruling of 2026-09-02 ("a nice to have and not a blocking requirement

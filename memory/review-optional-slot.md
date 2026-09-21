@@ -5,6 +5,10 @@ metadata:
   type: feedback
 ---
 
+> **Caveat (2026-09-21, the Hazy port):** inherited from Geranium and unverified for Hazy. Hazy
+> hands out no reviews yet (D12), and the feedback-best-practices capture this rule rests on is
+> Geranium's.
+
 The optional last item in a review note opens **"Optional:"** on both Accept and Needs Revision.
 "Not blocking:" is retired (operator, 2026-09-11), as is the older "Optional, not why this is
 going back:". `tools/gcheck/review.py` bans both openers and `--lint-note` fails on them.

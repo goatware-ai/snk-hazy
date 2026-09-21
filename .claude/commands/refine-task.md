@@ -3,6 +3,10 @@ description: Refine a Hazy-Refinement task from its UID, under a chosen model (0
 argument-hint: <task-uid> [0=fable|1=opus]
 model: inherit
 ---
+> **INHERITED FROM GERANIUM, NOT VERIFIED FOR HAZY.** Hazy has no Refinery node, so there is nothing for this command to fetch. The procedure below
+> still describes Geranium's Wholesale Trade rules and was not updated in the
+> 2026-09-21 port. See `docs/RULE-DELTAS.md` D12.
+
 
 ## Arguments
 

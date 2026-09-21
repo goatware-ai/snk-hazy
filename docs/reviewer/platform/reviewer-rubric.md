@@ -1,5 +1,10 @@
 # Reviewer Rubric
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> Geranium's reviewer rules. Hazy offers no review assignments. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../../RULE-DELTAS.md`.
+
 > Style Guide Section 1: Recognizing LLM-Generated Files. Evaluation and outcome logic for
 > reviewers.
 >

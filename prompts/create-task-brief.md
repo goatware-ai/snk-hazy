@@ -47,12 +47,21 @@ batch sharing a reasoning path is the most likely failure: read the existing
 `drafts/*/prompt.md` before designing each new one and pick a different core workflow if
 anything is close.
 
+The domain and occupation are part of that identity now that neither is fixed. Pick a different
+occupation for each draft in the batch wherever the concepts allow it, and never let two drafts
+share an occupation **and** a reasoning path: the same analytical ask under a different
+occupation is still the same task when the solver's work is the same. Reusing one occupation
+across a whole batch also concentrates every draft on the same narrow slice of the 64-item list,
+which makes the next batch harder to keep distinct.
+
 ## Per-task verification
 
 Each task clears the full gate before you move on: run the Package sequence
 (`prompts/submission.md`) with `{target}` set to `drafts`, `clause-map.md` and `verify_golden.py`
 written in the draft folder first (R134, G43), ending in `autoeval_check.py` at 0
-errors on the packaged files.
+errors on the packaged files. Walk the form's fourteen-box checklist
+(`docs/submission/platform/platform-submission-form.md`, "5. Before You Submit") against each
+finished draft as well: a draft is only accept-on-submit if every box is already true of it.
 
 ## Reporting
 

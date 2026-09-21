@@ -938,31 +938,43 @@ def check_form_basics(rows):
 
 @check(codes=['R12'], rules=['PRE-FORM'], needs=['rubric'], params=['rows'])
 def check_weight_bands(rows):
-    """Every weight is an integer in +1..+5 for a positive or -3..-5 for a negative.
+    """Every weight is a non-zero integer in -5..+5.
 
-    Source: the platform's Rubric Structure Check (-1 and -2 are rejected outright).
+    Source: docs/submission/platform/platform-submission-form.md section 4 ("Weight -5 to
+    +5") and its checklist item 11.
+    Drift-notes: rewritten 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D3). Geranium
+    banned -1 and -2 outright; the Hazy form states the range as a continuous -5..+5 and
+    offers page-limit and wrong-file-type penalties, which are naturally small.
     """
     for num, _, weight in rows:
-        if weight != int(weight) or not (1 <= weight <= 5 or -5 <= weight <= -3):
-            emit("ERROR", f"C{num} [R12] weight {weight:g} is outside the platform's bands "
-                          "(+1..+5 for positives, -3..-5 for negatives; -1 and -2 are rejected "
-                          "outright). The Rubric Structure Check FAILs the submission on this")
+        if weight != int(weight) or weight == 0 or not -5 <= weight <= 5:
+            emit("ERROR", f"C{num} [R12] weight {weight:g} is outside the platform's range "
+                          "(a non-zero integer from -5 to +5; platform-submission-form.md "
+                          "section 4)")
 
 
 @check(codes=['R11'], rules=['PRE-FORM'], needs=['rubric'], params=['rows'])
 def check_criterion_count(rows):
-    # Only the platform's own band is a defect (docs/submission/platform/project-guidelines-v5.1.md:
-    # "minimum of 15 criteria and maximum 60. Aim for 15-25"). The binding ceiling in
-    # practice is usually R24's positive-weight cap, not the row count.
-    """The rubric carries between 15 and 60 criteria.
+    """The rubric carries at least 6 criteria, and 20+ for anything but a simple task.
 
-    Source: docs/submission/platform/project-guidelines-v5.1.md (minimum 15, maximum 60).
+    Source: docs/submission/platform/platform-submission-form.md section 4 ("minimum of 3
+    criteria; expect somewhere in the 20-60+ range depending on complexity") and
+    create-the-task-guidelines.md section 5 ("at least six criteria").
+    Drift-notes: rewritten 2026-09-21 in the Hazy port (docs/RULE-DELTAS.md D2). Geranium
+    required 15-60 and capped at 60; the Hazy form's range is open at the top ("20-60+"),
+    so there is no ceiling any more. The floor is the guidelines' 6 rather than the form's
+    3, because the guidelines are the stricter of the two and both must pass.
     """
-    if not 15 <= len(rows) <= 60:
-        emit("ERROR", f"[R11] {len(rows)} criteria - the platform requires 15 to 60 "
-                      "(docs/submission/platform/project-guidelines-v5.1.md; the pre-submission audit "
-                      "lists it as E1 criterion_count). Merge like-item lists back to one "
-                      "criterion before deleting anything a criterion actually grades")
+    n = len(rows)
+    if n < 6:
+        emit("ERROR", f"[R11] {n} criteria - the guidelines require at least six "
+                      "(create-the-task-guidelines.md section 5, restated in its Before "
+                      "Submitting list). The form's checklist item 9 sets a floor of 3 and "
+                      "adds that most real tasks need well more than 3")
+    elif n < 20:
+        recommend(f"[R11] {n} criteria - the form expects 20-60+ depending on complexity "
+                  "(platform-submission-form.md section 4). Below 20 the rubric probably "
+                  "leaves scoreable results untested; check coverage before submitting")
 
 
 @check(codes=['R61'], rules=['PRE-FORM'], needs=['rubric'], params=['rows'])
@@ -991,8 +1003,8 @@ def check_penalty_share(rows):
                   "blocking requirement to submit or get an accepted task\", and it must never "
                   "be the main reason a task goes back, in adjudication or in review. Worth "
                   f"taking if it is cheap: {0.20 * pos:.1f} of negative weight, by raising "
-                  "negatives on failures no positive already scores (R22/R41) within R67's four "
-                  "critical classes, or by cutting the positive denominator, which R24 wants at "
+                  "negatives on failures no positive already scores (R22/R41), or by cutting the "
+                  "positive denominator, which R24 wants at "
                   "or under 66 anyway. Do not manufacture a negative to reach it")
 
 
@@ -1004,7 +1016,7 @@ def check_completeness_share(rows, folder):
       R24  a workbook with every figure hand-keyed keeps under 85% of positive weight, and no single strict liveness row alone leaves 90% within a point of drift
       R73  when the prompt demands live formulas throughout (or a rerun on refreshed inputs), the gated tier alone (per-row gated rows for a rerun) holds over 15% (10% plus a point) of positive weight
     Since: 2026-08-24 (oskaloosa FAILed at 89.3%); single-loss reading 2026-08-26 (tessendorf); R73 2026-08-31.
-    Source: the platform's Rubric full credit completeness check, which fails at about 90% retention and will not certify the line.
+    Source: the platform's Rubric full credit completeness check, which fails at about 90% retention and will not certify the line. INHERITED AND UNVERIFIED FOR HAZY (2026-09-21, docs/RULE-DELTAS.md D11): that check is one of Geranium's ten named post-submission evals and nothing confirms Hazy runs it. The rule is kept because the underlying defect is real - a rubric a hard-coded workbook still aces tests nothing - and because the bar is a share, so it survives the change in rubric size. Drop it if the first Hazy results show no completeness check.
     Drift-notes: only criteria a hard-coded workbook fails OUTRIGHT count as liveness; a formula clause on a correctness row buys nothing. The R73 prompt trigger also reads "math live", "live in the cells" and "pasted values" (hartwell-price-worksheet adjudication, 2026-09-12). R73 and R129 also read "keep the pricing on formulas" and "carry through the sheet" (twincreek-bid-worksheet refinement round 3, 2026-09-14, where R129 called a formula-demanding prompt static).
     """
     pos, neg = _weights(rows)
@@ -1029,10 +1041,13 @@ def check_completeness_share(rows, folder):
                           f"2026-08-24: FAILed at 89.3%; task 20, 2026-08-21: liveness held only 10 "
                           f"of 126 = 7.9%). Only criteria a hard-coded workbook fails OUTRIGHT count "
                           f"here, so a formula clause hanging off a correctness criterion does not "
-                          f"buy cover. With the +5 cap and the two-criterion R17 ceiling strict "
-                          f"liveness maxes at 10, so 85% needs a positive total at or under 66: cut "
-                          f"the denominator rather than adding liveness criteria, which only adds "
-                          f"flake surface (gated total here {gated:g}, leaving "
+                          f"buy cover. This is a SHARE, so it scales with the rubric: on Hazy's "
+                          f"20-60+ criteria the fix is still to cut the positive denominator or "
+                          f"raise the weight of the few rows a hard-coded workbook truly fails, "
+                          f"not to add liveness criteria, which only adds flake surface. Any "
+                          f"absolute positive total quoted in older notes was derived from "
+                          f"Geranium's smaller rubrics and no longer holds (gated total here "
+                          f"{gated:g}, leaving "
                           f"{(pos - gated) / pos:.1%})")
         elif pos and (pos - gated) >= 0.85 * pos:
             emit("ERROR", f"[R24] strict liveness clears the completeness bar only on the gated "
@@ -1173,8 +1188,9 @@ def check_implementation_share(rows, folder):
                       f"points ({share / pos:.1%}) and the prompt never asks for live formulas: adjudication caps "
                       f"implementation at 25% and returned hx4180-fa26-spec-rev3 at 14 of 39 (2026-09-14) as "
                       f"'failing a numerically correct static-value workbook'. Keep one +5 strict row, ride at most "
-                      f"one or two gated clauses on value rows, and cut the positive total to 33 or under so R24's "
-                      f"15% floor still holds")
+                      f"one or two gated clauses on value rows, and cut the positive denominator so R24's "
+                      f"floor still holds. The cap is a share, not a point total: the '33 or under' in "
+                      f"older notes was Geranium arithmetic and does not survive a 20-60+ rubric")
 
 
 def _r92_grouping_coverage(rows, folder):
@@ -1295,7 +1311,9 @@ def rubric_info(rows):
 # total) sat at +2 while the rubric's top positive was +3, and the adjudicator sent the task
 # back to put them at +4 or +5: "so the central deliverable requirements are weighted at the top
 # of the 1-5 scale". The platform guidelines list "flat weighting (at least one core criterion at
-# +4/5)" among the rubric mistakes (docs/submission/platform/project-guidelines-v5.1.md). This
+# +4/5)" among the rubric mistakes (Geranium's project-guidelines-v5.1.md, deleted in the
+# 2026-09-21 port; Hazy's form restates the spirit as "weight by how central the item is
+# to a correct deliverable"). This
 # is the mechanical half: a rubric whose highest positive weight is under 4 is flat by
 # construction. Which rows are the core ones is a hand read; put the top weight on the figures
 # the prompt's main ask turns on, not on the file row or an example.
@@ -1304,7 +1322,8 @@ def check_flat_weighting(rows):
     """At least one positive criterion carries +4 or +5.
 
     Since: 2026-09-09 (dfl-freight-audit adjudication note).
-    Source: project-guidelines-v5.1 lists 'flat weighting' among the rubric mistakes.
+    Source: Hazy's platform-submission-form.md section 4 ("Weight -5 to +5 based on how central the item is to a correct deliverable"),
+    which is the surviving form of Geranium's project-guidelines-v5.1 'flat weighting' mistake (that file was deleted in the 2026-09-21 port).
     """
     pos = [w for _, _, w in rows if w > 0]
     if not pos:
@@ -2157,3 +2176,52 @@ def check_mandated_disposition(rows):
                           "defensible answer the prompt invites, since the prompt asks for whatever the "
                           "evidence shows. Score that a disposition is stated and the finding it rests on, "
                           "and leave the choice to the solver")
+
+
+CLOSING_STYLE_RE = re.compile(r"overall\b[^.]{0,40}\b(?:formatting|style)\b", re.I)
+
+
+@check(codes=['R135'], rules=['PRE-FORM'], needs=['rubric'], params=['rows'])
+def check_closing_style_criterion(rows):
+    """The rubric's LAST criterion is the general "Overall formatting and style of the deliverable" line.
+
+    Source: docs/submission/platform/platform-submission-form.md section 4 ("End with a
+    general 'Overall formatting and style of the deliverable' line (commonly ~+5)") and
+    checklist item 12, which is one of the fifteen boxes that must be ticked to submit.
+    Since: 2026-09-21 (the Hazy port; docs/RULE-DELTAS.md D5). Geranium had no such rule.
+    """
+    if not rows:
+        return
+    hits = [num for num, text, _ in rows if CLOSING_STYLE_RE.search(text or "")]
+    last_num = rows[-1][0]
+    if not hits:
+        emit("ERROR", "[R135] no closing criterion for overall formatting and style - the "
+                      "form requires the rubric to end with a general \"Overall formatting "
+                      "and style of the deliverable\" line (commonly ~+5), and checklist "
+                      "item 12 is a submit-blocking confirmation that it is there")
+    elif last_num not in hits:
+        emit("ERROR", f"[R135] the formatting-and-style criterion is C{hits[0]}, not the last "
+                      f"row (C{last_num}) - the form says the rubric ENDS with it")
+
+
+HEDGED_FIGURE_RE = re.compile(
+    r"\b(?:approximately|roughly|about|around|circa|approx\.?|some)\s*[~]?\s*"
+    r"[\$\u20ac\u00a3]?\d|~\s*[\$\u20ac\u00a3]?\d", re.I)
+
+
+@check(codes=['R136'], rules=['PRE-FORM'], needs=['rubric'], params=['rows'])
+def check_hedged_figures(rows):
+    """No criterion asserts a hedged figure; every value is pulled exactly from the ground truth.
+
+    Source: docs/submission/platform/platform-submission-form.md section 4 - "Pull every
+    exact value straight from your own reference files and ground-truth answer, never
+    estimate what a criterion should check", with its own worked pair (bad "approximately
+    $15,000", good "$15,170").
+    Since: 2026-09-21 (the Hazy port; docs/RULE-DELTAS.md D6).
+    """
+    for num, text, _ in rows:
+        m = HEDGED_FIGURE_RE.search(text or "")
+        if m:
+            emit("ERROR", f"C{num} [R136] hedges a figure (\"{m.group(0).strip()}\") - the form "
+                          "requires the exact value from the ground truth, not an estimate. "
+                          "A judge cannot grade \"approximately\"")

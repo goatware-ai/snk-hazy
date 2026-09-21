@@ -1,29 +1,64 @@
 # Workflow 03 — Input Files: authentic, substantial, distributed
 
-The platform states the input rules once: the standard, the fingerprints to keep out, the
-leakage hard line, the LLM-assist workflow and the tell log in
-`../platform/creating-input-files.md`; the count and size limits, the field-authenticity
-test and the packaging rules in `../platform/project-guidelines-v5.1.md#input-files`. This
-page holds the packaging shape the tools expect and the house additions the checks code.
+The platform states the input rules in three places: the standard, the fingerprints to keep
+out, the leakage hard line, the LLM-assist workflow and the tell log in
+`../platform/creating-input-files.md`; the count, the formats and the
+field-authenticity test in
+`../platform/create-the-task-guidelines.md#3-list-and-upload-input-files`; and the list-
+versus-upload matching rule in
+`../platform/platform-submission-form.md#input-file-list`. This page holds the packaging
+shape the tools expect and the house additions the checks code.
+
+## How many files
+
+**Minimum 2. Three or more strongly preferred. No upper bound.** Below 2 the task cannot be
+submitted as designed; at 2 it is submittable but thin, and the form's Sources check reads
+how many files the task draws on
+(`../platform/platform-submission-form.md#task-instruction-checks-optional`).
+
+The count is not the point on its own: every file has to be load-bearing, and the answer
+must be unreachable from any one of them. Two genuinely conflicting sources beat six that
+say the same thing. Accepted formats are .docx, .pdf, .xlsx, .pptx, engineering files
+(STEP, STL, GERBER) and multimedia; the uploader takes ZIP or TAR.GZ to 100GB and loose
+audio to 200MB.
+
+## The name match is a hard gate
+
+Three places have to agree character for character, including case and extension: the file
+name inside the ZIP, the entry in the Input File List, and every mention in the task
+instruction. The form calls a mismatch, a missing file or a listed-but-never-uploaded file
+"one of the most common reasons a submission gets sent back", and checklist item 7 makes it
+a submit-blocking confirmation. H5 codes it.
+
+Each Input File List entry is written as the file name, a dash, then a brief note on what
+the file contains. Write those entries from the ZIP's own directory listing, never from the
+build plan.
 
 ## Content and authenticity (cite, do not restate)
 
 - Substantial, real or indistinguishable from real, nothing paywalled or
   employer-proprietary: `../platform/creating-input-files.md#1-the-standard-real-documents-not-clean-ones`
-  and `#3-the-fingerprints-to-keep-out`, `../platform/project-guidelines-v5.1.md#input-files`.
+  and `#3-the-fingerprints-to-keep-out`,
+  `../platform/create-the-task-guidelines.md#using-ai-to-create-input-files`. Checklist item
+  8 is the authorization confirmation: only files you may share, nothing confidential,
+  proprietary or IP-restricted.
 - **The package-provenance stop is a house rule the captures do not state.** Batch
   construction evidence (a python library named as the writing application, one shared
   write instant across files, identical docx components, shared rsids) is a rejection, not
   a cleanup (A14, G2b, `tools/gcheck/authorship/package.py`). A genuine Office
   re-save is the only sanctioned remedy: `07-pre-submission-audit.md#package-sequence`.
-- **Tells the platform's authorship screen fires on that the style guide does not list:**
+- **Tells the authorship screen fires on that the style guide does not list:**
   floating-point dust in stored data cells (F1), 555-prefix phone numbers (H2), calendar-
   false weekday/date pairs (H3), number series without variance (A15), the default LLM
   blue fills (A1), em dashes (A6), and the prose shapes of
   `../../reference/llm-prose-tells.md` (A10). Detail in
-  `06-metadata.md#house-notes-on-platform-submission-formmd`.
+  `06-metadata.md#house-notes-on-the-live-form`.
 - No 'notes' columns or annotations that give away issues the solver should deduce (L1,
   L3).
+- **Occupation-specific exposure.** Several of the 64 occupations are clinical,
+  counselling or laboratory work. No input file may carry anything that reads as real
+  patient data, a real identifiable individual's record, or a practice that is unsafe if
+  copied (`../platform/domains-and-occupations.md#what-this-means-for-task-design`).
 
 ## No answer leakage (cite, do not restate)
 
@@ -31,7 +66,8 @@ page holds the packaging shape the tools expect and the house additions the chec
 hiding places. The house codes it: project or evaluation vocabulary anywhere in content,
 names or metadata (N1, H1); hidden sheets, hidden rows and columns, comments, tracked
 changes, speaker notes (L2); an input paragraph that enumerates the golden's answer set
-(L1), hands over a stay verdict a criterion scores (L3) or names the members of a listed set a criterion scores (L4); a firm-price or validity date in
+(L1), hands over a verdict a criterion scores (L3) or names the members of a listed set a criterion scores (L4);
+a firm-price or validity date in
 an input the golden never carries (R23); a snapshot dated before records it references, or
 a stated balance an input reproduces only without the date cutoff (G22).
 
@@ -43,34 +79,41 @@ The house check is T1: a standalone file, never inside an input or either zip.
 - **Distributed information** and **realistic messiness** as `01-ideation.md` defines them;
   every planted inconsistency is one the golden resolves and the rubric can credit.
 - **Mixed file types** that must be reconciled (a contract PDF against a pricing
-  spreadsheet against email correspondence).
+  spreadsheet against email correspondence). With three or more files this is the cheapest
+  source of real difficulty.
 - **Put a step of the answer in a metadata column.** A status, flag, base-period or
   effective-date column that most solvers skim is where difficulty hides cheaply, and it is
   the kind of column real extracts carry anyway. The best task reviewed to date derives its
   whole contract mechanism, a five-month reference lag, from a `preliminary` flag and the
   revision cycle it implies.
+- **Do not introduce inconsistencies in core facts** such as the entity, date range,
+  currency or jurisdiction. Conflicts are planted in the figures and the records, never in
+  what the task is about.
 - **Keep worked examples inside the first ~25 data rows** of an input; the reviewer's
   tooling reads inputs through a window of about 28 rows (`memory/rubric-coverage-and-completeness.md`).
 
 ## Packaging rules
 
 - One flat `.zip` named `i-<task-name>.zip`; no subfolders; no empty files; no spaces in
-  the zip name or any file name; no double extensions (H4). Limits and accepted formats:
-  `../platform/project-guidelines-v5.1.md#input-files`.
-- File names match the prompt exactly, and every file the prompt names exists (H5).
+  the zip name or any file name; no double extensions (H4). The form takes a single archive,
+  so a flat zip is also what it wants.
+- File names match the prompt and the Input File List exactly, and every file either one
+  names exists (H5).
 - Run the package sequence in `07-pre-submission-audit.md#package-sequence` before zipping.
 
 ## Final screen before moving on
 
 Unzip your own archive once and check:
 
+- [ ] At least 2 files, preferably 3 or more; every file load-bearing
 - [ ] No missing or duplicate files; no subfolders; no empty files; no spaces or double
       extensions (H4)
-- [ ] Names match the prompt exactly; every named file present (H5)
+- [ ] Names match the prompt and the Input File List exactly, including case and extension;
+      every named file present (H5)
 - [ ] No half-cut-off presentations or low-character-count files (A11, A12)
-- [ ] Every file is load-bearing
 - [ ] Every file real or indistinguishable from real; no batch-construction evidence
-      (A14, G2b); nothing paywalled or employer-proprietary
+      (A14, G2b); nothing paywalled, confidential or employer-proprietary
+- [ ] Nothing that reads as real patient or personal data
 - [ ] No answer leakage anywhere, including the hiding places (N1, L1, L2, L3, L4, R23, G22)
 - [ ] Tell log (if any) standalone, outside both zips (T1)
 

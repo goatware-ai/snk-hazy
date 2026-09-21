@@ -1,5 +1,11 @@
 # Reviewer Workflow (orientation)
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> the reviewer workflow. Hazy offers no review assignments: `stb reviews list` and
+> `stb adjudications list` both return "no available task" for this project. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../RULE-DELTAS.md`.
+
 A review is this desk's gate on another contributor's task before it enters the Hazy
 dataset: one submission, read in full, ending in a decision (Accept, Needs Revision, Reject),
 one or more error categories, a note the contributor can act on, and a time figure. Assigned

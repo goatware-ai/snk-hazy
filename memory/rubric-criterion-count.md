@@ -1,6 +1,6 @@
 ---
 name: rubric-criterion-count
-description: "Rubric shape and weight rules: platform band 15-60 (R11), R24's single-loss cap pins positive at 39 or under with two +5 strict rows, +1 single facts, gated +LIVE clauses, clusters over 12.5% plus a point (the completeness check), one atomic sentence per row (R55/R54), weight-neutral splits (R27/R49/R85), negatives critical-only (R67) with R61 non-blocking since 2026-09-02, never a checker's suggested weight, rebuild rather than patch a rubric that sat between rounds"
+description: "Rubric size and weight rules for Hazy: ERROR under 6 criteria, RECOMMEND under 20, NO ceiling (the form says 20-60+); any non-zero integer weight in -5..+5; the last row is the general formatting-and-style line; R24's single-loss cap on positive weight (inherited from Geranium, unverified here), one atomic sentence per row (R55/R54), weight-neutral splits (R27/R49/R85), never a checker's suggested weight, rebuild rather than patch a rubric that sat between rounds"
 metadata:
   type: feedback
 ---
@@ -11,12 +11,31 @@ Open before sizing, splitting or reweighting a rubric. Detail on what the rows m
 positive-at-99 and positive-at-66 arithmetic is in docs/reference/reviewer-feedback-corpus.md
 Part 5 (tasks 11, 18, 20, 34); those ceilings are superseded.
 
-**Band.** The platform allows 15-60 criteria (docs/submission/platform/project-guidelines-v5.1.md;
-R11 errors outside it, 2026-08-26). The row count is not the binding ceiling.
+**Count (2026-09-21, the Hazy port).** There is no upper band. The form
+(docs/submission/platform/platform-submission-form.md) asks for "a minimum of 3 criteria; expect
+somewhere in the 20-60+ range depending on complexity", and checklist item 9 repeats the 3 with
+"most real tasks need well more than 3". The guidelines PDF
+(docs/submission/platform/create-the-task-guidelines.md) sets a higher floor twice, "at least six
+criteria" / "The rubric has at least six clear criteria". So: **ERROR under 6** (the PDF floor,
+which also clears the form's 3), **RECOMMEND under 20** (the bottom of the form's expected range),
+**no ceiling**: a rubric past 60 is not a defect, because the form's own range is open-ended.
+Geranium's 15-60 band and its aim-for-15-25 advice are dead and were deleted with
+project-guidelines-v5.1.md; do not reinstate either from an old rubric.
 
-**The real ceiling is R24 (since 2026-08-26, tessendorf).** The full credit completeness check
-quantifies hard-coding ONE liveness-anchored figure while the other chain stays live, and its
-own addition drifts by a point, so EACH strict liveness criterion alone must cost more than 10%
+**Weights (2026-09-21).** Any **non-zero integer in -5..+5**. The form states the range twice
+("Weight -5 to +5", checklist item 11) with no gap around -1 and -2, so Geranium's split band
+(+1..+5 positive, -3..-5 negative) is gone. Weight by how central the item is to a correct
+deliverable, never by habit.
+
+**The last row is the formatting-and-style line (2026-09-21).** The form: "End with a general
+'Overall formatting and style of the deliverable' line (commonly ~+5)", and checklist item 12
+makes confirming it a submit-blocking box. ERROR when it is absent; ERROR when it is present but
+not last. It is a general polish row and is exempt from the anchoring rules that want a figure.
+
+**The weight ceiling is R24 (since 2026-08-26, tessendorf; inherited from Geranium and
+unverified for Hazy, since nothing confirms Hazy runs the full credit completeness check).**
+The full credit completeness check quantifies hard-coding ONE liveness-anchored figure while the
+other chain stays live, and its own addition drifts by a point, so EACH strict liveness criterion alone must cost more than 10%
 of positive weight plus a one-point cushion. At the +5 platform cap that pins **positive weight
 at 39 or under**; R24 errors when a hand-keyed workbook would retain 85% or more. The denominator
 is the only lever: the checker's suggestions (raise the pair, add a third liveness row, add a
@@ -26,9 +45,11 @@ polarity 3/3).
 **The shape that fits +39.** One +1 file row (R83); two +5 strict liveness read-throughs anchored
 on two different requirements' own outputs; every other positive at +1, with +2 kept for
 multi-step decisions; gated "the cell a formula rather than a keyed figure" clauses on value rows
-tagged +LIVE until LIVE holds roughly half the positive weight (R73 needs over 15%).5% plus a point (the completeness check), which affords about five to seven clusters. The reference
-rubrics are delivery-zone-reset (+39/-8) and june-price-review run 11 (26 rows, +39/-8). +1 rows
-are inside the platform's own +1..+5 band; weight by what a criterion DECIDES, never by habit.
+tagged +LIVE until LIVE holds roughly half the positive weight (R73 needs over 15%). No coverage
+cluster takes more than 12.5% plus a point (the completeness check), which affords about five to
+seven clusters. The reference rubrics are delivery-zone-reset (+39/-8) and june-price-review run 11
+(26 rows, +39/-8). At 20-plus rows the +1 default is what keeps positive inside the cap; the
+formatting-and-style closer at ~+5 is funded from inside it, not on top of it.
 
 **One simple atomic sentence per criterion (R55, 2026-08-24).** One sentence, one main verb,
 one scorable claim, at most 45 words, positive or negative alike. A colon or semicolon
@@ -54,12 +75,14 @@ section-presence row, a second instance of one rule, a total implied by its comp
 by re-bundling what the reviewer named. Rebuild to the budget and log the coverage dropped
 rather than bundle back.
 
-**Negatives.** Critical-only under R67 since 2026-08-27 (safety, privacy, inverted top-level
-decision, fabrication); at least two, each -3 to -5. R61's 20 percent penalty share is
-NON-BLOCKING (team manager ruling 2026-09-02, a recommendation printed through `recommend()`,
-never a send-back in either direction). Full rules in [[rubric-negatives]].
+**Negatives (rewritten 2026-09-21).** R67's critical-only allowlist is DELETED. The Hazy form
+says "Use negative weights where useful, to penalize specific unwanted outcomes", so a negative
+may sit on any specific, observable unwanted outcome at any non-zero weight down to -5. There is
+no minimum number of negatives. R61's 20 percent penalty share is NON-BLOCKING (team manager
+ruling 2026-09-02, a recommendation printed through `recommend()`, never a send-back in either
+direction). The shape rules that survive are in [[rubric-negatives]].
 
-**Never copy a weight a checker suggests.** "Weight it 8-10 points" is rejected by the +5 cap
+**Never copy a weight a checker suggests.** "Weight it 8-10 points" is rejected by the +5 ceiling
 (R12); read it as "give this requirement its share" and fund it inside the cluster. An
 adjudicator's "raise these nine rows to 4 or 5" would need positive near 62 and reopen the
 single-loss FAIL the same platform issued on the same task: move what a freed point allows onto

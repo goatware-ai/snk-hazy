@@ -31,22 +31,15 @@ Set it if and when a Refinery node is assigned. Nothing else needs to change.
 Note that `/refine-task` and `/revise-refinement`, and `tools/fetch_refinement.py`, address
 a refinement by its own UID and do not read `REFINE_PROJECT_ID`, so they work without it.
 
-**b. Assigned sector.** Everything ported says Wholesale Trade, because that is Geranium's
-assignment. If Hazy is assigned a different sector, these are the files that state it
-outside the verbatim platform captures:
+**b. Assigned sector — RESOLVED 2026-09-21.** Hazy has no fixed sector. The form offers a
+closed list of **14 domains and 64 occupations**, chosen per task. Both lists are captured
+in `docs/submission/platform/domains-and-occupations.md`, and every code was verified
+against onetonline.org in `onet-codes.md`. Only two of Geranium's six Wholesale Trade
+occupations survive, so most Geranium task ideas cannot be resubmitted here.
 
-| File | Line | What it says |
-|---|---|---|
-| `.claude/commands/review-task.md` | 2 | `(Wholesale Trade)` in the command description |
-| `prompts/review.md` | 8, 99 | assigned sector, and the prompt-read test |
-| `prompts/submission.md` | 9 | assigned sector |
-| `memory/task-metadata.md` | 15 | the `sector` field of the metadata template |
-| `memory/onet-occupation-routing.md` | 3, 8 | the occupation routing table |
-| `docs/reviewer/workflow.md` | 6 | assigned sector |
-| `docs/README.md` | 12 | assigned sector |
-| `docs/submission/workflows/02-prompt-writing.md` | 115 | the industry filter |
-
-**c. Re-capture the platform docs.** See section 4.
+**c. Re-capture the platform docs — DONE for the two that matter.** The guidelines PDF
+and the live form are now captured. Four Geranium documents remain inherited and
+unverified; see section 4.
 
 ---
 
@@ -85,27 +78,67 @@ from a built-in skeleton, so they will appear on the first successful run.
 This folder is not a git repository. `.gitignore` came across ready for one, but
 initialising and committing is left to you.
 
+## 3b. The 2026-09-21 rules pass
+
+The two source documents were captured and every rule they changed was applied across the
+docs, prompts, memory and the gate. `docs/RULE-DELTAS.md` is the record, D0 to D13, and is
+the reference for anything that still reads as Geranium's.
+
+The one finding worth knowing before anything else: **the guidelines PDF and the live form
+contradict each other on whether the author writes a solution.** The PDF says three times
+that they do not. The form has a required Completed Task Upload and builds the rubric from
+it. The form blocks submission, so the form wins and this desk builds a golden solution.
+Recorded in `create-the-task-guidelines.md` section 0 and `memory/golden-solution-required.md`.
+
+What changed in the gate:
+
+| Check | Change |
+|---|---|
+| R67 | **Deleted.** It reserved negative weight for four critical classes; the form invites negatives on ordinary quality misses. |
+| R11 | Rebanded: floor 6, recommend 20, **no ceiling** (was 15-60). |
+| R12 | Weights are any non-zero integer -5..+5 (was +1..+5 or -3..-5, with -1 and -2 rejected). |
+| M1-M3 | Rewritten around the closed domain/occupation lists (was a 200-line Wholesale Trade prompt-fit table). |
+| M4-M6 | **New:** the form's five time values, its non-AI tool list, and the 2-file input minimum. |
+| R135 | **New:** the rubric must END with the "Overall formatting and style of the deliverable" criterion. |
+| R136 | **New:** no hedged figures; values come from the ground truth. |
+| R24/R73/R129 | Kept, but their absolute point totals were Geranium arithmetic and are gone; the bars are shares, which survive a 20-60+ rubric. Marked unverified. |
+| P4/P6 | Expert-context vocabulary widened from wholesale-only to all 13 occupation families. |
+
+261 coded checks, up from 257. Five Geranium documents and two memory files were deleted as
+superseded or unfirable. `docs/rules.md` was regenerated.
+
+Two things to settle when the first Hazy result comes back:
+
+1. Whether Hazy runs Geranium's ten named post-submission auto-evals at all. Nothing
+   confirms it. R24, R73 and R129 depend on one of them and should be dropped if it does
+   not run.
+2. Whether the prompt-length and criterion-length caps Geranium's form enforced exist here.
+   Neither Hazy source mentions them, so they were removed rather than assumed.
+
 ## 4. The platform captures still say Geranium, on purpose
 
 Everything under `docs/submission/platform/`, `docs/reviewer/platform/`,
 `docs/refinement/platform/` and `docs/reference/` is captured verbatim from the Snorkel
-platform and from real reviewer feedback. Rewriting a verbatim capture would falsify the
-record, so those eleven files were left exactly as captured:
+platform and from real reviewer feedback. Five were deleted in the rules pass as superseded
+or sector-wrong: Geranium's welcome page, its project guidelines v5.1, its Wholesale Trade
+occupation table, its Wholesale Trade worked example, and its uniqueness map.
+
+What remains from Geranium now carries a banner saying it is inherited and unverified:
 
 ```
-docs/submission/platform/{welcome,project-guidelines-v5.1,task-lifecycle,
-                          style-guide-llm-tells,platform-submission-form,
-                          wholesale-trade-uniqueness-map}.md
-docs/reviewer/platform/reviewer-guidelines-v5.1.md
-docs/refinement/platform/submission-guidelines.md
-docs/reference/{autoeval-check-catalog-archive,llm-prose-tells,
-                reviewer-feedback-corpus}.md
+docs/submission/platform/{creating-input-files,style-guide-llm-tells,
+                          task-lifecycle,auto-eval-feedback-guide}.md
+docs/reviewer/**                     (Hazy offers no review assignments)
+docs/refinement/**                   (Hazy has no Refinery node)
+docs/reference/{autoeval-check-catalog-archive,reviewer-feedback-corpus,
+                workflow-history}.md
+prompts/{review,refine-task,revise-refinement}.md
+.claude/commands/{review-task,refine-task,revise-refinement}.md
 ```
 
-Re-capture them from Hazy's own platform pages. Until then they are Geranium's rules, which
-are probably close but are not authoritative for this desk. The uniqueness map in
-particular is a list of asks already accepted **in Geranium**, so it cannot tell you
-whether a Hazy task is unique.
+The first four are domain-agnostic craft guidance and the Hazy documents restate their
+rules, so they are safe to work from. The rest describe workflows that do not exist on this
+project yet. Do not trust any of it on sector, rubric bands or platform checks.
 
 Four names correctly keep the Geranium spelling everywhere, because they belong to
 Snorkel's side rather than to this repo: the Slack channel `#ec-geranium-project`, the

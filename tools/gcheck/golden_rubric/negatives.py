@@ -7,88 +7,7 @@ from ..common import _without_cell_refs, workbook
 from ..core import check, emit, recommend, REPORT, OPTIONS
 
 
-# R67: the four classes the platform's Rubric penalty scope check allows a negative
-# weight to be spent on. An allowlist, not a denylist: the ordinary planning and
-# rule-application misses it rejects have no vocabulary of their own, so only the
-# critical classes can be matched. Kept deliberately generous - the cost of a false
-# NEGATIVE here is a failed pre-submission check, the cost of a false positive is a
-# rewrite of a criterion that would have passed.
-R67_CRITICAL_RE = re.compile(
-    # fabrication: a citation, cost or benefit the record does not carry. An INTERNAL
-    # CONTRADICTION is NOT in this class - the check's second ruling (2026-08-27, same
-    # task, one round later) failed "the front page books a half saving that contradicts
-    # the vendor sheets' own totals" as "an ordinary internal-consistency / miscalculation
-    # miss", having called the same criterion defensibly fabrication a round earlier. The
-    # test it applies is whether something was INVENTED (a credit, a cost, a citation, a
-    # benefit the documents do not grant), not whether two numbers disagree, so
-    # contradicts / inconsistent / disagrees are deliberately absent from this allowlist.
-    r"unsupported|fabricat\w*|invent\w*|beyond what\b"
-    r"|no [a-z' ]{0,30}(?:record|document|letter|agreement|terms|invoice|source|basis|evidence)"
-    r"|(?:document|carr(?:y|ies)|support|record|show|list)s?\s+no\b"
-    r"|(?:do|does) not (?:support|document|show|carry)"
-    r"|cite[sd]?\b|attribut\w+"
-    # an inverted or prohibited top-level decision
-    r"|releas\w+|approv\w+|reject\w+|defer\w+|cancel\w+|(?:dis)?qualif\w+|(?:in)?eligib\w+"
-    r"|authoriz\w+|waiv\w+|prohibit\w+|barred\b|fund(?:ed|ing)?\b"
-    r"|restock\w*|scrap\w*|dispos\w+|signature|sign[- ]?off"
-    # safety - including operating equipment a worker is not certified or licensed for,
-    # which is the class the penalty scope check's own "dangerous commission" carve-out
-    # names (dock-to-stock-review, 2026-08-31)
-    r"|safety|unsafe|hazard\w*|injur\w+|(?:un)?certifi\w+|licens\w+|lift\b"
-    # privacy
-    r"|personally identifiable|\bPII\b|\bPHI\b|\bCUI\b|confidential\w*|social security",
-    re.I)
-
-
-# R67 tightening and R69 (2026-08-31, boettcher pre-submission), see check_rubric.
-R67_WEAK_FAB_RE = re.compile(
-    r"beyond what\b|unsupported"
-    r"|no [a-z' ]{0,30}(?:record|document|letter|agreement|terms|invoice|source|basis|evidence)"
-    r"|(?:document|carr(?:y|ies)|support|record|show|list)s?\s+no\b"
-    r"|(?:do|does) not (?:support|document|show|carry)", re.I)
-
-
-R67_STRONG_RE = re.compile(
-    r"fabricat\w*|invent\w*|cite[sd]?\b|citation|attribut\w+"
-    r"|releas\w+|approv\w+|reject\w+|defer\w+|cancel\w+|(?:dis)?qualif\w+|(?:in)?eligib\w+"
-    r"|authoriz\w+|waiv\w+|prohibit\w+|barred\b|fund(?:ed|ing)?\b"
-    r"|restock\w*|scrap\w*|dispos\w+|signature|sign[- ]?off"
-    r"|safety|unsafe|hazard\w*|injur\w+|(?:un)?certifi\w+|licens\w+"
-    r"|personally identifiable|\bPII\b|\bPHI\b|\bCUI\b|confidential\w*|social security", re.I)
-
-
-# R67 third tightening (2026-09-10): what a cite verb may take as its object and still be
-# fabrication, against the computed-quantity objects the penalty scope check calls analysis.
-R67_CITABLE_OBJECT = (r"\b(?:section|clause|article|paragraph|citation|source|document|report|"
-                      r"letter|agreement|policy|index|code|reference|number|carrier|study|standard|"
-                      r"regulation|statute|table|schedule|appendix|exhibit)s?\b")
-R67_FIGURE_OBJECT = (r"\b(?:fall|rise|drop|increase|decrease|movement|change|growth|decline)\b"
-                     r"[^.]{0,30}?\b(?:cost|price|rate|percent(?:age)?|total|spend|margin|volume|count|"
-                     r"amount|average|ratio|figure|per \w+)\b"
-                     r"|\b(?:cost|price|rate|total|spend|margin|average|ratio|figure) per \w+\b")
-
-
-# R67 fourth tightening (2026-09-11): a qualify token on a record subject with a classification verb.
-_R67_QUALIFY_RE = re.compile(r"\b(?:dis)?qualif\w+", re.I)
-_R67_RECORD_SUBJ_RE = re.compile(
-    r"^(?:at least one|any|an?|one|every|each|the|some|no)\s+(?:[a-z-]+\s+){0,3}?"
-    r"(line|lines|item|items|product|products|row|rows|sku|skus|part|parts|entry|entries|record|records)\b", re.I)
-_R67_CLASSIFY_RE = re.compile(r"\b(?:shown|marked|classified|listed|treated|counted|reported|carried|flagged)\s+as\b", re.I)
-
-# R67 sixth tightening (2026-09-12): whether a record is in or out of scope is a classification,
-# whatever rule token the although-clause cites.
-_R67_SCOPE_SUBJ_RE = re.compile(
-    r"^(?:at least one|any|an?|one|every|each|the|some|no)\s+(?:[a-z0-9-]+\s+){0,3}?"
-    r"(line|lines|item|items|product|products|row|rows|sku|skus|part|parts|entry|entries|record|records"
-    r"|lot|lots|shipment|shipments|account|accounts|customer|customers|order|orders|code|codes)\b", re.I)
-_R67_SCOPE_OBJ_RE = re.compile(r"\b(?:in|out of|within|outside|inside)\s+(?:the\s+)?scope\b|\b(?:in|out-of)-scope\b", re.I)
-
-R67_CALC_SUBJECT_RE = re.compile(
-    r"\b(?:discount|tier|threshold|rate|percent(?:age)?|mark-?up|margin|price|cost|charge|fee|"
-    r"total|sum|amount|quantity|forecast|allowance|credit|multiplier|factor|days|dating)\b", re.I)
-
-
-# R67/R69 second wave (2026-08-31, dock-to-stock-review pre-submission): a rubric whose
+# R69 second wave (2026-08-31, dock-to-stock-review pre-submission): a rubric whose
 # deliverable is a memo writes every criterion as "The memo <verb>s ...", so the passive
 # subject-verb signature both checks read never appears. _R70_WRAPPER_RE strips that
 # wrapper, and R70_CONCLUSION_VERBS is the set of verbs that make the criterion an
@@ -149,7 +68,7 @@ _R69_SV_RE = re.compile(
 # 1/3 ON THE GOLDEN, the judge quoting the NSF sentence (check 4415 returned November 17,
 # made good by cashier's check November 24 with the bank charge) that the register carries
 # verbatim as 11/17/25 rtn / 11/17/25 svc / 11/24/25 cc 118220. The frame is legal
-# fabrication under R67, but its object is a whole CLASS of figures: the judge has to
+# fabrication, but its object is a whole CLASS of figures: the judge has to
 # confirm every such figure in the deliverable against the named sources, and one it fails
 # to match (a CSV date written 11/24/25, a derived deadline, a monthly average the source
 # does not literally carry) reads as cited beyond the record. It is R47's universal-sweep
@@ -209,7 +128,7 @@ def check_negative_trailing_clause(rows):
     the judge then has a second claim to confirm. E1/W18 accept those words as polarity
     frames, which is how the tails got there. Put the frame inside the sentence as the
     act's condition instead: 'booked for a slot although its deal sheet documents no
-    flyer support' passes E1, W18, R67 and the reviewer together."""
+    flyer support' passes E1, W18 and the reviewer together."""
     for num, t, w in rows:
         if w >= 0:
             continue
@@ -219,7 +138,7 @@ def check_negative_trailing_clause(rows):
                           "- the gate-2 reviewer on flyer-program-review (2026-09-02) sent the rubric back on "
                           "exactly this shape ('remove trailing clauses ... such as in violation of / contrary "
                           "to'). State the act once and carry the polarity frame inside the sentence as its "
-                          "condition ('... although <source> documents no <thing>'), which E1, W18 and R67 "
+                          "condition ('... although <source> documents no <thing>'), which E1 and W18 "
                           "all accept")
 
 
@@ -246,7 +165,7 @@ _R111_PASSIVE_RE = re.compile(
     # NOT widened to adverb-less passives (probed 2026-09-14 on the flyer-program-review
     # penalty scope FAIL): dropping the adverb fired on 27 negatives across the portfolio,
     # most of them the proven "At least one line is bought ..." any-quantifier shape. That
-    # day's ruling was about the fabrication class, and R67's weak-form arm carries it.
+    # day's ruling was about the fabrication class.
     r"^\s*(?:the |a |an )?[\w'.,/ -]{2,70}?\s+(?:is|are)\s+(?:incorrectly|wrongly)\s+"
     r"(?:\w+ed|\w+en|built|kept|sent|put|set|held|bought|sold|paid|split|cut|met|spent|left|"
     r"lost|made|shown|taken|given|written|drawn|found)\b", re.I)
@@ -273,7 +192,7 @@ def check_negative_passive_opening(rows):
                           "inbound-consolidation-plan (minor 2026-08-31, critical 2026-09-11): with the wronged "
                           "object in the subject slot the sentence parses as a state a correct deliverable is "
                           "in. Put the deliverable in the actor's seat with a transitive verb and keep the "
-                          "R67 token inside the act ('The workbook wrongly books bracket money for a vendor "
+                          "a fabrication token inside the act ('The workbook wrongly books bracket money for a vendor "
                           "other than Kesselring, inventing a bracket where ...')")
 
 
@@ -664,225 +583,6 @@ def check_comparison_negatives(rows, folder):
                      "down the whole table and drifts by one (open-order-cleanup run 4: a negative "
                      "naming OPEN ALLOWED fired on the neighbouring OPEN CORRECTED column). Put a "
                      "count of the failing rows in a cell and quote that cell's label here")
-
-
-# R67 fifth tightening (2026-09-11, hartwell-price-worksheet Refinery pre-submission): "The
-# workbook incorrectly reprices the copper press SKUs on the lists printed for them on the
-# price pages, although the vendor's regional manager deferred that group to next year"
-# passed the allowlist on "deferred" and the platform's penalty scope check FAILed it as "an
-# ordinary content/calculation/repricing error ... rather than ... a clearly inverted /
-# prohibited decision". The decision token sat in the although-clause and named the SOURCE's
-# act (the vendor deferred), not the deliverable's. A decision verb only makes the class when
-# the deliverable does the deciding, which puts it in the defect clause; an although-clause
-# carries the class only through a rule token (prohibit / barred / eligible / qualifying),
-# which the platform has accepted in that position (boettcher, harlow, parts-quotation).
-_R67_CLAUSE_SPLIT_RE = re.compile(r"\b(?:although|whereas|despite|in violation of|violating|contradicting)\b", re.I)
-_R67_DECISION_RE = re.compile(
-    r"\b(?:releas\w+|approv\w+|reject\w+|defer\w+|cancel\w+|authoriz\w+|waiv\w+|fund(?:ed|ing)?)\b", re.I)
-_R67_RULE_TOKEN_RE = re.compile(r"prohibit\w+|barred\b|(?:in)?eligib\w+|(?:dis)?qualif\w+", re.I)
-_R67_OTHER_CLASS_RE = re.compile(
-    r"fabricat\w*|invent\w*|cite[sd]?\b|citation|attribut\w+"
-    r"|restock\w*|scrap\w*|dispos\w+|signature|sign[- ]?off"
-    r"|safety|unsafe|hazard\w*|injur\w+|(?:un)?certifi\w+|licens\w+"
-    r"|personally identifiable|\bPII\b|\bPHI\b|\bCUI\b|confidential\w*|social security", re.I)
-
-@check(codes=['R67'], rules=['PRE-SCOPE'], needs=['rubric'], params=['rows'])
-def check_penalty_scope(rows):
-    # R67 (2026-08-27, inbound-consolidation-plan pre-submission): the platform's Rubric
-    # PENALTY SCOPE check restricts what a negative weight may be spent on. It FAILed two
-    # negatives that E1/W18/W19 all passed, and its ruling names the taxonomy: a penalty is
-    # reserved for CRITICAL commissions - safety harm, a privacy leak (PII/PHI/CUI or a
-    # confidential release), an inverted or prohibited top-level DECISION (release/hold,
-    # fund/don't, approve/defer, legally ineligible), or FABRICATION (invented citations,
-    # costs or evidence, an internal contradiction the deliverable's own figures refute).
-    # Everything else is an ordinary planning or rule-application miss and must be carried
-    # by an affirmative POSITIVE instead: "a vendor is planned past biweekly, in violation
-    # of the memo's cadence ceiling" (a cadence-planning miss) and "the bracket credit is
-    # taken on a combined order below the four thousand floor" (a threshold misapplied,
-    # which the check groups with "wrong denominator" and "incorrectly calculated") were
-    # both rewritten as +2 positives. Note the check's own reasoning on why the second one
-    # is NOT fabrication: the bracket money was a real computed figure scored by another
-    # criterion, so nothing was invented.
-    #
-    # Coded as an allowlist over the four critical classes, because the ordinary class has
-    # no vocabulary of its own - a rule-application miss reads exactly like a compliant
-    # fact with a defect frame bolted on. A negative naming none of the four errors.
-    """A negative weight is spent only on a critical class: safety harm, a privacy leak, an inverted or prohibited top-level decision, or fabricated citations, costs or evidence.
-
-    Since: 2026-08-27 (inbound-consolidation-plan pre-submission).
-    Source: the platform's Rubric penalty scope check.
-    Drift-notes: tightened 2026-08-31 (weak fabrication frames on a computed subject; conclusion verbs) and
-    2026-09-10 (a cite verb whose object is a computed quantity) and 2026-09-12 (a record's scope
-    classification, whatever rule token the although-clause cites).
-    """
-    for num, text, weight in rows:
-        if weight >= 0:
-            continue
-        crit = R67_CRITICAL_RE.search(text)
-        if crit:
-            # R67 fourth tightening (2026-09-11, rossville-material-compliance Refinery
-            # pre-submission): "At least one line is incorrectly shown as qualifying on the
-            # strength of the US country of origin field" passed the allowlist on "qualif"
-            # and the platform's penalty scope check FAILed it as "an ordinary content/QA
-            # misclassification, not safety, privacy, fabrication, or a clearly inverted /
-            # prohibited decision". A qualify token is a decision only when the subject is
-            # the deliverable's verdict; when the subject is a record (a line, item, product,
-            # row) and the verb is a classification (shown / marked / classified / listed /
-            # treated as), it is a per-record QA miss and belongs to the positives that pin
-            # the qualifying set and its counts.
-            qual = _R67_QUALIFY_RE.search(text)
-            if qual and not re.search(R67_STRONG_RE.pattern.replace("(?:dis)?qualif\\w+|", ""), text, re.I) \
-                    and _R67_RECORD_SUBJ_RE.match(text) and _R67_CLASSIFY_RE.search(text):
-                emit("ERROR", f"C{num} [R67] penalizes a per-record classification (\"{qual.group(0)}\" on a "
-                              f"{_R67_RECORD_SUBJ_RE.match(text).group(1)}) - the platform's Rubric penalty "
-                              "scope check reads a line shown as qualifying on the wrong basis as an ordinary "
-                              "content/QA misclassification, not an inverted decision (rossville-material-"
-                              "compliance, 2026-09-11). Drop the negative and let the rows that pin the "
-                              "non-qualifying set and its counts carry it")
-                continue
-            # R67 sixth tightening (2026-09-12, recall-response refinement round 2): "A lot
-            # outside the notice's scope ... is incorrectly carried as in scope, although
-            # section 1 prohibits widening the withdrawal" passed the allowlist on "prohibits"
-            # in the although-clause, and the platform's penalty scope check FAILed it as "an
-            # ordinary scope/content-classification error" that mirrors the positives pinning
-            # the in-scope set (dual polarity). Whether a record is in or out of scope is a
-            # classification whatever rule token the although-clause cites; the positives that
-            # pin the set and its counts already fail a widened deliverable.
-            if _R67_SCOPE_SUBJ_RE.match(text) and _R67_CLASSIFY_RE.search(text) \
-                    and _R67_SCOPE_OBJ_RE.search(text) and not _R67_OTHER_CLASS_RE.search(text):
-                emit("ERROR", f"C{num} [R67] penalizes a record's scope classification "
-                              f"(\"{_R67_SCOPE_OBJ_RE.search(text).group(0)}\" on a "
-                              f"{_R67_SCOPE_SUBJ_RE.match(text).group(1)}) - the platform's Rubric penalty scope "
-                              "check FAILed \"a lot outside the notice's scope ... is incorrectly carried as in "
-                              "scope, although section 1 prohibits widening the withdrawal\" as an ordinary "
-                              "scope/content-classification error, dual with the positives that pin the in-scope "
-                              "set (recall-response refinement, 2026-09-12). Drop the negative and let the rows "
-                              "that pin the set and its counts carry it")
-                continue
-            # R67 fifth tightening (2026-09-11, hartwell): a decision verb counts only in the
-            # defect clause, where the deliverable is the one deciding; in the although-clause
-            # it describes the source's act and the negative is grading an ordinary
-            # calculation.
-            parts = _R67_CLAUSE_SPLIT_RE.split(text, maxsplit=1)
-            defect, rest = parts[0], (parts[1] if len(parts) > 1 else "")
-            if not _R67_OTHER_CLASS_RE.search(text) and not R67_WEAK_FAB_RE.search(text) \
-                    and not _R67_DECISION_RE.search(defect) \
-                    and not _R67_RULE_TOKEN_RE.search(defect) and not _R67_RULE_TOKEN_RE.search(rest):
-                tok = _R67_DECISION_RE.search(rest)
-                emit("ERROR", f"C{num} [R67] carries its only decision token (\"{tok.group(0) if tok else crit.group(0)}\") "
-                              "in the although-clause, where it names the source's act, while the defect "
-                              "clause describes an ordinary calculation - the platform's Rubric penalty "
-                              "scope check FAILed \"incorrectly reprices the copper press SKUs ... although "
-                              "the vendor's regional manager deferred that group\" as an ordinary "
-                              "repricing error (hartwell-price-worksheet, 2026-09-11). Put the decision "
-                              "in the deliverable's hands (incorrectly releases / approves / declares "
-                              "eligible), cite a rule the source prohibits, or drop the negative and let "
-                              "the positive that pins the held rows carry it")
-                continue
-            # R67 tightening (2026-08-31, boettcher pre-submission): "beyond what the letter
-            # and the rep's written correction support" passed the allowlist as fabrication,
-            # but the platform's penalty scope check read "the discount is taken at a tier
-            # beyond what ... support" as "an ordinary discount-tier/content-calculation
-            # error, not safety, privacy, fabrication, or a completely wrong prohibited
-            # decision". The weak fabrication forms (beyond what / no ... letter / does not
-            # support / unsupported) only carry a penalty when the thing asserted is a
-            # citation, a document or evidence - not when the subject is a computed
-            # quantity such as a tier, rate, threshold, discount or total.
-            weak = R67_WEAK_FAB_RE.search(text)
-            strong = R67_STRONG_RE.search(text)
-            # R67 third tightening (2026-09-10, freight-audit-review pre-submission): the
-            # penalty scope check FAILed "the review cites the fall in cost per shipment as
-            # evidence that freight cost did not rise" as "an ordinary analytical/content
-            # error, not safety, privacy, fabrication, or an inverted/prohibited decision".
-            # "cites" passed the strong list, but its object was a computed quantity the
-            # golden itself carries (cost per shipment), not a citation, section, source or
-            # document that was invented. A cite verb is fabrication only when what is cited
-            # is a citable thing; when its object is a figure, a fall, a rise or a movement,
-            # the negative is grading the analysis and belongs in a positive.
-            cite = re.search(r"\bcite[sd]?\b", text, re.I)
-            if cite:
-                window = " ".join(text[cite.end():].split()[:10])
-                citable = re.search(R67_CITABLE_OBJECT, window, re.I)
-                figure = re.search(R67_FIGURE_OBJECT, window, re.I)
-                if figure and not citable and not re.search(
-                        R67_STRONG_RE.pattern.replace("cite[sd]?\\b|citation|", ""), text, re.I):
-                    emit("ERROR", f"C{num} [R67] cites a computed quantity (\"{figure.group(0)}\") as the "
-                                  "thing fabricated - the platform's Rubric penalty scope check reads "
-                                  "\"cites the fall in cost per shipment as evidence that freight cost did "
-                                  "not rise\" as an ordinary analytical error, not fabrication "
-                                  "(freight-audit-review, 2026-09-10). A cite verb is fabrication only "
-                                  "when its object is a citable thing the sources lack (a section number, "
-                                  "a document, a source). Restate it as the affirmative positive that "
-                                  "scores the right measure, or name a prohibited decision")
-                    continue
-            # the computed quantity has to be the SUBJECT of the negative ("the discount is
-            # taken at a tier ..."); a rate or percent named later in the sentence as the
-            # thing a document does not grant is still fabrication (inbound-consolidation-plan
-            # C28/C29: "bracket money is booked for a vendor whose printed terms document no
-            # bracket", subject "money", passed the same check)
-            subj = re.split(r"\s+(?:is|are|was|were)\s+", text, maxsplit=1)[0]
-            calc = R67_CALC_SUBJECT_RE.search(" ".join(subj.split()[:8]))
-            # R67 fifth tightening (2026-09-14, flyer-program-review penalty scope FAIL on
-            # re-entry): the weak forms alone no longer carry a penalty once R84 has stripped
-            # the "in violation of <source>" tail. "Billback money is booked for a slot although
-            # its deal sheet documents no flyer support" (weak: "documents no") was ruled "not
-            # clearly framed as ... explicit fabrication; if treated as a penalty for unsupported
-            # financial content ... it is likewise non-critical", and its sibling "although
-            # flyer_history_2026.xlsx carries no slot row for it" an "ordinary source-row /
-            # coverage or data-validity check". The 2026-08-31 pass of the same shape rode on
-            # the "in violation of the March letter" tail. Name the invented thing with a strong
-            # token: "The plan books an invented billback ... at a per-unit rate that no deal
-            # sheet puts in writing", "The review invents a 2026 slot result for an item that
-            # flyer_history_2026.xlsx never printed".
-            if weak and not strong and not re.search(r"in violation of|violating|contrary to", text, re.I):
-                emit("ERROR", f"C{num} [R67] relies on the weak fabrication form \"{weak.group(0)}\" with no "
-                              "invented / fabricated token and no rule-breach frame - the platform's Rubric "
-                              "penalty scope check read exactly this shape as 'not clearly framed as explicit "
-                              "fabrication' and 'an ordinary source-row / coverage or data-validity check' "
-                              "(flyer-program-review re-entry, 2026-09-14). Make the deliverable the actor and "
-                              "name what it invents: 'The plan books an invented billback ... at a per-unit "
-                              "rate that no deal sheet puts in writing'")
-                continue
-            if weak and not strong and calc:
-                emit("ERROR", f"C{num} [R67] frames a computed quantity ({calc.group(0)}) "
-                              f"as fabrication with \"{weak.group(0)}\" - the platform's Rubric penalty scope "
-                              "check reads this as an ordinary content-calculation error (boettcher, 2026-08-31: "
-                              "\"the discount is taken at a tier beyond what the letter ... support\" failed as "
-                              "non-critical). Only a citation, document, cost or evidence that was INVENTED is "
-                              "fabrication; a tier, rate or threshold misapplied belongs to an affirmative positive. "
-                              "Drop the negative, or restate it as a prohibited top-level decision the sources "
-                              "actually bar, with its own verb")
-                continue
-            # R67 second tightening (2026-08-31, dock-to-stock-review pre-submission): the
-            # penalty scope check FAILed "the memo concludes that late buying or vendor
-            # promise dates caused the delay, contrary to the dock log and unsupported by
-            # it" as a NON-CRITICAL penalty, reasoning that it "penalizes an unsupported or
-            # incorrect analytical conclusion about causation. It does not allege that the
-            # memo invented a source, citation, cost, observation, or evidence; saying that
-            # a conclusion is 'contrary to the dock log and unsupported by it' does not
-            # convert the analytical error into fabrication." A negative whose main verb is
-            # a CONCLUSION verb is grading the analysis, so it needs a strong critical token
-            # of its own or it belongs in a positive.
-            wrap = _r70_wrapper(text)
-            if wrap and wrap[1] in R70_CONCLUSION_VERBS and not strong:
-                emit("ERROR", f"C{num} [R67] penalizes an analytical conclusion "
-                              f"(\"{wrap[0]} {wrap[1]}\") - the platform's Rubric penalty scope check reads a "
-                              "wrong causal or analytical finding as an ordinary content error, not safety, "
-                              "privacy, fabrication or a prohibited decision (dock-to-stock-review, 2026-08-31: "
-                              "\"the memo concludes that late buying ... caused the delay, contrary to the dock "
-                              "log and unsupported by it\"). Calling the conclusion unsupported does not make it "
-                              "fabrication. Let the positive that rewards the supported conclusion carry it, and "
-                              "spend the penalty on a prohibited ACT the sources bar")
-            continue
-        emit("ERROR", f"C{num} [R67] spends a penalty on a defect outside the four classes the "
-                      "platform's Rubric penalty scope check allows (safety harm, a privacy "
-                      "leak, an inverted or prohibited top-level decision, fabricated "
-                      "citations / costs / evidence). A cadence, threshold or rate misapplied "
-                      "is an ordinary planning miss and the check FAILs the whole dimension on "
-                      "it (inbound-consolidation-plan, 2026-08-27, two negatives). Restate it "
-                      "as the affirmative positive the compliant deliverable satisfies. If that "
-                      "drops the penalty share, cutting the positive denominator raises it back, "
-                      "but R61's share is a recommendation since 2026-09-02, not a gate")
 
 
 _R104_RULE_TOKEN_RE = re.compile(

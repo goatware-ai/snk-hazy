@@ -8,6 +8,11 @@ metadata:
   modified: 2026-09-17T16:17:26.803Z
 ---
 
+> **Caveat (2026-09-21, the Hazy port):** the ten named autoevals below are Geranium's. Nothing
+> confirms Hazy runs the same checks, and no Hazy submission has come back yet. The folder moves,
+> list formats and /fetch-status behaviour are current; the gate names are inherited and
+> unverified until the first Hazy result lands.
+
 ## The pipeline
 
 A Hazy submission passes three gates: **1. AutoEval** (ten named post-submission evals:
@@ -27,8 +32,9 @@ criteria, input zip and solution zip as independent parts ([[revision-workflow]]
 
 `/create-task [count]` builds N tasks, one at a time, into gitignored **`drafts/{seq}-{name}/`**
 with no UID and no submission-list.md row. Sequence numbers continue the global max across
-`submissions/`, `accepted/`, `archived/` and `drafts/`. Run the uniqueness diff against drafts
-built earlier in the same batch, not only the submitted catalog ([[task-uniqueness-check]]).
+`submissions/`, `accepted/`, `archived/` and `drafts/`. Run the uniqueness diff by hand against drafts
+built earlier in the same batch as well as the submitted catalog; Hazy has no accepted-asks map
+(2026-09-21).
 `autoeval_check.py` with no argument sweeps `submissions/*` only, so drafts are checked by
 explicit path. The operator submits and writes the UID into the draft's metadata.json
 ([[task-metadata]]); the next `/fetch-status` promotes the folder to `submissions/{seq}-{name}/`
@@ -137,9 +143,13 @@ zip before treating this as a problem** - confirmed on 2026-09-17 for tasks 23, 
 largest single-cycle drop seen this session); all six had their accepted/ zip intact and the
 ARCHIVE FAILED messages were false alarms.
 
-## Orphan UID 5a02fddb is task 05, not task 07 (2026-09-17)
+## Orphan UID 5a02fddb is task 05, not task 07 (2026-09-17, Geranium)
 
-`/fetch-status` repeatedly flags `5a02fddb` under "Needs attention" (NEEDS_REVISION, no
+Geranium history, kept for the pattern only: no task material ported to Hazy, so this UID cannot
+appear on a Hazy board. The lesson that carries is the shape, an orphan UID under "Needs
+attention" that belongs to an abandoned predecessor, not to a live task.
+
+`/fetch-status` repeatedly flagged `5a02fddb` under "Needs attention" (NEEDS_REVISION, no
 submission-list.md row, no matching draft). This is **not** a UID that changed under task 07 -
 it is task 07's *predecessor*, task 05 (also `yearend-deadstock-plan`), rejected 2026-08-18 by
 an AutoEval infrastructure failure with no substantive finding. Per the reset-and-recreate

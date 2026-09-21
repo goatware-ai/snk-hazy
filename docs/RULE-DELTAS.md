@@ -137,7 +137,7 @@ LabVIEW).
 
 ## D10. The pre-submit checklist is a gate
 
-The form's "Before You Submit — Task Creation Checklist" has 15 boxes and **all must be
+The form's "Before You Submit — Task Creation Checklist" has 14 boxes and **all must be
 checked to submit**. It is reproduced in the form capture.
 
 **Applied rule:** the pre-submission audit ends by walking the checklist, one row per box.

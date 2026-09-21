@@ -1,5 +1,11 @@
 # Reviewer Feedback Corpus
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> verbatim feedback from Geranium reviewers on Geranium tasks, in the Wholesale Trade
+> sector. The prose and rubric lessons generalise; the sector specifics do not. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../RULE-DELTAS.md`.
+
 > Every piece of reviewer feedback this portfolio has received, collected as **learning
 > material**: how real Geranium reviewers pick what to flag, how they word it, and where they
 > draw the blocking / non-blocking line. Nothing here is a to-do list. Fix actions for any task

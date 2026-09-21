@@ -37,7 +37,7 @@ PROCEDURAL = [
                   "sit in sixteen prompts, and a re-entered prompt carrying them failed the platform's "
                   "in-app prompt uniqueness check where the task's earlier wording had passed "
                   "(pick-module-reslot, 2026-09-11).",
-     "source": "memory/task-uniqueness-check.md (2026-09-11); submissions/44-pick-module-reslot/feedback-log.md"},
+     "source": "house rule since 2026-09-11. The Geranium uniqueness map and memory/task-uniqueness-check.md were deleted in the Hazy port; uniqueness is now checked by hand against this desk's own drafts, submissions and accepted work, with the occupation counting as part of a task's identity"},
     {"id": "PR9",
      "statement": "A criterion grading a computation an input clause defines names every factor the "
                   "clause states (rate, base and period alike): a row naming fewer factors credits a "

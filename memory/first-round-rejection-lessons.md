@@ -51,6 +51,7 @@ claim against the inputs and the prompt.
 and the comma read. The first sweep of the new checks fired P6 on 22 of 24 prompts and A20 on
 every task in submissions/ and drafts/ (report only, per [[review-scope-single-task]]); those are
 the portfolio's habits, fixed task by task when each is next touched, never in a portfolio pass.
-A rejected task's own concept re-entering is the "recycling" flag shape ([[task-uniqueness-check]]),
-so returns-cage was not re-drafted.
+A rejected task's own concept re-entering is the "recycling" flag shape, so returns-cage was not
+re-drafted. Hazy has no uniqueness map: Geranium's accepted-asks map was a list of asks accepted
+IN GERANIUM and was deleted with the port (2026-09-21), so keep the no-recycling habit by hand.
 - 2026-09-15: dfl-freight-audit REJECTED after eleven returns and a 0-error gate. Central finding: the golden gave one claims schedule where the prompt and the claims desk required a form per invoice. Also a struck claim left in a table cell, an unstated rounding convention a reviewer read differently, and a due date already past. Coded R134 G41 G42 G43 P8 and the G5 split arm; PR19 PR20.

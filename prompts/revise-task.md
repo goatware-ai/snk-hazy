@@ -44,7 +44,21 @@ by the operator. When you need a live part, ask for it.
    `prompt.md` as the feedback requires, following the existing conventions:
    - Rubric edits: one simple atomic sentence per criterion (R55), negatives worded as the
      defect committed with a polarity pin (R84), no CSV re-sums, absolute date windows, no
-     liveness-mirror negatives (R15, R22).
+     liveness-mirror negatives (R15, R22). Weights stay non-zero integers from -5 to +5, with
+     no gap around -1 and -2, and a negative may penalise any specific, observable unwanted
+     outcome, not a restricted class of them (`docs/submission/platform/platform-submission-form.md`,
+     "4. Task Rubrics"). When feedback asks for coverage, add rows freely: the floor is 6
+     criteria, 20 or more is the expected range and there is no ceiling. Every value a new or
+     edited criterion asserts is pulled from the golden and the inputs, never estimated and
+     never hedged ("approximately", "roughly", "about", "~"). After any addition, renumbering
+     or deletion, the general **Overall formatting and style of the deliverable** row is still
+     the last row of the CSV.
+   - File and metadata edits: if an input or output file is added, removed or renamed, the
+     Input File List, the Output File List, every mention in `prompt.md` and the member names
+     inside the rebuilt zip all have to match again, exactly, case and extension included; a
+     mismatch there is one of the most common reasons a submission comes back. If the scope of
+     the work changed, revisit the five time values (four minutes fields plus the total in
+     hours, the total at least their sum and over 3) and the tools list in `metadata.json`.
    - Workbook and document edits: no blue fills or datetime cells (A1, A2), decision fields
      stay live formulas, then run the Package sequence (`prompts/submission.md`) on every
      touched file. Rebuild the affected `i-`/`s-` zips (flat, bare task name) only if their

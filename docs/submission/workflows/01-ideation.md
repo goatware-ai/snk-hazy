@@ -1,23 +1,56 @@
 # Workflow 01 — Ideation: pick a task worth building
 
 Everything downstream — prompt, files, solution, rubric — inherits the quality of this
-decision. A weak concept cannot be rescued by good packaging. The platform's bar is stated
-once in `../platform/project-guidelines-v5.1.md#the-quality-bar`; this page adds the house
-reading of it and what the sector map says about crowding.
+decision. A weak concept cannot be rescued by good packaging. The platform states its bar in
+`../platform/create-the-task-guidelines.md#task-creation`; this page adds the house reading
+of it.
+
+## Start by picking the domain and the occupation
+
+There is no assigned sector. Section 1 of the form is two single-select radio lists, 14
+domains and 64 occupations, and a domain or occupation not visible on the form is not
+available (`../platform/platform-submission-form.md#1-select-the-domain-and-sector`). Both
+lists are in `../platform/domains-and-occupations.md`; the verified O*NET code for each
+occupation is in `../platform/onet-codes.md#the-table`.
+
+Pick the pair **before** writing a line of prompt, because the occupation is what makes the
+scenario authentic and constrains what counts as day-to-day work:
+
+- **Pick the occupation first, then the domain that matches its O*NET job family.** The
+  domain radio is, in practice, the occupation's job family
+  (`../platform/onet-codes.md#why-the-domain-list-is-what-it-is`). Treat
+  `Healthcare Practitioners / Support` as a duplicate to avoid unless nothing else fits.
+- **Watch the four traps** in `../platform/onet-codes.md#four-traps`: the four First-Line
+  Supervisor rows are not Management, Inspectors and Machinists are Production, eight
+  entries are `.0x` detail codes, and EMTs and Paramedics are separate occupations.
+- **Favour occupations where a written work product is genuinely part of the job.** Most of
+  the 64 are hands-on. Phlebotomists, Machinists and Home Health Aides do not spend the day
+  producing an .xlsx. The four First-Line Supervisor rows, the manager rows, the scientist
+  rows and the legal rows carry real document deliverables
+  (`../platform/domains-and-occupations.md#what-this-means-for-task-design`).
+- **Clinical, counselling and laboratory occupations raise the safety and privacy bar.** A
+  task must never teach unsafe practice, and no input file may carry anything that reads as
+  real patient data.
+
+Record the pair in `metadata.json` (`06-metadata.md`).
 
 ## The three gates every concept must clear
 
-1. **The 3-hour floor, aim for 5.** By hand, without an LLM, from genuine analytical work,
-   never padding (`../platform/project-guidelines-v5.1.md#the-quality-bar`). Enter the
-   estimate in hours (`06-metadata.md`).
-2. **A frontier model cannot do it perfectly today.** The difficulty check passes only when
-   the worst-agent accuracy is at or under 80%
-   (`../platform/auto-eval-feedback-guide.md#the-difficulty-check-accuracy-percentages`).
-   If a model drafts the golden correctly on the first try with no meaningful edits, the
-   task is not hard enough. Test this before file production, not after.
+1. **Over 3 hours by hand, aim for 5 to 10.** Without an LLM, from genuine analytical work,
+   never padding. The form's Difficulty check wants estimated manual effort over 3 hours
+   (`../platform/platform-submission-form.md#completed-task-checks-optional`) and the
+   guidelines target 5 to 10 (`../platform/create-the-task-guidelines.md#task-creation`).
+   The estimate is entered as four minute fields plus a total in hours (`06-metadata.md`),
+   so decide at this stage where each of the four blocks of time actually goes.
+2. **A frontier model cannot do it perfectly today.** The guidelines' key rule: a model
+   should not be able to produce a good answer by reading the instructions alone without the
+   input files. If a model drafts the golden correctly on the first try with no meaningful
+   edits, the task is not hard enough. Test this before file production, not after.
 3. **Difficulty lives in the files, not the prompt.** If the task can be answered without
    opening the attachments, the files are decoration and the task is sent back
-   (`../platform/project-guidelines-v5.1.md#your-prompt`).
+   (`../platform/create-the-task-guidelines.md#2-write-the-task-instruction`). Difficulty
+   comes from source materials and the reasoning required to reconcile them, never from
+   making the prompt longer or more prescriptive.
 
 ## Judgment is what makes a task hard. Volume is not.
 
@@ -29,7 +62,7 @@ reading of it and what the sector map says about crowding.
   where each wrong one carries a different disqualifying property discoverable only in the
   files. The difficulty is in the set, not in the volume of any member, and it is cheaper
   to build than cross-referencing.
-- **Prefer real published data where the sector offers it.** Real data carries its own
+- **Prefer real published data where the occupation offers it.** Real data carries its own
   ambiguity, discontinued series, revision flags and withheld cells; a fabricated pack has
   to invent that friction, and reviewers notice when it has not (all-whole-dollar cost
   figures, A15).
@@ -40,7 +73,9 @@ history:
 ## What makes a concept strong
 
 - **Distributed information.** No single file gives the full answer; the solver must
-  cross-reference several sources and reconcile conflicts between them.
+  cross-reference several sources and reconcile conflicts between them. At least 2 input
+  files, 3 or more strongly preferred (`03-input-files.md`), and the concept has to justify
+  every one of them.
 - **Realistic messiness.** Duplicates, inconsistent naming, cancelled records, competing
   priorities, missing information — the friction real work carries.
 - **A real decision at stake.** Someone specific needs the output to decide something
@@ -48,21 +83,13 @@ history:
 - **Objectively verifiable.** There is a known correct answer (or, for genuine judgment
   calls, nameable conditions any sound answer must meet) that a rubric can grade against.
 
-## Check the sector uniqueness map first
+## Uniqueness
 
-`../platform/wholesale-trade-uniqueness-map.md` is the platform's own running map of
-accepted analytical asks for this sector: per-occupation crowding counts, fresh-idea
-lists, and the 27 analytical-ask categories with the accepted asks under each. Steer
-toward an ask, or an occupation, not yet covered — and remember the uniqueness diff also
-runs against this contributor's own prior tasks (U1, U2), so cross off anything this
-portfolio has already built even if the map lists it as fresh.
-
-Pick the concept as an **ask-category × occupation cell**, not just an occupation. The
-crowded categories, the near-empty ones and the per-occupation tag counts are in
-`../platform/wholesale-trade-uniqueness-map.md#category-index`; read them fresh each time
-rather than from a copy here. Test the candidate's dimension-2 sentence (what the solver
-does, in one line) against the spent paths in `memory/task-uniqueness-check.md` before
-building.
+The platform publishes no map of accepted asks for this project, so uniqueness is checked
+against this portfolio only (U1, U2). Test the candidate's dimension-2 sentence (what the
+solver does, in one line) against the paths this desk has already spent
+before building, and treat the occupation as part of the identity: the same analytical ask
+under a different occupation is still the same task if the solver's work is the same.
 
 ## Concepts to discard early
 
@@ -71,15 +98,20 @@ building.
 - Anything requiring proprietary tools, logins, or paywalled/restricted source material.
 - Single-document summarization or reformatting dressed up as analysis.
 - A workflow you have not personally done — the field-authenticity tells will surface it.
+- Anything that cannot be reached from one of the 14 domains and 64 occupations. The list
+  is closed: there is no free-text alternative, so a concept that does not fit an entry
+  cannot be submitted at all.
 
 ## Output of this stage
 
 One selected concept, held to this shape before moving on:
 
-1. The scenario: who needs the output, for whom, why now.
-2. The deliverable: the one output file you can name.
-3. The input files you will build and what each contributes to the answer.
-4. Where the 3–5+ hours of manual work actually go.
-5. Why a frontier model fails it on the first pass.
+1. The domain and occupation, with the occupation's O*NET code.
+2. The scenario: who needs the output, for whom, why now.
+3. The deliverable: the one output file you can name.
+4. The input files you will build (at least 2, 3+ preferred) and what each contributes to
+   the answer.
+5. Where the four blocks of manual time actually go, and the total in hours.
+6. Why a frontier model fails it on the first pass.
 
 Next: `02-prompt-writing.md`

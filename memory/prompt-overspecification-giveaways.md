@@ -18,7 +18,7 @@ Third confirmation — an earlier rejected build of yearend-deadstock-plan: revi
 
 Confirmed on a second task — task 04 (2026-08-17): reviewer cut the briefing-tab section list (pattern 2 — "the shape of the golden solution handed over in the prompt") and the "sixty-day window" stated outright (pattern 4 — a deadline an input file carries must be worked out, not read off the prompt; reviewer: "let the agreement carry that"). Fix wording accepted: "a briefing tab she can read in five minutes and defend when Gene questions it."
 
-**Why:** Reviewers grade whether difficulty lives in the input files and cross-file reasoning; any prompt line that pre-solves a graded step is a send-back, echoing the "Overspecification kills difficulty" rule in docs/workflows/02-prompt-writing.md (I added these concrete patterns to that section).
+**Why:** Reviewers grade whether difficulty lives in the input files and cross-file reasoning; any prompt line that pre-solves a graded step is a send-back, echoing the "Overspecification kills difficulty" rule in docs/submission/workflows/02-prompt-writing.md (I added these concrete patterns to that section).
 
 **How to apply:** Before submitting any prompt, sweep it for these four patterns: strip purpose clauses from file mentions, deliverable-section outlines, pitfall warnings, and computed horizons/cutoffs/scopes stated as facts. Keep: all input file names, the single output file name, hard scenario facts, scope items, and process rules (live formulas, source-precedence like "believe the rep"). See also [[rubric-anchoring-and-landing]].
 
@@ -34,14 +34,18 @@ frame the analyst's professional role or assumed purchasing expertise level. Add
 that identifies the requester/analyst as U.S.-based and states the expected procurement or
 purchasing experience."
 
-Both halves are in the project guidelines and neither was being written: a workflow "in the
-United States", and no job outside the US. A sweep found **15 of 16 in-flight prompts missing at
+Both halves were in Geranium's project guidelines and neither was being written: a workflow "in
+the United States", and no job outside the US. **Hazy's guidelines PDF and form say neither
+(checked 2026-09-21)**, so the US-setting half is inherited, not a stated Hazy rule; the role and
+expertise half survives on its own, because the form requires "a named role, organization, and a
+reason this work is happening today" (checklist item 1). A sweep found **15 of 16 in-flight prompts missing at
 least one half, 6 missing both** - this was a portfolio-wide authoring habit, not one task's slip.
 
 The two halves, and what does NOT satisfy them:
 
 - **US setting.** Name the state ("a wholesaler in north central Illinois"). Town names alone do
-  not carry it; a reviewer is not required to know where Kewanee is.
+  not carry it; a reviewer is not required to know where Kewanee is. Hazy states no such rule,
+  so treat this as cheap insurance rather than a gate.
 - **Role and expertise.** Say what the requester does and what the reader is expected to already
   know ("I buy the mechanical line ... whoever picks this up should have a few years of
   purchasing behind them"). **"my desk" does not count** - the rejected prompt carried it and the
@@ -58,7 +62,9 @@ session and the whole rule comes back:
 
 - **P4a** the place: the state named, or the country said plainly.
 - **P4b** the role: what the requester does ("my desk" does not count).
-- **P4c** the expertise: what the reader is expected to already know, in purchasing terms.
+- **P4c** the expertise: what the reader is expected to already know, in the terms of the task's
+  own occupation (purchasing on a buying task, dosing on a clinical one; the wording is the
+  occupation's, not one trade's).
 - **P4d** not a persona: never "You are a ... Utilizing your expertise", the guidelines' own
   banned example.
 
@@ -97,7 +103,7 @@ trucks are mine to settle"), the experience is the reason for the handoff addres
 walking through"), and every event the opening names says in the same sentence why it matters to
 the work (the reviewer asked what "Tamika's work schedule has to do with a new equipment
 proposal"). Coded **P6** beside P4 in `tools/gcheck/prompt_inputs/prompt_frame.py`: the
-"I <run> <thing> for <Company>, a <trade> wholesaler in <Town>, <State>" sentence and the
+"I <run> <thing> for <Company>, a <trade> <business> in <Town>, <State>" sentence and the
 "whoever picks this up should" gate each fire; P4c now also accepts the woven "you have ... years
 ... behind you" form. The first sweep fired on 22 of 24 prompts in submissions/ and drafts/,
 because every prompt had been rewritten to the old P4 example, which itself carried the gate

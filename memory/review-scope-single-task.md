@@ -19,8 +19,7 @@ with the team.
 revised**, named explicitly. Do not sweep `submissions/*` and do not report verdicts on other tasks
 unless asked. `tools/originality_check.py` has had its catalogue-wide mode removed for this reason
 and now requires a folder argument. If a check happens to reveal something about another task, note
-it once at most and leave it alone. Related: [[package-hygiene-pipeline]],
-[[task-uniqueness-check]].
+it once at most and leave it alone. Related: [[package-hygiene-pipeline]].
 
 **Carve-out, 2026-09-02 (user decision): a MECHANICAL sweep runs every revision, report-only.**
 `tools/package_sweep.py` scans every task folder for package-level facts about the bytes -

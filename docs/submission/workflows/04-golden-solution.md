@@ -2,20 +2,36 @@
 
 The golden solution is the correct answer to your prompt — the deliverable you would
 actually put in front of a client or your manager. It is both the reference the rubric
-grades against and proof the task is doable. The platform states correctness, the
-formatting standards and the client test once, in
-`../platform/project-guidelines-v5.1.md#golden-solution` and
-`../platform/style-guide-llm-tells.md`; this page holds the house additions and the reads
-the checks cannot do.
+grades against and proof the task is doable.
 
-## Two worked examples to model
+**It is required.** Section 3 of the form carries a required `Completed Task Upload` under
+the instruction to complete the task yourself, "the way the qualified professional you
+described in your instruction would actually do it", and states that it is "your ground
+truth and what you will build your rubric off of"
+(`../platform/platform-submission-form.md#3-completed-task`). The guidelines PDF says three
+times that the creator does not produce a solution; the form wins, and the contradiction is
+recorded in `../platform/create-the-task-guidelines.md#0-known-conflict--the-completed-solution`.
+Build the solution before drafting a single criterion: every rubric value is read off it
+(`05-rubric.md`).
 
-`../platform/task-example-wholesale-trade.md` is a **workbook** deliverable with an annotated
-good/bad prompt comparison. `../../reviewer/platform/task-example-omnichannel-routing.md` is a **document**
-deliverable: an evaluation memo whose shape is worth copying when the ask is an assessment rather
-than a model. Its structure is executive summary, then numbered findings each carrying a stated
-rule, an impact count and one fully worked example, then an overall assessment and a remediation
-list. Every figure in it reconciles exactly, which is the standard a golden solution is held to.
+## The Output File List
+
+The form asks for every file the completed task produces, by exact file name and format,
+and the upload must match that list including extension
+(`../platform/platform-submission-form.md#output-file-list`). Those names are the ones the
+prompt already committed to, so all three (prompt, Output File List, uploaded file) have to
+agree character for character. H5 codes it. Outputs are concrete professional work
+products: a spreadsheet, report, presentation, design file or revised document
+(`../platform/create-the-task-guidelines.md#4-define-expected-output-files`).
+
+## A worked example to model
+
+`../../reviewer/platform/task-example-omnichannel-routing.md` is a **document** deliverable:
+an evaluation memo whose shape is worth copying when the ask is an assessment rather than a
+model. Its structure is executive summary, then numbered findings each carrying a stated
+rule, an impact count and one fully worked example, then an overall assessment and a
+remediation list. Every figure in it reconciles exactly, which is the standard a golden
+solution is held to.
 
 ## Say what the work does not settle
 
@@ -25,8 +41,8 @@ per cent of the job, the published index is not the mill price actually paid, an
 is one three-year window chosen from a series that has ranged far wider.
 
 Nothing in that task's rubric scored the section, and it was still the clearest thing
-separating that golden from every other one read. It is what the Hub's own omnichannel
-example means by evidentiary depth, and it is the difference between a deliverable that
+separating that golden from every other one read. It is what the omnichannel example means
+by evidentiary depth, and it is the difference between a deliverable that
 answers the question and one a manager can act on knowing the edges. Three sentences is
 enough; each one names a limit and why the files cannot close it.
 
@@ -63,11 +79,15 @@ points (`05-rubric.md`):
 - An asset that leaves carries no duty after it leaves (a read).
 - Every paragraph addressing one person restates that person's row: direction and amount,
   each bonus standing or coming back, splits, house lines (G19 codes the "X's quarter moves
-  up/down" form; the rest is a hand read). Grade it with positives, never a penalty (R67
-  puts contradictions outside the penalty classes).
+  up/down" form; the rest is a hand read). Grade it with positives: a self-contradiction is
+  diffuse, and a negative criterion has to name a specific observable outcome.
 - Every displayed ratio and total re-derives from the displayed figures as displayed (G21,
   G5, G7).
 - Comma rules held in every text cell and paragraph (A20, `02-prompt-writing.md`).
+
+Write down, as you go, the exact value behind every claim you will later grade. The rubric
+quotes those values verbatim and is never allowed to estimate them
+(`05-rubric.md`), so a running list of figure-to-cell pairs saves a rebuild later.
 
 history:
 `../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`,
@@ -77,27 +97,29 @@ history:
 
 - One flat `.zip` named `s-<task-name>.zip`; no subfolders; no empty files; no spaces or
   double extensions (H4). Output file name matches **exactly** what the prompt says to name
-  the deliverable (H5).
+  the deliverable and what the Output File List says (H5).
 - Every file **opens cleanly**: no XML errors, repair prompts, or corruption (A16). Open
   each one from the zipped copy before submitting.
 - No revision residue: no tracked changes, no comments, no hidden sheets (L2).
 - Every formula cell carries its cached value and the workbook is formula-live (A9, A13,
-  A17); the reason is in `06-metadata.md#house-notes-on-platform-submission-formmd`.
+  A17); the reason is in `06-metadata.md#house-notes-on-the-live-form`.
 - Run the package sequence in `07-pre-submission-audit.md#package-sequence` before zipping.
 
 ## Final screen before moving on
 
 - [ ] Every part of the prompt answered; fact-checked; would score ~100 on the rubric;
-      mostly human-edited (`../platform/project-guidelines-v5.1.md#golden-solution`)
+      mostly human-edited
+- [ ] Output File List written from the delivered files, matching the prompt exactly (H5)
 - [ ] Client/manager-ready aesthetics; spreadsheets use live formulas with cached values
       (A9, A13, A17); no default LLM blues (A1); no paste walls (A5); no em dashes (A6)
 - [ ] File name matches the prompt exactly (H5); opens cleanly (A16); flat zip (H4)
 - [ ] **The reviewer's read done:** G10, G18, G20, G9, G8, G19, G21 and the three hand reads
       above
 - [ ] Comma rules held in every text cell and paragraph (A20)
+- [ ] A list of every figure the rubric will cite, with the cell or paragraph it comes from
 
-Platform note: the oracle's judges read spreadsheets with tools and decompose each criterion
+Platform note: judges read spreadsheets with tools and decompose each criterion
 into statements they must find in the deliverable; the observed behaviour and the house
-mitigations are in `06-metadata.md#house-notes-on-platform-submission-formmd`.
+mitigations are in `06-metadata.md#house-notes-on-the-live-form`.
 
 Next: `05-rubric.md`

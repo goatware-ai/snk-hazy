@@ -3,6 +3,10 @@ description: Revise an already-fetched Hazy refinement, under the same model tha
 argument-hint: <task-uid>
 model: inherit
 ---
+> **INHERITED FROM GERANIUM, NOT VERIFIED FOR HAZY.** Hazy has no Refinery node, so there is no fetched refinement for this command to revise. The procedure below
+> still describes Geranium's Wholesale Trade rules and was not updated in the
+> 2026-09-21 port. See `docs/RULE-DELTAS.md` D12.
+
 
 ## Session setup
 

@@ -1,6 +1,6 @@
 ---
 name: model-routing
-description: "Sessions in this repo run on Opus 5 by default (user, 2026-08-24); each task's metadata.json built_with pins the model its revisions run under (01-11 fable-5, 12 onward opus-5); tools/build_model.py current/attribute/stamp/check/require/read/resolve/uid; slash commands route through per-model skills because a command cannot switch its own model; /review-task pinned to opus, /fetch-status to sonnet"
+description: "Sessions in this repo run on Opus 5 by default (user, 2026-08-24); each task's metadata.json built_with pins the model its revisions run under (Geranium's 01-11 fable / 12-onward split did not port, Hazy starts empty); tools/build_model.py current/attribute/stamp/check/require/read/resolve/uid; slash commands route through per-model skills because a command cannot switch its own model; /review-task pinned to opus, /fetch-status to sonnet"
 metadata:
   type: user
 ---
@@ -13,9 +13,9 @@ unless asked.
 
 **Build attribution is separate from the session default.** Every task folder records its
 builder in `metadata.json`'s `built_with` ([[task-metadata]]), and revisions run under that same
-model: a Fable-built task (01-11, through dillman) is revised under Fable via the per-model
-skills whatever the session default; task 12 hollenbach onward is `claude-opus-5` (backfilled
-2026-08-21 from session transcripts). Only two models author here: **Fable = flag `0`, Opus 5 =
+model: a Fable-built task is revised under Fable via the per-model skills whatever the session
+default. The 01-11 fable / 12-onward opus split is Geranium's catalog, which did not come across
+in the 2026-09-21 port; Hazy starts empty, so `built_with` is whatever the first builds stamp. Only two models author here: **Fable = flag `0`, Opus 5 =
 flag `1`**. An archived folder is reduced to prompt.md and has no metadata, so its model lives in
 submission-list.md's Model column and is recoverable with `attribute`.
 

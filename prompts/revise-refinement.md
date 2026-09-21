@@ -1,5 +1,12 @@
 # Prompt: revise a refinement based on new feedback
 
+> **Inherited from the Geranium desk, not ported to Hazy, and unverified.** It is a later round
+> of `prompts/refine-task.md`, and Hazy has no Refinery node and no refinement assignment, so the
+> refinement workflow does not exist here yet (delta D12). Everything below was written for the
+> Wholesale Trade sector and the single-sector rules that went with it, neither of which Hazy
+> has, and none of it has been checked against Hazy's own platform. Do not treat a rule in it as
+> current until a refinement assignment confirms the workflow exists.
+
 - **Refinement task UID:** {TASK_UID}
 - **Feedback owner:** {AutoEval | Reviewer}
 - **Feedback:** {paste the full feedback text / verdict / scores below}

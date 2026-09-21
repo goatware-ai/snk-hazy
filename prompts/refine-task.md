@@ -1,5 +1,12 @@
 # Prompt: refine one Hazy-Refinement task
 
+> **Inherited from the Geranium desk, not ported to Hazy, and unverified.** Hazy has no Refinery
+> node and no refinement assignment, so the refinement workflow does not exist here yet (delta
+> D12). Everything below was written for the Wholesale Trade sector and the single-sector rules
+> that went with it, neither of which Hazy has, and nothing in it, including the platform page it
+> names as authoritative, has been checked against Hazy. Do not treat a rule in it as current
+> until a refinement assignment confirms the workflow exists.
+
 - **Task UID:** {TASK_UID} (the submission id on the Hazy-Refinement node)
 - **Model:** the one the invoking skill carries; recorded into `built_with` at the end
 

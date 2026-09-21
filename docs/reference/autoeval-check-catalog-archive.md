@@ -1,3 +1,8 @@
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> an archived snapshot of Geranium's check catalogue. `../rules.md` is the live list. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../RULE-DELTAS.md`.
+
 > **Superseded 2026-09-11 by `docs/rules.md`** (generated from the check registry, one line per id). Kept as the archived rationale text of the 2026-09-04 monolith; ids and wording here may be stale.
 
 # autoeval_check.py check catalog (archived 2026-09-04)

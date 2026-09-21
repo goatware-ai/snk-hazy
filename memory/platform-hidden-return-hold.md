@@ -20,8 +20,10 @@ spends a submission cycle on nothing and may touch a file the hidden check passe
 as on boiler-replacement-recommendation refinement round 2, 2026-09-14), log a HOLD entry
 in that task's feedback-log.md and change.log, leave any prepared form actions
 unsubmitted, and say so in the summary. Resume with the ordinary revision flow
-([[revision-workflow]]) once the operator relays the team's resolution. Tasks held under
-this rule as of 2026-09-14: refinement b9c2dfc3-a18c-4b4e-8318-a11c07d51826
+([[revision-workflow]]) once the operator relays the team's resolution. The rule is the
+platform team's, not Geranium's, so it is assumed to hold on Hazy; the held tasks listed below are
+Geranium's and no task material came across in the 2026-09-21 port, so nothing is on hold here.
+Tasks held under this rule as of 2026-09-14: refinement b9c2dfc3-a18c-4b4e-8318-a11c07d51826
 (boiler-replacement-recommendation), round 2 prepared locally, nothing submitted. Added 2026-09-14: refinement fc4c0b1a-285d-422d-8c74-5cdf47c67089 (june-price-review, own task 23), whose panel is an all-positive auto-eval trace naming two unstated Briefing findings; round 1 prepared locally (gate 0), nothing submitted.
 Same-shape returns the same week, whose logs prepared a Section 3 change and a resubmit
 before the announcement (confirm with the operator whether they went out): hartwell-price-worksheet

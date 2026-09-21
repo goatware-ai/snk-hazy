@@ -1,5 +1,11 @@
 # Workflow history: the dated build lessons behind the workflow rules
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> dated build lessons from the Geranium desk, several of which cite rules this port
+> has since changed or deleted (see `../RULE-DELTAS.md`). It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../RULE-DELTAS.md`.
+
 > Dated narratives relocated from `docs/submission/workflows/01-07` on 2026-09-11 so the
 > workflow pages carry only the rules. Each section is one task (or one review batch), in
 > the order the workflows cited it. The rule each story taught stands in the workflow page
@@ -219,7 +225,7 @@ cost figures were whole dollars.
 ## O*NET occupation and task-pick checks (twincreek, frankfort, kolterman, drafts 23 to 40, task 45; August to September 2026)
 
 Taught: M1, M2, M3 and the per-prompt-type routing table. Cited from
-`../submission/workflows/02-prompt-writing.md#house-notes-on-platform-submission-formmd`. Relocated from the
+`../submission/workflows/02-prompt-writing.md#house-rules-the-platform-does-not-state`. Relocated from the
 `platform-submission-form.md` and `platform-wholesale-trade-occupations.md` captures on
 2026-09-11.
 

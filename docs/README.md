@@ -1,15 +1,26 @@
 # Project Hazy — Documentation
 
-Local documentation for **Snorkel's Project Hazy (GDPVal++)**, organised by the three
-jobs this repo does: **submitting** tasks, **reviewing** other contributors' tasks, and
-**refinement**.
+Local documentation for **Hazy_Task_Creation**, Snorkel's task-authoring project
+(`cda2e943-8524-45f0-a966-469903337102`). The desk's job here is to **author** task
+packages: an instruction, input files, a completed solution and a rubric.
 
-Inside `submission/` and `reviewer/`, the `platform/` subdirectory holds documents captured
-verbatim from Snorkel's own pages. **Those captures are authoritative** — on any conflict
-with a workflow page, a tool, or anything else in this repo, the capture wins. Everything
-outside `platform/` is this repo's own derived working material.
+Inside `submission/`, the `platform/` subdirectory holds documents captured from Snorkel's
+own pages. **Those captures are authoritative** — on any conflict with a workflow page, a
+tool, or anything else in this repo, the capture wins. Everything outside `platform/` is
+this repo's own derived working material.
 
-Assigned sector: **Wholesale Trade** (both for authoring and for review assignments).
+Two things govern above everything else:
+
+1. **The live form beats the guidelines PDF.** The form is what blocks submission. The one
+   known disagreement between them is whether the author produces a solution; the form
+   requires one. See `submission/platform/create-the-task-guidelines.md` section 0.
+2. **There is no fixed sector.** Each task picks one of 14 domains and one of 64
+   occupations from a closed list. See `submission/platform/domains-and-occupations.md`.
+
+This desk was ported from Project Geranium (Wholesale Trade) on 2026-09-21.
+`RULE-DELTAS.md` records every rule that changed and is the reference for anything that
+still reads as Geranium's. Material inherited from Geranium and not yet confirmed against
+Hazy's platform carries a banner saying so; do not trust it until an assignment confirms it.
 
 ---
 
@@ -18,105 +29,57 @@ Assigned sector: **Wholesale Trade** (both for authoring and for review assignme
 ```
 docs/
 ├── README.md                        ← this file
+├── RULE-DELTAS.md                   ← what changed in the Geranium→Hazy port (D0–D13)
 │
-├── submission/                      ← authoring a task
-│   ├── platform/                    ← AUTHORITATIVE captures (live GitBook, 2026-08-26)
-│   │   ├── welcome.md                       program overview and quality bar
-│   │   ├── project-guidelines-v5.1.md       the authoring rules (rubric band 15–60)
-│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage, tell log
-│   │   ├── style-guide-llm-tells.md         severity-keyed LLM tell tables + self-checks
-│   │   ├── task-lifecycle.md                in-app checks → evals → review → adjudication
-│   │   ├── auto-eval-feedback-guide.md      reading auto-eval results; the rebuttal process
-│   │   ├── task-example-wholesale-trade.md  annotated good/bad example (workbook deliverable)
-│   │   ├── wholesale-trade-uniqueness-map.md    accepted asks, crowding, fresh ideas
-│   │   ├── platform-submission-form.md      the live submission form, field by field
-│   │   └── platform-wholesale-trade-occupations.md   O*NET table + per-prompt routing
+├── submission/                      ← authoring a task (the whole job, for now)
+│   ├── platform/                    ← AUTHORITATIVE captures
+│   │   ├── platform-submission-form.md      the live form, section by section — TOP AUTHORITY
+│   │   ├── create-the-task-guidelines.md    the guidelines PDF; §0 holds the solution conflict
+│   │   ├── domains-and-occupations.md       the closed 14-domain / 64-occupation lists
+│   │   ├── onet-codes.md                    verified codes, job families, and the four traps
+│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage  [inherited]
+│   │   ├── style-guide-llm-tells.md         severity-keyed LLM tell tables            [inherited]
+│   │   ├── task-lifecycle.md                Geranium's stages after submit            [inherited]
+│   │   └── auto-eval-feedback-guide.md      Geranium's auto-eval boxes                [inherited]
 │   └── workflows/                   ← our decomposition, one stage per file
-│       ├── 01-ideation.md           pick a task worth building; difficulty & the 3-hour floor
-│       ├── 02-prompt-writing.md     house prompt rules (P4/P6/A20); O*NET routing house notes
+│       ├── 01-ideation.md           pick a domain, occupation and a task worth building
+│       ├── 02-prompt-writing.md     house prompt rules (P4/P6/A20)
 │       ├── 03-input-files.md        authenticity, distributed difficulty, leakage, packaging
-│       ├── 04-golden-solution.md    client-ready deliverables; formatting standards
-│       ├── 05-rubric.md             15–60 criteria; weights; rigid vs subjective; negatives
-│       ├── 06-metadata.md           metadata values; house notes on the submission form
-│       └── 07-pre-submission-audit.md   package sequence; one row per gate keyed to check ids
+│       ├── 04-golden-solution.md    the ground truth the rubric is built from
+│       ├── 05-rubric.md             6 minimum / 20+ expected; weights −5..+5; the closing row
+│       ├── 06-metadata.md           the form's fields: domain, occupation, times, tools
+│       └── 07-pre-submission-audit.md   package sequence, then the form's 14-box checklist
 │
-├── reviewer/                        ← reviewing other contributors' tasks
-│   ├── platform/                    ← AUTHORITATIVE captures (Reviewers' Hub)
-│   │   ├── reviewer-guidelines-v5.1.md   the review rule set and decision authority
-│   │   ├── reviewer-rubric.md            severity math: how LLM tells become a verdict
-│   │   ├── feedback-best-practices.md    the revision note standard
-│   │   ├── platform-review-form.md       the live review form, field by field
-│   │   └── task-example-omnichannel-routing.md  the golden-solution standard reviewers judge against
-│   └── workflow.md                  orientation only; the review procedure is prompts/review.md
+├── reviewer/                        ← INHERITED, unverified: Hazy offers no review tasks
+│   ├── platform/                        Geranium's Reviewers' Hub captures
+│   └── workflow.md                      orientation only
 │
-├── refinement/                      ← fixing a returned task (Hazy Refinery)
-│   ├── README.md                    the loop, and the rules that bite
-│   └── platform/                    ← AUTHORITATIVE captures (Refinery page, 2026-09-10)
-│       └── submission-guidelines.md     step-by-step submission guide
+├── refinement/                      ← INHERITED, unverified: Hazy has no Refinery node
+│   ├── README.md
+│   └── platform/submission-guidelines.md
 │
 ├── rules.md                         ← GENERATED from the check registry: one line per check id
 │
 └── reference/                       ← this repo's own corpora, not platform documents
-    ├── llm-prose-tells.md           prose classes the style guide lacks (feeds coded check A10)
-    ├── reviewer-feedback-corpus.md  verbatim reviewer notes, tasks 01–48
-    ├── workflow-history.md          dated build lessons relocated from workflows 01-07 (2026-09-11)
+    ├── llm-prose-tells.md           prose classes the style guide lacks (feeds check A10)
+    ├── reviewer-feedback-corpus.md  verbatim Geranium reviewer notes            [inherited]
+    ├── workflow-history.md          dated build lessons relocated from workflows 01-07
     ├── tools-refactor-plan.md       execution record of the 2026-09-04 gcheck refactor
     └── autoeval-check-catalog-archive.md   archived monolith docstring, superseded by rules.md
 ```
 
-Tool usage (the package sequence, the gate, the review harness) is documented in
-`../tools/README.md`, not here; `rules.md` is regenerated from `tools/gcheck/` and is the
-place to cite a check id from.
+## Reading order for a new task
 
-## Where to start
+1. `submission/platform/domains-and-occupations.md` — pick the occupation, then the domain.
+2. `submission/platform/onet-codes.md` — confirm the code. Eight are detail codes ending
+   `.01` to `.04`, and the four First-Line Supervisor rows are not Management.
+3. `submission/workflows/01-ideation.md` through `07-pre-submission-audit.md`.
+4. `submission/platform/platform-submission-form.md` — the 14-box checklist, before you
+   submit anything.
 
-### Submitting
+## What is generated, and from where
 
-| If you want to… | Read |
-| --- | --- |
-| Understand the program and the quality bar | `submission/platform/welcome.md`, then `project-guidelines-v5.1.md` |
-| See every gate a submission must clear | `submission/platform/task-lifecycle.md` |
-| Decide what to build | `submission/workflows/01-ideation.md` |
-| Check an idea for uniqueness | `submission/platform/wholesale-trade-uniqueness-map.md` |
-| Build prompt / inputs / golden / rubric / metadata | `submission/workflows/02`–`06` |
-| Screen files for LLM tells | `submission/platform/style-guide-llm-tells.md` |
-| Self-audit before submitting | `submission/workflows/07-pre-submission-audit.md` |
-| Read auto-eval feedback or rebut a flag | `submission/platform/auto-eval-feedback-guide.md` |
-
-### Reviewing
-
-| If you want to… | Read |
-| --- | --- |
-| Know what you are actually required to check | `reviewer/platform/reviewer-guidelines-v5.1.md` |
-| Convert LLM tells into a verdict | `reviewer/platform/reviewer-rubric.md` |
-| Write the revision note | `reviewer/platform/feedback-best-practices.md` |
-| Run a review end to end | **`/review-task <review-id>`** — `prompts/review.md` (+ `tools/review_check.py`); `reviewer/workflow.md` is orientation only |
-| Know exactly what the form asks for | `reviewer/platform/platform-review-form.md` |
-| See the standard a golden solution is judged against | `reviewer/platform/task-example-omnichannel-routing.md` |
-
-### Refining
-
-| If you want to… | Read |
-| --- | --- |
-| Run a refinement end to end | **`/refine-task <uid>`** — `prompts/refine-task.md`, `refinement/README.md` (+ `tools/fetch_refinement.py`) |
-| Know what the Refinery page requires, step by step | `refinement/platform/submission-guidelines.md` |
-| See the rules that most often trip a refinement | `refinement/README.md` |
-
-## Key facts
-
-**Authoring.** Rubric band 15–60 criteria (aim 15–25), per
-`submission/platform/project-guidelines-v5.1.md#rubric`. The difficulty rule (pass when the
-worst-agent accuracy is ≤ 80%) is stated in
-`submission/platform/auto-eval-feedback-guide.md#the-difficulty-check-accuracy-percentages`;
-cite it there rather than restating it. The golden solution check runs three agents and needs
-1.0000 from all three. LLM assistance
-on input files is permitted, provided the result is indistinguishable from a real workplace
-document, carries no style-guide tell, and never leaks the answer.
-
-**Review.** A reviewer spot-checks only 2–3 rubric criteria against the golden. The captures
-disagree on how many revision rounds an EC gets (one in reviewer-rubric.md, four in
-feedback-best-practices.md, five total reviews in task-lifecycle.md), so build as if the
-first review is the only one. Reviewers may fix small things themselves, but **input
-files are locked and can never be edited**, so every input defect routes to Needs Revision
-regardless of size. Bounded subjective criteria are explicitly valid and must not be sent
-back for being subjective.
+`rules.md` is regenerated from `tools/gcheck/` by `autoeval_check.py --rules` and is the
+place to cite a check id from. Regenerate it after any check or family change, or it will
+state a band the gate no longer enforces. Tool usage — the package sequence, the gate, the
+harnesses — is documented in `../tools/README.md`, not here.

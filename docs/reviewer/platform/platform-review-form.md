@@ -1,5 +1,10 @@
 # Platform Review Form — field-by-field reference
 
+> **Inherited from the Geranium desk, not confirmed for Hazy.** This document describes
+> Geranium's reviewer rules. Hazy offers no review assignments. It is kept for reference and was NOT updated in the 2026-09-21 port; treat
+> anything it says about sector, rubric bands or platform checks as Geranium's, not
+> this project's. See `../../RULE-DELTAS.md`.
+
 > Captured from the live review UI (August 2026 screenshot). This is the exact shape of
 > what you submit at the end of a review. Where this page adds detail the reviewer
 > guidelines do not state, this page wins — it reflects the running form.

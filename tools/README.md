@@ -1,5 +1,11 @@
 # Common task tooling
 
+> **Ported from Geranium 2026-09-21.** The gate changed with the project: R67's negative
+> allowlist was deleted, R11 and R12 were rebanded, M1-M3 were rewritten around Hazy's
+> closed domain/occupation lists, and M4-M6, R135 and R136 are new. `../docs/RULE-DELTAS.md`
+> is the record. `../docs/rules.md` is generated from this tree and must be regenerated
+> (`autoeval_check.py --rules`) after any check change.
+
 Generic, task-agnostic tools. Per-task build scripts are NOT kept in the repo —
 each task's data generators live and die with the session that built it; any
 later revision is applied by editing the delivered files directly.
@@ -33,7 +39,7 @@ symlink to it; recreate that symlink after moving to a new machine.
   command: the checks live in **gcheck/**, one registered function per check, grouped by
   the artifact under test and the platform report that judges it:
 
-      gcheck/prompt_inputs/   group 1  prompt_frame (P0-P7), occupation (M1-M3),
+      gcheck/prompt_inputs/   group 1  prompt_frame (P0-P7), occupation (M1-M6),
                                        input_quality (A7 A11 A12 A16 A18 G22 R23), uniqueness (U1 U2)
       gcheck/golden_rubric/   group 2  rubric_form (form, coverage, subsumption, atomicity),
                                        negatives (polarity, scope, the mirror family), landing,

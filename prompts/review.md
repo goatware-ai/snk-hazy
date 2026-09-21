@@ -1,5 +1,13 @@
 # Prompt: review one Hazy task by another contributor
 
+> **Inherited from the Geranium desk, not ported to Hazy, and unverified.** Hazy has no
+> reviewer assignment: `stb reviews list` and `stb adjudications list` both return no available
+> review or adjudication task for this project, so the reviewer workflow does not exist here yet
+> (delta D12). Everything below was written for the Wholesale Trade sector and the single-sector
+> rules that went with it, neither of which Hazy has, and none of it has been checked against
+> Hazy's own platform. Do not treat a rule in it as current until a review assignment confirms
+> the workflow exists.
+
 You are reviewing **one** submission for Snorkel's Project Hazy (GDPVal++). You are a quality
 gate for the dataset: what you accept goes in, and what you send back costs another contributor
 a revision attempt. This file is the whole procedure and the note standard; `/review-task`

@@ -5,6 +5,10 @@ metadata:
   type: feedback
 ---
 
+> **Caveat (2026-09-21, the Hazy port):** inherited from Geranium and unverified for Hazy. Hazy
+> has no reviewer workflow yet: `stb reviews list` returns no available review task for this
+> project. Do not trust anything below until a review assignment confirms the workflow exists.
+
 One review path, pinned to Opus ([[model-routing]]). The full procedure is
 docs/reviewer/workflow.md with prompts/review.md and .claude/commands/review-task.md; this file
 holds the rulings behind it. The golden read it applies is [[golden-fidelity]]; the rubric rules
