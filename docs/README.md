@@ -46,7 +46,8 @@ docs/
 │       ├── 04-golden-solution.md    the ground truth the rubric is built from
 │       ├── 05-rubric.md             6 minimum / 20+ expected; weights −5..+5; the closing row
 │       ├── 06-metadata.md           the form's fields: domain, occupation, times, tools
-│       └── 07-pre-submission-audit.md   package sequence, then the form's 14-box checklist
+│       ├── 07-pre-submission-audit.md   package sequence, then the form's 14-box checklist
+│       └── 08-form-payload-and-submit.md the payload schema, filling the form, submitting
 │
 ├── rules.md                         ← GENERATED from the check registry: one line per check id
 │
@@ -59,11 +60,15 @@ docs/
 1. `submission/platform/domains-and-occupations.md` — pick the occupation, then the domain.
 2. `submission/platform/onet-codes.md` — confirm the code. Eight are detail codes ending
    `.01` to `.04`, and the four First-Line Supervisor rows are not Management.
-3. `submission/workflows/01-ideation.md` through `07-pre-submission-audit.md`.
+3. `submission/workflows/01-ideation.md` through `08-form-payload-and-submit.md`.
 4. `submission/platform/platform-submission-form.md` — the 14-box checklist, before you
    submit anything.
 
 ## What is generated, and from where
+
+`form-payload.json` is generated per task by `tools/form_payload.py` from that task's own
+metadata, prompt, rubric and folders. It is what the Hazy Helper extension fills the form
+from; its schema is in `submission/workflows/08-form-payload-and-submit.md`.
 
 `rules.md` is regenerated from `tools/gcheck/` by `autoeval_check.py --rules` and is the
 place to cite a check id from. Regenerate it after any check or family change, or it will

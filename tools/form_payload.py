@@ -6,11 +6,12 @@
 
 Reads the folder's own artifacts and writes the JSON the extension fills the form from:
 
-    metadata.json   domain, occupation, the five time values, the tools list
-    instruction.md       the task instruction, verbatim
+    form-lists.md   the two file lists, the five times, the tools, domain and occupation
+    instruction.md  the task instruction, verbatim
     rubric-*.csv    one criterion per rubric row, with its weight
-    inputs/         the Input File List, one entry per file
-    solution/       the Output File List, one entry per deliverable
+    metadata.json   a fallback for anything form-lists.md does not carry
+    inputs/         checked against the Input File List, both directions
+    solution/       checked against the Output File List, both directions
 
 The form wants each input listed as "name - what it contains", so for every input file this
 looks through instruction.md for the sentence that names it and offers that as the gloss. The
@@ -123,64 +124,227 @@ def rubric_from(folder: Path, report: list[str]) -> list[dict]:
     return rows
 
 
+def read_form_lists(folder: Path, report: list[str]) -> dict:
+    """Parse form-lists.md, the hand-written entries for the form.
+
+    This is the authoritative source and the reason the generator does not have to infer
+    anything. Someone wrote each Input File List entry as the form wants it - the exact
+    file name, a hyphen, then what the file contains - and recorded the times, tools,
+    domain and occupation in two small tables. Deriving those from the instruction and the
+    metadata is a fallback for a folder that has no form-lists.md, not the main path.
+
+    Returns only what it finds; every key is optional.
+    """
+    path = folder / "form-lists.md"
+    if not path.exists():
+        report.append("no form-lists.md; falling back to metadata.json and instruction.md")
+        return {}
+
+    text = path.read_text(encoding="utf-8")
+    out: dict = {}
+
+    # Sections are "## <name>" and run to the next "## ".
+    sections: dict[str, str] = {}
+    for m in re.finditer(r"^##\s+(.+?)\s*$(.*?)(?=^##\s|\Z)", text, re.M | re.S):
+        sections[m.group(1).strip().lower()] = m.group(2)
+
+    def bullets(name: str) -> list[str]:
+        body = sections.get(name, "")
+        return [
+            re.sub(r"\s+", " ", b.group(1)).strip()
+            for b in re.finditer(r"^\s*[-*]\s+(.+?)\s*$", body, re.M)
+        ]
+
+    def table(name: str) -> dict[str, str]:
+        body = sections.get(name, "")
+        rows = {}
+        for r in re.finditer(r"^\|([^|\n]+)\|([^|\n]+)\|\s*$", body, re.M):
+            k, v = r.group(1).strip(), r.group(2).strip()
+            if not k or set(k) <= set("-: ") or k.lower() == "form field":
+                continue
+            rows[k.lower()] = v
+        return rows
+
+    ins = bullets("input file list")
+    outs = bullets("output file list")
+    if ins:
+        out["input_files"] = ins
+    if outs:
+        out["output_files"] = outs
+
+    tt = table("times and tools")
+    times = {}
+    for key, pat in (
+        ("read", r"read and understand"),
+        ("files", r"open, ?skim"),
+        ("work", r"perform the required work"),
+        ("qa", r"verification"),
+        ("total_hours", r"total time"),
+    ):
+        for k, v in tt.items():
+            if re.search(pat, k, re.I):
+                num = re.search(r"-?\d+(?:\.\d+)?", v)
+                if num:
+                    f = float(num.group(0))
+                    times[key] = int(f) if f == int(f) and key != "total_hours" else f
+                break
+    if times:
+        out["times"] = times
+
+    for k, v in tt.items():
+        if k.startswith("tool"):
+            # "Microsoft Excel; Microsoft Word" -> one entry per tool
+            out["tools"] = [t.strip() for t in re.split(r"[;,]", v) if t.strip()]
+            break
+
+    dom = table("domain and occupation")
+    for k, v in dom.items():
+        if k.startswith("domain"):
+            out["domain"] = v
+        elif k.startswith("occupation"):
+            out["occupation"] = v
+        elif "code" in k:
+            out["occupation_code"] = v
+    return out
+
+
+def cross_check(listed: list[str], folder: Path, label: str, report: list[str]) -> None:
+    """Compare the names in a form list against the files actually on disk.
+
+    The form calls a mismatch here one of the most common reasons a submission is sent
+    back, and it is invisible until the platform rejects it, so it is worth its own check.
+    """
+    if not folder.is_dir():
+        return
+    on_disk = set(listing(folder))
+    named = set()
+    for entry in listed:
+        m = re.match(r"\s*([^\s\-]+(?:\.[A-Za-z0-9]+))", entry)
+        if m:
+            named.add(m.group(1))
+    for missing in sorted(on_disk - named):
+        report.append(f"{label}: {missing} is in {folder.name}/ but not in form-lists.md")
+    for extra in sorted(named - on_disk):
+        report.append(f"{label}: form-lists.md names {extra}, which is not in {folder.name}/")
+
+
+
 def build(folder: Path) -> tuple[dict, list[str]]:
     report: list[str] = []
     meta = load_json(folder / "metadata.json")
-    if not meta:
-        report.append("no metadata.json; domain, occupation, times and tools are empty")
+    fl = read_form_lists(folder, report)
 
     prompt_path = folder / "instruction.md"
     prompt = prompt_path.read_text(encoding="utf-8").strip() if prompt_path.exists() else ""
     if not prompt:
         report.append("no instruction.md; task instruction is empty")
-    sents = sentences(prompt)
 
-    inputs = []
-    names = listing(folder / "inputs")
-    for name in names:
-        g = gloss_for(name, sents, names)
-        if g:
-            inputs.append(f"{name} - {g}")
-        else:
-            inputs.append(name)
-            report.append(
-                f"inputs/{name}: the prompt lists it but never describes it on its own; "
-                "entry is the bare filename, add the description by hand"
-            )
-    if not inputs:
-        report.append("inputs/ is empty or missing")
-
-    outputs = listing(folder / "solution")
-    if not outputs:
-        report.append("solution/ is empty or missing; output file list is empty")
-
-    times = {}
-    for key, mkey in TIME_KEYS:
-        if meta.get(mkey) is not None:
-            times[key] = meta[mkey]
-        else:
-            report.append(f"metadata has no {mkey}")
-    if meta.get("total_time_hours") is not None:
-        times["total_hours"] = meta["total_time_hours"]
+    # --- the two file lists ------------------------------------------------
+    # form-lists.md is hand-written for the form and wins. Only when it has no list does
+    # the generator fall back to naming the files and hunting the instruction for a
+    # sentence that describes each one.
+    if fl.get("input_files"):
+        inputs = fl["input_files"]
+        cross_check(inputs, folder / "inputs", "input", report)
     else:
-        report.append("metadata has no total_time_hours")
+        sents = sentences(prompt)
+        names = listing(folder / "inputs")
+        inputs = []
+        for name in names:
+            g = gloss_for(name, sents, names)
+            if g:
+                inputs.append(f"{name} - {g}")
+            else:
+                inputs.append(name)
+                report.append(
+                    f"inputs/{name}: no description; form-lists.md has no Input File List "
+                    "and the instruction never describes this file on its own"
+                )
+    if not inputs:
+        report.append("no input files")
 
+    if fl.get("output_files"):
+        outputs = fl["output_files"]
+        cross_check(outputs, folder / "solution", "output", report)
+    else:
+        outputs = listing(folder / "solution")
+        if not outputs:
+            report.append("solution/ is empty or missing; output file list is empty")
+
+    # --- times -------------------------------------------------------------
+    times = dict(fl.get("times") or {})
+    for key, mkey in TIME_KEYS:
+        if key not in times:
+            if meta.get(mkey) is not None:
+                times[key] = meta[mkey]
+            else:
+                report.append(f"no {key} time (form-lists.md or metadata {mkey})")
+    if "total_hours" not in times:
+        if meta.get("total_time_hours") is not None:
+            times["total_hours"] = meta["total_time_hours"]
+        else:
+            report.append("no total time (form-lists.md or metadata total_time_hours)")
+
+    # The form's five time fields carry maxlength="5". A browser truncates a longer value
+    # silently, so a total like 10.255 becomes 10.25 with no warning and the arithmetic the
+    # form checks no longer holds. The gate does not know about this cap because it is a
+    # property of the form, not of the task, so it is caught here.
+    for key, v in list(times.items()):
+        if len(str(v)) > 5:
+            report.append(
+                f"times.{key} is {v!r}, {len(str(v))} characters; the form's field caps at 5 "
+                "and truncates the rest without saying so. Round it"
+            )
+
+    mins = [times.get(k) for k, _ in TIME_KEYS]
+    if all(isinstance(m, (int, float)) for m in mins) and isinstance(
+        times.get("total_hours"), (int, float)
+    ):
+        floor = sum(mins) / 60
+        if times["total_hours"] + 1e-9 < floor:
+            report.append(
+                f"total {times['total_hours']}h is below the four parts "
+                f"({sum(mins)} min = {floor:.2f}h); the form requires at least their sum"
+            )
+
+    # --- identity and tools ------------------------------------------------
     occ = meta.get("onet_occupation") or {}
     payload = {
-        "domain": meta.get("domain", ""),
-        "occupation": occ.get("title", ""),
-        "occupation_code": occ.get("code", ""),
+        "domain": fl.get("domain") or meta.get("domain", ""),
+        "occupation": fl.get("occupation") or occ.get("title", ""),
+        "occupation_code": fl.get("occupation_code") or occ.get("code", ""),
         "task_instruction": prompt,
         "input_files": inputs,
         "output_files": outputs,
         "times": times,
-        "tools": list(meta.get("tools") or []),
+        "tools": fl.get("tools") or list(meta.get("tools") or []),
         "rubric": rubric_from(folder, report),
     }
+
+    # form-lists.md and metadata.json are written separately, so they can disagree.
+    for key, mine in (("domain", meta.get("domain")),
+                      ("occupation", occ.get("title")),
+                      ("occupation_code", occ.get("code"))):
+        if fl.get(key) and mine and fl[key] != mine:
+            report.append(
+                f"{key}: form-lists.md says {fl[key]!r}, metadata.json says {mine!r}; "
+                "the form gets form-lists.md"
+            )
+
     if not payload["tools"]:
-        report.append("metadata has no tools; the form requires at least one non-AI tool")
+        report.append("no tools; the form requires at least one non-AI tool")
     if not payload["domain"] or not payload["occupation"]:
         report.append("domain or occupation missing; section 1 cannot be filled")
+
+    # Rows are typed onto the form in array order, and the form requires the general
+    # formatting-and-style criterion to be the last one. R135 gates this too; it is
+    # repeated here because this file is what actually gets typed.
+    r = payload["rubric"]
+    if r and not re.search(r"overall\b[^.]{0,40}\b(formatting|style)", r[-1]["description"], re.I):
+        report.append(
+            "the last criterion is not the general formatting-and-style line; rows are "
+            "written in this order, so reorder the CSV before filling"
+        )
     return payload, report
 
 

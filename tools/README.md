@@ -122,12 +122,16 @@ symlink to it; recreate that symlink after moving to a new machine.
   check flags these HIGH. Run `scan` on every xlsx (inputs AND solution)
   immediately before every zip build.
 - **form_payload.py** `<task-folder> [-o out.json] [--stdout]` — builds the submission
-    form's payload from a task folder: domain and occupation and the five time values from
+    form's payload from a task folder (schema and the filling runbook:
+    `../docs/submission/workflows/08-form-payload-and-submit.md`): domain and occupation and the five time values from
     `metadata.json`, the instruction from `instruction.md`, the criteria from `rubric-*.csv`, and
     the two file lists from `inputs/` and `solution/`. For each input it looks for the
     sentence in the prompt that describes that file alone; a sentence naming several inputs
     is a file list, not a description, so it is rejected and the entry is left bare and
-    reported. Uploads are not in the payload and never can be.
+    reported. It also catches two things the gate cannot: a time value too long for the
+    form's five-character fields, which a browser truncates in silence, and a rubric whose
+    last row is not the formatting-and-style criterion, since rows are typed in array
+    order. Uploads are not in the payload and never can be.
 
 - **hazy-helper/** — the Chrome extension that fills the form from that payload. Load it
     unpacked from `chrome://extensions`. Only its rubric selectors are verified against a

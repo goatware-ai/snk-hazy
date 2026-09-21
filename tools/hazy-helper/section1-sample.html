@@ -1,0 +1,125 @@
+<!-- Section 1 as the live form renders it, reduced to the structure page.js relies on.
+     Every attribute shape here is copied from a capture of the real page: the panel's
+     role="region" and bare data-open, the two field containers, the per-option
+     data-testid="radio-option-container-<exact label>", and the fact that the element you
+     can actually click is the button[role=radio] - the <input type=radio> beside it is
+     aria-hidden and clipped out of the layout.
+
+     Note the panel does NOT carry the section's data-testid; the section wrapper does, and
+     the panel sits inside it. Scoping has to survive that.
+
+     The occupation list is trimmed to nine entries. The domain list is complete, because
+     its slugs are what prove the value rule: "Healthcare Practitioners / Support" collapses
+     a slash-with-spaces to one underscore, and "Installation, Maintenance, and Repair"
+     collapses a comma-space the same way. -->
+<div data-testid="section-Select the Domain and Sector" data-open="">
+  <button aria-expanded="true" id="base-ui-_r_2h5_">Select the Domain and Sector</button>
+  <div data-orientation="vertical" data-index="0" data-open="" id="base-ui-_r_2h4_"
+       aria-labelledby="base-ui-_r_2h5_" role="region">
+    <div class="pb-md"><div class="text-base-normal"><p></p></div>
+    <div class="flex flex-col gap-8">
+<div data-testid="field-radio-domain" class="rounded-md py-4">
+<div class="group flex"><div class="text-base-semibold"><label for="radio-domain"><div>Domain</div></label></div></div>
+<div class="text-base-normal"><p>Please select one based on your area of expertise</p></div>
+<div class="my-12"><div data-required="" role="radiogroup" aria-required="true" aria-orientation="vertical">
+<span class="block"><label data-testid="radio-option-container-Architecture and Engineering">
+<div><button type="button" value="architecture_and_engineering" data-required="" data-checked="" tabindex="0" role="radio" aria-checked="true" id="_r_domain0_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="architecture_and_engineering" checked="" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Architecture and Engineering</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Building and Grounds Cleaning and Maintenance">
+<div><button type="button" value="building_and_grounds_cleaning_and_maintenance" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain1_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="building_and_grounds_cleaning_and_maintenance" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Building and Grounds Cleaning and Maintenance</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Community and Social Service">
+<div><button type="button" value="community_and_social_service" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain2_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="community_and_social_service" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Community and Social Service</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Educational Instruction and Library">
+<div><button type="button" value="educational_instruction_and_library" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain3_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="educational_instruction_and_library" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Educational Instruction and Library</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Food Preparation and Serving">
+<div><button type="button" value="food_preparation_and_serving" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain4_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="food_preparation_and_serving" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Food Preparation and Serving</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Healthcare Practitioners / Support">
+<div><button type="button" value="healthcare_practitioners_support" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain5_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="healthcare_practitioners_support" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Healthcare Practitioners / Support</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Healthcare Practitioners and Technical">
+<div><button type="button" value="healthcare_practitioners_and_technical" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain6_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="healthcare_practitioners_and_technical" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Healthcare Practitioners and Technical</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Healthcare Support">
+<div><button type="button" value="healthcare_support" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain7_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="healthcare_support" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Healthcare Support</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Installation, Maintenance, and Repair">
+<div><button type="button" value="installation_maintenance_and_repair" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain8_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="installation_maintenance_and_repair" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Installation, Maintenance, and Repair</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Legal">
+<div><button type="button" value="legal" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain9_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="legal" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Legal</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Life, Physical, and Social Science">
+<div><button type="button" value="life_physical_and_social_science" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain10_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="life_physical_and_social_science" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Life, Physical, and Social Science</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Management">
+<div><button type="button" value="management" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain11_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="management" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Management</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Production">
+<div><button type="button" value="production" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain12_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="production" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Production</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Transportation and Material Moving">
+<div><button type="button" value="transportation_and_material_moving" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_domain13_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="transportation_and_material_moving" name="radio-domain" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Transportation and Material Moving</div></div></label></span>
+</div></div></div>
+<div data-testid="field-radio-occupation" class="rounded-md py-4">
+<div class="group flex"><div class="text-base-semibold"><label for="radio-occupation"><div>Occupation</div></label></div></div>
+<div class="text-base-normal"><p>Please select one based on your area of expertise</p></div>
+<div class="my-12"><div data-required="" role="radiogroup" aria-required="true" aria-orientation="vertical">
+<span class="block"><label data-testid="radio-option-container-Arbitrators, Mediators, and Conciliators">
+<div><button type="button" value="arbitrators_mediators_and_conciliators" data-required="" data-unchecked="" tabindex="0" role="radio" aria-checked="false" id="_r_occupation0_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="arbitrators_mediators_and_conciliators" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Arbitrators, Mediators, and Conciliators</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Architectural and Engineering Managers">
+<div><button type="button" value="architectural_and_engineering_managers" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation1_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="architectural_and_engineering_managers" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Architectural and Engineering Managers</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Atmospheric and Space Scientists">
+<div><button type="button" value="atmospheric_and_space_scientists" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation2_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="atmospheric_and_space_scientists" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Atmospheric and Space Scientists</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Biochemists and Biophysicists">
+<div><button type="button" value="biochemists_and_biophysicists" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation3_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="biochemists_and_biophysicists" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Biochemists and Biophysicists</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Biofuels/Biodiesel Technology and Product Development Managers">
+<div><button type="button" value="biofuels_biodiesel_technology_and_product_development_managers" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation4_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="biofuels_biodiesel_technology_and_product_development_managers" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Biofuels/Biodiesel Technology and Product Development Managers</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Bioinformatics Scientists">
+<div><button type="button" value="bioinformatics_scientists" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation5_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="bioinformatics_scientists" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Bioinformatics Scientists</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Civil Engineering Technologists and Technicians">
+<div><button type="button" value="civil_engineering_technologists_and_technicians" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation6_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="civil_engineering_technologists_and_technicians" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Civil Engineering Technologists and Technicians</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Purchasing Managers">
+<div><button type="button" value="purchasing_managers" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation7_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="purchasing_managers" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Purchasing Managers</div></div></label></span>
+<span class="block"><label data-testid="radio-option-container-Transportation, Storage, and Distribution Managers">
+<div><button type="button" value="transportation_storage_and_distribution_managers" data-required="" data-unchecked="" tabindex="-1" role="radio" aria-checked="false" id="_r_occupation8_">.</button>
+<input tabindex="-1" aria-hidden="true" required="" type="radio" value="transportation_storage_and_distribution_managers" name="radio-occupation" style="clip-path: inset(50%); position: absolute;"></div>
+<div><div>Transportation, Storage, and Distribution Managers</div></div></label></span>
+</div></div></div>
+    </div></div>
+  </div>
+</div>

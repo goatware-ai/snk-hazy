@@ -204,4 +204,13 @@ The form states fourteen boxes and the capture reproduces fourteen. Read the liv
 before checking anything off, and add the missing box to the capture if it appears; do not
 assume this table is complete.
 
-When every row and every box passes: submit.
+When every row and every box passes, build the form payload and fill the form:
+[08-form-payload-and-submit.md](08-form-payload-and-submit.md).
+
+```bash
+.venv/bin/python tools/form_payload.py drafts/NN-task-name
+```
+
+Its report is the last gate. Anything it says it could not source is a hole in the package,
+not a quirk of the generator: an input with no description, a missing time value, an empty
+tools list. Fix those here rather than typing around them on the form.

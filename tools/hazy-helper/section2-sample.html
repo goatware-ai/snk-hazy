@@ -1,0 +1,101 @@
+<!-- Section 2 (MetaData) as the live form renders it, reduced to the structure page.js
+     relies on. Every attribute here is copied from a capture of the real page.
+
+     The important thing this fixture records is the state the section is in when you
+     ARRIVE at it: the Input File List repeatable has NO rows. There is an empty container
+     where rows will go, and an "Add Another Input File" button, and nothing else. Any
+     logic that finds the repeatable by looking for an existing row finds nothing and gives
+     up before writing anything, which is exactly the bug this fixture exists to catch.
+
+     Also recorded: the file uploader is a real <input type="file"> and must be skipped, and
+     the two "Show criteria" buttons are dialog triggers that share a data-testid with each
+     other, so a button search inside this section has to be specific. -->
+<div data-testid="section-MetaData" data-open="">
+  <button aria-expanded="true" id="base-ui-_r_2h8_">MetaData</button>
+  <div data-orientation="vertical" data-index="1" data-open="" id="base-ui-_r_2h7_"
+       aria-labelledby="base-ui-_r_2h8_" role="region">
+    <div class="pb-md">
+      <div class="flex flex-col gap-8">
+
+        <!-- Task Instruction -->
+        <div data-testid="field-task-prompt" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="task-prompt"><div>Task Instruction</div></label></div>
+            <div class="ml-auto flex items-center gap-8">
+              <button type="button" data-testid="show-evaluators-button" aria-haspopup="dialog"
+                      aria-expanded="false" id="base-ui-_r_3qf_">Show criteria</button>
+            </div>
+          </div>
+          <div class="text-base-normal"><p>Below, please write the instructions for a task in your selected domain above.</p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="task-prompt" dir="auto" rows="6" required=""
+                placeholder="e.g. &quot;You are the [role] at [company]. [What's prompting this task today]. Using the attached [file name], which contains [what it contains]..., produce a [file format] that [what it should show/recommend], no more than [length/structure limit].&quot;"
+                autocomplete="off" data-form-type="other"></textarea>
+            </div>
+          </div></div></div>
+        </div>
+
+        <!-- Input File List: a repeatable with NO rows yet -->
+        <div data-testid="field-repeatabletextarea-input_file_list" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="repeatabletextarea-input_file_list"><div>Input File List</div></label></div>
+            <div class="ml-auto flex items-center gap-8">
+              <button type="button" data-testid="show-evaluators-button" aria-haspopup="dialog"
+                      aria-expanded="false" id="base-ui-_r_3qj_">Show criteria</button>
+            </div>
+          </div>
+          <div class="text-base-normal"><ul>
+            <li>List each input file you're providing, using the exact file name it will have when uploaded below.</li>
+            <li>Start each entry with the file name, then a dash, then briefly note what it contains.</li>
+          </ul></div>
+          <div class="my-12">
+            <div class="border-strong flex flex-col gap-8 border-l-2 pl-[15px]">
+              <div class="flex flex-col"></div>
+              <div class="flex flex-col gap-8 py-24">
+                <div class="text-base-semibold">File</div>
+                <div class="text-base-normal">e.g. "Q3_Regional_Sales.xlsx — monthly sales by region, includes conflicting totals between the summary tab and the raw data tab"</div>
+                <div><button type="button">Add Another Input File</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- File uploader: never touched -->
+        <div data-testid="field-s3fileuploader-file_uploader" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="s3fileuploader-file_uploader"><div>File Uploader</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>Compress all of your input files into a single ZIP before uploading here.</p></div>
+          <div class="my-12"><div class="space-y-16">
+            <div class="flex items-center gap-8"><label class="text-color-primary text-sm-medium">File Uploader *</label></div>
+            <div data-testid="s3-upload-drop-zone" role="button" tabindex="0" aria-disabled="false">
+              <input class="hidden" accept=".mp3,.m4a,.aac,.wav,.zip,.tar.gz" type="file">
+              <div class="space-y-12"><div><div class="text-lg-medium">Upload file</div>
+              <div class="text-sm-normal">Drag and drop or click to select</div></div></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- Advisory checks panel -->
+        <div data-testid="field-feedbackbutton-task_instructions_quality_checks" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="feedbackbutton-task_instructions_quality_checks"><div>Task Instruction Checks (optional)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>This feedback is advisory and does not submit or block anything.</p></div>
+          <div class="my-12"><div class="space-y-16">
+            <div class="flex items-center justify-center"><button type="button" disabled="">Check feedback</button></div>
+            <div class="flex items-center justify-center"><div class="text-sm-normal">Complete required fields first: Task Instruction, File Uploader</div></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="border-default flex w-full items-center justify-between py-20">
+        <div><button type="button">Previous section</button></div>
+        <div class="flex flex-col items-end gap-8"><div>
+          <button type="button">Run Evaluations and Continue</button>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>

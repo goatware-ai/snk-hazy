@@ -1,0 +1,113 @@
+<!-- Section 4 (Task Rubrics) in its ARRIVAL state, copied from a capture of the real
+     page. rubric-sample.html holds the same section after every row has been expanded;
+     this one holds what you actually get when you open the form, and the difference is
+     the whole point of the file.
+
+     Three rubric rows exist. ONLY THE FIRST is open. Rows 2 and 3 carry data-hidden and
+     data-closed, and their panels are not in the DOM at all: no description textarea, no
+     weight input, just a header button. So counting rows by "instances that contain a
+     description field" returns 1, not 3. Anything that then tops the list up to the
+     criterion count adds a full set of new rows on top of the three already present.
+
+     Rows must be counted by their instance containers, which exist whether or not the row
+     is expanded, and the fields read only after expanding. -->
+<div data-testid="section-Task Rubrics" data-open="">
+  <button aria-expanded="true" id="base-ui-_r_2hk_">Task Rubrics</button>
+  <div data-orientation="vertical" data-index="3" data-open="" id="base-ui-_r_2hj_"
+       aria-labelledby="base-ui-_r_2hk_" role="region">
+    <div class="pb-md">
+      <div class="text-base-normal"><p>List your criteria one by one. Weight -5 to +5. End with a general "Overall formatting and style of the deliverable" line.</p></div>
+      <div class="flex flex-col gap-8"><div class="flex flex-col gap-8">
+      <div class="my-20 flex flex-col gap-20" data-testid="repeatable-repeatable-bfbf1">
+        <div data-orientation="vertical">
+
+        <!-- Row 1: open, fields rendered -->
+        <div data-orientation="vertical" data-index="0" data-open=""
+             data-testid="repeatable-repeatable-bfbf1-instance-0" class="group/accordion-item">
+          <div class="group gap-sm flex items-center w-full px-sm">
+            <h3 data-orientation="vertical" data-index="0" data-open="" class="flex min-w-0 flex-1">
+              <button type="button" data-value="0" data-orientation="vertical" data-panel-open=""
+                      tabindex="0" aria-disabled="false" aria-controls="base-ui-_r_3r5_"
+                      aria-expanded="true" id="base-ui-_r_3r6_" class="group gap-sm relative flex">
+                <span class="text-sm-normal text-color-primary min-w-0 flex-1"><span class="text-lg-medium">Rubric 1</span></span>
+              </button>
+            </h3>
+          </div>
+          <div data-orientation="vertical" data-index="0" data-open="" id="base-ui-_r_3r5_"
+               aria-labelledby="base-ui-_r_3r6_" role="region">
+            <div class="pb-md"><div class="mt-12"><div class="flex flex-col gap-8">
+              <div data-testid="field-textarea-rubric_description" class="rounded-md py-4">
+                <div class="group flex flex-row justify-between">
+                  <div class="text-base-semibold"><label for="textarea-rubric_description"><div>Rubric Description (optional)</div></label></div>
+                </div>
+                <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+                  <div class="flex w-full rounded-sm border bg-field p-sm">
+                    <textarea id="textarea-rubric_description" dir="auto" rows="6"
+                              placeholder="Input field text" autocomplete="off"></textarea>
+                  </div>
+                </div></div></div>
+              </div>
+              <div data-testid="field-numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable" class="rounded-md py-4">
+                <div class="group flex flex-row justify-between">
+                  <div class="text-base-semibold"><label for="numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable"><div>Add a criteria weight -5 to +5 based on how central the item is to a correct deliverable. (optional)</div></label></div>
+                </div>
+                <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="gap-xs flex w-full flex-col">
+                  <div class="flex w-full rounded-sm border bg-field h-32 items-center px-sm">
+                    <input id="numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable"
+                           autocomplete="off" min="-5" max="5" type="number" value="">
+                  </div>
+                </div></div></div>
+              </div>
+            </div></div></div>
+          </div>
+        </div>
+
+        <div data-orientation="vertical" data-hidden="" data-index="1" data-closed=""
+             data-testid="repeatable-repeatable-bfbf1-instance-1" class="group/accordion-item">
+          <div class="group gap-sm flex items-center w-full px-sm">
+            <h3 data-orientation="vertical" data-hidden="" data-index="1" data-closed="" class="flex min-w-0 flex-1">
+              <button type="button" data-value="0" data-orientation="vertical" data-hidden=""
+                      data-index="1" tabindex="0" aria-disabled="false" aria-expanded="false"
+                      id="base-ui-_r_3rb_" class="group gap-sm relative flex cursor-pointer items-center">
+                <span class="text-sm-normal text-color-primary min-w-0 flex-1"><span class="text-lg-medium">Rubric 2</span></span>
+              </button>
+            </h3>
+          </div>
+        </div>
+
+        <div data-orientation="vertical" data-hidden="" data-index="2" data-closed=""
+             data-testid="repeatable-repeatable-bfbf1-instance-2" class="group/accordion-item">
+          <div class="group gap-sm flex items-center w-full px-sm">
+            <h3 data-orientation="vertical" data-hidden="" data-index="2" data-closed="" class="flex min-w-0 flex-1">
+              <button type="button" data-value="0" data-orientation="vertical" data-hidden=""
+                      data-index="2" tabindex="0" aria-disabled="false" aria-expanded="false"
+                      id="base-ui-_r_3re_" class="group gap-sm relative flex cursor-pointer items-center">
+                <span class="text-sm-normal text-color-primary min-w-0 flex-1"><span class="text-lg-medium">Rubric 3</span></span>
+              </button>
+            </h3>
+          </div>
+        </div>
+
+        </div>
+        <div class="flex flex-col gap-8 py-24 pl-24">
+          <div class="text-base-semibold">Click Here To Add A New Rubric</div>
+          <div><button type="button">Add a New Rubric</button></div>
+        </div>
+      </div>
+      </div></div>
+
+      <div data-testid="field-feedbackbutton-rubric_checks" class="rounded-md py-4">
+        <div class="group flex flex-row justify-between">
+          <div class="text-base-semibold"><label for="feedbackbutton-rubric_checks"><div>Task Rubric Checks (optional)</div></label></div>
+        </div>
+        <div class="text-base-normal"><p>This feedback is advisory and does not submit or block anything.</p></div>
+        <div class="my-12"><div class="flex items-center justify-center"><button type="button">Check feedback</button></div></div>
+      </div>
+
+      <div class="border-default flex w-full items-center justify-between py-20">
+        <div><button type="button">Previous section</button></div>
+        <div><button type="button">Run Evaluations and Continue</button></div>
+      </div>
+    </div>
+  </div>
+</div>

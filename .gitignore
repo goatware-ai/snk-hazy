@@ -5,3 +5,5 @@ __pycache__/
 scheduled_task.lock
 history.jsonl
 /drafts/
+# regenerated from the task folder by tools/form_payload.py; never edited by hand
+form-payload.json

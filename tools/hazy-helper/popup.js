@@ -15,8 +15,41 @@
 
   // ------------------------------------------------------------- payload io
 
+  // What is in the payload right now, in one line. The popup restores the last payload
+  // from browser storage, so without this a stale one looks identical to a fresh one -
+  // which is exactly how a regenerated file gets ignored in favour of the copy loaded
+  // before it.
+  function summarise(raw, where) {
+    let p;
+    try {
+      p = JSON.parse(raw);
+    } catch (e) {
+      return `<span class="bad">${where}: not valid JSON</span>`;
+    }
+    const ins = p.input_files || [];
+    const described = ins.filter((e) => / - | \u2014 /.test(e)).length;
+    const bits = [
+      `${ins.length} input${ins.length === 1 ? "" : "s"}`,
+      `${(p.output_files || []).length} output`,
+      `${(p.rubric || []).length} criteria`,
+      `${(p.tools || []).length} tool${(p.tools || []).length === 1 ? "" : "s"}`,
+    ];
+    let line = `<span class="ok">${where}</span> ${esc(p.occupation || "no occupation")} | ${bits.join(" | ")}`;
+    if (ins.length && described < ins.length) {
+      line +=
+        `\n<span class="bad">${ins.length - described} input(s) are a bare file name with no ` +
+        `description.</span> The form wants "name - what it contains". If you regenerated ` +
+        `form-payload.json, press Load JSON again: the box above still holds the copy you ` +
+        `loaded last, not the file on disk.`;
+    }
+    return line;
+  }
+
   chrome.storage.local.get("payload").then((r) => {
-    if (r.payload) ta.value = r.payload;
+    if (r.payload) {
+      ta.value = r.payload;
+      show(summarise(r.payload, "Restored from last time:"));
+    }
   });
   let saveTimer;
   ta.addEventListener("input", () => {
@@ -51,7 +84,7 @@
     if (!f) return;
     ta.value = await f.text();
     chrome.storage.local.set({ payload: ta.value });
-    show(`Loaded ${esc(f.name)}.`);
+    show(summarise(ta.value, `Loaded ${f.name}:`));
     e.target.value = "";
   });
 
@@ -160,9 +193,18 @@
       if (s.written === true) bits.push(`written${s.chars ? ` (${s.chars} chars)` : ""}`);
       else if (typeof s.written === "number") bits.push(`${s.written}/${s.wanted} written`);
       if (s.rows !== undefined) bits.push(`${s.rows} row(s) on form`);
-      if (s.domain) bits.push(`domain: ${s.domain}`);
-      if (s.occupation) bits.push(`occupation: ${s.occupation}`);
-      if (s.ticked !== undefined) bits.push(`${s.ticked} of ${s.boxes} ticked`);
+      if (s.added) bits.push(`${s.added} added`);
+      if (s.selected) {
+        bits.push(`domain: ${s.selected.domain || "none"}`);
+        bits.push(`occupation: ${s.selected.occupation || "none"}`);
+      } else {
+        if (s.domain) bits.push(`domain: ${s.domain}`);
+        if (s.occupation) bits.push(`occupation: ${s.occupation}`);
+      }
+      if (s.ticked !== undefined) {
+        bits.push(`${s.ticked} newly ticked of ${s.boxes}`);
+        if (s.remaining) bits.push(`${s.remaining} still off`);
+      }
       const bad = (s.problems || []).length;
       problems += bad;
       lines.push(
@@ -184,10 +226,39 @@
     const s = r.scan || {};
     const L = [];
     L.push(`<span class="ok">Scanned</span> ${esc(s.title || "")}`);
+    if (s.sectionStates) {
+      L.push("\nSections:");
+      for (const [name, state] of Object.entries(s.sectionStates)) {
+        const cls = state === "open" ? "ok" : "bad";
+        L.push(`  <span class="${cls}">${esc(state)}</span>  ${esc(name)}`);
+      }
+    }
     L.push(
       `radios ${s.radios}  checkboxes ${s.checkboxes} (${s.checkboxesTicked} ticked)  ` +
         `rubric rows ${s.rubricRows}  file inputs ${s.fileInputs}`
     );
+    for (const r of s.repeatables || []) {
+      if (!r.found) {
+        L.push(`\n<span class="bad">${esc(r.key)}: field not found</span>`);
+        continue;
+      }
+      L.push(`\n${esc(r.key)}: ${r.slots} editable slot(s)`);
+      if (r.markers && r.markers.length) L.push(`  rows: ${esc(r.markers.join(", "))}`);
+      if (r.buttons && r.buttons.length) L.push(`  buttons: ${esc(r.buttons.join(" | "))}`);
+    }
+    if (s.checklistTotal) {
+      L.push(`\nChecklist: ${s.checklistTicked} of ${s.checklistTotal} ticked`);
+      for (const item of (s.checklistUnticked || []).slice(0, 14)) {
+        L.push(`  <span class="warn">off</span>  ${esc(item)}`);
+      }
+    }
+    if (s.domainOptions || s.occupationOptions) {
+      L.push(
+        `\nSection 1: ${s.domainOptions} domain / ${s.occupationOptions} occupation options`
+      );
+      L.push(`  domain now:     ${esc(s.selectedDomain || "nothing selected")}`);
+      L.push(`  occupation now: ${esc(s.selectedOccupation || "nothing selected")}`);
+    }
     if (frameCount > 1) L.push(`(${frameCount} frames scanned)`);
     if ((s.addButtons || []).length) {
       L.push("\nAdd buttons:");
@@ -214,7 +285,10 @@
     b.addEventListener("click", () => {
       if (b.dataset.op === "fill:checklist") {
         const ok = confirm(
-          "Each checklist box is a statement that your package meets that requirement.\n\n" +
+          "The 14 checklist boxes are statements about your package: that the instruction " +
+            "is self-contained, that every listed file was uploaded, that no criterion " +
+            "asserts a fact the inputs do not support.\n\n" +
+            "Ticking them here does not make any of that true. Read them on the form.\n\n" +
             "Tick all 14 anyway?"
         );
         if (!ok) return;

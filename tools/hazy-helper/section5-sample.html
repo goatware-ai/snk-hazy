@@ -1,0 +1,134 @@
+<!-- Section 5 (Before You Submit) as the live form renders it, copied from a capture.
+
+     The boxes are NOT <input type="checkbox">. Each is a div with role="checkbox",
+     aria-checked, and the item's full text in aria-label. There is no <label> wrapper, so
+     the role=checkbox element is itself the click target and aria-checked is the only
+     record of state.
+
+     Because every box carries its text, the helper can name the ones still unticked
+     instead of reporting a bare count.
+
+     There are FOURTEEN boxes: 6 Task Instruction, 2 Input Files, 5 Task Rubric, 1 Final
+     Check. An earlier capture of this form was written up as fifteen; it was miscounted.
+
+     Note the footer: "Previous section" and then an empty div. This section has no
+     continue button of its own, and the submit button lives outside the accordion. -->
+<div data-testid="section-Before You Submit — Task Creation Checklist" data-open="">
+  <button aria-expanded="true" id="base-ui-_r_2hq_">Before You Submit — Task Creation Checklist</button>
+  <div data-orientation="vertical" data-index="4" data-open="" id="base-ui-_r_2hp_"
+       aria-labelledby="base-ui-_r_2hq_" role="region">
+    <div class="pb-md"><div class="flex flex-col gap-8">
+      <div data-testid="field-multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_" class="rounded-md py-4">
+        <div class="group flex flex-row justify-between">
+          <div class="text-base-semibold"><label for="multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_"><div>Confirm each item below applies to your submission before you check it off. All boxes must be checked to submit.
+</div></label></div>
+        </div>
+        <div class="my-12"><div class="flex flex-col gap-8">
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: My instruction sets specific context: a named role, organization, and a reason this work is happening today." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: My instruction sets specific context: a named role, organization, and a reason this work is happening today.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: I named every input file I&#x27;m uploading and briefly described what each one contains." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: I named every input file I&#x27;m uploading and briefly described what each one contains.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: I stated the exact deliverable format (file type), plus any length or structural requirements (page limit, tab count, required columns, naming convention)." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: I stated the exact deliverable format (file type), plus any length or structural requirements (page limit, tab count, required columns, naming convention).</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: I included real scenario constraints where they belong (budget, deadline, headcount, threshold)." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: I included real scenario constraints where they belong (budget, deadline, headcount, threshold).</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: I did not include any number, name, or finding that can only come from actually working through the input files — those live in the rubric, not here." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: I did not include any number, name, or finding that can only come from actually working through the input files — those live in the rubric, not here.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Instruction: My instruction is fully self-contained: someone with no rubric access could read it and my input files and have everything they need to produce a complete, correct answer." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Instruction: My instruction is fully self-contained: someone with no rubric access could read it and my input files and have everything they need to produce a complete, correct answer.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Input Files: Every file I listed is actually uploaded, and every file I uploaded is listed — names match exactly, including extension and case." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Input Files: Every file I listed is actually uploaded, and every file I uploaded is listed — names match exactly, including extension and case.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Input Files: I&#x27;m only using files I&#x27;m authorized to share — no confidential, proprietary, or IP-restricted material." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Input Files: I&#x27;m only using files I&#x27;m authorized to share — no confidential, proprietary, or IP-restricted material.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Rubric: I have at least 3 criteria, and enough to genuinely cover the task&#x27;s complexity (most real tasks need well more than 3)." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Rubric: I have at least 3 criteria, and enough to genuinely cover the task&#x27;s complexity (most real tasks need well more than 3).</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Rubric: Each criterion tests exactly one thing — no line bundles two separate checks with &quot;and.&quot;" tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Rubric: Each criterion tests exactly one thing — no line bundles two separate checks with &quot;and.&quot;</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Rubric: Each criterion&#x27;s weight (-5 to +5) reflects how central that item actually is to a correct deliverable." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Rubric: Each criterion&#x27;s weight (-5 to +5) reflects how central that item actually is to a correct deliverable.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Rubric: My rubric ends with a general &quot;Overall formatting and style of the deliverable&quot; line." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Rubric: My rubric ends with a general &quot;Overall formatting and style of the deliverable&quot; line.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Task Rubric: Nothing in my rubric asserts a fact that isn&#x27;t actually derivable from the input files I&#x27;m providing." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Task Rubric: Nothing in my rubric asserts a fact that isn&#x27;t actually derivable from the input files I&#x27;m providing.</div></span>
+            </div>
+          </div>
+          <div class="flex justify-between text-wrap rounded-md border p-16 cursor-pointer">
+            <div class="inline-flex items-center gap-sm align-top cursor-pointer" role="checkbox"
+                 aria-checked="false" aria-disabled="false" aria-label="Final Check: If someone with real expertise in this domain — but no access to my rubric — read only my instruction and files, they could produce work that passes my rubric." tabindex="0">
+              <div class="flex size-16 shrink-0 items-center justify-center rounded-sm ring-1 ring-inset ring-field"></div>
+              <span class="select-none text-sm-normal text-color-primary"><div>Final Check: If someone with real expertise in this domain — but no access to my rubric — read only my instruction and files, they could produce work that passes my rubric.</div></span>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="border-default flex w-full items-center justify-between py-20">
+      <div><button type="button">Previous section</button></div>
+      <div class="flex flex-col items-end gap-8"></div>
+    </div>
+    </div>
+  </div>
+</div>

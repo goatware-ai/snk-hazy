@@ -1,0 +1,164 @@
+<!-- Section 3 (Completed Task) as the live form renders it, reduced to the structure
+     page.js relies on. Copied from a capture of the real page.
+
+     Three things here are not what you would guess, and each is asserted by the test:
+
+       1. The five time fields are TEXTAREAS, not number inputs, and each carries
+          maxlength="5". A total of 10.25 fits exactly; anything longer is truncated by the
+          browser, silently.
+       2. The Tools list ALREADY HAS ONE ROW on arrival, unlike the file lists which arrive
+          empty. Filling it must reuse that row rather than adding a second one.
+       3. Its row is <div data-testid="field-repeatable-textarea">, NOT a "-instance-"
+          node. The rubric uses -instance-; this component does not. Row detection has to
+          accept both.
+
+     The first time field also repeats its own label inside its description, and the
+     advisory checks panel lists every required field by name, so there are three copies of
+     "Time to read and understand..." in this section. That is why the fields are addressed
+     by data-testid and not by label text. -->
+<div data-testid="section-Completed Task" data-open="">
+  <button aria-expanded="true" id="base-ui-_r_2he_">Completed Task</button>
+  <div data-orientation="vertical" data-index="2" data-open="" id="base-ui-_r_2hd_"
+       aria-labelledby="base-ui-_r_2he_" role="region">
+    <div class="pb-md">
+      <div class="text-base-normal"><p>Now that you've updated your Task Instruction and Input Files, complete the task yourself.</p></div>
+      <div class="flex flex-col gap-8">
+
+        <!-- Output File List: arrives EMPTY -->
+        <div data-testid="field-repeatabletextarea-output_file_list" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="repeatabletextarea-output_file_list"><div>Output File List</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>List every file your completed task produces.</p></div>
+          <div class="my-12"><div class="border-strong flex flex-col gap-8 border-l-2 pl-[15px]">
+            <div class="flex flex-col"></div>
+            <div class="flex flex-col gap-8 py-24">
+              <div class="text-base-semibold">File</div>
+              <div><button type="button">Add Another Output File</button></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- Completed Task Upload: never touched -->
+        <div data-testid="field-s3fileuploader-completed_task_upload" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="s3fileuploader-completed_task_upload"><div>Completed Task Upload</div></label></div>
+          </div>
+          <div class="my-12"><div class="space-y-16">
+            <div class="flex items-center gap-8"><label class="text-sm-medium">Completed Task Upload *</label></div>
+            <div data-testid="s3-upload-drop-zone" role="button" tabindex="0">
+              <input class="hidden" accept=".mp3,.m4a,.aac,.wav,.zip,.tar.gz" type="file">
+            </div>
+          </div></div>
+        </div>
+
+        <div data-testid="field-textarea-time_to_read_prompt" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="textarea-time_to_read_prompt"><div>Time to read and understand the prompt and requirements (in minutes)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>Estimated number of minutes required to complete the tasks described in the prompt without using any AI assistant.</p><p><strong>Time to read and understand the prompt and requirements (in minutes)</strong></p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="textarea-time_to_read_prompt" dir="auto" rows="1" required="" placeholder="Minutes only (e.g., 30)"
+                        maxlength="5" minlength="1" autocomplete="off"></textarea>
+            </div>
+          </div><div class="gap-sm flex items-center"><span aria-live="polite">0/5</span></div></div></div>
+        </div>
+
+        <div data-testid="field-textarea-time_to_open_skimsearch_and_use_the_reference_files_human" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="textarea-time_to_open_skimsearch_and_use_the_reference_files_human"><div>Time to open, skim/search, and use the reference files (in minutes)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p></p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="textarea-time_to_open_skimsearch_and_use_the_reference_files_human" dir="auto" rows="1" required="" placeholder="Minutes only (e.g., 30)"
+                        maxlength="5" minlength="1" autocomplete="off"></textarea>
+            </div>
+          </div><div class="gap-sm flex items-center"><span aria-live="polite">0/5</span></div></div></div>
+        </div>
+
+        <div data-testid="field-textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human"><div>Time to perform the required work (analysis, writing, calculations, coding, spreadsheet edits, formatting) (in minutes)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p></p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human" dir="auto" rows="1" required="" placeholder="Minutes only (e.g., 30)"
+                        maxlength="5" minlength="1" autocomplete="off"></textarea>
+            </div>
+          </div><div class="gap-sm flex items-center"><span aria-live="polite">0/5</span></div></div></div>
+        </div>
+
+        <div data-testid="field-textarea-time_for_verificationqa_and_final_review_human" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="textarea-time_for_verificationqa_and_final_review_human"><div>Time for verification/QA and final review (in minutes)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p></p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="textarea-time_for_verificationqa_and_final_review_human" dir="auto" rows="1" required="" placeholder="Minutes only (e.g., 30)"
+                        maxlength="5" minlength="1" autocomplete="off"></textarea>
+            </div>
+          </div><div class="gap-sm flex items-center"><span aria-live="polite">0/5</span></div></div></div>
+        </div>
+
+        <div data-testid="field-textarea-total_time_in_hours" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="textarea-total_time_in_hours"><div>Total time (in hours)</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>This should be at least the sum of the four figures above, converted to hours.</p></div>
+          <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+            <div class="flex w-full rounded-sm border bg-field p-sm">
+              <textarea id="textarea-total_time_in_hours" dir="auto" rows="1" required="" placeholder="Hours only (e.g., 1.5)"
+                        maxlength="5" minlength="1" autocomplete="off"></textarea>
+            </div>
+          </div><div class="gap-sm flex items-center"><span aria-live="polite">0/5</span></div></div></div>
+        </div>
+
+        <!-- Tools: arrives with ONE row already present -->
+        <div data-testid="field-repeatabletextarea-please_insert_any_tool_used_for_this_task_human" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="repeatabletextarea-please_insert_any_tool_used_for_this_task_human"><div>Please Insert Any Tool Used For this Task</div></label></div>
+          </div>
+          <div class="text-base-normal"><p>e.g., Excel, Photoshop, DaVinci, SolidWorks, LabVIEW</p></div>
+          <div class="my-12"><div class="border-strong flex flex-col gap-8 border-l-2 pl-[15px]">
+            <div class="flex flex-col">
+              <div data-testid="field-repeatable-textarea" class="rounded-md py-4">
+                <div class="group"><div class="text-base-semibold"><label for="repeatable-textarea"><div>1</div></label></div></div>
+                <div class="my-12"><div class="gap-xs flex w-full flex-col"><div class="relative w-full">
+                  <div class="flex w-full rounded-sm border bg-field p-sm">
+                    <textarea id="_r_3qr_" dir="auto" rows="3" autocomplete="off"></textarea>
+                  </div>
+                </div></div></div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-8 py-24">
+              <div class="text-base-semibold">Tool</div>
+              <div><button type="button">Add Another Tool</button></div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- Advisory checks; its text repeats every required field name -->
+        <div data-testid="field-feedbackbutton-completed_task_checks" class="rounded-md py-4">
+          <div class="group flex flex-row justify-between">
+            <div class="text-base-semibold"><label for="feedbackbutton-completed_task_checks"><div>Completed Task Checks (optional)</div></label></div>
+          </div>
+          <div class="text-base-normal"><ul>
+            <li><em>Times</em> — all five fields are numbers, and the total is at least the sum of the four parts</li>
+            <li><em>Difficulty</em> — estimated manual effort is over 3 hours</li>
+          </ul><p>This feedback is advisory and does not submit or block anything.</p></div>
+          <div class="my-12"><div class="flex items-center justify-center"><button type="button" disabled="">Check feedback</button></div>
+          <div class="text-sm-normal">Complete required fields first: Completed Task Upload, Time to read and understand the prompt and requirements (in minutes), Time to open, skim/search, and use the reference files (in minutes), Total time (in hours)</div></div>
+        </div>
+      </div>
+
+      <div class="border-default flex w-full items-center justify-between py-20">
+        <div><button type="button">Previous section</button></div>
+        <div><button type="button">Run Evaluations and Continue</button></div>
+      </div>
+    </div>
+  </div>
+</div>

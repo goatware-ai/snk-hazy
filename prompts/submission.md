@@ -344,6 +344,15 @@ the Application pair. Unzip both archives once and inspect them.
 3. **The prompt text** and **the rubric**, each in one fenced block ready to paste.
 4. **The metadata block** printed from `metadata.json`: domain, occupation with its code, input
    and output file counts, the tools list, the four minute values and the total in hours.
+5. **`form-payload.json`**, built by running
+   `.venv/bin/python tools/form_payload.py <task-folder>`, with its report printed. This is
+   what fills the submission form, so its report is a reading of the package: an input it
+   cannot describe, a time value it cannot find or an empty tools list is a hole to fix
+   here, not to type around on the form. It reads `form-lists.md` for the two file lists,
+   the times, the tools and the domain and occupation, so those entries must be written
+   there first; it also checks both file lists against `inputs/` and `solution/` in both
+   directions and reports any disagreement with `metadata.json`.
+   See docs/submission/workflows/08-form-payload-and-submit.md.
 
 Then stop. The only addition allowed is a short list of anything genuinely broken or unresolved
 that the operator must act on before submitting; if there is nothing, say nothing.
