@@ -1,0 +1,22 @@
+{
+  "task_name": "evs-staffing-4west",
+  "taskboard_uid": "0209d37b-a8ca-408a-8125-d72b22901e66",
+  "domain": "Building and Grounds Cleaning and Maintenance",
+  "onet_occupation": {
+    "code": "37-1011.00",
+    "title": "First Line Supervisors of Housekeeping and Janitorial Workers"
+  },
+  "input_file_count": 5,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 60,
+  "time_work_minutes": 210,
+  "time_qa_minutes": 45,
+  "total_time_hours": 5.5,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}

@@ -1,0 +1,38 @@
+ROOM,ROOM_TYPE,SQ_FT,ISOLATION_CAPABLE,CLEANING_FREQUENCY
+4W-401,Private patient room,253,N,Daily while occupied; terminal clean on discharge
+4W-402,Private patient room,273,N,Daily while occupied; terminal clean on discharge
+4W-403,Private patient room,248,Y,Daily while occupied; terminal clean on discharge
+4W-404,Private patient room,281,Y,Daily while occupied; terminal clean on discharge
+4W-405,Private patient room,253,N,Daily while occupied; terminal clean on discharge
+4W-406,Private patient room,291,N,Daily while occupied; terminal clean on discharge
+4W-407,Private patient room,286,N,Daily while occupied; terminal clean on discharge
+4W-408,Private patient room,254,N,Daily while occupied; terminal clean on discharge
+4W-409,Private patient room,269,N,Daily while occupied; terminal clean on discharge
+4W-410,Private patient room,256,N,Daily while occupied; terminal clean on discharge
+4W-411,Private patient room,273,N,Daily while occupied; terminal clean on discharge
+4W-412,Private patient room,254,N,Daily while occupied; terminal clean on discharge
+4W-413,Private patient room,249,N,Daily while occupied; terminal clean on discharge
+4W-414,Private patient room,289,N,Daily while occupied; terminal clean on discharge
+4W-415,Private patient room,290,Y,Daily while occupied; terminal clean on discharge
+4W-416,Private patient room,278,Y,Daily while occupied; terminal clean on discharge
+4W-417,Private patient room,253,N,Daily while occupied; terminal clean on discharge
+4W-418,Private patient room,282,N,Daily while occupied; terminal clean on discharge
+4W-419,Private patient room,248,N,Daily while occupied; terminal clean on discharge
+4W-420,Private patient room,259,N,Daily while occupied; terminal clean on discharge
+4W-421,Private patient room,290,Y,Daily while occupied; terminal clean on discharge
+4W-422,Private patient room,285,Y,Daily while occupied; terminal clean on discharge
+4W-423,Private patient room,295,N,Daily while occupied; terminal clean on discharge
+4W-424,Private patient room,290,N,Daily while occupied; terminal clean on discharge
+4W-NS1,Nurses station,410,N,Daily
+4W-NS2,Nurses station,385,N,Daily
+4W-MED,Medication room,140,N,Daily
+4W-CU,Clean utility,165,N,Daily
+4W-SU,Soiled utility,150,N,Twice daily
+4W-SR1,Staff restroom,62,N,Daily
+4W-SR2,Staff restroom,58,N,Daily
+4W-PR1,Public restroom,88,N,Twice daily
+4W-PR2,Public restroom,92,N,Twice daily
+4W-FL,Family lounge,340,N,Daily
+4W-CONF,Conference room,290,N,Daily
+4W-STL,Staff lounge,275,N,Daily
+4W-CORR,Corridor and alcoves,4200,N,Daily dust mop and damp mop; weekly burnish; monthly scrub and recoat
