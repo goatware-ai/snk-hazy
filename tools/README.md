@@ -121,6 +121,20 @@ symlink to it; recreate that symlink after moving to a new machine.
   values (`34.04799999999999`) to shortest clean decimals. The LLM-authorship
   check flags these HIGH. Run `scan` on every xlsx (inputs AND solution)
   immediately before every zip build.
+- **form_payload.py** `<task-folder> [-o out.json] [--stdout]` — builds the submission
+    form's payload from a task folder: domain and occupation and the five time values from
+    `metadata.json`, the instruction from `instruction.md`, the criteria from `rubric-*.csv`, and
+    the two file lists from `inputs/` and `solution/`. For each input it looks for the
+    sentence in the prompt that describes that file alone; a sentence naming several inputs
+    is a file list, not a description, so it is rejected and the entry is left bare and
+    reported. Uploads are not in the payload and never can be.
+
+- **hazy-helper/** — the Chrome extension that fills the form from that payload. Load it
+    unpacked from `chrome://extensions`. Only its rubric selectors are verified against a
+    capture of the live DOM (`test_selectors.py` proves it); every other section is matched
+    on label text, so press Scan before Fill. The 14-box checklist is opt-in, because each
+    box is an attestation about the package. See `hazy-helper/README.md`.
+
 - **audit_task.py** `<task-folder>` — pre-zip sweeps: Hazy canary (incl.
   embedded metadata), 555 phone numbers, calendar-false weekday/date pairs,
   zip hygiene (flat/no spaces/no double extensions/no empty files), prompt

@@ -20,11 +20,12 @@ Keys in this order:
     "title": "Environmental Scientists and Specialists"
   },
   "input_file_count": 4,
+  "output_file_count": 1,
   "tools": ["Microsoft Excel", "Adobe Acrobat"],
-  "time_read_prompt_minutes": 20,
-  "time_reference_files_minutes": 75,
-  "time_perform_work_minutes": 240,
-  "time_verification_minutes": 45,
+  "time_read_minutes": 20,
+  "time_files_minutes": 75,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 45,
   "total_time_hours": 6.5,
   "built_with": "claude-fable-5",
   "build_session": "f26c2b60"
@@ -83,11 +84,13 @@ Four integer minute fields plus a total in hours
 
 | Key | Form field |
 | --- | --- |
-| `time_read_prompt_minutes` | Time to read and understand the prompt and requirements |
-| `time_reference_files_minutes` | Time to open, skim/search, and use the reference files |
-| `time_perform_work_minutes` | Time to perform the required work |
-| `time_verification_minutes` | Time for verification/QA and final review |
+| `time_read_minutes` | Time to read and understand the prompt and requirements |
+| `time_files_minutes` | Time to open, skim/search, and use the reference files |
+| `time_work_minutes` | Time to perform the required work |
+| `time_qa_minutes` | Time for verification/QA and final review |
 | `total_time_hours` | Total time, decimals, at least the sum of the four converted |
+
+These five key names are the ones `tools/gcheck/prompt_inputs/occupation.py` (M4) reads; any other spelling fails the gate as a missing field.
 
 Rules that bind:
 
@@ -112,6 +115,7 @@ Rules that bind:
 - [ ] Four integer minute fields; total in hours ≥ their sum; total > 3
 - [ ] `taskboard_uid` present and null until submitted
 - [ ] No `sector` key anywhere
+- [ ] `form-lists.md` at the task root carries the Input File List entries, the Output File List entry, the five time values, the tools, and the domain and occupation, with the same numbers as `metadata.json`
 
 ## House notes on the live form
 

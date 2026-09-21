@@ -107,7 +107,7 @@ def current():
 def read(folder):
     """The model recorded for a task folder: metadata.json's built_with.
 
-    An archived folder is reduced to prompt.md and has no metadata.json, so it reads as
+    An archived folder is reduced to instruction.md and has no metadata.json, so it reads as
     None; recover those with `attribute`, which reads the transcripts."""
     return _load_meta(folder)[0].get("built_with") or None
 

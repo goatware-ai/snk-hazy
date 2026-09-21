@@ -69,6 +69,8 @@ attached [file name], which contains [what it contains]..., produce a [file form
 Placeholder: `e.g. "Q3_Regional_Sales.xlsx — monthly sales by region, includes conflicting
 totals between the summary tab and the raw data tab"`
 
+> House note (2026-09-21): the desk writes each entry with a plain hyphen between the file name and the note, never the em dash the placeholder shows, and keeps the entries in the task's `form-lists.md`.
+
 Entries are added with **+ Add Another Input File**.
 
 ### File Uploader (required)

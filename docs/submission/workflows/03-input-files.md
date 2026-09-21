@@ -32,7 +32,9 @@ a submit-blocking confirmation. H5 codes it.
 
 Each Input File List entry is written as the file name, a dash, then a brief note on what
 the file contains. Write those entries from the ZIP's own directory listing, never from the
-build plan.
+build plan, and keep them in `form-lists.md` at the task root, outside both zips, beside the
+Output File List entry and the times and tools. Use a plain hyphen between the name and the
+note, never the em dash the form's placeholder shows (A6).
 
 ## Content and authenticity (cite, do not restate)
 

@@ -30,7 +30,7 @@ def task_available(folder):
 
     Every need is offered except the rubric ones when the CSV is missing, which reproduces
     the old gate's early return: one 'rubric CSV missing' error and no rubric checks. A
-    check that handles an absent prompt.md or inputs/ itself (P0, for instance) still runs,
+    check that handles an absent instruction.md or inputs/ itself (P0, for instance) still runs,
     because that absence is a finding, not a reason to skip.
     """
     available = set(core.NEEDS)

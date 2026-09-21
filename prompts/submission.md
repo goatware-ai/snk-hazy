@@ -273,7 +273,7 @@ walkthroughs, no status commentary.
 
    ```
    {target}/{seq}-<task-name>/
-   ├── prompt.md            the prompt exactly as pasted into the platform
+   ├── instruction.md       the task instruction exactly as pasted into the platform
    ├── inputs/              every input file, final names
    ├── i-<task-name>.zip    flat zip of inputs/
    ├── solution/            the golden file(s), final names
@@ -283,8 +283,12 @@ walkthroughs, no status commentary.
    │                                  exists (<uid8> = its first eight characters); no rubric.md
    ├── metadata.json        form values only: task_name, taskboard_uid (null until submitted),
    │                        domain, onet_occupation {code,title}, input_file_count,
-   │                        output_file_count, tools[], time_minutes {prompt, reference_files,
-   │                        work, qa}, total_time_hours, built_with, build_session
+   │                        output_file_count, tools[], time_read_minutes, time_files_minutes,
+   │                        time_work_minutes, time_qa_minutes, total_time_hours, built_with,
+   │                        build_session (the five time keys are the ones the M4 check reads)
+   ├── form-lists.md        what gets typed into the form: one Input File List entry per input
+   │                        (exact name, a plain hyphen, what it contains), the Output File List
+   │                        entry, the five time values, the tools, the domain and occupation
    ├── feedback-log.md      chronological log: date, source, verdict, then findings /
    │                        actions / form actions; one entry per piece of feedback
    ├── clause-map.md        every prompt ask -> quoted golden anchor -> positive rubric rows (R134)

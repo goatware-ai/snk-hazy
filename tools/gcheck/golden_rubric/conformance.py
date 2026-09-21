@@ -63,10 +63,10 @@ def _quotes(cell):
 
 
 def ask_segments(folder):
-    """The deliverable asks of prompt.md: the clauses, split at commas and semicolons, of every
+    """The deliverable asks of instruction.md: the clauses, split at commas and semicolons, of every
     paragraph naming the deliverable file, leaving out date phrases and fragments under four words."""
     folder = Path(folder)
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if not p.is_file():
         return []
     prompt = p.read_text(encoding="utf-8", errors="ignore")
@@ -167,7 +167,7 @@ def check_clause_map(rows, folder):
     if not (pc and gc and rc and mrows):
         emit("ERROR", "[R134] clause-map.md has no table with Prompt clause, Golden location and Rubric rows columns")
         return
-    prompt_norm = _norm((folder / "prompt.md").read_text(encoding="utf-8", errors="ignore"))
+    prompt_norm = _norm((folder / "instruction.md").read_text(encoding="utf-8", errors="ignore"))
     gold = golden_text(folder)
     weights = {str(n).strip(): w for n, _, w in rows}
     mapped, problems = [], []
@@ -341,7 +341,7 @@ def _ledger(folder):
 
 def _searchable(folder):
     folder = Path(folder)
-    files = [folder / "prompt.md", folder / "review-comment.md"] + sorted(folder.glob("rubric-*.csv"))
+    files = [folder / "instruction.md", folder / "review-comment.md"] + sorted(folder.glob("rubric-*.csv"))
     for sub in ("inputs", "solution"):
         if (folder / sub).is_dir():
             files += sorted(p for p in (folder / sub).iterdir() if p.is_file())

@@ -111,12 +111,12 @@ Two of these are more than a bookkeeping change. A move landing on `NEEDS_REVISI
 
 ### A UID that vanishes is rejected and archived
 
-A submission the platform stops listing has left `stb submissions list` for one of two reasons, and vanishing alone cannot tell them apart. A vanished-after-acceptance task is not a rejection and can still pay out (after the plain reject-and-archive path destroyed real, paid work by reducing it to `prompt.md`). So the script uses the row's prior status to route:
+A submission the platform stops listing has left `stb submissions list` for one of two reasons, and vanishing alone cannot tell them apart. A vanished-after-acceptance task is not a rejection and can still pay out (after the plain reject-and-archive path destroyed real, paid work by reducing it to `instruction.md`). So the script uses the row's prior status to route:
 
 - **The row had already reached `ACCEPTED`**: it left the board after acceptance rather than failing, so its Note records that and its last known payment status. It is archived like any other vanished UID.
-- **The row never reached `ACCEPTED`**: a genuine rejection. The row moves to `REJECTED`, stamps Updated, then `submissions/{seq}-{task-name}/` is reduced to just `prompt.md` under `archived/{seq}-{task-name}/`, deleting the rest of the folder (the rubric CSV, zips, metadata.json, feedback-log.md). Reported under **Rejected and archived**.
+- **The row never reached `ACCEPTED`**: a genuine rejection. The row moves to `REJECTED`, stamps Updated, then `submissions/{seq}-{task-name}/` is reduced to just `instruction.md` under `archived/{seq}-{task-name}/`, deleting the rest of the folder (the rubric CSV, zips, metadata.json, feedback-log.md). Reported under **Rejected and archived**.
 
-Both paths run every time and are idempotent — a row already in its target status whose move or archive didn't finish on a prior run gets the same attempt again. `--no-apply` lists what each path would do instead of doing it. If neither an `accepted/` zip, a `submissions/` folder, nor (for the reject path) a `prompt.md` can be found, the script reports the row under **Needs attention** rather than guessing.
+Both paths run every time and are idempotent — a row already in its target status whose move or archive didn't finish on a prior run gets the same attempt again. `--no-apply` lists what each path would do instead of doing it. If neither an `accepted/` zip, a `submissions/` folder, nor (for the reject path) a `instruction.md` can be found, the script reports the row under **Needs attention** rather than guessing.
 
 
 ### An accepted task is zipped into accepted/ automatically

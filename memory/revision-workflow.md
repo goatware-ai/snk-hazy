@@ -31,7 +31,7 @@ the repo already fixed (a stale core.xml) means a per-part re-upload never lande
 platform copy before re-repairing, and when the form action is a zip re-upload say so twice
 and ask for confirmation it took. The oracle deficit is the only read-back of entered weights,
 and the form can carry figures the CSV never held ([[rubric-liveness-criteria]] section 7); the
-fix is verbatim re-entry with tools/rubric-filler and a spot check. A note can have been written
+fix is verbatim re-entry with tools/hazy-helper and a spot check. A note can have been written
 against an earlier version, so check that the filenames and tabs it cites exist.
 
 **The input widget keeps every upload (2026-09-14, PR14 / L5).** A task reached adjudication with

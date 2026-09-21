@@ -11,10 +11,10 @@ punctuation reads MORE human here; the practitioner voice pushes toward clipped,
 prose, which is exactly the register reviewers call "an LLM trying too hard to sound like a real,
 rushed, busy person". The P4/P6 prompt frame is in [[prompt-overspecification-giveaways]].
 
-**Zero em dashes** in every task artifact (docx inputs, prompt.md, the rubric CSV, golden text
+**Zero em dashes** in every task artifact (docx inputs, instruction.md, the rubric CSV, golden text
 cells, any note to the platform): commas, colons, semicolons or parentheses instead; a plain hyphen is fine
 in subject lines. Density is the tell (a task failed at 4 per 191 words). Coded A6: docx ERROR
-at >= 4 dashes and >= 12/1000 words, WARN at >= 3 and >= 8; ANY em dash in prompt.md or the
+at >= 4 dashes and >= 12/1000 words, WARN at >= 3 and >= 8; ANY em dash in instruction.md or the
 rubric CSV warns. Adding a comma to an unquoted CRITERION field breaks the CSV row; quote it.
 
 **The three-beat rhythm, not a word list** (2026-08-22): "messy workplace detail -->
@@ -26,7 +26,7 @@ lose it"), idiom standing in for a quantity ("where we are naked"), compressed f
 filler ("I pulled the rest"), fragments as headings, em dashes, run-ons and comma splices; added
 2026-08-31: aphoristic parallelism (the semicolon-balanced maxim), scene-setting fragment
 openers ("Word travels."), and urgency performed instead of stated (write "This is urgent" plus
-the deadline; someone with a truly urgent issue does not speak in images). A10 scans prompt.md,
+the deadline; someone with a truly urgent issue does not speak in images). A10 scans instruction.md,
 every input docx and the solution's text cells; treat a clean A10 as the floor and read aloud.
 Elliptical trade jargon reads as a typo to the spelling check ("at the counter day Friday");
 keep the noun, frame it grammatically.

@@ -8,7 +8,7 @@
 > Companion to `memory/prose-standard.md` (the grammar side).
 >
 > Enforced mechanically by rule **A10** (`tools/gcheck/authorship/prose.py`, run by `tools/autoeval_check.py`), which scans
-> `prompt.md`, every input `.docx` and the solution workbook's text cells. A10 is a
+> `instruction.md`, every input `.docx` and the solution workbook's text cells. A10 is a
 > pattern net, not a substitute for reading the prose aloud.
 
 ## Why it gets caught

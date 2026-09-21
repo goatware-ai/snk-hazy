@@ -51,9 +51,9 @@ def _source_docs(folder):
                                         for c in r if c.value is not None)
         except Exception:
             continue
-    pr = folder / "prompt.md"
+    pr = folder / "instruction.md"
     if pr.exists():
-        docs["prompt.md"] = pr.read_text(encoding="utf-8", errors="ignore")
+        docs["instruction.md"] = pr.read_text(encoding="utf-8", errors="ignore")
     return docs
 
 
@@ -167,7 +167,7 @@ def check_input_conditions(folder):
     """
     hits = []
     for name, text in _source_docs(folder).items():
-        if name == "prompt.md":
+        if name == "instruction.md":
             continue
         for sent in split_sentences(re.sub(r"\s+", " ", text)):
             if re.search(r"\bI (?:do not|don't) want\b", sent, re.I):
@@ -249,7 +249,7 @@ def check_month_split_scored(rows, folder):
     Since: 2026-09-05 (a task rejected 2026-09-04).
     Source: task feedback.
     """
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists() or not _PER_MONTH_PROMPT.search(
             prompt.read_text(encoding="utf-8", errors="ignore")):
         return
@@ -406,7 +406,7 @@ def check_ids_inside_review_window(rows, folder):
         return
     prose = ""
     for name, text in _source_docs(folder).items():
-        if name.lower().endswith(".docx") or name == "prompt.md":
+        if name.lower().endswith(".docx") or name == "instruction.md":
             prose += " " + text
     pos = _r107_id_rows(folder)
     # R110: a citation claim about a key whose records some input sheet holds only past the window

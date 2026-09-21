@@ -23,7 +23,7 @@ that task's log as part of handling it (and create the log if missing). Accepted
 log INSIDE `accepted/{seq}-{name}.zip` (the whole folder is zipped by /fetch-status, see
 [[submission-tracking]]); a task leaving ACCEPTED is unzipped back with its log. New tasks get the file at
 build time with an empty-log placeholder. `prompts/submission.md`'s folder spec lists it.
-Exception (user instruction 2026-08-18): RETIRED tasks are stripped to prompt.md only,
+Exception (user instruction 2026-08-18): RETIRED tasks are stripped to instruction.md only,
 moved to `archived/{seq}-{task-name}/` - log, inputs, solution, zips, metadata deleted.
 
 **Gate must learn from every AutoEval feedback (user instruction 2026-08-19):** handling

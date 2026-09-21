@@ -953,7 +953,7 @@ _G8_BLOCK_RE = re.compile(r"_{5,}|\bsignature\s*:|\bsigned\s*:|\bsign here\b|\b(
 @check(codes=['G8'], rules=['GOLD-FID'], needs=['prompt', 'solution'], params=['folder'])
 def check_signature_block(folder):
     """When the prompt says who signs the deliverable, the golden carries a signature line."""
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if not p.is_file():
         return
     prompt = p.read_text(encoding="utf-8", errors="ignore")
@@ -1025,7 +1025,7 @@ def check_actions_before_document_date(folder):
     if not doc_date:
         return
     floor = _g9_input_clock(folder)
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if p.is_file():
         for m in _G9_LONG_RE.finditer(p.read_text(encoding="utf-8", errors="ignore")):
             d = _g9_date(m, True)
@@ -1069,7 +1069,7 @@ def _g10_year_sequence_refs(folder):
     from pathlib import Path as _P
     folder = _P(folder)
     src = "\n".join(t for _, t in _inputs_text(folder))
-    pr = folder / "prompt.md"
+    pr = folder / "instruction.md"
     if pr.exists():
         src += "\n" + pr.read_text(encoding="utf-8", errors="ignore")
     from ..common import solution_files
@@ -1326,7 +1326,7 @@ def check_owner_names_in_inputs(folder):
     cells = _g15_owner_cells(folder)
     if not cells:
         return
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     corpus = prompt_text + "\n" + "\n".join(t for _, t in _inputs_text(folder))
     missing = {}
     for where, text in cells:
@@ -1427,7 +1427,7 @@ def check_author_names_in_inputs(folder):
     fields.extend(_g16_attribution_cells(folder))
     if not fields:
         return
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     corpus = prompt_text + "\n" + "\n".join(t for _, t in _inputs_text(folder))
     missing = {}
     for where, text in fields:
@@ -1553,7 +1553,7 @@ def check_header_titles_in_inputs(folder):
         pairs.extend(_g17_title_pairs(path))
     if not pairs:
         return
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     corpus = _g17_norm(prompt_text + "\n" + "\n".join(t for _, t in _inputs_text(folder)))
     missing = {}
     for where, name, title in pairs:
@@ -1709,7 +1709,7 @@ def check_action_dates_anchored(folder):
     rows = _g18_owner_dated_rows(folder)
     if not rows:
         return
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     corpus = prompt_text + "\n" + "\n".join(t for _, t in _inputs_text(folder))
     fd, md, days = _g18_anchors(corpus)
     bad = []
@@ -1894,7 +1894,7 @@ def check_readthrough_label_direction(folder):
 def check_stated_dates_anchored(folder):
     """Every full date the golden states is carried by the prompt or an input, derived from one by a day count the record names, or set in a plan table's own date column."""
     corpus = "\n".join(t for _, t in _inputs_text(folder))
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         corpus += "\n" + pf.read_text(encoding="utf-8", errors="ignore")
     # Widened 2026-09-10, the day it was coded: the first cut anchored on FULL dates only
@@ -2011,7 +2011,7 @@ def _g23_text_inputs(folder):
                                      for c in row if isinstance(c.value, str)))
         except Exception:
             continue
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         out.append(pf.read_text(encoding="utf-8", errors="ignore"))
     return "\n".join(out)
@@ -2259,7 +2259,7 @@ def check_named_organisation_grounded(folder):
     identifiers (G10) have their own checks; solution workbooks are not read here.
     """
     src = " ".join(t for _, t in input_texts(folder)).lower()
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         src += " " + pf.read_text(encoding="utf-8", errors="ignore").lower()
     if not src.strip():
@@ -2362,7 +2362,7 @@ def check_standard_references_grounded(folder):
     input exists and pypdf is missing the check stays silent rather than fire on an unread source.
     """
     src = ""
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         src += pf.read_text(encoding="utf-8", errors="ignore") + "\n"
     src += "\n".join(t for _, t in input_texts(folder))
@@ -2582,7 +2582,7 @@ def check_description_not_title_cased_into_name(folder):
     is skipped as in G25.
     """
     src_raw = " ".join(t for _, t in input_texts(folder))
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         src_raw += " " + pf.read_text(encoding="utf-8", errors="ignore")
     src_raw = re.sub(r"\s+", " ", src_raw)

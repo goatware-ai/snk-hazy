@@ -11,14 +11,14 @@ Task folders are `{NN}-{task-name}` in creation order under `submissions/`, `dra
 `accepted/` (as zips) and `archived/` ([[submission-tracking]]). The prefix exists ONLY on the
 folder: zips are **`i-{task-name}.zip`** (inputs) and **`s-{task-name}.zip`** (solution), flat,
 files at the root with no wrapper folder (`cd inputs && zip ../i-<task-name>.zip *`);
-`metadata.json`'s task_name and the platform name stay bare. Each folder carries prompt.md,
+`metadata.json`'s task_name and the platform name stay bare. Each folder carries instruction.md,
 inputs/, solution/, metadata.json ([[task-metadata]]), feedback-log.md
 ([[feedback-log-convention]]) and the rubric CSV.
 
 **Rubric CSV:** `rubric-{task-name}-{uid8}.csv` in `submissions/` ({uid8} = first eight
 characters of the Taskboard UID), `rubric-{task-name}.csv` in `drafts/` until promotion; never
 rubric.md, never bare rubric.csv, no sequence prefix (2026-08-26; the file's own name is what
-`tools/rubric-filler`'s popup can read). Columns `NUMBER, CRITERION, WEIGHT`: integer
+`tools/hazy-helper`'s popup can read). Columns `NUMBER, CRITERION, WEIGHT`: integer
 weights (4 / -3), UTF-8 with BOM, fields quoted by the csv writer (a comma added to an unquoted
 field breaks the row)...), which the completeness check sums
 ([[rubric-coverage-and-completeness]]). Generate the CSV from the criterion list, never

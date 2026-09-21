@@ -15,7 +15,7 @@ unless asked.
 builder in `metadata.json`'s `built_with` ([[task-metadata]]), and revisions run under that same
 model: a Fable-built task is revised under Fable via the per-model skills whatever the session
 default. This desk starts empty, so `built_with` is whatever the first builds stamp. Only two
-models author here: **Fable = flag `0`, Opus 5 = flag `1`**. An archived folder is reduced to prompt.md and has no metadata, so its model lives in
+models author here: **Fable = flag `0`, Opus 5 = flag `1`**. An archived folder is reduced to instruction.md and has no metadata, so its model lives in
 submission-list.md's Model column and is recoverable with `attribute`.
 
 **`tools/build_model.py`** owns both records:

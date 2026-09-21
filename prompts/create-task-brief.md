@@ -44,7 +44,7 @@ it, with the command in `.claude/commands/create-task.md`.
 The uniqueness gate (U1, U2) runs against `submissions/`, `accepted/`, `archived/` **and every
 draft already built in this session**, including the ones built minutes ago. Two drafts from one
 batch sharing a reasoning path is the most likely failure: read the existing
-`drafts/*/prompt.md` before designing each new one and pick a different core workflow if
+`drafts/*/instruction.md` before designing each new one and pick a different core workflow if
 anything is close.
 
 The domain and occupation are part of that identity now that neither is fixed. Pick a different

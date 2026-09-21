@@ -11,12 +11,12 @@ reconciled against what the platform actually reports:
   status's table (the platform is the source of truth for state).
 - A submission-list.md UID the platform no longer lists is either rejected and
   archived: the row moves to REJECTED and its folder is reduced to
-  archived/{seq}-{name}/prompt.md. A row that had reached ACCEPTED before it
+  archived/{seq}-{name}/instruction.md. A row that had reached ACCEPTED before it
   vanished was withdrawn rather than failed, so its
   Note records that and its last known payment status, recovered from the
   previous snapshot (the vanished UID can no longer be queried). A row
   that never reached ACCEPTED is a genuine rejection: moved to REJECTED, its
-  submissions/ folder reduced to just prompt.md under archived/.
+  submissions/ folder reduced to just instruction.md under archived/.
 - A platform submission with no submission-list.md row, reporting OFFERED or
   EVALUATION_PENDING, is matched against drafts/*/metadata.json by Taskboard
   UID and promoted: the draft folder moves to submissions/ and a new row is added.
@@ -485,22 +485,22 @@ def apply_catch_ups(catch_up, now):
 
 
 def archive_task(seq, name):
-    """Reduce submissions/{seq}-{name}/ to archived/{seq}-{name}/prompt.md.
+    """Reduce submissions/{seq}-{name}/ to archived/{seq}-{name}/instruction.md.
 
     Returns (ok, message). Idempotent: a task already archived is a no-op.
     """
     folder = "%s-%s" % (seq, name)
     src = SUBMISSIONS_DIR / folder
     dst = ARCHIVED / folder
-    if (dst / "prompt.md").exists():
+    if (dst / "instruction.md").exists():
         return True, "already archived"
     if not src.exists():
         return False, "no submissions/%s folder found to archive" % folder
-    prompt_src = src / "prompt.md"
+    prompt_src = src / "instruction.md"
     if not prompt_src.exists():
-        return False, "submissions/%s has no prompt.md to archive" % folder
+        return False, "submissions/%s has no instruction.md to archive" % folder
     dst.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(prompt_src, dst / "prompt.md")
+    shutil.copy2(prompt_src, dst / "instruction.md")
     shutil.rmtree(src)
     return True, "archived, submissions/%s removed" % folder
 
@@ -595,7 +595,7 @@ def accepted_needing_restore(rows):
     """Rows that left ACCEPTED for rework whose accepted/ zip is still sitting there.
 
     Excludes REJECTED: a row that vanished after reaching ACCEPTED goes through
-    reject_and_archive instead, which reduces it to archived/{name}/prompt.md -
+    reject_and_archive instead, which reduces it to archived/{name}/instruction.md -
     the zip is not meant to come back as a working folder for that path.
     """
     return [
@@ -675,7 +675,7 @@ def model_for(folder):
     """The model that built a task folder, from metadata.json's built_with, or "".
 
     An accepted task's folder is gone (zipped) and a rejected one is reduced to
-    prompt.md, so those rows keep whatever the table already holds — the value is
+    instruction.md, so those rows keep whatever the table already holds — the value is
     recovered once, by tools/build_model.py attribute, and then persists in the file.
     """
     meta = folder / "metadata.json"

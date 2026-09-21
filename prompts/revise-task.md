@@ -6,7 +6,7 @@
 ---
 
 **Scope, hard limit:** only the task resolved from the UID above may be modified. Do not edit
-any other task folder (prompt.md, the rubric CSV, workbooks, zips, feedback-log.md,
+any other task folder (instruction.md, the rubric CSV, workbooks, zips, feedback-log.md,
 metadata.json) even if a check or diagnosis surfaces the same defect there; report such
 findings in the summary instead. A change to `tools/` is re-run portfolio-wide as read-only
 reporting, never as a license to fix other tasks in this run.
@@ -29,7 +29,7 @@ arrives pasted by the operator. When you need a live part, ask for it.
    the full text, verdicts and scores. If the platform may hold parts the repo does not
    (an edit made there after submission), ask for the fetch-task JSON alongside the feedback.
 
-3. **Diagnose.** Read the folder's `prompt.md`, `rubric-{task-name}-{uid8}.csv`,
+3. **Diagnose.** Read the folder's `instruction.md`, `rubric-{task-name}-{uid8}.csv`,
    `feedback-log.md`, and the files the feedback names. Determine the root cause of each
    finding rather than the symptom it names, and check whether the same defect exists
    elsewhere in this task (other criteria, other tabs, other files); fix every occurrence. Run
@@ -40,7 +40,7 @@ arrives pasted by the operator. When you need a live part, ask for it.
    done (R134).
 
 4. **Apply the revision.** Update the rubric CSV, the solution or input files, and/or
-   `prompt.md` as the feedback requires, following the existing conventions:
+   `instruction.md` as the feedback requires, following the existing conventions:
    - Rubric edits: one simple atomic sentence per criterion (R55), negatives worded as the
      defect committed with a polarity pin (R84), no CSV re-sums, absolute date windows, no
      liveness-mirror negatives (R15, R22). Weights stay non-zero integers from -5 to +5, with
@@ -53,7 +53,7 @@ arrives pasted by the operator. When you need a live part, ask for it.
      or deletion, the general **Overall formatting and style of the deliverable** row is still
      the last row of the CSV.
    - File and metadata edits: if an input or output file is added, removed or renamed, the
-     Input File List, the Output File List, every mention in `prompt.md` and the member names
+     Input File List, the Output File List, every mention in `instruction.md` and the member names
      inside the rebuilt zip all have to match again, exactly, case and extension included; a
      mismatch there is one of the most common reasons a submission comes back. If the scope of
      the work changed, revisit the five time values (four minutes fields plus the total in

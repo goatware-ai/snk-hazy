@@ -36,7 +36,7 @@ explicit path. The operator submits and writes the UID into the draft's metadata
 ([[task-metadata]]); the next `/fetch-status` promotes the folder to `submissions/{seq}-{name}/`
 and adds the row. Accepted tasks are zipped whole into `accepted/{seq}-{name}.zip` (feedback-log
 and built zips inside) and the folder removed; a rejected or retired task is reduced to
-`archived/{seq}-{name}/prompt.md` (kept for uniqueness diffing only, never as a design
+`archived/{seq}-{name}/instruction.md` (kept for uniqueness diffing only, never as a design
 reference). A task rejected by platform system error may be recreated as a FRESH task with the
 next number and a reset log; an archived folder does not by itself imply rejection, since a
 resubmitted-fresh predecessor is archived while its successor is live. Layout conventions:
@@ -67,7 +67,7 @@ confirmation step (`--no-apply` reports without writing):
 - **Ordinary progress**: a row whose section disagrees with the platform's Assignment State
   moves, Updated re-stamped.
 - **A vanished UID** (absent from `stb submissions list`, download refused) is a rejection: the
-  row moves to REJECTED and the folder is reduced to `archived/{seq}-{name}/prompt.md`.
+  row moves to REJECTED and the folder is reduced to `archived/{seq}-{name}/instruction.md`.
   Idempotent.
 - **A matched draft**: an OFFERED/EVALUATION_PENDING submission with no row is matched against
   every `drafts/*/metadata.json` taskboard_uid and promoted; no match leaves it under "Needs

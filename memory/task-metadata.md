@@ -17,16 +17,15 @@ data, no need to explanation"). Keys in this order:
   "onet_tasks": ["...", "...", "..."],   // carried over, see "Keys no Hazy form asks for"
   "onet_skills": ["...", "...", "..."],  // carried over, see "Keys no Hazy form asks for"
   "input_file_count": 4,
+  "output_file_count": 1,
   "multimodal": false,
   "web_search_allowed": false,
-  "time": {
-    "read_prompt_min": 25,               // integer minutes
-    "reference_files_min": 85,           // integer minutes
-    "perform_work_min": 240,             // integer minutes
-    "verification_qa_min": 70,           // integer minutes
-    "total_hours": 7.0                   // decimal hours, >= the four summed and converted
-  },
-  "tools": ["Excel", "Adobe Acrobat"],   // at least one, at least one of them non-AI
+  "tools": ["Microsoft Excel", "Adobe Acrobat"],   // at least one, at least one of them non-AI
+  "time_read_minutes": 25,               // integer minutes, the four keys M4 reads
+  "time_files_minutes": 85,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 70,
+  "total_time_hours": 7.0,               // decimal hours, >= the four summed and converted
   "llm_starting_point": "Other",
   "built_with": "claude-fable-5",        // see [[model-routing]]
   "build_session": "f26c2b60"
@@ -59,14 +58,14 @@ for this desk.
 
 ## The five time values (2026-09-21, replaces manual_time_hours)
 
-The single `manual_time_hours` number is gone, and so is the older "AHT is tracked nowhere in the
+The five keys are `time_read_minutes`, `time_files_minutes`, `time_work_minutes`, `time_qa_minutes` and `total_time_hours`, exactly as `tools/gcheck/prompt_inputs/occupation.py` reads them (the 06-metadata.md page and this note carried other spellings until 2026-09-21). The single `manual_time_hours` number is gone, and so is the older "AHT is tracked nowhere in the
 repo" rule: the form now asks for five figures and the metadata carries all five, because they
 have to be re-entered on every revision.
 
 - The four minute fields are **integers**, and they are the form's four in its order: read and
   understand the prompt; open, skim/search and use the reference files; perform the required work;
   verification/QA and final review.
-- `total_hours` is decimal and is **at least the four summed and converted** ("90 minutes is 1.5
+- `total_time_hours` is decimal and is **at least the four summed and converted** ("90 minutes is 1.5
   hours"). It may be higher. The form's own advisory check tests exactly this.
 - The estimate is for a qualified professional working **without any AI assistant**. Exclude time
   learning missing domain knowledge, waiting on other people or approvals, breaks, and web
@@ -98,7 +97,7 @@ missing key and a null one must not be confused: null marks the folder as unsubm
 line silently loosens the gate. Never invent a UUID. Several drafts may await submission at once,
 so prove which UID belongs to which draft before writing it: `stb submissions fetch-task <uid>`
 writes a JSON whose `task_documents[0].submission_document.prompt` is the prompt actually
-submitted; match that text against the draft's prompt.md. `stb submissions download` does not
+submitted; match that text against the draft's instruction.md. `stb submissions download` does not
 serve this ("no uploaded file"). Once written, the next `/fetch-status` promotes the draft
 ([[submission-tracking]]); a still-null or mis-filled UID leaves the submission under "Needs
 attention" as `?`. A retired task has no UID at all.
@@ -113,3 +112,5 @@ which maps sequence prefix to task name to UID per status section ([[submission-
 findings or platform to-do lists beyond the short Note column under NEEDS_REVISION.
 
 - 2026-09-21: `sector` deleted, `domain` added, `manual_time_hours` replaced by the five time values, `tools` added. Input file count is now bounded below, not above: minimum 2, three or more strongly preferred, no upper bound.
+
+- 2026-09-21: the draft's prompt file is `instruction.md` (renamed from prompt.md across tools, docs and fixtures on the operator's instruction), and `form-lists.md` at the task root holds the form's typed values ([[form-lists-file]]).

@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Rubric Filler",
-  "version": "1.4.0",
-  "description": "Fill the platform's rubric criterion form from a CSV, compare the form against it, and export it back out as CSV",
+  "name": "Hazy Helper",
+  "version": "1.0.0",
+  "description": "Fill the task submission form from a task package: domain and occupation, instruction, file lists, times, tools and the rubric. Never touches file uploads.",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Rubric Filler",
+    "default_title": "Hazy Helper",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -13,11 +13,7 @@
       "128": "icons/icon128.png"
     }
   },
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "storage"
-  ],
+  "permissions": ["activeTab", "scripting", "storage"],
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",

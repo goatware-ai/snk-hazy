@@ -263,7 +263,7 @@ _R74_AGG_RE = re.compile(
 @check(codes=['R74'], rules=['PRE-COVER'], needs=['prompt', 'rubric'], params=['rows', 'folder'])
 def check_chain_scope(rows, folder):
     """A prompt that sells dynamic recalculation has formula criteria reaching past single cells to the chains that recalculate."""
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists() or not _R74_PROMPT_RE.search(prompt.read_text(encoding="utf-8")):
         return
     live = []
@@ -587,7 +587,7 @@ def check_filename_coverage(rows, folder):
     ("references such as 'the review's front page' are not sufficient"). The file row
     had been dropped to fit the R24 cap; it is not optional. Every deliverable basename
     the prompt names must appear verbatim in at least one positive criterion."""
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if not p.is_file():
         return
     prompt = p.read_text(encoding="utf-8", errors="ignore")
@@ -1029,7 +1029,7 @@ def check_completeness_share(rows, folder):
     Drift-notes: only criteria a hard-coded workbook fails OUTRIGHT count as liveness; a formula clause on a correctness row buys nothing. The R73 prompt trigger also reads "math live", "live in the cells" and "pasted values" (2026-09-12). R73 and R129 also read "keep the pricing on formulas" and "carry through the sheet" (2026-09-14, where R129 called a formula-demanding prompt static).
     """
     pos, neg = _weights(rows)
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     has_xlsx = any((folder / "solution").glob("*.xlsx")) if (folder / "solution").is_dir() else False
     if pos and has_xlsx:
         strict = sum(w for _, t, w in rows if w > 0 and LIVENESS_STRICT_RE.search(t))
@@ -1183,7 +1183,7 @@ def check_implementation_share(rows, folder):
     has_xlsx = any((folder / "solution").glob("*.xlsx")) if (folder / "solution").is_dir() else False
     if not pos or not has_xlsx:
         return
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if prompt.exists() and _R129_PROMPT_LIVE_RE.search(prompt.read_text(encoding="utf-8")):
         return
     live = [(n, w) for n, t, w in rows if w > 0
@@ -1209,7 +1209,7 @@ def _r92_grouping_coverage(rows, folder):
     Source: the platform's Rubric requirement mapping check.
     Drift-notes: R46's second arm until 2026-09-04.
     """
-    prompt = Path(folder) / "prompt.md"
+    prompt = Path(folder) / "instruction.md"
     if not prompt.exists():
         return
     for m in _GROUPED_BY_RE.finditer(prompt.read_text(encoding="utf-8")):
@@ -1237,7 +1237,7 @@ def check_prompt_every_coverage(rows, folder):
     Drift-notes: R92 was a carve-out twin (R46's second arm), merged back 2026-09-11.
     """
     _r92_grouping_coverage(rows, folder)     # [R92] the carve-out twin, merged back 2026-09-11
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if prompt.exists() and PROMPT_EVERY_RE.search(prompt.read_text(encoding="utf-8")):
         comp = [(num, w) for num, t, w in rows if w > 0 and COMPLETENESS_RE.search(t)]
         if not comp:
@@ -1373,7 +1373,7 @@ def check_unmandated_owner_clause(rows, folder):
     Source: a returned task.
     Drift-notes: the upper bound to R81 (never the person); together they fix owner rows to 'an owner and a date' only when asked.
     """
-    prompt_text = (folder / "prompt.md").read_text(encoding="utf-8") if (folder / "prompt.md").exists() else ""
+    prompt_text = (folder / "instruction.md").read_text(encoding="utf-8") if (folder / "instruction.md").exists() else ""
     if R100_PROMPT_ACTION_RE.search(prompt_text) or _R100_PROMPT_RE.search(prompt_text):
         return
     for num, text, weight in rows:
@@ -1521,7 +1521,7 @@ _R102_CRIT_RE = re.compile(r"\baddress(?:ed|ee)\b", re.I)
 @check(codes=['R102'], rules=['PRE-COVER'], needs=['prompt', 'rubric'], params=['rows', 'folder'])
 def check_addressee_graded(rows, folder):
     """When the prompt names who the deliverable is addressed to, a positive criterion grades the addressee."""
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists():
         return
     m = _R102_PROMPT_RE.search(prompt.read_text(encoding="utf-8"))
@@ -1529,7 +1529,7 @@ def check_addressee_graded(rows, folder):
         return
     if any(w > 0 and _R102_CRIT_RE.search(t) for _, t, w in rows):
         return
-    emit("ERROR", f'[R102] prompt.md says the deliverable is "addressed to {m.group(1)}" and no positive '
+    emit("ERROR", f'[R102] instruction.md says the deliverable is "addressed to {m.group(1)}" and no positive '
                   "criterion grades the addressee - a task was sent back "
                   "for exactly this (2026-09-10): add one structural +1 row, \"The document is addressed "
                   f"to {m.group(1)}.\", spelled the way the inputs spell the name")
@@ -1952,7 +1952,7 @@ def check_two_way_breakout(rows, folder):
     Since: 2026-09-11 (a note on a returned task).
     Source: the note required a dedicated criterion for 'what we spend now by branch and vendor', which no row graded.
     """
-    prompt = Path(folder) / "prompt.md"
+    prompt = Path(folder) / "instruction.md"
     if not prompt.exists():
         return
     for m in _R115_PAIR_RE.finditer(prompt.read_text(encoding="utf-8")):

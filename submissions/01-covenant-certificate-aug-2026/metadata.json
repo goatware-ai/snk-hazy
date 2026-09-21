@@ -1,0 +1,22 @@
+{
+  "task_name": "covenant-certificate-aug-2026",
+  "taskboard_uid": "d2aa8273-c67c-49f0-ac97-9f6b515cbdae",
+  "domain": "Management",
+  "onet_occupation": {
+    "code": "11-3031.01",
+    "title": "Treasurers and Controllers"
+  },
+  "input_file_count": 5,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 20,
+  "time_files_minutes": 95,
+  "time_work_minutes": 300,
+  "time_qa_minutes": 65,
+  "total_time_hours": 8.0,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}

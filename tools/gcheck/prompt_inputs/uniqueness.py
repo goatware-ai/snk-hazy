@@ -91,15 +91,15 @@ def check_recycling(folder):
     Drift-notes: U1 at 12% 6-gram overlap (6% is a check), U2 at three or more reused signature moves;
     build-time only in the gate (--originality).
     """
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if not p.exists():
         return
     mine = norm(p.read_text(encoding="utf-8"))
     g = ngrams(mine)
 
     others = {}
-    for f in sorted(glob.glob(str(ROOT / "submissions/*/prompt.md"))) + \
-             sorted(glob.glob(str(ROOT / "archived/*/prompt.md"))):
+    for f in sorted(glob.glob(str(ROOT / "submissions/*/instruction.md"))) + \
+             sorted(glob.glob(str(ROOT / "archived/*/instruction.md"))):
         name = Path(f).parent.name
         if name == folder.name:
             continue

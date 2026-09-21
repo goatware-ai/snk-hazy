@@ -115,9 +115,9 @@ _SHORT_IDIOM_RES = [
 def check_llm_prose(folder):
     """The prompt, inputs and golden carry none of the reviewer-flagged LLM prose shapes."""
     sources = []
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if p.is_file():
-        sources.append(("prompt.md", "", p.read_text(encoding="utf-8", errors="ignore")))
+        sources.append(("instruction.md", "", p.read_text(encoding="utf-8", errors="ignore")))
     ind = folder / "inputs"
     for d in sorted(ind.glob("*.docx")) if ind.is_dir() else []:
         sources.append((d.name, "", _docx_text(d)))
@@ -196,7 +196,7 @@ def check_emdash_docx(folder):
 @check(codes=['A6'], rules=['REV-PROSE'], needs=['prompt', 'rubric'], params=['folder'])
 def check_emdash_text(folder):
     """The prompt and the rubric CSV carry no em dashes."""
-    for p in (folder / "prompt.md", rubric_path(folder)):
+    for p in (folder / "instruction.md", rubric_path(folder)):
         if p.is_file():
             em = p.read_text(encoding="utf-8", errors="ignore").count("—")
             if em:
@@ -291,9 +291,9 @@ def _a20_sentences(text):
 def check_run_on_sentences(folder):
     """A sentence puts a comma before a clause-joining conjunction and joins no more than two clauses."""
     sources = []
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if p.is_file():
-        sources.append(("prompt.md", "", p.read_text(encoding="utf-8", errors="ignore")))
+        sources.append(("instruction.md", "", p.read_text(encoding="utf-8", errors="ignore")))
     rp = rubric_path(folder)
     if rp and rp.is_file():
         sources.append((rp.name, "", rp.read_text(encoding="utf-8-sig", errors="ignore")))

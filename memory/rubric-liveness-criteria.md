@@ -201,7 +201,7 @@ Breadth comes from GATED clauses on value rows, tagged +LIVE, not from more stri
   criterion weight against the file's own totals, the wording was re-entered and the WEIGHTS were
   not (a task run 6, 2/74 against a file at 66). The form can also carry figures the CSV never
   held (one variant total propagated); diff the failed rows' figures against the CSV
-  before diagnosing the golden, and re-enter verbatim with tools/rubric-filler
+  before diagnosing the golden, and re-enter verbatim with tools/hazy-helper
   ([[revision-workflow]]).
 - A FAILED verdict quoting the exact row the criterion wants means the row disagrees with the
   criterion (a magnitude with no side named, a paraphrase); stop looking for a landing fix.

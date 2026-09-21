@@ -10,7 +10,7 @@ lazy, memoised parses:
     state.document(path)                  a python-docx Document
     state.docx_text(path)                 the document's paragraph text
     state.rows                            the rubric CSV
-    state.prompt_text                     prompt.md, "" when absent
+    state.prompt_text                     instruction.md, "" when absent
     state.metadata                        metadata.json as a dict
     state.input_texts                     [(name, text)] over every readable input
     state.formula_cells                   every formula cell with its cached value
@@ -107,7 +107,7 @@ class TaskState(Path):
     @property
     def prompt_text(self):
         def load():
-            p = self / "prompt.md"
+            p = self / "instruction.md"
             return p.read_text(encoding="utf-8", errors="ignore") if p.is_file() else ""
         return self.memo("prompt_text", load)
 

@@ -9,7 +9,7 @@ A fixture is a folder under tools/check_fixtures/ with a fixture.json:
 
     {"about": "...",
      "base": "other-fixture",                 # optional: copy that fixture first, then this folder over it
-     "chmod": {"prompt.md": 0},               # optional: file modes applied in the temporary copy
+     "chmod": {"instruction.md": 0},               # optional: file modes applied in the temporary copy
      "fires":  [{"code": "G41", "criterion": "3", "contains": "text"}],   # ERROR lines that must appear
      "silent": [{"code": "R55", "criterion": "2"}],                       # ERROR lines that must not
      "stdout_contains": ["..."], "silent_contains": ["..."]}              # raw gate output either way

@@ -1650,7 +1650,7 @@ def _r123_source_text(folder):
     from ..common import input_texts
     from .fidelity import _g26_pdf_text
     src = ""
-    pf = folder / "prompt.md"
+    pf = folder / "instruction.md"
     if pf.exists():
         src += pf.read_text(encoding="utf-8", errors="ignore") + "\n"
     src += "\n".join(t for _, t in input_texts(folder))

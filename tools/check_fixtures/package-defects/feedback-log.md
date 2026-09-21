@@ -102,7 +102,7 @@ Findings:
   TitlesOfParts at 810 and 784 bytes, not the 180-240 byte forged stub); office_resave.py
   --check reports 0 of 5 files naming a python generator, package_sweep.py 0 findings across
   103 files, and .gate-debt carries no A14 line, which is the correct state.
-- Operator ask 2, P4: never applied. prompt.md predates the rule (written 2026-09-01, rule
+- Operator ask 2, P4: never applied. instruction.md predates the rule (written 2026-09-01, rule
   coded 2026-09-02) and autoeval_check fired P4 on all three parts (no state, no role, no
   expertise).
 - originality_check section 2 fired G2b/G2c/G2d where the build log recorded only G2a. G2b
@@ -116,7 +116,7 @@ Findings:
 
 Actions:
 
-- prompt.md: one opening paragraph in Marvin's voice carrying the state (Muscatine, Iowa), the
+- instruction.md: one opening paragraph in Marvin's voice carrying the state (Muscatine, Iowa), the
   role ("I run the operations desk at Loehr Brothers Supply") and the expertise ("a few years
   of purchasing and freight behind them"); nothing else changed. 1,742 characters;
   prompt_check clean; originality U1 2.6% / U2 0 of 7 against the nearest prompt (33).
@@ -138,7 +138,7 @@ Actions:
 
 Form actions:
 
-- Replace the prompt with prompt.md in full.
+- Replace the prompt with instruction.md in full.
 - Re-enter criteria 5, 6 and 7 on the rubric form with the wording above; weights stay 1;
   confirm the form still shows 27 criteria.
 - No zip change from this round. The 2026-09-02 Excel-resave entry rebuilt both zips after
@@ -450,7 +450,7 @@ Actions:
   "and they do: eleven invoices ..." split into two sentences (A20). No figure moved. Word
   resave with --force (Application Microsoft Office Word), fix_metadata, s-zip rebuilt.
   Inputs and i-zip untouched.
-- prompt.md: opening paragraph now "I run the outbound freight desk here, and the Dahlquist
+- instruction.md: opening paragraph now "I run the outbound freight desk here, and the Dahlquist
   line off the Loehr Brothers dock in Muscatine, Iowa is mine to answer for. You have a few
   years of purchasing and freight behind you, so the rate pages and the agreement will not
   need walking through." P4a-c hold (state on the dock, role as ownership, experience as the
@@ -473,7 +473,7 @@ Actions:
 
 Form actions:
 
-- Replace the prompt with prompt.md in full (opening paragraph changed).
+- Replace the prompt with instruction.md in full (opening paragraph changed).
 - Rubric form, 32 criteria: set C2 to 4, C3 to 5, C4 to 4, C9 to 5, C32 to -5; re-enter the
   wording of C21, C26, C27, C28, C29 and C30 from rubric-freight-audit-04894e01.csv (the
   trailing owner-and-date clause removed, nothing else); confirm the form reads 32.

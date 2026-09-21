@@ -119,7 +119,7 @@ def sweep(folder, codename=True):
                 if '/' in n: fails.append(("H4", f"SUBFOLDER IN ZIP {z}: {n}"))
                 if ' ' in n: fails.append(("H4", f"SPACE IN ZIP MEMBER {z}: {n}"))
                 if zf.getinfo(n).file_size == 0: fails.append(("H4", f"EMPTY ZIP MEMBER {z}: {n}"))
-    prompt = os.path.join(folder, 'prompt.md')
+    prompt = os.path.join(folder, 'instruction.md')
     if os.path.exists(prompt):
         try:
             ptext = open(prompt, encoding='utf-8').read()

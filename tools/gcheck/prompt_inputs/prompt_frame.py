@@ -9,7 +9,7 @@ Prompt rules had been scattered: P1 sat inline in the middle of `check_rubric()`
 autoeval_check.py, the missing-file sweep in audit_task.py, prompt recycling in
 originality_check.py (which the gate never calls), and nothing at all covered the two
 platform checks that failed a task on 2026-08-31. This module is the
-one home for the rules that read prompt.md, so a prompt finding lands beside its siblings
+one home for the rules that read instruction.md, so a prompt finding lands beside its siblings
 instead of in whichever file grew last.
 
 WHAT THE PLATFORM ACTUALLY CHECKS (docs/submission/platform/task-lifecycle.md, captured 2026-08-26)
@@ -77,10 +77,10 @@ CATALOGUE_RATIO = 0.70
 
 def _findings(folder):
     folder = Path(folder)
-    prompt, ind, sol = folder / "prompt.md", folder / "inputs", folder / "solution"
+    prompt, ind, sol = folder / "instruction.md", folder / "inputs", folder / "solution"
     out = []
     if not prompt.exists():
-        return [("ERROR", "P0", "no prompt.md in the task folder")]
+        return [("ERROR", "P0", "no instruction.md in the task folder")]
     text = prompt.read_text(encoding="utf-8", errors="ignore")
 
     # ---- P1: the deliverable is named, and named as the deliverable -------------------
@@ -352,7 +352,7 @@ def _p4_opening(text):
 @check(codes=['P4'], rules=['PRE-FRAME'], needs=['prompt'], params=['folder'])
 def check_prompt_role_and_locale(folder):
     """The prompt's opening frames the US setting, the requester's role and the expertise the reader brings."""
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists():
         return
     text = prompt.read_text(encoding="utf-8")
@@ -370,12 +370,12 @@ def check_prompt_role_and_locale(folder):
         missing.append("P4c the purchasing or procurement experience the reader is expected "
                        "to bring")
     if missing:
-        emit("ERROR", "[P4] prompt.md's opening does not establish " + "; ".join(missing) +
+        emit("ERROR", "[P4] instruction.md's opening does not establish " + "; ".join(missing) +
                       " - a task was REJECTED on this alone (2026-09-02) with its "
                       "inputs, golden and rubric all called strong. Add a brief opening in the "
                       "requester's own voice, inside the first ~900 characters")
     if _P4_PERSONA_RE.search(text):
-        emit("ERROR", "[P4] prompt.md uses the persona shape the guidelines ban as their own "
+        emit("ERROR", "[P4] instruction.md uses the persona shape the guidelines ban as their own "
                       "bad example (\"You are a financial analyst. Utilizing your expertise "
                       "...\"). Frame the role as the requester talking about themselves, never "
                       "as an instruction addressed to the solver")
@@ -384,13 +384,13 @@ def check_prompt_role_and_locale(folder):
 @check(codes=['P6'], rules=['PRE-FRAME'], needs=['prompt'], params=['folder'])
 def check_prompt_self_introduction(folder):
     """The prompt's frame is woven into the requester's own voice, never written as a self-introduction to a coworker."""
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists():
         return
     text = prompt.read_text(encoding="utf-8")
     m = _P6_SELF_INTRO_RE.search(text)
     if m:
-        emit("ERROR", f'[P6] prompt.md introduces the company to a coworker: "{m.group(0)[:90]}..." - '
+        emit("ERROR", f'[P6] instruction.md introduces the company to a coworker: "{m.group(0)[:90]}..." - '
                       "a task was REJECTED (2026-09-05) on this "
                       "paragraph (\"They are your coworker. They know what the company is and what you "
                       "do ... sounds LLM generated\"). Keep P4a-c but carry them inside the ask: the "
@@ -398,7 +398,7 @@ def check_prompt_self_introduction(folder):
                       "experience as the reason for the handoff (docs/submission/workflows/02-prompt-writing.md, P6)")
     m = _P6_GATEKEEP_RE.search(text)
     if m:
-        emit("ERROR", f'[P6] prompt.md gates the reader instead of addressing them: "{m.group(0)[:80]}" - '
+        emit("ERROR", f'[P6] instruction.md gates the reader instead of addressing them: "{m.group(0)[:80]}" - '
                       "the same rejected paragraph; state the experience as why the work is being handed "
                       "over (\"you have a few years of distribution operations behind you\"), never as a "
                       "test for whoever picks it up")
@@ -416,7 +416,7 @@ _P7_CONNECTIVE_RE = re.compile(r"^(?:finally|then|also|next|lastly|and|but|first
 @check(codes=['P7'], rules=['PRE-VERBOSE'], needs=['prompt'], params=['folder'])
 def check_repetitive_openers(folder):
     """No paragraph of the prompt opens three or more sentences on the same two-word stem."""
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists():
         return
     text = prompt.read_text(encoding="utf-8")
@@ -432,7 +432,7 @@ def check_repetitive_openers(folder):
                 stems[stem] = stems.get(stem, 0) + 1
         for stem, n in stems.items():
             if n >= 3:
-                emit("ERROR", f"[P7] {n} sentences in one paragraph of prompt.md open on '{stem} ...' - "
+                emit("ERROR", f"[P7] {n} sentences in one paragraph of instruction.md open on '{stem} ...' - "
                               "the platform's Prompt human voice check FAILs this as a repetitive, "
                               "templated pattern ('It should show... It should list... It should "
                               "recommend... Finally, it should be explicit', 2026-09-10); vary the "
@@ -446,7 +446,7 @@ def _p5_prompt_glosses(folder):
     Source: the platform's Prompt human voice check ('nearly every named file receives an individual gloss').
     Drift-notes: emitted as P2 until 2026-09-04; P2 now means the prompt names no input source at all.
     """
-    prompt = folder / "prompt.md"
+    prompt = folder / "instruction.md"
     if not prompt.exists():
         return
     text = prompt.read_text(encoding="utf-8")
@@ -462,7 +462,7 @@ def _p5_prompt_glosses(folder):
         if _P2_BEFORE_RE.search(before) or _P2_AFTER_RE.match(after):
             glossed.append(m.group(0))
     if len(glossed) >= 0.5 * len(files):
-        emit("ERROR", f"[P5] {len(glossed)} of {len(files)} input files named in prompt.md carry an "
+        emit("ERROR", f"[P5] {len(glossed)} of {len(files)} input files named in instruction.md carry an "
                       f"individual gloss ({', '.join(glossed[:3])}...) - the platform's Prompt human "
                       "voice check FAILs on 'nearly every named file receives an individual content "
                       "or purpose gloss' as a STRONG structural tell even when the voice reads human "
@@ -476,7 +476,7 @@ def check_prompt_rules(folder):
     """The prompt names its deliverable with a naming cue, names at least one input source, never catalogues its inputs, and glosses at most half of the files it names.
 
     Codes:
-      P0  the task folder carries a prompt.md
+      P0  the task folder carries a instruction.md
       P1  the prompt names the deliverable file, with an output-naming cue (saved as / named / call it) in the 80 chars before it
       P2  the prompt names at least one input file
       P3  the prompt does not introduce five or more inputs, 70% or more of them, as '... is <filename>'
@@ -501,12 +501,12 @@ _P8_DATE_LINE_RE = re.compile(r"(?mi)^\s*Date:\s*" + _P8_WEEKDAY + r"(" + _P8_MO
 
 
 def _p8_build_date(folder):
-    """The date prompt.md was first committed, following renames; today for an untracked folder."""
+    """The date instruction.md was first committed, following renames; today for an untracked folder."""
     import datetime as _dt
     import subprocess as _sp
     try:
         out = _sp.run(["git", "-C", str(folder), "log", "--follow", "--diff-filter=A", "--format=%ad",
-                       "--date=short", "--", "prompt.md"], capture_output=True, text=True, timeout=30).stdout.split()
+                       "--date=short", "--", "instruction.md"], capture_output=True, text=True, timeout=30).stdout.split()
         if out:
             return _dt.date.fromisoformat(out[-1])
     except Exception:
@@ -522,7 +522,7 @@ def check_due_date_ahead_of_review(folder):
     Source: the task was built on September 1 with "I need it Tuesday, September 8" and a memo dated
     September 8; eleven rounds later the rejection called the prompt's timeline impossible, the work
     "being prepared on September 17 but due September 8".
-    Drift-notes: the build date is the first commit of prompt.md (git, following renames), or today for
+    Drift-notes: the build date is the first commit of instruction.md (git, following renames), or today for
     a folder git does not track, such as a draft. Due dates are read only from explicit asks ("I need it
     Tuesday, September 8", "want it by ...", "due on ..."), never from scenario dates such as a meeting,
     an invoice or a notice, and a date with no year takes the build year. Leaving an absolute due date
@@ -530,7 +530,7 @@ def check_due_date_ahead_of_review(folder):
     """
     import datetime as _dt
     folder = Path(folder)
-    p = folder / "prompt.md"
+    p = folder / "instruction.md"
     if not p.is_file():
         return
     built = _p8_build_date(folder)
@@ -539,7 +539,7 @@ def check_due_date_ahead_of_review(folder):
     found = []
     for rx in _P8_DUE_RES:
         for m in rx.finditer(p.read_text(encoding="utf-8", errors="ignore")):
-            found.append(("prompt.md", m.group(0), m.group(1), m.group(2), m.group(3)))
+            found.append(("instruction.md", m.group(0), m.group(1), m.group(2), m.group(3)))
     for d in sorted((folder / "solution").glob("*.docx")) if (folder / "solution").is_dir() else []:
         try:
             from ..state import document as _document
