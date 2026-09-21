@@ -1,0 +1,17 @@
+INSTRUMENT_NO,RECORDED,DOC_TYPE,GRANTOR,GRANTEE,VOL_PAGE,AMOUNT,LEGAL,REF_INSTRUMENT
+198611030018,11/03/1986,DECLARATION OF RESTRICTIONS,Cedarbrook Development Co,Public,DB 809/112,,All lots Cedarbrook Sub PB 9/41,
+198705120041,05/12/1987,WARRANTY DEED,Cedarbrook Development Co,Voss Harold E & Mildred J,DB 812/455,21500.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+198705120042,05/12/1987,MORTGAGE,Voss Harold E & Mildred J,Newark Federal Savings & Loan,MB 611/201,58400.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+199808210077,08/21/1998,SATISFACTION OF MORTGAGE,Newark Federal Savings & Loan,Voss Harold E & Mildred J,OR 1102/833,,,198705120042
+200303070115,03/07/2003,WARRANTY DEED,Voss Harold E & Mildred J,Pruitt Daniel R,OR 1540/288,126500.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+200303070116,03/07/2003,MORTGAGE,Pruitt Daniel R,Licking Valley Savings Bank,OR 1540/291,101200.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+201103140062,03/14/2011,MORTGAGE,Pruitt Daniel R & Lorraine K,Buckeye Home Lending LLC,OR 2211/604,88000.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+201106020188,06/02/2011,SATISFACTION OF MORTGAGE,Licking Valley Savings Bank,Pruitt Daniel R,OR 2229/145,,,200303070116
+201409190112,09/19/2014,WARRANTY DEED,Pruitt Daniel R,Kessler Margaret Ann & Robert L,OR 2498/910,149900.00,Lot 12 Cedarbrook Sub PB 9/41,
+201409190113,09/19/2014,MORTGAGE,Kessler Margaret Ann & Robert L,Granville Community Bank,OR 2498/914,119920.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+201804270239,04/27/2018,SATISFACTION OF MORTGAGE,Granville Community Bank,Kessler Margaret Ann & Robert L,OR 2790/455,,,201409190113
+201805040071,05/04/2018,WARRANTY DEED,Kessler Robert L & Peggy A,Okafor Tamsin,OR 2791/302,172000.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+201805040072,05/04/2018,MORTGAGE,Okafor Tamsin,Muskingum Valley Bank,OR 2791/306,137600.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+202110080144,10/08/2021,EASEMENT,Okafor Tamsin,Licking Rural Electric Cooperative Inc,OR 3080/771,,W 10 ft of Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+202307210033,07/21/2023,MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin,OR 3202/58,6840.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+202310020190,10/02/2023,RELEASE OF MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin,OR 3214/402,,,202307210033

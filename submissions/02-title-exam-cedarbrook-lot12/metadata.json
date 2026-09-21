@@ -1,0 +1,22 @@
+{
+  "task_name": "title-exam-cedarbrook-lot12",
+  "taskboard_uid": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+  "domain": "Legal",
+  "onet_occupation": {
+    "code": "23-2093.00",
+    "title": "Title Examiners, Abstractors, and Searchers"
+  },
+  "input_file_count": 4,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Word",
+    "Microsoft Excel"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 90,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 60,
+  "total_time_hours": 6.75,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}
