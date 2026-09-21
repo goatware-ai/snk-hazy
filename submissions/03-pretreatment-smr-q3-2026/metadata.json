@@ -1,0 +1,22 @@
+{
+  "task_name": "pretreatment-smr-q3-2026",
+  "taskboard_uid": "b3aa1605-dfc8-4be9-a476-fd9dfe7747ed",
+  "domain": "Life, Physical, and Social Science",
+  "onet_occupation": {
+    "code": "19-2041.00",
+    "title": "Environmental Scientists and Specialists"
+  },
+  "input_file_count": 4,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 20,
+  "time_files_minutes": 80,
+  "time_work_minutes": 270,
+  "time_qa_minutes": 60,
+  "total_time_hours": 7.25,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}
