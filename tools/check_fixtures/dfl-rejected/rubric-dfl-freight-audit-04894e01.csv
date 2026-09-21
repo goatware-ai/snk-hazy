@@ -1,0 +1,33 @@
+﻿NUMBER,CRITERION,WEIGHT
+1,"The memo, dfl_freight_audit_q2_2026.docx, is addressed to Joyce Loehr and covers the second quarter's DFL bills.",1
+2,"The appendix rates all 122 invoices in dfl_freight_bills_q2.csv in one table, one row per invoice, each row carrying the amount billed, the amount rated under the agreement and the difference.",4
+3,"The appendix's rated column, all 122 amounts rebuilt from the bill of lading in bol_register_q2.csv, the rate pages and the agreement's discount, minimum, deficit weight, Appendix B and Appendix C, totals $43,027.40.",5
+4,"The audit finds 71 invoices billed above the agreement and 45 billed as the agreement reads, each bill's total in dfl_freight_bills_q2.csv set against the charge rebuilt from its bill of lading, the rate pages and the agreement.",4
+5,The audit finds 43 invoices whose fuel surcharge percentage in dfl_freight_bills_q2.csv sits a half point above the Appendix B row for the pickup week's Monday index in doe_diesel_index_2026.csv.,1
+6,"The memo rates invoice DFL7718238's 1,930 pounds at the next weight group's minimum weight under the deficit weight rule, where the rate pages price the higher group's minimum weight below the bill's own weight in its group, a claim of 82.88.",1
+7,"The memo claims 292.60 on invoice DFL7718186, where the bill's fuel surcharge is its percentage of the base charge before the discount and the agreement puts it on the 573.72 net linehaul.",1
+8,"The memo rates invoice DFL7718228 at class 70 under the freight all kinds rule, the register classing its cast iron soil pipe inside the rule's band while the bill rated it at actual class, a claim of 370.55.",1
+9,"The claim total is $5,982.91, the sum over the 71 overcharged invoices of the amount paid in dfl_freight_bills_q2.csv less the charge rebuilt under the agreement.",5
+10,"The dollars claimed are grouped by what went wrong, one line per claims desk reason code from dfl_correspondence.docx carrying its invoice count and its dollars.",1
+11,"Duplicate invoices account for 1,778.76 of the claim, the full amount paid on the four second invoices dfl_freight_bills_q2.csv carries against a pro already invoiced, void under section 10.",2
+12,"The invoices billed at the old discount and minimum during DFL's May rate file reload, the window Trina Boesch's email in dfl_correspondence.docx names, account for 922.80.",1
+13,"Fuel surcharge not per agreement accounts for 1,442.77 across 34 invoices, the bills whose surcharge in dfl_freight_bills_q2.csv is not the Appendix B percentage for the pickup week applied to the net linehaul.",1
+14,"Accessorials billed with no request or residential address on the bill of lading account for 557.40 across seven invoices, the liftgate and residential charges on bills whose bill of lading in bol_register_q2.csv shows neither the request nor a residence.",1
+15,"The deficit weight rule not applied accounts for 552.78 across nine invoices, the bills rated in their own weight group where the rate pages price the next group's minimum weight lower.",1
+16,"Freight all kinds not applied accounts for 497.16 across three invoices, the bills rated at their commodity's actual class where bol_register_q2.csv classes the commodity inside the band the agreement rates as class 70.",1
+17,"A class raised without a certificate accounts for 162.67 on one invoice, the bill carrying a higher class than its bill of lading with no certificate for its pro in dfl_weight_inspections_q2.xlsx.",1
+18,"Reweighs inside the tolerance account for 68.57 across two invoices, the bills carrying the certified weight and the correction fee where dfl_weight_inspections_q2.xlsx certifies a weight inside the agreement's reweigh tolerance.",1
+19,"The claims schedule lists 71 claims, one per overcharged invoice, each carrying the pro, the invoice, the bill of lading, the ship date, the amount paid, the amount claimed and the reason code, the fields the claims desk's instructions in dfl_correspondence.docx require.",2
+20,"The claims schedule's deadline column carries 71 dates, one per claim, each the invoice date in dfl_freight_bills_q2.csv plus the 180 days the agreement allows for a claim.",2
+21,"The earliest claim deadline on the claims schedule is October 4, 2026, the agreement's claim window counted from the quarter's first invoice date.",1
+22,"The claims schedule claims each of the four duplicate invoices in full at the amount paid, as section 10 refunds a payment made on a void second invoice.",1
+23,"The claims schedule's reason codes reconcile to the grouped summary's invoice counts, 34 claims coded OC-FSC on the schedule against 34 on the summary line.",1
+24,"The memo lists six invoices DFL under-billed, for 251.68 in total, the bills whose total in dfl_freight_bills_q2.csv falls below the charge rebuilt under the agreement.",3
+25,"The memo states for each of the six under-billed invoices what DFL left off the bill, an accessorial the bill of lading supports or a fuel surcharge band below the pickup week's index.",2
+26,"The largest under-billing, 159.41 on invoice DFL7718150, is the liftgate and residential delivery the bill of lading requested in bol_register_q2.csv and DFL never billed.",1
+27,"The memo's action list carries the classing of fiberglass tub and shower kits at class 125 on the bill of lading, the class the inspection certificate in dfl_weight_inspections_q2.xlsx gives them.",1
+28,"The memo's action list carries keeping the liftgate and notification boxes on the bill of lading to what the customer asked for, the only basis section 7 gives for billing them.",1
+29,"The memo's action list carries a paid pro number check in the freight bill batch before any DFL bill is paid, the gap that let the four duplicate pros through.",2
+30,The memo's action list carries rating every DFL bill against the agreement before it is paid.,2
+31,"The memo reduces the amount claimed by netting the under-billed invoices against the overcharge claims, although section 9 of the agreement prohibits the offset.",-5
+32,"The memo cites a section of the agreement numbered above 11, although the agreement ends at section 11.",-5

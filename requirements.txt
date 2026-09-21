@@ -1,0 +1,17 @@
+# Runtime for tools/ and .claude/skills/. Versions pinned to the set the Geranium desk
+# ran on (python 3.14), captured at port time 2026-09-21. Direct imports only; the rest
+# (charset_normalizer, click, et_xmlfile, lxml, schedula, six, typing_extensions) arrive
+# transitively. Recreate with:  python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+formulas==1.3.4
+numpy==2.5.2
+numpy-financial==1.0.0
+openpyxl==3.1.5
+pillow==12.3.0
+pypdf==6.16.1
+pypdfium2==5.13.0
+python-dateutil==2.9.0.post0
+python-docx==1.2.0
+regex==2026.7.19
+reportlab==5.0.1
+scipy==1.18.0
+tqdm==4.70.0

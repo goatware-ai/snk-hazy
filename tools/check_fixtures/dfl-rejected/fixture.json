@@ -1,0 +1,12 @@
+{
+  "about": "dfl-freight-audit exactly as rejected (git c2c5874), with the struck-phrase ledger PR20 would have recorded on 2026-09-10.",
+  "fires": [
+    {"code": "R134", "contains": "no clause-map.md"},
+    {"code": "G41", "contains": "hands the claims to later work"},
+    {"code": "G41", "contains": "claim form block(s)"},
+    {"code": "G42", "contains": "does not carry"},
+    {"code": "G43", "contains": "no verify_golden.py"},
+    {"code": "G5", "contains": "splits 34 invoices"},
+    {"code": "P8", "contains": "need it Tuesday, September 8"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "about": "rubric-shapes plus a small inputs/ and solution/, with prompt.md made unreadable: the packaging sweep reports the file (H4) and every check that trips on it is reported as a crash while the rest of the gate still runs.",
+  "base": "rubric-shapes",
+  "chmod": {"prompt.md": 0},
+  "fires": [{"code": "H4", "contains": "UNREADABLE FILE"}],
+  "stdout_contains": ["crashed with PermissionError", "TOTAL:"]
+}

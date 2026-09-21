@@ -1,0 +1,1 @@
+I run the freight desk at a plumbing wholesaler in Muscatine, Iowa, and you have a few years of freight audit work behind you. Rate the quarter's bills and write it up as one document named rubric_shapes.docx.

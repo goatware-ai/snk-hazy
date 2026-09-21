@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* Chrome caps a popup at 600px tall; claim all of it (only once there are
+       rows to show) and let the preview take every pixel the chrome doesn't. */
+    body {
+      width: 460px;
+      margin: 0;
+      padding: 12px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      background: #f7f6f3;
+      color: #1a1a2e;
+    }
+    body.tall { height: 600px; }
+    h1 { font-size: 15px; margin: 0 0 4px; flex: none; }
+    #taskname { font-size: 12px; font-weight: 600; color: #4a3fb0; margin-bottom: 6px; min-height: 15px; flex: none; }
+    .drop {
+      display: block;
+      border: 2px dashed #b5b1e8;
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+      background: #fff;
+      cursor: pointer;
+      box-sizing: border-box;
+      flex: none;
+    }
+    .drop.hover { background: #efeefb; }
+    .drop input { display: none; }
+    #fileinfo { color: #666; font-size: 11px; margin-top: 4px; }
+    #preview {
+      margin-top: 8px;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 11px;
+      padding: 6px 8px;
+      display: none;
+    }
+    #preview table { border-collapse: collapse; width: 100%; }
+    #preview td {
+      border-bottom: 1px solid #eee;
+      padding: 3px 6px;
+      vertical-align: top;
+    }
+    #preview td.seqcol {
+      font-weight: 600;
+      white-space: nowrap;
+      text-align: right;
+      color: #4a3fb0;
+      font-variant-numeric: tabular-nums;
+    }
+    #preview td.weightcol { font-weight: 600; white-space: nowrap; text-align: right; }
+    #preview td.statuscol { white-space: nowrap; font-size: 10px; color: #666; }
+    #preview tr.row-changed { background: #fff3b0; }
+    #preview tr.row-changed td.statuscol { color: #7a5c00; font-weight: 600; }
+    #preview tr.row-problem { background: #fbe4e4; }
+    #preview tr.row-problem td.statuscol { color: #8a1f1f; font-weight: 600; }
+    #preview tr.row-diff { background: #ffe6c9; }
+    #preview tr.row-diff td.statuscol { color: #8a4b00; font-weight: 600; }
+    .btnrow { display: flex; gap: 8px; margin-top: 10px; flex: none; }
+    button {
+      padding: 9px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #fill { flex: 1; background: #6c63e0; color: #fff; }
+    #fill:disabled { background: #b5b1e8; cursor: wait; }
+    #reset {
+      flex: 0 0 auto;
+      background: #fff;
+      color: #8a1f1f;
+      border: 1px solid #d9a0a0;
+    }
+    #reset:disabled { color: #c9a0a0; cursor: wait; }
+    #fetch, #compare {
+      flex: 1;
+      background: #fff;
+      color: #4a3fb0;
+      border: 1px solid #b5b1e8;
+    }
+    #fetch:disabled, #compare:disabled { color: #b5b1e8; cursor: wait; }
+    #status {
+      margin-top: 8px;
+      flex: none;
+      max-height: 110px;
+      overflow: auto;
+      padding: 8px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      display: none;
+    }
+    #status.ok { display: block; background: #e3f4e3; color: #205c20; }
+    #status.err { display: block; background: #fbe4e4; color: #8a1f1f; }
+  </style>
+</head>
+<body>
+  <h1>Rubric Filler</h1>
+  <div id="taskname"></div>
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept=".csv,text/csv">
+    <div>📄 Click or drop a CSV file here</div>
+    <div id="fileinfo">columns: CRITERION, WEIGHT (REQ optional) — name it rubric-{task-name}-{uid8}.csv</div>
+  </label>
+  <div id="preview"></div>
+  <div class="btnrow">
+    <button id="fill" disabled>Fill form</button>
+    <button id="reset">Reset</button>
+  </div>
+  <div class="btnrow">
+    <button id="compare" disabled>⇄ Compare with form</button>
+    <button id="fetch">⬇ Export form to CSV</button>
+  </div>
+  <div id="status"></div>
+  <script src="csv.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

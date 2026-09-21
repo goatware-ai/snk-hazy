@@ -1,0 +1,119 @@
+BOL,SHIP_DATE,ORDER,CONSIGNEE,DEST_CITY,DEST_ST,DEST_ZIP,COMMODITY,NMFC_CLASS,PCS,WEIGHT_LB,LIFTGATE_REQ,RESIDENTIAL,NOTIFY_REQ,CARRIER,PRO
+26048,04/01/26,S63201,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Commercial water heaters,92.5,3,304,Y,Y,N,DFL,419036203
+26049,04/01/26,S63205,La Crosse Mechanical,La Crosse,WI,54601,Brass fittings and valves,60,6,338,N,N,N,DFL,419036214
+26051,04/02/26,S63208,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Fabricated sheet metal ductwork,100,3,616,Y,Y,Y,DFL,419036225
+26053,04/02/26,S63210,Peoria Plumbing & Piping,Peoria,IL,61604,Brass fittings and valves,60,3,520,N,N,N,DFL,419036239
+26054,04/02/26,S63214,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Copper tube type L,60,39,4650,Y,Y,Y,DFL,419036246
+26056,04/03/26,S63215,City of Muscatine Water Pollution Control,Muscatine,IA,52761,PEX tubing and fittings,77.5,16,1960,N,N,N,DFL,419036251
+26058,04/03/26,S63220,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Gas forced air furnaces,85,1,439,Y,Y,Y,DFL,419036254
+26059,04/07/26,S63221,Ankeny Plumbing Supply Counter,Ankeny,IA,50021,Black steel pipe,50,75,4495,N,N,N,DFL,419036268
+26061,04/07/26,S63226,Platteville Plumbing,Platteville,WI,53818,Gas forced air furnaces,85,12,4026,N,N,N,DFL,419036279
+26063,04/07/26,S63229,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,PVC DWV pipe and fittings,70,8,981,Y,Y,Y,DFL,419036282
+26065,04/09/26,S63230,Quincy Heating & Cooling,Quincy,IL,62301,Residential gas water heaters,85,6,1948,Y,N,N,DFL,419036293
+26066,04/10/26,S63234,Prairie Mechanical,Sioux City,IA,51106,Residential gas water heaters,85,2,451,N,N,Y,DFL,419036307
+26067,04/10/26,S63236,La Crosse Mechanical,La Crosse,WI,54601,Condensing units,92.5,5,600,Y,N,N,DFL,419036310
+26068,04/13/26,S63239,Macomb Mechanical,Macomb,IL,61455,Cast iron soil pipe,50,25,3023,N,N,N,DFL,419036315
+26069,04/14/26,S63242,Prairie Mechanical,Sioux City,IA,51106,Copper tube type L,60,4,700,N,N,N,DFL,419036326
+26071,04/14/26,S63246,Dressler Heating & Air,Burlington,IA,52601,Water softeners,85,2,862,N,N,N,DFL,419036333
+26072,04/14/26,S63249,Waterloo Public Works,Waterloo,IA,50703,Condensing units,92.5,5,388,N,N,N,DFL,419036347
+26073,04/14/26,S63253,Rock Island Housing Authority,Rock Island,IL,61201,Brass fittings and valves,60,99,5917,N,N,N,DFL,419036358
+26074,04/15/26,S63255,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Fiberglass pipe insulation,150,16,1880,Y,Y,N,DFL,419036361
+26075,04/15/26,S63257,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Water softeners,85,16,1960,Y,Y,N,DFL,419036368
+26077,04/15/26,S63262,La Crosse Mechanical,La Crosse,WI,54601,Water softeners,85,8,379,N,N,N,DFL,419036382
+26078,04/16/26,S63263,Kirkwood Mechanical,Saint Louis,MO,63122,Sump and sewage pumps,70,7,876,Y,N,N,DFL,419036385
+26080,04/20/26,S63266,Hannibal Plumbing & Drain,Hannibal,MO,63401,Water softeners,85,13,1010,N,N,N,DFL,419036390
+26081,04/20/26,S63271,Hannibal Plumbing & Drain,Hannibal,MO,63401,Vitreous china fixtures,100,20,1619,N,N,N,DFL,419036395
+26082,04/21/26,S63273,Frey residence c/o Ruhl Mechanical,Bettendorf,IA,52722,Fabricated sheet metal ductwork,100,5,638,Y,Y,Y,DFL,419036409
+26083,04/21/26,S63277,Platteville Plumbing,Platteville,WI,53818,Gas forced air furnaces,85,5,313,Y,N,N,DFL,419036423
+26084,04/21/26,S63279,Lincoln Plumbing & Heating,Lincoln,NE,68508,Fabricated sheet metal ductwork,100,16,1975,N,N,N,DFL,419036428
+26086,04/22/26,S63283,Lincoln Plumbing & Heating,Lincoln,NE,68508,Residential gas water heaters,85,43,3417,N,N,N,DFL,419036435
+26088,04/23/26,S63285,Hilltop Plumbing LLC,Clinton,IA,52732,Sump and sewage pumps,70,4,853,N,N,N,DFL,419036440
+26089,04/23/26,S63289,Omaha Mechanical Contractors,Omaha,NE,68127,Water softeners,85,4,1414,N,N,N,DFL,419036447
+26090,04/24/26,S63290,City of Muscatine Water Pollution Control,Muscatine,IA,52761,PVC DWV pipe and fittings,70,12,964,N,N,N,DFL,419036450
+26091,04/27/26,S63295,Springfield Plumbing Works,Springfield,IL,62703,Copper tube type L,60,160,7192,N,N,Y,DFL,419036453
+26093,04/27/26,S63298,Prairie Mechanical,Sioux City,IA,51106,PEX tubing and fittings,77.5,55,2496,N,N,N,DFL,419036460
+26095,04/28/26,S63299,Omaha Mechanical Contractors,Omaha,NE,68127,Vitreous china fixtures,100,80,3611,N,N,Y,DFL,419036467
+26096,04/28/26,S63302,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Black steel pipe,50,8,379,Y,Y,Y,DFL,419036472
+26097,04/29/26,S63307,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Brass fittings and valves,60,4,463,Y,Y,N,DFL,419036479
+26098,04/30/26,S63308,Prairie Mechanical,Sioux City,IA,51106,Condensing units,92.5,2,607,N,N,N,DFL,419036493
+26100,04/30/26,S63313,Springfield Plumbing Works,Springfield,IL,62703,PEX tubing and fittings,77.5,39,4700,N,N,N,DFL,419036504
+26102,04/30/26,S63314,Stoltenberg Plumbing,Fort Dodge,IA,50501,Cast iron soil pipe,50,15,5288,N,N,N,DFL,419036509
+26103,05/01/26,S63317,Hannibal Plumbing & Drain,Hannibal,MO,63401,Copper tube type L,60,13,2506,N,N,N,DFL,419036514
+26105,05/01/26,S63320,Prairie Mechanical,Sioux City,IA,51106,Cast iron soil pipe,50,19,837,N,N,N,DFL,419036528
+26106,05/04/26,S63324,Lincoln Plumbing & Heating,Lincoln,NE,68508,Fiberglass tub and shower kits,85,5,207,N,N,N,DFL,419036533
+26107,05/05/26,S63326,Lafayette Piping,Lafayette,IN,47904,Black steel pipe,50,16,1960,Y,N,N,DFL,419036540
+26108,05/05/26,S63329,Platteville Plumbing,Platteville,WI,53818,Fiberglass pipe insulation,150,24,4737,N,N,N,DFL,419036554
+26109,05/07/26,S63334,Eau Claire Heating,Eau Claire,WI,54703,Black steel pipe,50,1,182,N,N,N,DFL,419036565
+26110,05/08/26,S63336,Kammerer Plumbing & Heating,Iowa City,IA,52240,Sump and sewage pumps,70,2,201,Y,N,N,DFL,419036572
+26111,05/11/26,S63338,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Fabricated sheet metal ductwork,100,11,504,N,Y,N,DFL,419036579
+26113,05/11/26,S63341,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Water softeners,85,3,406,Y,Y,Y,DFL,419036582
+26114,05/11/26,S63345,Terre Haute Heating,Terre Haute,IN,47802,Fiberglass tub and shower kits,125,8,381,N,N,N,DFL,419036589
+26115,05/12/26,S63347,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Fiberglass pipe insulation,150,28,3414,Y,Y,Y,DFL,419036592
+26117,05/12/26,S63352,Galesburg Sanitary District,Galesburg,IL,61401,Fiberglass pipe insulation,150,1,344,N,N,N,DFL,419036599
+26119,05/13/26,S63354,Platteville Plumbing,Platteville,WI,53818,PVC DWV pipe and fittings,70,9,3125,N,N,N,DFL,419036613
+26120,05/14/26,S63357,Frey residence c/o Ruhl Mechanical,Bettendorf,IA,52722,Gas forced air furnaces,85,7,409,Y,Y,Y,DFL,419036618
+26121,05/14/26,S63360,Platteville Plumbing,Platteville,WI,53818,PVC DWV pipe and fittings,70,70,3151,N,N,N,DFL,419036621
+26122,05/15/26,S63362,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Cast iron soil pipe,50,5,225,Y,Y,Y,DFL,419036628
+26123,05/18/26,S63365,Ruhl Mechanical Contractors,Davenport,IA,52806,Brass fittings and valves,60,25,1133,N,N,Y,DFL,419036635
+26124,05/18/26,S63370,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Cast iron soil pipe,50,99,4437,Y,Y,Y,DFL,419036640
+26125,05/18/26,S63373,Galesburg Sanitary District,Galesburg,IL,61401,Copper tube type L,60,28,1269,Y,N,N,DFL,419036654
+26126,05/19/26,S63375,Terre Haute Heating,Terre Haute,IN,47802,Commercial water heaters,92.5,1,255,N,N,N,DFL,419036661
+26127,05/19/26,S63379,Waterloo Public Works,Waterloo,IA,50703,Copper tube type L,60,16,3186,N,N,N,DFL,419036668
+26128,05/19/26,S63381,Mason City Mechanical,Mason City,IA,50401,PEX tubing and fittings,77.5,4,352,N,N,N,DFL,419036671
+26130,05/20/26,S63383,Hilltop Plumbing LLC,Clinton,IA,52732,Vitreous china fixtures,100,34,6738,N,N,N,DFL,419036678
+26131,05/20/26,S63387,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,PEX tubing and fittings,77.5,16,3293,Y,Y,Y,DFL,419036692
+26132,05/20/26,S63390,Hannibal Plumbing & Drain,Hannibal,MO,63401,Cast iron soil pipe,100,140,6306,N,N,Y,DFL,419036703
+26133,05/20/26,S63394,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Gas forced air furnaces,85,16,738,Y,Y,Y,DFL,419036717
+26135,05/21/26,S63397,Rochester Piping Systems,Rochester,MN,55901,Copper tube type L,60,2,413,N,N,N,DFL,419036731
+26137,05/22/26,S63399,Mason City Mechanical,Mason City,IA,50401,Gas forced air furnaces,85,34,1539,N,N,N,DFL,419036745
+26138,05/22/26,S63401,Springfield Plumbing Works,Springfield,IL,62703,Cast iron soil pipe,50,40,4780,N,N,Y,DFL,419036750
+26139,05/25/26,S63404,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Fiberglass tub and shower kits,125,16,3185,N,Y,Y,DFL,419036757
+26141,05/25/26,S63407,Lincoln Plumbing & Heating,Lincoln,NE,68508,Fiberglass pipe insulation,150,8,975,N,N,Y,DFL,419036768
+26142,05/26/26,S63412,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Fiberglass pipe insulation,150,16,1930,Y,Y,Y,DFL,419036771
+26143,05/26/26,S63413,Quincy Heating & Cooling,Quincy,IL,62301,Fiberglass pipe insulation,150,2,489,N,N,Y,DFL,419036776
+26145,05/27/26,S63417,Frey residence c/o Ruhl Mechanical,Bettendorf,IA,52722,Condensing units,92.5,5,1764,N,Y,Y,DFL,419036790
+26147,05/27/26,S63420,La Crosse Mechanical,La Crosse,WI,54601,Condensing units,92.5,3,634,Y,N,N,DFL,419036793
+26148,05/27/26,S63422,Kirkwood Mechanical,Saint Louis,MO,63122,Brass fittings and valves,60,1,446,N,N,N,DFL,419036800
+26149,05/27/26,S63426,Galesburg Sanitary District,Galesburg,IL,61401,Commercial water heaters,92.5,9,411,N,N,N,DFL,419036803
+26150,05/28/26,S63428,Omaha Mechanical Contractors,Omaha,NE,68127,Cast iron soil pipe,50,8,366,N,N,N,DFL,419036814
+26151,05/28/26,S63431,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Black steel pipe,50,2,313,Y,Y,Y,DFL,419036828
+26153,05/28/26,S63435,Vogt Brothers Mechanical,Cedar Rapids,IA,52404,Water softeners,85,7,1493,N,N,N,DFL,419036839
+26154,05/29/26,S63437,Madison Piping Contractors,Madison,WI,53713,Condensing units,92.5,57,4533,Y,N,N,DFL,419036853
+26155,05/29/26,S63442,Platteville Plumbing,Platteville,WI,53818,Condensing units,92.5,12,722,N,N,N,DFL,419036864
+26156,06/01/26,S63443,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Sump and sewage pumps,70,9,394,N,Y,Y,DFL,419036875
+26158,06/01/26,S63448,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,Cast iron soil pipe,50,25,1115,Y,Y,Y,DFL,419036882
+26159,06/02/26,S63451,Mason City Mechanical,Mason City,IA,50401,Sump and sewage pumps,70,22,1350,N,N,N,DFL,419036885
+26160,06/02/26,S63453,Vogt Brothers Mechanical,Cedar Rapids,IA,52404,Fabricated sheet metal ductwork,100,1,422,N,N,Y,DFL,419036896
+26162,06/03/26,S63455,Madison Piping Contractors,Madison,WI,53713,Copper tube type L,60,25,2003,N,N,N,DFL,419036910
+26163,06/03/26,S63459,Kammerer Plumbing & Heating,Iowa City,IA,52240,Sump and sewage pumps,70,10,609,N,N,N,DFL,419036917
+26164,06/04/26,S63462,Madison Piping Contractors,Madison,WI,53713,Water softeners,85,16,1905,N,N,N,DFL,419036928
+26166,06/04/26,S63465,Eau Claire Heating,Eau Claire,WI,54703,Black steel pipe,50,8,460,N,N,N,DFL,419036933
+26168,06/08/26,S63467,Kammerer Plumbing & Heating,Iowa City,IA,52240,Fiberglass pipe insulation,150,2,858,Y,N,N,DFL,419036947
+26169,06/08/26,S63472,Springfield Plumbing Works,Springfield,IL,62703,Sump and sewage pumps,70,7,859,N,N,N,DFL,419036952
+26171,06/08/26,S63474,Hilltop Plumbing LLC,Clinton,IA,52732,Cast iron soil pipe,50,1,490,N,N,N,DFL,419036966
+26173,06/08/26,S63477,Rochester Piping Systems,Rochester,MN,55901,Sump and sewage pumps,70,15,1782,N,N,N,DFL,419036971
+26174,06/08/26,S63479,Stoltenberg Plumbing,Fort Dodge,IA,50501,Sump and sewage pumps,70,5,280,N,N,N,DFL,419036985
+26175,06/09/26,S63484,Rochester Piping Systems,Rochester,MN,55901,Vitreous china fixtures,100,12,929,N,N,N,DFL,419036988
+26176,06/09/26,S63485,Dubuque Mechanical,Dubuque,IA,52001,Residential gas water heaters,85,3,397,N,N,N,DFL,419036993
+26177,06/10/26,S63488,Frey residence c/o Ruhl Mechanical,Bettendorf,IA,52722,PVC DWV pipe and fittings,70,6,261,Y,Y,N,DFL,419036998
+26179,06/10/26,S63492,Prairie Mechanical,Sioux City,IA,51106,Cast iron soil pipe,50,5,319,N,N,N,DFL,419037001
+26180,06/11/26,S63496,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Brass fittings and valves,60,1,259,Y,Y,Y,DFL,419037008
+26181,06/12/26,S63499,Kammerer Plumbing & Heating,Iowa City,IA,52240,Gas forced air furnaces,85,52,4146,N,N,N,DFL,419037013
+26183,06/15/26,S63500,Eau Claire Heating,Eau Claire,WI,54703,Vitreous china fixtures,100,6,667,N,N,N,DFL,419037020
+26184,06/15/26,S63505,Macomb Mechanical,Macomb,IL,61455,PVC DWV pipe and fittings,70,4,1445,N,N,N,DFL,419037023
+26186,06/16/26,S63506,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Fiberglass tub and shower kits,125,6,1134,Y,Y,N,DFL,419037026
+26187,06/18/26,S63511,Waterloo Public Works,Waterloo,IA,50703,Commercial water heaters,92.5,4,359,N,N,N,DFL,419037033
+26188,06/18/26,S63513,Winona Mechanical,Winona,MN,55987,Residential gas water heaters,85,29,5898,N,N,N,DFL,419037047
+26190,06/19/26,S63515,Rock Island Housing Authority,Rock Island,IL,61201,Black steel pipe,50,1,366,N,N,N,DFL,419037061
+26191,06/19/26,S63520,Lafayette Piping,Lafayette,IN,47904,Sump and sewage pumps,70,20,890,N,N,N,DFL,419037064
+26192,06/23/26,S63521,Bittner residence c/o Hilltop Plumbing,DeWitt,IA,52742,Fabricated sheet metal ductwork,100,2,489,Y,Y,Y,DFL,419037071
+26194,06/23/26,S63524,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Fiberglass tub and shower kits,125,40,4820,Y,Y,Y,DFL,419037076
+26195,06/23/26,S63527,La Crosse Mechanical,La Crosse,WI,54601,Fiberglass pipe insulation,150,26,1553,Y,N,Y,DFL,419037090
+26197,06/23/26,S63532,Stoltenberg Plumbing,Fort Dodge,IA,50501,Brass fittings and valves,60,13,4384,N,N,N,DFL,419037101
+26198,06/24/26,S63533,Eau Claire Heating,Eau Claire,WI,54703,Gas forced air furnaces,85,2,290,N,N,N,DFL,419037108
+26200,06/24/26,S63536,Nowak residence c/o Moline Mechanical,Coal Valley,IL,61240,PEX tubing and fittings,77.5,3,945,Y,Y,Y,DFL,419037113
+26201,06/24/26,S63540,Dressler Heating & Air,Burlington,IA,52601,Fabricated sheet metal ductwork,100,9,1083,N,N,Y,DFL,419037118
+26202,06/25/26,S63542,Ankeny Plumbing Supply Counter,Ankeny,IA,50021,Residential gas water heaters,85,66,3947,N,N,N,DFL,419037132
+26203,06/26/26,S63545,Madison Piping Contractors,Madison,WI,53713,Condensing units,92.5,8,450,Y,N,Y,DFL,419037143
+26204,06/26/26,S63548,Stoltenberg Plumbing,Fort Dodge,IA,50501,Water softeners,85,4,740,Y,N,N,DFL,419037154
+26205,06/29/26,S63553,Ohlsen residence c/o Kammerer Plumbing,Coralville,IA,52241,Vitreous china fixtures,100,7,420,Y,Y,N,DFL,419037165

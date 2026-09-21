@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python tools/*)",
+      "Bash(zip *)",
+      "Bash(rm -f *.zip)"
+    ]
+  }
+}

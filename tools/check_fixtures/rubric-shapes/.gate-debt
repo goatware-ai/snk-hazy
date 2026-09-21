@@ -1,0 +1,2 @@
+# fixture: a debt line that matches no finding
+C1 R27 = fixture line that should be reported as stale

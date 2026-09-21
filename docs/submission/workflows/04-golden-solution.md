@@ -1,0 +1,103 @@
+# Workflow 04 — Golden Solution: the perfect, client-ready answer
+
+The golden solution is the correct answer to your prompt — the deliverable you would
+actually put in front of a client or your manager. It is both the reference the rubric
+grades against and proof the task is doable. The platform states correctness, the
+formatting standards and the client test once, in
+`../platform/project-guidelines-v5.1.md#golden-solution` and
+`../platform/style-guide-llm-tells.md`; this page holds the house additions and the reads
+the checks cannot do.
+
+## Two worked examples to model
+
+`../platform/task-example-wholesale-trade.md` is a **workbook** deliverable with an annotated
+good/bad prompt comparison. `../../reviewer/platform/task-example-omnichannel-routing.md` is a **document**
+deliverable: an evaluation memo whose shape is worth copying when the ask is an assessment rather
+than a model. Its structure is executive summary, then numbered findings each carrying a stated
+rule, an impact count and one fully worked example, then an overall assessment and a remediation
+list. Every figure in it reconciles exactly, which is the standard a golden solution is held to.
+
+## Say what the work does not settle
+
+Give the deliverable a short closing section naming what its own analysis cannot answer. The
+best golden reviewed on this desk closes on three: it prices the steel and not the other 38
+per cent of the job, the published index is not the mill price actually paid, and the backtest
+is one three-year window chosen from a series that has ranged far wider.
+
+Nothing in that task's rubric scored the section, and it was still the clearest thing
+separating that golden from every other one read. It is what the Hub's own omnichannel
+example means by evidentiary depth, and it is the difference between a deliverable that
+answers the question and one a manager can act on knowing the edges. Three sentences is
+enough; each one names a limit and why the files cannot close it.
+
+## Never let the file describe itself
+
+The deliverable must not name its own category or production method — anywhere
+(`../platform/style-guide-llm-tells.md`, all HIGH-severity tells; coded as N1):
+
+- **File name:** never `golden_solution.xlsx`, `ai_output.pptx`, `model_response.pdf`
+  — the prompt names the deliverable, and that name is what ships.
+- **Body/headings:** no "Golden Solution", "AI-generated", "As requested, this
+  document provides", no watermarks referencing AI or draft status.
+- **Title slides:** a real professional title ("Q3 Operations Review: Midwest
+  Region"), never the file category ("Output File: Strategic Analysis").
+
+## The reviewer's read: the golden against the inputs and the prompt
+
+The coded fidelity checks read the rubric against the golden or the golden against itself.
+A reviewer reads the golden against the inputs and the prompt, one claim at a time. Do that
+read before the rubric is drafted, and write the rubric so that each of these would lose
+points (`05-rubric.md`):
+
+- Every identifier the golden cites (invoice, PO, serial, work order) exists in a shipped
+  input (G10).
+- Every date the golden states is written in an input or derived by a stated rule; the
+  deliverable's own dateline is a stated date too, so date it to the note it answers or
+  leave it off (G18 for owner-dated action rows, G20 for every full date in the prose).
+- The deliverable's date is not later than an action it schedules as done (G9).
+- When the prompt says a document is to be signed, the golden carries that document with a
+  signature-and-date line, not a table about it (G8).
+- Every rule class in a policy input is applied to every record it governs, and no status
+  the policy does not name is written (a read).
+- A cost "since <date>" covers the partial period from that date (a read).
+- An asset that leaves carries no duty after it leaves (a read).
+- Every paragraph addressing one person restates that person's row: direction and amount,
+  each bonus standing or coming back, splits, house lines (G19 codes the "X's quarter moves
+  up/down" form; the rest is a hand read). Grade it with positives, never a penalty (R67
+  puts contradictions outside the penalty classes).
+- Every displayed ratio and total re-derives from the displayed figures as displayed (G21,
+  G5, G7).
+- Comma rules held in every text cell and paragraph (A20, `02-prompt-writing.md`).
+
+history:
+`../../reference/workflow-history.md#lift-truck-fleet-plan-rejected-at-first-human-review-2026-09-05`,
+`../../reference/workflow-history.md#commission-review-q2-needs_revision-rounds-2-4-2026-09-09-to-09-10`.
+
+## Packaging rules
+
+- One flat `.zip` named `s-<task-name>.zip`; no subfolders; no empty files; no spaces or
+  double extensions (H4). Output file name matches **exactly** what the prompt says to name
+  the deliverable (H5).
+- Every file **opens cleanly**: no XML errors, repair prompts, or corruption (A16). Open
+  each one from the zipped copy before submitting.
+- No revision residue: no tracked changes, no comments, no hidden sheets (L2).
+- Every formula cell carries its cached value and the workbook is formula-live (A9, A13,
+  A17); the reason is in `06-metadata.md#house-notes-on-platform-submission-formmd`.
+- Run the package sequence in `07-pre-submission-audit.md#package-sequence` before zipping.
+
+## Final screen before moving on
+
+- [ ] Every part of the prompt answered; fact-checked; would score ~100 on the rubric;
+      mostly human-edited (`../platform/project-guidelines-v5.1.md#golden-solution`)
+- [ ] Client/manager-ready aesthetics; spreadsheets use live formulas with cached values
+      (A9, A13, A17); no default LLM blues (A1); no paste walls (A5); no em dashes (A6)
+- [ ] File name matches the prompt exactly (H5); opens cleanly (A16); flat zip (H4)
+- [ ] **The reviewer's read done:** G10, G18, G20, G9, G8, G19, G21 and the three hand reads
+      above
+- [ ] Comma rules held in every text cell and paragraph (A20)
+
+Platform note: the oracle's judges read spreadsheets with tools and decompose each criterion
+into statements they must find in the deliverable; the observed behaviour and the house
+mitigations are in `06-metadata.md#house-notes-on-platform-submission-formmd`.
+
+Next: `05-rubric.md`

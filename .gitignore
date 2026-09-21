@@ -1,0 +1,8 @@
+.DS_Store
+/.venv/
+__pycache__/
+*.pyc
+scheduled_task.lock
+history.jsonl
+/drafts/
+/reviews/

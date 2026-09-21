@@ -1,0 +1,27 @@
+{
+  "task_name": "dfl-freight-audit",
+  "taskboard_uid": "04894e01-37a8-49ee-8cd4-7cd563ad8404",
+  "sector": "Wholesale Trade",
+  "onet_occupation": {
+    "code": "11-3071.00",
+    "title": "Transportation, Storage, and Distribution Managers"
+  },
+  "onet_tasks": [
+    "Examine invoices and shipping manifests for conformity to tariff and customs regulations.",
+    "Resolve problems concerning transportation, logistics systems, imports or exports, or customer issues.",
+    "Collaborate with other departments to integrate logistics with business systems or processes, such as customer sales, order management, accounting, or shipping."
+  ],
+  "onet_skills": [
+    "Reading Comprehension",
+    "Critical Thinking",
+    "Complex Problem Solving",
+    "Judgment and Decision Making"
+  ],
+  "input_file_count": 7,
+  "multimodal": false,
+  "web_search_allowed": false,
+  "manual_time_hours": 7,
+  "llm_starting_point": "Other",
+  "built_with": "claude-opus-5",
+  "build_session": "27317848"
+}

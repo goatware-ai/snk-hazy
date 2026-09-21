@@ -1,0 +1,5 @@
+﻿NUMBER,CRITERION,WEIGHT
+1,"The memo states the claim total for the quarter.",2
+2,"The memo lists the claims. The response does not fail this criterion when the list is short.",1
+3,"The memo claims 12.50, 13.75, 14.25 and 15.10 on four invoices, so the total reaches 55.60.",1
+4,"The memo nets the under-billed invoices against the claims.",-5

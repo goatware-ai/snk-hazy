@@ -1,0 +1,13 @@
+{
+  "about": "Rubric shapes from the 2026-09-15 rule-catalog cleanup.",
+  "fires": [
+    {"code": "R18", "criterion": "2"},
+    {"code": "R27", "criterion": "3", "contains": "Also on this criterion"},
+    {"code": "E1", "criterion": "4", "contains": "defect-frame word"}
+  ],
+  "silent": [
+    {"code": "R55", "criterion": "2"},
+    {"code": "R54", "criterion": "3"}
+  ],
+  "stdout_contains": [".gate-debt line(s) matched no finding this run: C1 R27"]
+}
