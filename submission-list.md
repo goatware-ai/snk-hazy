@@ -6,7 +6,7 @@ _None._
 
 _None._
 
-## EVALUATION_PENDING (4)
+## EVALUATION_PENDING (5)
 
 | Seq | Task name | Taskboard UID | Updated | Model |
 |-----|-----------|---------------|---------|-------|
@@ -14,6 +14,7 @@ _None._
 | 02 | title-exam-cedarbrook-lot12 | b34c9335-ad1a-4139-b078-c58d929b0ef8 | 2026-09-21 18:34 EDT | claude-fable-5-1 |
 | 03 | pretreatment-smr-q3-2026 | b3aa1605-dfc8-4be9-a476-fd9dfe7747ed | 2026-09-21 19:29 EDT | claude-fable-5-1 |
 | 04 | evs-staffing-4west | 0209d37b-a8ca-408a-8125-d72b22901e66 | 2026-09-21 19:35 EDT | claude-fable-5-1 |
+| 05 | am-exemption-review | 4fad9f2e-3574-4c22-805d-40275df0171e | 2026-09-21 19:46 EDT | claude-fable-5-1 |
 
 ## NEEDS_REVISION (0)
 
