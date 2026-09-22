@@ -1,0 +1,17 @@
+PLACEMENT_ID,DATE,ELEMENT,MIX_ID,CUBIC_YARDS,SLUMP_IN,AIR_PCT,CONCRETE_TEMP_F
+P-01,08/03/2026,Level 2 deck bay A,M-4000,142,4.25,6.2,74
+P-02,08/05/2026,Level 2 deck bay B,M-4000,138,4.5,5.8,76
+P-03,08/06/2026,Columns grid 1 to 4,M-6000,38,6.0,3.1,78
+P-04,08/10/2026,Level 2 deck bays C and D,M-4000,320,4.0,6.4,79
+P-05,08/12/2026,Level 3 deck bay A,M-4000,146,5.0,5.9,81
+P-06,08/13/2026,Columns grid 5 to 8,M-6000,41,5.5,2.8,77
+P-07,08/14/2026,Level 3 deck bay B,M-4000,140,4.75,7.8,80
+P-08,08/17/2026,Level 3 deck bay C,M-4000,151,4.25,6.1,75
+P-09,08/19/2026,Level 3 deck bay D,M-4000,149,4.5,5.6,73
+P-10,08/20/2026,Columns grid 9 to 12,M-6000,36,6.5,3.3,79
+P-11,08/21/2026,Ramp slab north,M-4000,96,4.0,6.0,72
+P-12,08/24/2026,Level 4 deck bay A,M-4000,144,4.5,6.3,74
+P-13,08/26/2026,Level 4 deck bay B,M-4000,139,3.75,5.7,71
+P-14,08/27/2026,Columns grid 13 to 16,M-6000,40,5.75,3.0,76
+P-15,09/03/2026,Shear walls stair 2,M-6000,52,6.25,2.6,70
+P-16,09/10/2026,Shear walls stair 1,M-6000,49,6.0,2.9,68

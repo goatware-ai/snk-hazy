@@ -1,0 +1,22 @@
+{
+  "task_name": "concrete-acceptance-review",
+  "taskboard_uid": "90babb9c-5a09-4898-a50b-b9af6a105e01",
+  "domain": "Architecture and Engineering",
+  "onet_occupation": {
+    "code": "17-3022.00",
+    "title": "Civil Engineering Technologists and Technicians"
+  },
+  "input_file_count": 5,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 60,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 60,
+  "total_time_hours": 6.25,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}

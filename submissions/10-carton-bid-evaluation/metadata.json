@@ -1,0 +1,22 @@
+{
+  "task_name": "carton-bid-evaluation",
+  "taskboard_uid": "bd686eba-d1d8-440c-bd7a-845b363fb9d5",
+  "domain": "Management",
+  "onet_occupation": {
+    "code": "11-3061.00",
+    "title": "Purchasing Managers"
+  },
+  "input_file_count": 4,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 60,
+  "time_work_minutes": 210,
+  "time_qa_minutes": 60,
+  "total_time_hours": 5.75,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}

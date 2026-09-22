@@ -1,0 +1,22 @@
+{
+  "task_name": "nutrition-panel-granola",
+  "taskboard_uid": "40b109e6-c4fc-4a07-b092-5262ab4ff29f",
+  "domain": "Life, Physical, and Social Science",
+  "onet_occupation": {
+    "code": "19-1012.00",
+    "title": "Food Scientists and Technologists"
+  },
+  "input_file_count": 5,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 60,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 60,
+  "total_time_hours": 6.25,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}

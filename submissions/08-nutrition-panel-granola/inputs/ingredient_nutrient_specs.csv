@@ -1,0 +1,14 @@
+INGREDIENT_CODE,INGREDIENT,BASIS_G,CALORIES_KCAL,TOTAL_FAT_G,SAT_FAT_G,TRANS_FAT_G,CHOLESTEROL_MG,SODIUM_MG,TOTAL_CARB_G,FIBER_G,TOTAL_SUGARS_G,ADDED_SUGARS_G,PROTEIN_G,VITAMIN_D_MCG,CALCIUM_MG,IRON_MG,POTASSIUM_MG,SOURCE
+RM-1042,Whole grain rolled oats,100,379,6.50,1.10,0,0,6,67.70,10.10,1.00,0,13.20,0,52,4.25,362,Supplier spec S-1042 rev 4
+RM-2210,Brown rice syrup,100,316,0.20,0,0,0,43,78.00,0,44.60,44.60,0.50,0,12,0.10,62,Supplier spec S-2210 rev 2
+RM-1187,Crisp rice,30,116,0.30,0.10,0,0,96,26.10,0.20,2.60,2.60,2.10,0,3,0.36,28,Supplier spec S-1187 rev 7 per 30 g serving
+RM-2205,Clover honey,100,304,0,0,0,0,4,82.40,0.20,82.10,82.10,0.30,0,6,0.42,52,Supplier spec S-2205 rev 3
+RM-3301,Infused dried cherries,100,333,1.00,0.10,0,0,12,80.00,3.00,60.00,30.00,1.50,0,26,0.90,380,Supplier spec S-3301 rev 5
+RM-3120,Roasted almond butter,100,614,55.50,4.20,0,0,7,18.80,10.30,4.40,0,21.00,0,347,3.49,748,Supplier spec S-3120 rev 2
+RM-3115,Sliced almonds,100,579,49.90,3.80,0,0,1,21.60,12.50,4.40,0,21.20,0,269,3.71,733,Supplier spec S-3115 rev 6
+RM-4010,Water,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Municipal water per plant analysis
+RM-4102,High oleic sunflower oil,100,884,100,8.50,0,0,0,0,0,0,0,0,0,0,0,0,Supplier spec S-4102 rev 3
+RM-5020,Vanilla extract,100,288,0.10,0,0,0,9,12.70,0,12.70,0,0.10,0,11,0.12,148,Supplier spec S-5020 rev 1
+RM-5031,Ground cinnamon,100,247,1.20,0.30,0,0,10,80.60,53.10,2.20,0,4.00,0,1002,8.32,431,Supplier spec S-5031 rev 2
+RM-5040,Sea salt,100,0,0,0,0,0,38758,0,0,0,0,0,0,24,0.33,8,Supplier spec S-5040 rev 1
+RM-5055,Soy lecithin,100,763,100,15.00,0,0,0,0,0,0,0,0,0,0,0,0,Supplier spec S-5055 rev 4
