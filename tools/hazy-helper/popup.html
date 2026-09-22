@@ -96,20 +96,21 @@
   </head>
   <body>
     <h1>Hazy Helper</h1>
-    <p class="sub">Fills the submission form from a task package. File uploads are always left alone.</p>
+    <p class="sub">Fills the submission form from a task's metadata.json. File uploads are always left alone.</p>
 
-    <textarea id="payload" spellcheck="false" placeholder='Paste the payload JSON, or load form-payload.json.
+    <textarea id="payload" spellcheck="false" placeholder="Load the task&apos;s metadata.json, or paste it here.
 
 {
-  "domain": "Management",
-  "occupation": "Purchasing Managers",
-  "task_instruction": "...",
-  "input_files": ["prices.xlsx — the supplier price file"],
-  "output_files": ["review.docx"],
-  "times": {"read": 25, "files": 85, "work": 240, "qa": 40, "total_hours": 6.5},
-  "tools": ["Excel"],
-  "rubric": [{"description": "...", "weight": 3}]
-}'></textarea>
+  &quot;domain&quot;: &quot;Management&quot;,
+  &quot;onet_occupation&quot;: { &quot;code&quot;: &quot;11-3061.00&quot;, &quot;title&quot;: &quot;Purchasing Managers&quot; },
+  &quot;input_files&quot;: [&quot;prices.xlsx - the supplier price file&quot;],
+  &quot;output_files&quot;: [&quot;review.docx&quot;],
+  &quot;time_read_minutes&quot;: 25,
+  &quot;total_time_hours&quot;: 6.5,
+  &quot;tools&quot;: [&quot;Excel&quot;],
+  &quot;task_instruction&quot;: &quot;...&quot;,
+  &quot;rubric&quot;: [{ &quot;description&quot;: &quot;...&quot;, &quot;weight&quot;: 3 }]
+}"></textarea>
 
     <div class="row">
       <label class="file">Load JSON<input type="file" id="jsonFile" accept=".json,application/json" /></label>
@@ -138,9 +139,8 @@
         <button data-op="fill:checklist" class="danger">Tick 14 boxes</button>
       </div>
       <p class="hint">
-        Scan first. Every section but the rubric is matched on label text, so scan tells you
-        what it found before anything is written. The checklist is an attestation about your
-        package, so it is never part of Fill all.
+        Load the task's metadata.json, then Scan to see what the page holds before writing.
+        The checklist is an attestation about your package, so it is never part of Fill all.
       </p>
     </fieldset>
 

@@ -16,16 +16,17 @@ last pasted, so it survives closing the popup.
 ## Use
 
 ```bash
-.venv/bin/python tools/form_payload.py drafts/01-my-task
+.venv/bin/python tools/sync_metadata.py submissions/NN-my-task
 ```
 
-That writes `drafts/01-my-task/form-payload.json` and prints a short report: how many inputs
-and criteria it found, the rubric's positive and negative totals, and anything it could not
-fill in. Then:
+That folds the submission form's fields into the task's `metadata.json` and prints a short
+report: how many inputs and criteria it found, the rubric's positive and negative totals,
+and anything it could not fill in. `metadata.json` is then the one file this extension
+needs. Then:
 
 1. Open the submission form. The extension opens each section itself, so you do not need
    to expand them first.
-2. Open the popup, **Load JSON**, pick that file.
+2. Open the popup, **Load JSON**, pick that task's `metadata.json`.
 3. Press **Scan page** first. Read what it found.
 4. Press **Fill all**, or fill one section at a time.
 5. Attach both zips yourself, and read the form before you submit.
@@ -110,12 +111,12 @@ The checklist heading contains an em dash. Matching falls back to comparing text
 dash characters folded together, so a capture that turns it into an en dash or a hyphen
 still matches; the difference is invisible on screen and would otherwise be a silent miss.
 
-## After you regenerate a payload, press Load JSON again
+## After you re-run the sync, press Load JSON again
 
-The popup keeps the last payload you loaded in browser storage and restores it when you
-reopen it. That is convenient and it is also the one trap in this tool: regenerating
-`form-payload.json` on disk does **not** change what the popup holds. The file and the popup
-drift apart, and the fill still succeeds, just with the old values.
+The popup keeps the last file you loaded in browser storage and restores it when you reopen
+it. That is convenient and it is also the one trap in this tool: re-running the sync does
+**not** change what the popup holds. The file and the popup drift apart, and the fill still
+succeeds, just with the old values.
 
 Three things now make that visible rather than silent:
 

@@ -69,6 +69,12 @@ Record the pair in `metadata.json` (`06-metadata.md`).
   second file that has to be reconciled, or under a status column a reader can skip, and make
   every numbered rule an input carries decide something (L7 for the labelled column, PR21 for
   the walk; `memory/difficulty-check-lessons.md` carries the case).
+- **A mismatch is not a trap either.** A rating audit whose every exception was a difference
+  between two tidy files failed the same check on 2026-09-22 (one weak-model attempt in three
+  cleared it): a script reproduces a mismatch. A rule that turns on a document or a written act
+  (a signed certificate, a certified ticket over the tolerance, a confirmation in writing before
+  delivery) is exercised on both arms, with a look-alike record that fails it, so the call
+  depends on reading the record (PR22).
 - **Prefer real published data where the occupation offers it.** Real data carries its own
   ambiguity, discontinued series, revision flags and withheld cells; a fabricated pack has
   to invent that friction, and the absence shows (all-whole-dollar cost figures, A15).

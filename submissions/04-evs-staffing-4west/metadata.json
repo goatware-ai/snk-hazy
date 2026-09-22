@@ -6,6 +6,16 @@
     "code": "37-1011.00",
     "title": "First Line Supervisors of Housekeeping and Janitorial Workers"
   },
+  "input_files": [
+    "evs_cleaning_standards_2026.docx - the department's cleaning task time standards and staffing method: minutes per task, volume basis, shift allocation, productive time and the full-time equivalent conversion, and the costing rules",
+    "unit_4west_room_inventory.csv - the Facilities room inventory for 4 West: each room and common area with its type, square footage, isolation capability and cleaning frequency",
+    "census_projection_4west.xlsx - Decision Support's calendar 2027 projection for 4 West by month: average daily census, discharges per day, isolation share of discharges and occupancy, with the assumptions behind it",
+    "evs_roster_wages_oct2026.xlsx - the Environmental Services roster for the inpatient units with shift, home unit, FTE, base rate and status, and the wage scale with differentials, benefits load and paid hours",
+    "director_memo_4west.docx - the director's memo asking for the plan, with the opening date, the transfers, the approved position, the annual labor budget and her working assumption"
+  ],
+  "output_files": [
+    "4west_evs_staffing_plan.xlsx - the 4 West staffing plan workbook with the plan page, the workload by task and shift, the positions and FTE, the cost against the budget, the December peak sensitivity and the note to the director"
+  ],
   "input_file_count": 5,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +27,129 @@
   "time_work_minutes": 210,
   "time_qa_minutes": 45,
   "total_time_hours": 5.5,
+  "task_instruction": "Marisol takes the 4 West staffing plan to the budget meeting on October 19, and she wants it in her hands by Friday, October 16. I'm the evening supervisor for environmental services at St. Anselm Regional Medical Center in Dubuque, Iowa, and unit staffing plans are built at my desk under the department's March standards. I am covering two open evening shifts this week and cannot give it the time it needs, so I am handing it to you because you have run housekeeping crews on inpatient units before and know how a task standard turns into a schedule. What you need is in the folder: evs_cleaning_standards_2026.docx, unit_4west_room_inventory.csv, census_projection_4west.xlsx, evs_roster_wages_oct2026.xlsx, and director_memo_4west.docx. The memo is Marisol's own ask with the budget she has committed to, and the projection is Decision Support's, not ours.\n\nBuild the plan as one workbook named 4west_evs_staffing_plan.xlsx. The first tab is the plan she reads at the meeting, with the workload, the positions and full-time equivalents by shift, what is still to be hired, and the annual cost against the budget. Behind it I want the workload worked task by task from the standards and the inventory, the positions worked from the workload, and the cost worked from the wage scale, so that any figure on the front can be traced. Put a note to Marisol on the last tab that tells her plainly whether her working plan holds under the standards, and if it does not, what it would take to make the unit fit the budget she has. She wants to see the December peak as well as the plan basis. I need the workbook by Friday, October 16.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly 4west_evs_staffing_plan.xlsx whose first worksheet is the plan page with the workload, positions, hiring and cost against the budget by shift.",
+      "weight": 1
+    },
+    {
+      "description": "The plan's unit total of full-time equivalents required reaches its value through a plain cell reference to the positions worked behind it, or a sum over the same shift rows alike, standing at exactly 3.82.",
+      "weight": 5
+    },
+    {
+      "description": "The plan states the day shift requirement as 2.62 full-time equivalents.",
+      "weight": 1
+    },
+    {
+      "description": "The plan states the evening shift requirement as 0.79 full-time equivalents.",
+      "weight": 1
+    },
+    {
+      "description": "The plan states the night shift requirement as 0.41 full-time equivalents.",
+      "weight": 1
+    },
+    {
+      "description": "The plan states the full-time equivalents still to hire beyond the transfers and the approved position as 0.82 for the unit.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Marisol states that the unit's requirement exceeds her working plan of three full-time equivalents on positions rather than on cost.",
+      "weight": 1
+    },
+    {
+      "description": "The annual labor cost of the required staffing is stated as $187,933.81.",
+      "weight": 1
+    },
+    {
+      "description": "The plan states the required staffing's cost as $17,066.19 under the $205,000.00 budget.",
+      "weight": 1
+    },
+    {
+      "description": "The cost of the director's working plan of three full-time equivalents is stated as $147,204.95.",
+      "weight": 1
+    },
+    {
+      "description": "The daily workload on the plan basis is stated as 1,019.84 minutes.",
+      "weight": 1
+    },
+    {
+      "description": "The day shift carries 698.98 minutes of the daily workload under the shift allocation in the standards.",
+      "weight": 1
+    },
+    {
+      "description": "The occupied-room daily cleans are counted at 13.2 rooms a day, the census less the discharges.",
+      "weight": 1
+    },
+    {
+      "description": "The terminal cleans are split into 6.724 standard and 1.476 isolation cleans a day from the isolation share of discharges.",
+      "weight": 1
+    },
+    {
+      "description": "The positions tab carries the day shift at 1.66 daily posts.",
+      "weight": 1
+    },
+    {
+      "description": "The positions tab converts each shift's daily posts to annual shifts at 365 days and to full-time equivalents at 231.4 worked shifts per FTE.",
+      "weight": 1
+    },
+    {
+      "description": "The corridor burnish and the monthly scrub and recoat are averaged to a daily figure and placed on the night shift.",
+      "weight": 1
+    },
+    {
+      "description": "The December peak is stated as 4.04 full-time equivalents if sustained all year, shown as a sensitivity beside the plan basis.",
+      "weight": 1
+    },
+    {
+      "description": "The night shift cost carries the $1.75 night differential on every paid hour of the night full-time equivalents.",
+      "weight": 1
+    },
+    {
+      "description": "The weekend differential is applied to two-sevenths of paid hours on every shift, giving $1,557.03 on the day shift.",
+      "weight": 1
+    },
+    {
+      "description": "The benefits load is applied to wages and differentials together, giving $27,178.91 on the day shift.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Marisol states that the evening transfer covers the evening requirement with 0.21 full-time equivalents to spare.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Marisol identifies the night shift as the requirement no transfer or approved position covers.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Marisol closes with what the plan does not settle, the float pool's capacity to cover the partial posts in January among them.",
+      "weight": 1
+    },
+    {
+      "description": "The inventory tab counts 24 private patient rooms from the Facilities inventory.",
+      "weight": 1
+    },
+    {
+      "description": "The workbook plans the unit on the December peak as its basis although the memo sets the calendar 2027 average as the plan basis.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook costs the transferred staff at zero although the standards cost them the same as new hires.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly costs the day shift with an evening or night differential although the wage scale attaches those differentials to evening and night shifts only.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook rounds a shift's daily posts up to a whole person although the standards carry posts to two decimals.",
+      "weight": -2
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as a plan the director can take to the budget meeting.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

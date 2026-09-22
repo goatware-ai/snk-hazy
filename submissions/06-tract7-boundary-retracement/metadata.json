@@ -6,6 +6,15 @@
     "code": "17-1022.00",
     "title": "Surveyors"
   },
+  "input_files": [
+    "field_notes_traverse_tract7.csv - the crew's traverse shots on the five corners, forward and reverse on each course, with quadrant bearing in degrees, minutes and seconds and horizontal distance in feet",
+    "field_book_tract7.docx - the field book for the job: client, purpose, dates, crew, equipment, basis of bearings, the monument recovery at each corner, the traverse method and the crew's notes for the office",
+    "deed_book_412_page_233.docx - the firm's transcription of the 1962 warranty deed with the metes and bounds calls on magnetic bearings and the recited acreage",
+    "firm_survey_standards.docx - the firm's boundary survey standards: traverse reduction and closure, the precision standard, area, deed comparison and conflict rules, priority of calls, and what the office analysis must contain"
+  ],
+  "output_files": [
+    "tract7_boundary_analysis.xlsx - the boundary analysis workbook with the findings page, the traverse reduction, the deed comparison, the area computation and the note to the sealing surveyor"
+  ],
   "input_file_count": 4,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +26,113 @@
   "time_work_minutes": 240,
   "time_qa_minutes": 60,
   "total_time_hours": 6.25,
+  "task_instruction": "Ellen seals the plat on the Cope tract. She wants the office analysis on her desk by Thursday, October 15, so the plat can be drawn before the buyer's lender closes at the end of the month. I'm the project surveyor at Hollins & Vance Surveying in Cookeville, Tennessee, and the office reduction on every boundary job we seal is mine. Dwight's crew finished the field work on the 30th, and I am in Nashville on the highway project all next week, so I am handing this one to you because you have done retracement survey work before and can reduce a traverse and read a deed against the monuments without me. The job file is in the folder: field_notes_traverse_tract7.csv, field_book_tract7.docx, deed_book_412_page_233.docx, and firm_survey_standards.docx. The field notes are every shot the crew took, forward and reverse, and the deed is our transcription of the 1962 record.\n\nBuild the analysis as one workbook named tract7_boundary_analysis.xlsx. The first tab is the findings page Ellen reads before she draws: the traverse closure and whether it meets the standard, the deed reduced and compared with the field, the area against the deed acreage, and which monuments hold and which were set. Behind it I want the traverse reduction course by course, the deed comparison call by call, and the area computation, laid out so that every figure on the findings page can be followed back to a shot or a call. Put a note to Ellen on the last tab with every conclusion the plat will rest on and anything the field evidence leaves open. If the deed and the field disagree she wants to know which one is wrong and why, not a split difference. I need the workbook by Thursday, October 15.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly tract7_boundary_analysis.xlsx whose first worksheet is the findings page carrying the traverse closure, the deed comparison, the area and the monuments.",
+      "weight": 1
+    },
+    {
+      "description": "The findings page's precision of closure reaches its value through a plain cell reference to the traverse reduction behind it, or a formula over the same five courses alike, standing at one part in 111,192.",
+      "weight": 5
+    },
+    {
+      "description": "The linear error of closure of the measured traverse is stated as 0.023 feet.",
+      "weight": 1
+    },
+    {
+      "description": "The latitude misclosure is stated as 0.009 feet south and the departure misclosure as 0.021 feet east, each with its sign or direction.",
+      "weight": 1
+    },
+    {
+      "description": "The closure test states that the traverse meets the firm's rural standard of one part in 10,000.",
+      "weight": 2
+    },
+    {
+      "description": "The traverse reduction's labelled totals row states the perimeter as 2,557.405 feet, the sum of the five mean distances.",
+      "weight": 1
+    },
+    {
+      "description": "The traverse reduction shows, for each of the five courses, the forward and reverse observations with the mean bearing and mean distance used, the reverse bearing turned through 180 degrees before the mean.",
+      "weight": 1
+    },
+    {
+      "description": "The deed is reduced on its own calls, with a perimeter of 2,562.0 feet and a linear misclosure of 4.689 feet on the deed worksheet.",
+      "weight": 1
+    },
+    {
+      "description": "The deed misclosure is stated as 1.830 feet per 1,000 feet of perimeter, with the description found defective under the firm standards rather than the field questioned.",
+      "weight": 1
+    },
+    {
+      "description": "The rotation from the deed's magnetic bearings to the grid is stated as 2 degrees 16 minutes, taken from the Stanhope Road course whose two corners are found original monuments.",
+      "weight": 2
+    },
+    {
+      "description": "The call from the Ballinger corner to the southeast stone is identified as the one call in error, with the deed's 597.2 feet set against the measured 592.69 feet.",
+      "weight": 2
+    },
+    {
+      "description": "The deed comparison states, for every call after rotation, the bearing difference in minutes and the distance difference in feet against the measured course.",
+      "weight": 1
+    },
+    {
+      "description": "The area by coordinates is stated as 430,760 square feet and 9.889 acres.",
+      "weight": 2
+    },
+    {
+      "description": "The findings page sets the computed acreage against the deed's recited 9.89 acres with a difference of -0.001 acres.",
+      "weight": 1
+    },
+    {
+      "description": "The area worksheet lists the northing and easting of every corner from the point of beginning held at the firm's stated coordinates, totalling the two cross-product columns before halving their difference.",
+      "weight": 1
+    },
+    {
+      "description": "The analysis states that the corner in the Ballinger west line was set at the position computed from the adjoining held monuments, with every other corner found and held.",
+      "weight": 2
+    },
+    {
+      "description": "The stone at the angle point in the Farley line is held as an original monument called for in the deed, over the deed's course and distance to it.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Ellen names the set corner as resting on the measured courses and no monument of its own, with the Hutchins and Ballinger fences named as occupation lines that are not boundary evidence.",
+      "weight": 1
+    },
+    {
+      "description": "The findings page is the first worksheet, with the note to Ellen on the last.",
+      "weight": 1
+    },
+    {
+      "description": "The analysis states that the deed's transposed distance is a transcription error in the deed, with the plat carrying the measured distance for that course.",
+      "weight": 2
+    },
+    {
+      "description": "The distance carried to the plat for the Ballinger-to-stone course wrongly averages the deed call with the measured course although the firm standards correct a single transposed call to the measured distance.",
+      "weight": -3
+    },
+    {
+      "description": "The rotation applied to the deed calls before the comparison is stated as zero, wrongly treating the deed's magnetic basis as the grid basis although the field book states the grid basis from GNSS.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly takes the linear error of closure from the compass-rule adjusted latitudes and departures, landing at zero, although the firm standards keep the closure unadjusted.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly holds the corner in the Ballinger west line as a found monument although the field book records nothing found there and a pin set.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly computes the area on the findings page from the deed calls although the firm standards compute it from the measured corner coordinates.",
+      "weight": -1
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as an analysis the sealing surveyor can draw the plat from.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

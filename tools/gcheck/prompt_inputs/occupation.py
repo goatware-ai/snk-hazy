@@ -317,3 +317,67 @@ def check_form_fields(folder):
                           f"{n}. A mismatch between the Input File List and the upload is "
                           "called out on the form as one of the most common reasons a "
                           "submission is sent back")
+
+
+# ---------------------------------------------------------------------------
+# metadata.json carries a COPY of the instruction and of the rubric, because the browser
+# helper that fills the submission form can only be handed one file. Copies rot: someone
+# edits instruction.md or the rubric CSV, forgets to re-run tools/sync_metadata.py, and the
+# form is then filled from the older text with nothing to say so. This is what makes the
+# duplication safe to have.
+# ---------------------------------------------------------------------------
+
+def _norm(s):
+    return re.sub(r"\s+", " ", (s or "")).strip()
+
+
+@check(codes=['M7'], rules=['PRE-OCC'], needs=['metadata'], params=['folder'])
+def check_metadata_copies(folder):
+    """metadata.json's copies of the instruction and the rubric still match their sources.
+
+    Codes:
+      M7  task_instruction matches instruction.md, and rubric matches the rubric CSV row for row
+    Since: 2026-09-22, when the form's fields were folded into metadata.json.
+    Source: house rule. The copies exist so the form can be filled from one file
+    (docs/submission/workflows/08-fill-the-form-and-submit.md); this check is the price.
+    """
+    meta = load_metadata(folder)
+    if not meta:
+        return
+
+    inst = folder / "instruction.md"
+    copy = meta.get("task_instruction")
+    if copy is not None and inst.exists():
+        if _norm(copy) != _norm(inst.read_text(encoding="utf-8")):
+            emit("ERROR", "[M7] metadata.json's task_instruction no longer matches "
+                          "instruction.md. Re-run tools/sync_metadata.py; never edit the "
+                          "copy by hand")
+    elif copy is None and inst.exists():
+        emit("ERROR", "[M7] metadata.json carries no task_instruction, so the form cannot "
+                      "be filled from it. Run tools/sync_metadata.py")
+
+    rows = meta.get("rubric")
+    csvs = sorted(folder.glob("rubric-*.csv"))
+    if rows is None and csvs:
+        emit("ERROR", "[M7] metadata.json carries no rubric. Run tools/sync_metadata.py")
+        return
+    if rows is None or not csvs:
+        return
+
+    from ..common import load_rows
+    source = [(t, w) for _, t, w in load_rows(csvs[0])]
+    if len(rows) != len(source):
+        emit("ERROR", f"[M7] metadata.json holds {len(rows)} criteria, {csvs[0].name} holds "
+                      f"{len(source)}. Re-run tools/sync_metadata.py")
+        return
+    for i, (row, (text, weight)) in enumerate(zip(rows, source), 1):
+        if _norm(row.get("description")) != _norm(text):
+            emit("ERROR", f"[M7] criterion {i} differs between metadata.json and "
+                          f"{csvs[0].name}. Re-run tools/sync_metadata.py")
+            return
+        rw = row.get("weight")
+        if isinstance(rw, (int, float)) and float(rw) != float(weight):
+            emit("ERROR", f"[M7] criterion {i} weight differs: metadata {rw}, CSV {weight:g}. "
+                          "Re-run tools/sync_metadata.py")
+            return
+

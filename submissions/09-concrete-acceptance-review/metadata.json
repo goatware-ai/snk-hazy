@@ -6,6 +6,16 @@
     "code": "17-3022.00",
     "title": "Civil Engineering Technologists and Technicians"
   },
+  "input_files": [
+    "cylinder_breaks_2417.csv - the laboratory's 28-day cylinder break file for the period, one line per cylinder, with set, placement, cast and test dates, age, diameter and length, maximum load, technician and fracture type",
+    "placement_log_2417.csv - the placement log with each placement's date, element, mix, cubic yards, slump, air content and concrete temperature",
+    "spec_033000_excerpt.docx - the project specification excerpt for cast-in-place concrete: mixtures and limits, sampling frequency, what makes a strength test, age tolerance, range and curing notes, the acceptance criteria and what follows a failing test, and the reporting form",
+    "lab_procedure_lp07_c39.docx - the laboratory's compressive strength procedure: specimen sizes and test ages, area and strength computation and rounding, within-test range, fracture types and reporting",
+    "lab_quality_memo_2417.docx - the laboratory manager's memo on the events of the period that bear on the tests, and what the acceptance summary needs to carry"
+  ],
+  "output_files": [
+    "acceptance_summary_2417_aug_sep.xlsx - the acceptance summary workbook with the engineer's page, the cylinder strengths, the strength tests with moving averages in casting order, the sampling check by placement and the note to the laboratory manager"
+  ],
   "input_file_count": 5,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +27,97 @@
   "time_work_minutes": 240,
   "time_qa_minutes": 60,
   "total_time_hours": 6.25,
+  "task_instruction": "The August and September cylinder breaks on the Harbor View parking structure are done, and the engineer of record wants the monthly acceptance summary before the Level 5 deck pours start. I'm the senior civil engineering technician at Brekke Testing Laboratories in Duluth, Minnesota, and the acceptance summaries on every structural concrete project we test are mine to prepare. I am on the airport runway job for the next ten days, and you have a few years of concrete testing behind you, so I am handing this one to you. The file has cylinder_breaks_2417.csv, placement_log_2417.csv, spec_033000_excerpt.docx, lab_procedure_lp07_c39.docx, and lab_quality_memo_2417.docx.\n\nBuild the summary as one workbook named acceptance_summary_2417_aug_sep.xlsx. The first tab is what the engineer reads: for each mixture, how many strength tests were made, whether the concrete meets the specification's acceptance criteria, which tests fail and from which placements, which sets were cast but not used and why, which placements were sampled short of the specification, and what the specification calls for next. Behind it I want every cylinder strength computed from the file, every strength test with its moving average in casting order, and the sampling check placement by placement, laid out so the engineer can follow any figure on the first tab back to a cylinder or a placement. Put a note to Gunnar on the last tab with anything he needs to raise with the engineer or the contractor. I need the workbook by Wednesday, October 21.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly acceptance_summary_2417_aug_sep.xlsx whose first worksheet is the summary for the engineer with the acceptance finding for each mixture.",
+      "weight": 1
+    },
+    {
+      "description": "The summary's lowest strength test for the deck mixture reaches its value through a plain cell reference to the acceptance block behind it, or a minimum over the same tests alike, standing at 3,480 psi.",
+      "weight": 5
+    },
+    {
+      "description": "The 38 cylinder strengths are computed from the maximum load over the procedure's stated area for the diameter, rounded to the nearest 10 psi.",
+      "weight": 2
+    },
+    {
+      "description": "The summary states 9 strength tests used for acceptance on the deck mixture and 5 on the column mixture.",
+      "weight": 2
+    },
+    {
+      "description": "The deck placement whose test came in at 3,480 psi is found to fail criterion (b), being more than 500 psi below f'c.",
+      "weight": 2
+    },
+    {
+      "description": "The columns placement whose test came in at 5,370 psi is found to fail criterion (b) under the 10 percent allowance.",
+      "weight": 2
+    },
+    {
+      "description": "The deck mixture's moving average of three falls below f'c on three consecutive tests, the first at 3,913.3 psi.",
+      "weight": 2
+    },
+    {
+      "description": "The summary finds that both mixtures do not meet the acceptance criteria and names investigation with cores as the next step for each failing placement.",
+      "weight": 3
+    },
+    {
+      "description": "The core floors for the deck mixture are stated as 3,400 psi for the average of three cores and 3,000 psi for a single core.",
+      "weight": 1
+    },
+    {
+      "description": "The north ramp set tested with only two of the three cylinders its size requires is reported and not used for acceptance.",
+      "weight": 2
+    },
+    {
+      "description": "The Level 4 bay A set tested at 29.1 days is reported and not used for acceptance, being outside the 20 hour age tolerance.",
+      "weight": 2
+    },
+    {
+      "description": "The bays C and D deck placement of 320 cubic yards is found sampled short, needing three tests and having two.",
+      "weight": 2
+    },
+    {
+      "description": "The curing excursion set is counted for acceptance at 4,010 psi with the excursion noted beside it.",
+      "weight": 1
+    },
+    {
+      "description": "The Level 3 bay C test is counted for acceptance with its within-test range noted as exceeding the 6.6 percent limit for two cylinders.",
+      "weight": 1
+    },
+    {
+      "description": "The summary is the first worksheet, with the note to the laboratory manager on the last.",
+      "weight": 1
+    },
+    {
+      "description": "The note names the shear wall placement with no test as the item to raise with the field crew first.",
+      "weight": 1
+    },
+    {
+      "description": "The workbook wrongly computes the moving average of three across both mixtures together although 3.11.3 counts consecutive tests within one mixture.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly applies the 500 psi allowance to the column mixture although 3.11.1(b) uses 10 percent of f'c above 5,000 psi.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly requires one strength test for the 151 cubic yard placement although 3.10.1 counts each fraction of 150 cubic yards.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly treats the placement with air at 7.8 percent as failing acceptance although 3.12.2 keeps fresh concrete results apart from strength acceptance.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly omits the shear wall placement with no set from the sampling check although 3.12.1 lists every placement whose sampling fell short.",
+      "weight": -1
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as an acceptance summary the engineer of record can act on.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

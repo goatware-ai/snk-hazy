@@ -1,6 +1,6 @@
 ---
 name: difficulty-check-lessons
-description: "The desk's first difficulty_check FAIL (carton-bid-evaluation, 2026-09-22): what the platform measures (per-model PASS/FAIL attempts in the fetch JSON, two PASS of four on one model fails the task), why the task was easy (every trap labelled in a tidy column, one rule applied once to four bids, nothing reconciled across files), and the rebuild shape that answered it (a candidate set to eliminate, conditions in prose letters, a responsibility register with a name variant and a decoy, a superseded drawing revision under a STATUS column)"
+description: "The desk's two difficulty_check FAILs (carton-bid-evaluation and freight-invoice-audit, 2026-09-22): what the platform measures (per-model PASS/FAIL attempts in the fetch JSON; two PASS of four, and ONE PASS of three valid, each fail the task), why each task was easy (every trap labelled in a tidy column; every exception a two-file mismatch a script reproduces), and the rebuild shapes that answered them (a candidate set with a decoy per trap, conditions in prose letters, a status column; a rule with a document or written-act condition exercised on both arms, a look-alike record that fails it, a bulletin the contract subordinates to its table)"
 metadata: 
   node_type: memory
   type: feedback
@@ -55,3 +55,36 @@ the rule" or "the same sentence that states the rule", relocate the fact into pr
 file, or a status column. Two files that must agree on a name in two spellings beat one tidy
 sheet. A difficulty revision is a rebuild of inputs and golden, never a rubric-only tightening;
 the platform re-runs the models on the files.
+
+**Second FAIL, same day (freight-invoice-audit, 2026-09-22).** glm-5.2 went PASS, FAIL, INCOMPLETE,
+FAIL (`solved: true`, 3 valid attempts), qwen3.6-27b FAIL x4; verdict FAIL. So one PASS in three
+valid attempts on one model fails the task: the bar is effectively no PASS on any model.
+
+**Why it was easy.** A month of LTL freight bills rated against a contract: every one of the 13
+exceptions was a difference between two tidy CSVs (a class, a weight, a base charge, a fuel
+percentage, an accessorial, a duplicate pro) and a rule the contract stated once. A script that
+rates each bill and compares reproduces the whole claim. The contract carried four arms the golden
+never exercised: a reclass stands on a signed inspection certificate (4.3), a reweigh stands on a
+certified scale ticket more than five percent over the declared weight (4.5), an accessorial is
+billable when confirmed in writing before delivery (6.1), and the tariff table governs where the
+bulletin disagrees (5.3).
+
+**What fixed it.** Two new inputs and four invoice changes, no rubric-only tightening: a Northline
+billing file transmittal (docx table, "Particulars as shown on the document") listing a signed
+inspection certificate for one reclass and a system reclass notice with no inspector for the other,
+a certified scale ticket 7.9 percent over the declared weight (the reweigh holds) and a certified
+ticket 3.6 percent over (inside the tolerance, it reverts) beside an unsigned dock readout, plus
+delivery-receipt decoys; a shipping desk email printout in which a liftgate and a reconsignment are
+requested in writing before delivery (both due, the reconsignment being a schedule line with no BOL
+flag) and a liftgate asked about after delivery is refused; the bulletin misprints one week's
+percentage against the table. Each missed reconciliation moves the claim total (nine variants in
+verify_golden.py, every one flips it). The golden reads the documents into a Billing File tab
+(QUALIFIES / APPLIES_TO, the auditor's call typed beside the record) and a Confirmations tab, and the
+Audit tab's contract weight, contract class and accessorials due are formulas over them.
+
+**Coded (2026-09-22).** PR22 in procedural.py: a rule that turns on a document or a written act is
+exercised on both arms with a look-alike that fails it. H1 now skips the fetched feedback-<uid8>.md
+(fixture fetched-feedback-not-canary), which the first gate run of a revision otherwise trips on.
+Also learned: a rubric figure on a cell storing a tenth (190.3) is caught between R50 (quote as
+stored) and R82 (money to the cent); anchor the row on a cell storing two decimals instead.
+

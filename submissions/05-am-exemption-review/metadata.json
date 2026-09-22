@@ -6,6 +6,16 @@
     "code": "11-3121.00",
     "title": "Human Resources Managers"
   },
+  "input_files": [
+    "position_descriptions_am.docx - the company's position descriptions for store manager, assistant store manager and sales associate, with the January 2024 revision notes on the assistant manager classification",
+    "hr_policy_excerpts.docx - the classification policy with the salary and duties tests, the salary and standard workweek policy, the bonus plan, the badge record policy, and the wage and hour reference on look-back and exposure",
+    "badge_hours_weekly_2024_2026.csv - weekly badge hours for the three salaried assistant managers over 104 workweeks, laid out in three side-by-side blocks of 35 weeks",
+    "payroll_history_am.xlsx - the three assistant managers' salary history, quarterly bonus history, and the store staffing beside each of them by half-year",
+    "demand_letter_voight.docx - the attorney's demand letter of October 2, 2026 on Kendra Voight's overtime, with its figures and its response date"
+  ],
+  "output_files": [
+    "am_exemption_review_oct2026.xlsx - the exemption review workbook with the summary, the week-by-week back overtime for the misclassified assistant managers, the demand letter set against the review, and the note to the general counsel"
+  ],
   "input_file_count": 5,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +27,121 @@
   "time_work_minutes": 240,
   "time_qa_minutes": 60,
   "total_time_hours": 6.75,
+  "task_instruction": "A demand letter on Kendra Voight's overtime landed on Delia's desk on October 2, and it wants an answer by November 2. I'm the human resources manager for the stores at Voss-Kettering Supply in Fort Wayne, Indiana, and classification questions on store management are mine. Delia wants the company's own numbers before she answers the lawyer, and she wants them by Wednesday, October 14. I am in Terre Haute for the district managers' meeting until the 13th, so I am handing the review to you because you have done wage and hour compliance work before and know how an exemption is tested against what a person actually does. The pull is in the folder: position_descriptions_am.docx, hr_policy_excerpts.docx, badge_hours_weekly_2024_2026.csv, payroll_history_am.xlsx, and demand_letter_voight.docx. The badge file is the weekly badge hours for all three salaried assistant managers, laid out in three side-by-side blocks, and the payroll workbook is their salary history, bonus history, and the staffing beside each of them.\n\nBuild the review as one workbook named am_exemption_review_oct2026.xlsx. The first tab is the summary Delia reads: for each of the three assistant managers, whether the classification holds and on what ground, the weeks and overtime hours in the look-back, and what the company would owe. Behind it I want the week-by-week computation for anyone who is owed overtime, worked under our own policies and the badge record, and the demand letter's figures set against ours. Put a note to Delia on the last tab covering what she needs before she answers, including anything that is worse than the letter says, anything that is better, and what our records do not settle. I need the workbook by Wednesday, October 14.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly am_exemption_review_oct2026.xlsx whose first worksheet is the summary of the three assistant managers' classifications and back overtime.",
+      "weight": 1
+    },
+    {
+      "description": "The summary's back overtime owed for Kendra Voight reaches its value through a plain cell reference to the week-by-week computation behind it, or a sum over the same weekly rows alike, standing at exactly $32,685.45.",
+      "weight": 5
+    },
+    {
+      "description": "The summary classifies Kendra Voight as non-exempt on the duties test, directing 1.5 full-time equivalents at store 14 against the two the test requires.",
+      "weight": 1
+    },
+    {
+      "description": "The summary classifies Marcus Dellinger as non-exempt on the salary test, with his weekly salary of $675.00 below the minimum.",
+      "weight": 1
+    },
+    {
+      "description": "The summary classifies Priya Natarajan as exempt, with both the salary test and the duties test met.",
+      "weight": 1
+    },
+    {
+      "description": "Marcus Dellinger's back overtime for the look-back is stated as $7,224.63.",
+      "weight": 1
+    },
+    {
+      "description": "The company's two-year back overtime across the assistant managers is stated as $39,910.08.",
+      "weight": 1
+    },
+    {
+      "description": "The total two-year exposure with liquidated damages equal to the back overtime is stated as $79,820.16.",
+      "weight": 1
+    },
+    {
+      "description": "Kendra Voight's overtime hours over the look-back are stated as 1,054.08 across 101 workweeks worked.",
+      "weight": 1
+    },
+    {
+      "description": "Marcus Dellinger is shown with 82 workweeks over the standard week out of 102 worked.",
+      "weight": 1
+    },
+    {
+      "description": "The bonus allocation gives Kendra Voight a weekly share of $41.54 in the second quarter of 2025 from the quarter's bonus spread over thirteen workweeks.",
+      "weight": 1
+    },
+    {
+      "description": "The regular rate in a bonus week is the salary plus the bonus share over the standard week, giving $21.04 for Kendra Voight in the second quarter of 2025.",
+      "weight": 1
+    },
+    {
+      "description": "Overtime owed is computed at one and one-half times the regular rate on the badge hours over the standard week, week by week.",
+      "weight": 1
+    },
+    {
+      "description": "The weekly computation carries three of Kendra Voight's workweeks at zero badge hours as paid time off.",
+      "weight": 1
+    },
+    {
+      "description": "Marcus Dellinger's regular rate in the third quarter of 2025 is $17.73 with the bonus share included.",
+      "weight": 1
+    },
+    {
+      "description": "The summary sets the letter's twelve overtime hours a week against the badge record's 10.44 overtime hours per workweek worked.",
+      "weight": 1
+    },
+    {
+      "description": "The summary states the review's figure for Kendra Voight with liquidated damages as $65,370.90 beside the letter's demand.",
+      "weight": 1
+    },
+    {
+      "description": "The summary states the difference between the letter's demand and the review's figure with liquidated damages as $9,509.10.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Delia states that the review reaches Marcus Dellinger as well as Kendra Voight because his classification rests on the same facts.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Delia states that the third year is not computed because the badge records pulled begin in October 2024.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Delia names the position description revision and the missing staffing confirmations for stores 14 and 22 as the facts a willfulness claim would rest on.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Delia closes with what the records do not settle, the time between badging in and starting work among them.",
+      "weight": 1
+    },
+    {
+      "description": "The hours tab reads the badge file's three side-by-side blocks back into one column of 104 workweeks in date order.",
+      "weight": 1
+    },
+    {
+      "description": "The workbook wrongly leaves the quarterly bonuses out of the regular rate although policy 4.8 allocates them to the workweeks of the quarter.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly computes back overtime for the store 31 assistant manager although her classification holds.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook includes a week of zero badge hours inside the workweeks worked although policy 4.9 makes it paid time off.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly applies the letter's $20.00 regular rate to the bonus weeks although the policy adds the bonus share before dividing by 40.",
+      "weight": -2
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as a review the general counsel can answer the letter from.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

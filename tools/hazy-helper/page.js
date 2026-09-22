@@ -418,7 +418,7 @@ async function pageOps(op, payload) {
         res.problems.push(
           `${bare.length} of ${values.length} entries are a bare file name with no ` +
             `description (first: "${String(bare[0]).slice(0, 48)}"). The form asks for ` +
-            `"name - what it contains". If you regenerated form-payload.json, press Load ` +
+            `"name - what it contains". If you regenerated metadata.json, press Load ` +
             `JSON again - the popup keeps the copy you loaded last.`
         );
       }
@@ -814,7 +814,28 @@ async function pageOps(op, payload) {
     return out;
   }
 
-  const p = payload || {};
+  // metadata.json is the payload. It keeps its own shape - the occupation nested under
+  // onet_occupation, the times as flat time_*_minutes keys - so normalise here rather than
+  // bending the file to suit this script. A hand-written flat payload still works.
+  const p = (() => {
+    const raw = payload || {};
+    const out = Object.assign({}, raw);
+    if (!out.occupation && raw.onet_occupation) {
+      out.occupation = raw.onet_occupation.title;
+      out.occupation_code = out.occupation_code || raw.onet_occupation.code;
+    }
+    if (!out.times) {
+      const t = {
+        read: raw.time_read_minutes,
+        files: raw.time_files_minutes,
+        work: raw.time_work_minutes,
+        qa: raw.time_qa_minutes,
+        total_hours: raw.total_time_hours,
+      };
+      if (Object.values(t).some((v) => v !== undefined && v !== null)) out.times = t;
+    }
+    return out;
+  })();
   const want = (k) => op === "fill" || op === "fill:" + k;
 
   // Section 1 -------------------------------------------------------------

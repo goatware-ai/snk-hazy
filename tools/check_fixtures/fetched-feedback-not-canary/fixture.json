@@ -1,0 +1,9 @@
+{
+ "about": "A task folder carrying the platform return tools/fetch_feedback.py writes (feedback-<uid8>.md, evaluation vocabulary and the programme codename in its notes); it is never packaged, so H1 stays silent on it (2026-09-22, a revision whose gate fired H1 on its own fetched feedback).",
+ "base": "package-corrected",
+ "silent": [
+  {
+   "code": "H1"
+  }
+ ]
+}

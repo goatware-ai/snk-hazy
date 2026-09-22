@@ -6,6 +6,16 @@
     "code": "11-3031.01",
     "title": "Treasurers and Controllers"
   },
+  "input_files": [
+    "credit_agreement_2024_excerpts.docx - working excerpts of the Credit Agreement dated November 14, 2024 as amended: selected Section 1.01 definitions, Sections 5.01, 5.02, 6.11 through 6.14, 7.01, and the Exhibit D form of Compliance Certificate",
+    "gl_activity_sep25_aug26.csv - general ledger activity export by account and month, September 2025 through August 2026, debits positive and credits negative, income statement accounts plus the dividend equity account",
+    "treasury_schedules_083126.xlsx - treasury schedules as of August 31, 2026: term loan history, revolver month-end balances, seller note, lease schedule, standby letters of credit, capital additions, and income tax provision and payments",
+    "agent_correspondence_sep2026.docx - September 2026 email thread between the bank's relationship manager, the CFO, and the controller on the Q3 certificate, the approved add-backs, and the Ostrander pro forma",
+    "ostrander_pl_sep25_feb26.xlsx - Ostrander Machine LLC monthly income statements, September 2025 through February 2026, as delivered to the bank"
+  ],
+  "output_files": [
+    "compliance_certificate_q3_fy2026.xlsx - the Compliance Certificate for the fiscal quarter ended August 31, 2026 with its covenant calculation schedules and the note to the CFO"
+  ],
   "input_file_count": 5,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +27,133 @@
   "time_work_minutes": 300,
   "time_qa_minutes": 65,
   "total_time_hours": 8.0,
+  "task_instruction": "Wade signs the Compliance Certificate for the fiscal quarter that ended August 31, 2026, and the bank has to have it by October 15. I'm the controller at Brennecke Precision Components, so the certificate package is mine to build. The August close only wrapped on Friday, and I am at the auditors' planning meeting most of next week. I am handing the build to you because you have handled covenant compliance reporting at two other borrowers and will not need the definitions walked through. The facility is with Lakeshore Merchants Bank out of Sheboygan, Wisconsin, and Curtis Yablonski there is the one who reads what we send. Everything you need is in the folder: credit_agreement_2024_excerpts.docx, gl_activity_sep25_aug26.csv, treasury_schedules_083126.xlsx, agent_correspondence_sep2026.docx, and ostrander_pl_sep25_feb26.xlsx. The ledger export is the system's activity dump with debits positive and credits negative, and the Ostrander statements are the seller's own six months exactly as we delivered them to the bank.\n\nBuild the certificate package as one workbook named compliance_certificate_q3_fy2026.xlsx. The first tab is the certificate itself in the form the agreement prescribes, filled in for the August quarter with its schedules, so that Wade signs the front and nothing behind it has to be reworked. Behind the certificate I want the covenant calculations laid out line by line against the definitions, with each figure traced to the ledger account, schedule, or letter it comes from, and with the Ostrander pro forma shown on its own so Curtis can tie it to the statements. Put a short note to Wade on the last tab covering anything he needs to know before he signs, including anything in the calculation that runs against what he is expecting, what it would take to put right, and the dates that matter. Wade believes we are comfortably inside both covenants, and if the numbers say otherwise he wants to hear it from us in writing rather than from the bank. I need the workbook by Tuesday, October 13, so he can sign on the 14th.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly compliance_certificate_q3_fy2026.xlsx whose first worksheet is the Compliance Certificate carrying a signature block for the Chief Financial Officer.",
+      "weight": 1
+    },
+    {
+      "description": "The certificate's Fixed Charges line reaches its value through a plain cell reference to the schedule that builds it, or an aggregation over the same schedule rows alike, standing at exactly $2,768,695.77.",
+      "weight": 5
+    },
+    {
+      "description": "The covenant schedule on the certificate states the Total Leverage Ratio as 2.62, inside the maximum the leverage covenant sets for the quarter.",
+      "weight": 1
+    },
+    {
+      "description": "The Fixed Charge Coverage Ratio for the Test Period is stated as 1.16, under the minimum the fixed charge coverage covenant sets.",
+      "weight": 1
+    },
+    {
+      "description": "The defaults schedule on the certificate identifies an Event of Default for the failure to comply with the fixed charge coverage covenant, with the second certification read subject to that schedule.",
+      "weight": 1
+    },
+    {
+      "description": "The defaults schedule states the Cure Amount required under the equity cure right as $117,515.74.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Wade states that written notice of the Default is due to the Agent within five Business Days after a Responsible Officer has knowledge of it under Section 5.02.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Wade states that a Cure Amount must be received within ten Business Days after the day the certificate is due, October 15, 2026.",
+      "weight": 1
+    },
+    {
+      "description": "Consolidated EBITDA for the Test Period is stated as $5,414,830.01.",
+      "weight": 1
+    },
+    {
+      "description": "Consolidated Funded Debt at the quarter end is stated as $14,167,103.23, with the face amount of both undrawn standby letters of credit counted in it.",
+      "weight": 1
+    },
+    {
+      "description": "The EBITDA build leaves $26,912.55 of the Waupun severance and retention in operating expense, the excess over the amount the Agent approved under clause (e).",
+      "weight": 1
+    },
+    {
+      "description": "The EBITDA build adds back the write-off of the Waupun leasehold improvements as a non-cash charge under clause (d) rather than under clause (e).",
+      "weight": 1
+    },
+    {
+      "description": "The clause (e) cap is stated as $500,283.00, ten percent of the $5,002,830.01 Consolidated EBITDA before clause (e).",
+      "weight": 1
+    },
+    {
+      "description": "Acquired EBITDA for Ostrander Machine is shown as its own line at $434,009.02 for the pre-closing months only.",
+      "weight": 1
+    },
+    {
+      "description": "The Ostrander build adds back Dale Ostrander's officer salary as the one adjustment the Agent approved in writing on September 8, 2026.",
+      "weight": 1
+    },
+    {
+      "description": "Consolidated Cash Interest Expense on the fixed charges schedule is net of the $17,559.52 of interest income and excludes the amortization of deferred financing costs.",
+      "weight": 1
+    },
+    {
+      "description": "Scheduled Principal Payments for the Test Period are stated as $1,752,783.47.",
+      "weight": 1
+    },
+    {
+      "description": "Unfinanced Capital Expenditures for the Test Period are stated as $1,188,565.83, with the 5-axis machining center placed in service on the Brandt finance lease treated as financed.",
+      "weight": 1
+    },
+    {
+      "description": "Cash Taxes are stated as $583,845.00, with the federal refund received in January 2026 netted against the payments.",
+      "weight": 1
+    },
+    {
+      "description": "Restricted Payments for the Test Period are stated as the $437,500.00 dividend paid in December 2025.",
+      "weight": 1
+    },
+    {
+      "description": "Capital Expenditures for the fiscal year to date are reported on the covenant schedule as $1,420,452.78 against the annual limit, which is tested only at fiscal year end.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Wade states that an approval of the Kowalczyk settlement would raise the Fixed Charge Coverage Ratio only to 1.19 because the clause (e) cap limits the addition.",
+      "weight": 1
+    },
+    {
+      "description": "The note to Wade states that the leverage covenant maximum steps down to 2.75 for the quarter, below the level the chief financial officer's email assumed.",
+      "weight": 1
+    },
+    {
+      "description": "The EBITDA build and the fixed charges schedule carry a source column beside each line naming the ledger account, treasury schedule tab, or letter the figure comes from.",
+      "weight": 1
+    },
+    {
+      "description": "The activity total column on the ledger tab is a formula summing the monthly columns rather than a keyed figure, the materials and outside processing account standing at $11,821,655.94.",
+      "weight": 1
+    },
+    {
+      "description": "The EBITDA build deducts the gain on the sale of Waupun equipment in account 7020 under clause (g).",
+      "weight": 1
+    },
+    {
+      "description": "The workbook wrongly books the voluntary prepayment of April 15, 2026 as scheduled principal although the definition excludes voluntary prepayments.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly adds a legal settlement back under clause (e) although no written approval of it from the bank is in the correspondence.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook invents a section number of the Credit Agreement, although the excerpts carry no such section.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook includes the liabilities of the three operating leases inside the funded debt total although the definition excludes obligations under operating leases.",
+      "weight": -2
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as a certificate package the chief financial officer can sign without rework.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

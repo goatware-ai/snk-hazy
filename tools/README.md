@@ -131,17 +131,15 @@ symlink to it; recreate that symlink after moving to a new machine.
     comes back, and a fill that stopped part-way leaves the platform holding fewer criteria
     than the CSV, which nothing else would surface.
 
-- **form_payload.py** `<task-folder> [-o out.json] [--stdout]` — builds the submission
-    form's payload from a task folder (schema and the filling runbook:
-    `../docs/submission/workflows/08-form-payload-and-submit.md`): domain and occupation and the five time values from
-    `metadata.json`, the instruction from `instruction.md`, the criteria from `rubric-*.csv`, and
-    the two file lists from `inputs/` and `solution/`. For each input it looks for the
-    sentence in the prompt that describes that file alone; a sentence naming several inputs
-    is a file list, not a description, so it is rejected and the entry is left bare and
-    reported. It also catches two things the gate cannot: a time value too long for the
-    form's five-character fields, which a browser truncates in silence, and a rubric whose
-    last row is not the formatting-and-style criterion, since rows are typed in array
-    order. Uploads are not in the payload and never can be.
+- **sync_metadata.py** `<task-folder> [--check] [--stdout]` — folds the submission form's
+    fields into that folder's `metadata.json`, which is then the one file the browser helper
+    fills the form from. Takes the two file lists, the times, the tools and the
+    domain/occupation from `form-lists.md`, copies in `instruction.md` and the rubric CSV,
+    and preserves `task_name`, `taskboard_uid`, `built_with` and `build_session`. Checks
+    both file lists against `inputs/` and `solution/` in both directions, the time
+    arithmetic, and the five-character field cap. `--check` reports drift and exits 1
+    without writing. The instruction and rubric it stores are copies; **M7** errors when a
+    copy stops matching its source, so re-run this after editing either.
 
 - **hazy-helper/** — the Chrome extension that fills the form from that payload. Load it
     unpacked from `chrome://extensions`. Only its rubric selectors are verified against a

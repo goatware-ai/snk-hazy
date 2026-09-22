@@ -64,9 +64,11 @@ def sweep(folder, codename=True):
     over the same files (2026-09-11); the standalone audit_task command still reports it."""
     folder = str(folder)
     fails = []
-    # feedback-log.md quotes historical defects verbatim (bad weekdays, flagged values) - not a deliverable
+    # feedback-log.md quotes historical defects verbatim (bad weekdays, flagged values) - not a deliverable;
+    # feedback-<uid8>.md is the platform's own return, written into the folder by fetch_feedback.py
+    # (2026-09-22) and never packaged, so its evaluation vocabulary is not a canary
     allfiles = [os.path.join(r, f) for r, _, fs in os.walk(folder) for f in fs
-                if f != 'feedback-log.md']
+                if f != 'feedback-log.md' and not re.match(r'feedback-[0-9a-f]{8}\.md$', f)]
     today = dt.date.today()
     future = {}
     for p in allfiles:

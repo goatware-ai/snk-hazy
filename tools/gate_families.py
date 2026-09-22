@@ -368,7 +368,10 @@ PRIMARY = {
     "M1": "PRE-OCC", "M2": "PRE-OCC", "M3": "PRE-OCC",
     # Added 2026-09-21: the form's required time breakdown, non-AI tool list and
     # input-file count.
-    "M4": "PRE-OCC", "M5": "PRE-OCC", "M6": "PRE-OCC", "P1": "PRE-FILES", "P2": "PRE-PROMPT",
+    "M4": "PRE-OCC", "M5": "PRE-OCC", "M6": "PRE-OCC",
+    # Added 2026-09-22: metadata.json carries copies of the instruction and the
+    # rubric so the form can be filled from one file; M7 is what keeps them honest.
+    "M7": "PRE-OCC", "P1": "PRE-FILES", "P2": "PRE-PROMPT",
     "P2": "PRE-SOURCES", "P3": "PRE-VERBOSE", "P4": "PRE-FRAME", "P0": "PRE-FILES",
     "P5": "PRE-VERBOSE",    # file glosses (was P2 until 2026-09-04; a branch of check_prompt_rules since 2026-09-11)
     # P6: the P4 frame written as a self-introduction to a coworker - one task was

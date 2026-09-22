@@ -6,17 +6,152 @@
     "code": "11-3071.00",
     "title": "Transportation, Storage, and Distribution Managers"
   },
-  "input_file_count": 5,
+  "input_files": [
+    "northline_invoices_sept_2026.csv - the carrier's September freight bills, one line per bill, with pro number, dates, billed weight and class, base charge, discount, net linehaul, fuel surcharge percent and amount, accessorials and total",
+    "bills_of_lading_sept_2026.csv - the shipper's bills of lading for the month with pro number, pickup date, consignee, product group, pieces, declared weight, the accessorial services requested and the delivery date",
+    "northline_contract_2026.docx - the pricing sections of the motor carrier agreement: rating, deficit weight, class, discount and minimum, reweigh, fuel surcharge, accessorials, duplicate bills, claims and undercharges",
+    "northline_contract_rates_2026.xlsx - the contract tariff exhibit: lane rates by destination state and weight break, class factors and product group classes, accessorial schedule, discount and minimum, fuel surcharge table",
+    "northline_fuel_bulletin_sept_2026.docx - the carrier's monthly fuel bulletin with the DOE diesel index for each Monday and the surcharge percentage it printed for the week, and how the index is applied",
+    "northline_billing_file_sept_2026.docx - Northline revenue accounting's transmittal listing the documents held in its billing file behind the September freight bills, with the particulars shown on each document",
+    "shipping_desk_correspondence_sept_2026.docx - the Halvorsen shipping desk's email correspondence with Northline customer service and pricing for September, printed for the audit file"
+  ],
+  "output_files": [
+    "northline_audit_sept2026.xlsx - the freight audit workbook with the summary, the line-by-line rating against the contract, the exceptions, the claim schedule, the undercharge list and the note to the controller"
+  ],
+  "input_file_count": 7,
   "output_file_count": 1,
   "tools": [
     "Microsoft Excel",
     "Microsoft Word"
   ],
   "time_read_minutes": 15,
-  "time_files_minutes": 75,
-  "time_work_minutes": 270,
+  "time_files_minutes": 90,
+  "time_work_minutes": 285,
   "time_qa_minutes": 60,
-  "total_time_hours": 7.0,
+  "total_time_hours": 7.5,
+  "task_instruction": "Northline's September freight bills are sitting in accounts payable, and Ingrid will not release them until someone has audited them against the contract. I'm the distribution manager at Halvorsen Building Products in Fargo, North Dakota, and the carrier audit has been mine since we signed the Northline agreement. Ingrid Solheim is our controller, and she files the overcharge claims, so what she needs from me is a worked audit she can send to Northline's claims desk without reworking it. I am out at the Bismarck yard through the middle of the month, and you have audited LTL freight bills before, so I am handing you the September file: northline_invoices_sept_2026.csv, bills_of_lading_sept_2026.csv, northline_contract_2026.docx, northline_contract_rates_2026.xlsx, and northline_fuel_bulletin_sept_2026.docx. Northline's revenue accounting also sent over a listing of what sits in their billing file behind the September bills, northline_billing_file_sept_2026.docx, and I have printed the shipping desk's email traffic with Northline for the month, shipping_desk_correspondence_sept_2026.docx.\n\nBuild the audit as one workbook named northline_audit_sept2026.xlsx. The first tab is the summary Ingrid reads: what Northline billed for the month, what the contract says we owe, the difference, how many bills carry an exception and of what kinds, and what we are claiming. Behind it I want every freight bill rated under the contract line by line beside what Northline billed, the exceptions called out with the contract term each one rests on, and a claim schedule in the form the agreement asks for that Ingrid can attach to the claim letter. Anything where Northline billed us less than the contract goes on its own list, reported and not netted. Put a note to Ingrid on the last tab with what she should know before she files, including anything in the file that the documents do not settle. I need the workbook by Friday, October 16.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly northline_audit_sept2026.xlsx whose first worksheet is the summary of the month's billings, the contract amount, the exceptions and the claim.",
+      "weight": 1
+    },
+    {
+      "description": "The summary's overcharges claimed reaches its value through a plain cell reference to the claim schedule's total behind it, or a sum over the same claim rows alike, standing at exactly $1,434.40.",
+      "weight": 5
+    },
+    {
+      "description": "The summary states the total billed by Northline as $20,556.90.",
+      "weight": 1
+    },
+    {
+      "description": "The summary states the total due under the contract as $19,199.68.",
+      "weight": 1
+    },
+    {
+      "description": "The undercharges are reported on their own list at a total of $77.18.",
+      "weight": 1
+    },
+    {
+      "description": "The second freight bill on each pro number already billed is rated at zero due under the agreement.",
+      "weight": 1
+    },
+    {
+      "description": "The Eau Claire roofing shipment is claimed at $113.93 under the deficit weight rule in section 4.2.",
+      "weight": 1
+    },
+    {
+      "description": "The Minot sealants shipment is claimed at $46.25 on the product group class of 85.",
+      "weight": 1
+    },
+    {
+      "description": "The Norfolk gypsum board shipment is rated at a net linehaul of $151.03 at the class 70 the signed inspection certificate supports.",
+      "weight": 2
+    },
+    {
+      "description": "The Mason City roofing shipment is claimed at $71.22 at its bill of lading weight of 1,310 pounds.",
+      "weight": 1
+    },
+    {
+      "description": "The Glendive windows shipment is rated at $1,178.82 due at the certified scale ticket weight of 3,010 pounds.",
+      "weight": 2
+    },
+    {
+      "description": "The Glendive vinyl siding shipment is claimed at $25.07 at its bill of lading weight of 2,210 pounds.",
+      "weight": 1
+    },
+    {
+      "description": "The liftgate billed on the Detroit Lakes siding shipment is rated as due on the shipping desk's written confirmation of September 16.",
+      "weight": 2
+    },
+    {
+      "description": "The reconsignment charge of $110 on the Norfolk sealants shipment is rated as due on the shipping desk's written request of September 15.",
+      "weight": 2
+    },
+    {
+      "description": "The Watertown siding shipment is claimed at $3.01 for a fuel surcharge rated on the week before its pickup week.",
+      "weight": 1
+    },
+    {
+      "description": "The liftgate Northline left off the Brainerd freight bill is reported as an undercharge of $75.",
+      "weight": 1
+    },
+    {
+      "description": "The summary counts 12 freight bills with an exception.",
+      "weight": 1
+    },
+    {
+      "description": "The 12 exception rows name the agreement section each one rests on beside the exception.",
+      "weight": 1
+    },
+    {
+      "description": "The claim schedule carries the six items section 7.2 lists for each claimed freight bill.",
+      "weight": 1
+    },
+    {
+      "description": "The note tells the controller to confirm whether each second freight bill on a duplicated pro was paid before she files.",
+      "weight": 1
+    },
+    {
+      "description": "The note names the four billed items the audit accepts on a document in the billing file or a written confirmation from the shipping desk.",
+      "weight": 1
+    },
+    {
+      "description": "The note to the controller is the last worksheet.",
+      "weight": 1
+    },
+    {
+      "description": "The audit tab rates all 38 freight bills with a contract total beside the billed total.",
+      "weight": 1
+    },
+    {
+      "description": "The workbook wrongly nets the undercharges against the overcharges in the claim total although section 7.3 bars netting.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly rates a fuel surcharge on the invoice-date week although section 5.2 keys the surcharge to the pickup date.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly claims the first freight bill on a duplicated pro number although section 7.1 voids only the second.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly applies the discount to accessorial charges although section 6.2 excludes them from it.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly claims a fuel overcharge on a freight bill for a pickup in the week of September 21 although the tariff table gives 27.5 percent for that week's index.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly leaves a second freight bill on an already billed pro number out of the exception count although section 7.1 voids it.",
+      "weight": -1
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as an audit the controller can attach to the claim letter.",
+      "weight": 2
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

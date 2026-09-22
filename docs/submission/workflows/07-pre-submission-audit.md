@@ -40,7 +40,7 @@ folder's `.gate-debt`, never by editing the check.
 | MANUAL | `three_hour_floor` | The task takes over 3 hours by hand without an LLM; 5 to 10 is the target | Recount where each of the four time blocks goes; under 3 → redesign |
 | MANUAL | `frontier_resistance` | A model cannot produce a good answer from the instruction alone, and cannot draft the golden correctly on the first try with no meaningful edits | Run the prompt through a model before building files; harden the task where it succeeds |
 | MANUAL | `difficulty_in_files` | Difficulty comes from input files + reasoning, not the prompt | Confirm the task is unanswerable without opening the attachments |
-| L7, PR21 | `traps_not_labelled` | No decision the golden makes turns on an input column that names the rule, or on the sentence that states it; a numbered rule an input carries is applied somewhere | Walk each golden decision to the input fact it turns on (PR21); L7 errors on an exceptions/deviations column citing the section a record breaks. The platform's difficulty check failed a task built the other way (2026-09-22) |
+| L7, PR21, PR22 | `traps_not_labelled` | No decision the golden makes turns on an input column that names the rule, or on the sentence that states it; a numbered rule an input carries is applied somewhere, and a rule that turns on a document or a written act is exercised on both arms with a look-alike that fails it | Walk each golden decision to the input fact it turns on (PR21); L7 errors on an exceptions/deviations column citing the section a record breaks; PR22 is the both-arms walk. The platform's difficulty check failed a task built the other way (2026-09-22) and a rating audit whose exceptions were all two-file mismatches (2026-09-22) |
 | MANUAL | `occupation_fit` | The prompt's actual work is the selected occupation's work, named in its vocabulary | `02-prompt-writing.md#the-prompt-has-to-fit-the-occupation-you-selected`; if it drifted, change the selection |
 | P4 | `us_grounding` | The opening names the state or the US, the requester's role, and the expertise the reader brings | `02-prompt-writing.md#the-opening-frame-p4-p6` |
 
@@ -206,10 +206,10 @@ before checking anything off, and add the missing box to the capture if it appea
 assume this table is complete.
 
 When every row and every box passes, build the form payload and fill the form:
-[08-form-payload-and-submit.md](08-form-payload-and-submit.md).
+[08-fill-the-form-and-submit.md](08-fill-the-form-and-submit.md).
 
 ```bash
-.venv/bin/python tools/form_payload.py drafts/NN-task-name
+.venv/bin/python tools/sync_metadata.py drafts/NN-task-name
 ```
 
 Its report is the last gate. Anything it says it could not source is a hole in the package,

@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
-"""Build the Hazy Helper payload from a task folder.
+"""Merge the submission form's fields into a task folder's metadata.json.
 
-    .venv/bin/python tools/form_payload.py drafts/01-my-task
-    .venv/bin/python tools/form_payload.py drafts/01-my-task -o form-payload.json
+    .venv/bin/python tools/sync_metadata.py submissions/NN-task-name
+    .venv/bin/python tools/sync_metadata.py submissions/NN-task-name --check
 
-Reads the folder's own artifacts and writes the JSON the extension fills the form from:
+Reads the folder's own artifacts and folds the form's fields into metadata.json, which is
+then the ONE file the browser helper fills the form from:
 
     form-lists.md   the two file lists, the five times, the tools, domain and occupation
-    instruction.md  the task instruction, verbatim
-    rubric-*.csv    one criterion per rubric row, with its weight
-    metadata.json   a fallback for anything form-lists.md does not carry
+    instruction.md  the task instruction, copied in verbatim
+    rubric-*.csv    one criterion per rubric row, copied in with its weight
     inputs/         checked against the Input File List, both directions
     solution/       checked against the Output File List, both directions
+
+Keys already in metadata.json that the form does not own - task_name, taskboard_uid,
+built_with, build_session - are preserved untouched.
+
+`task_instruction` and `rubric` are COPIES of instruction.md and the rubric CSV. That
+duplication is deliberate: the helper can only be handed one file. It is made safe by check
+M7, which errors when a copy stops matching its source. Re-run this after editing either
+source; never hand-edit the copies.
 
 The form wants each input listed as "name - what it contains", so for every input file this
 looks through instruction.md for the sentence that names it and offers that as the gloss. The
@@ -230,8 +238,22 @@ def cross_check(listed: list[str], folder: Path, label: str, report: list[str]) 
 
 
 def build(folder: Path) -> tuple[dict, list[str]]:
+    """Merge the form's fields into the folder's existing metadata.json.
+
+    metadata.json is the single file the whole pipeline reads: the gate checks it, and the
+    browser helper fills the form straight from it. So the form's fields live there too,
+    rather than in a second file beside it that can drift out of step.
+
+    Three of those fields are COPIES of something else in the folder - the instruction, the
+    rubric, and the file lists - which is a real cost. It is paid deliberately, because the
+    helper can only be handed one file, and it is made safe by check M7, which errors when a
+    copy stops matching its source. Re-run this tool after editing instruction.md or the
+    rubric CSV; never hand-edit the copies.
+    """
     report: list[str] = []
     meta = load_json(folder / "metadata.json")
+    if not meta:
+        report.append("no metadata.json; writing a new one with only the form's fields")
     fl = read_form_lists(folder, report)
 
     prompt_path = folder / "instruction.md"
@@ -240,9 +262,6 @@ def build(folder: Path) -> tuple[dict, list[str]]:
         report.append("no instruction.md; task instruction is empty")
 
     # --- the two file lists ------------------------------------------------
-    # form-lists.md is hand-written for the form and wins. Only when it has no list does
-    # the generator fall back to naming the files and hunting the instruction for a
-    # sentence that describes each one.
     if fl.get("input_files"):
         inputs = fl["input_files"]
         cross_check(inputs, folder / "inputs", "input", report)
@@ -271,125 +290,139 @@ def build(folder: Path) -> tuple[dict, list[str]]:
         if not outputs:
             report.append("solution/ is empty or missing; output file list is empty")
 
-    # --- times -------------------------------------------------------------
+    # --- times, kept in metadata's own flat keys ---------------------------
     times = dict(fl.get("times") or {})
     for key, mkey in TIME_KEYS:
-        if key not in times:
-            if meta.get(mkey) is not None:
-                times[key] = meta[mkey]
-            else:
-                report.append(f"no {key} time (form-lists.md or metadata {mkey})")
-    if "total_hours" not in times:
-        if meta.get("total_time_hours") is not None:
-            times["total_hours"] = meta["total_time_hours"]
-        else:
-            report.append("no total time (form-lists.md or metadata total_time_hours)")
+        if key in times:
+            meta[mkey] = times[key]
+        elif meta.get(mkey) is None:
+            report.append(f"no {key} time (form-lists.md or metadata {mkey})")
+    if "total_hours" in times:
+        meta["total_time_hours"] = times["total_hours"]
+    elif meta.get("total_time_hours") is None:
+        report.append("no total time (form-lists.md or metadata total_time_hours)")
 
-    # The form's five time fields carry maxlength="5". A browser truncates a longer value
-    # silently, so a total like 10.255 becomes 10.25 with no warning and the arithmetic the
-    # form checks no longer holds. The gate does not know about this cap because it is a
-    # property of the form, not of the task, so it is caught here.
-    for key, v in list(times.items()):
-        if len(str(v)) > 5:
+    mins = [meta.get(mkey) for _, mkey in TIME_KEYS]
+    total = meta.get("total_time_hours")
+    for mkey in [m for _, m in TIME_KEYS] + ["total_time_hours"]:
+        v = meta.get(mkey)
+        if v is not None and len(str(v)) > 5:
             report.append(
-                f"times.{key} is {v!r}, {len(str(v))} characters; the form's field caps at 5 "
-                "and truncates the rest without saying so. Round it"
+                f"{mkey} is {v!r}, {len(str(v))} characters; the form's field caps at 5 and "
+                "truncates the rest without saying so. Round it"
             )
-
-    mins = [times.get(k) for k, _ in TIME_KEYS]
-    if all(isinstance(m, (int, float)) for m in mins) and isinstance(
-        times.get("total_hours"), (int, float)
-    ):
+    if all(isinstance(m, (int, float)) for m in mins) and isinstance(total, (int, float)):
         floor = sum(mins) / 60
-        if times["total_hours"] + 1e-9 < floor:
+        if total + 1e-9 < floor:
             report.append(
-                f"total {times['total_hours']}h is below the four parts "
-                f"({sum(mins)} min = {floor:.2f}h); the form requires at least their sum"
+                f"total {total}h is below the four parts ({sum(mins)} min = {floor:.2f}h); "
+                "the form requires at least their sum"
             )
 
-    # --- identity and tools ------------------------------------------------
-    occ = meta.get("onet_occupation") or {}
-    payload = {
-        "domain": fl.get("domain") or meta.get("domain", ""),
-        "occupation": fl.get("occupation") or occ.get("title", ""),
-        "occupation_code": fl.get("occupation_code") or occ.get("code", ""),
-        "task_instruction": prompt,
-        "input_files": inputs,
-        "output_files": outputs,
-        "times": times,
-        "tools": fl.get("tools") or list(meta.get("tools") or []),
-        "rubric": rubric_from(folder, report),
-    }
-
-    # form-lists.md and metadata.json are written separately, so they can disagree.
-    for key, mine in (("domain", meta.get("domain")),
-                      ("occupation", occ.get("title")),
-                      ("occupation_code", occ.get("code"))):
-        if fl.get(key) and mine and fl[key] != mine:
+    # --- identity ----------------------------------------------------------
+    occ = dict(meta.get("onet_occupation") or {})
+    if fl.get("domain"):
+        if meta.get("domain") and meta["domain"] != fl["domain"]:
             report.append(
-                f"{key}: form-lists.md says {fl[key]!r}, metadata.json says {mine!r}; "
-                "the form gets form-lists.md"
+                f"domain: form-lists.md says {fl['domain']!r}, metadata said "
+                f"{meta['domain']!r}; form-lists.md wins"
             )
+        meta["domain"] = fl["domain"]
+    if fl.get("occupation"):
+        if occ.get("title") and occ["title"] != fl["occupation"]:
+            report.append(
+                f"occupation: form-lists.md says {fl['occupation']!r}, metadata said "
+                f"{occ['title']!r}; form-lists.md wins"
+            )
+        occ["title"] = fl["occupation"]
+    if fl.get("occupation_code"):
+        occ["code"] = fl["occupation_code"]
+    if occ:
+        meta["onet_occupation"] = occ
 
-    if not payload["tools"]:
+    rubric = rubric_from(folder, report)
+
+    meta["input_files"] = inputs
+    meta["output_files"] = outputs
+    meta["input_file_count"] = len(inputs)
+    meta["output_file_count"] = len(outputs)
+    if fl.get("tools"):
+        meta["tools"] = fl["tools"]
+    meta["task_instruction"] = prompt
+    meta["rubric"] = rubric
+
+    if not meta.get("tools"):
         report.append("no tools; the form requires at least one non-AI tool")
-    if not payload["domain"] or not payload["occupation"]:
+    if not meta.get("domain") or not (meta.get("onet_occupation") or {}).get("title"):
         report.append("domain or occupation missing; section 1 cannot be filled")
-
-    # Rows are typed onto the form in array order, and the form requires the general
-    # formatting-and-style criterion to be the last one. R135 gates this too; it is
-    # repeated here because this file is what actually gets typed.
-    r = payload["rubric"]
-    if r and not re.search(r"overall\b[^.]{0,40}\b(formatting|style)", r[-1]["description"], re.I):
+    if rubric and not re.search(
+        r"overall\b[^.]{0,40}\b(formatting|style)", rubric[-1]["description"], re.I
+    ):
         report.append(
             "the last criterion is not the general formatting-and-style line; rows are "
-            "written in this order, so reorder the CSV before filling"
+            "written to the form in this order, so reorder the CSV before filling"
         )
-    return payload, report
+
+    # A stable key order keeps the diff readable when only one field moves.
+    order = ["task_name", "taskboard_uid", "domain", "onet_occupation",
+             "input_files", "output_files", "input_file_count", "output_file_count",
+             "tools", "time_read_minutes", "time_files_minutes", "time_work_minutes",
+             "time_qa_minutes", "total_time_hours", "task_instruction", "rubric",
+             "built_with", "build_session"]
+    ordered = {k: meta[k] for k in order if k in meta}
+    ordered.update({k: v for k, v in meta.items() if k not in ordered})
+    return ordered, report
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("folder", help="the task folder, e.g. drafts/01-my-task")
-    ap.add_argument("-o", "--out", help="where to write (default: <folder>/form-payload.json)")
+    ap.add_argument("folder", help="the task folder, e.g. submissions/NN-task-name")
+    ap.add_argument("--check", action="store_true",
+                    help="report what would change and exit 1 if anything would; write nothing")
     ap.add_argument("--stdout", action="store_true",
-                    help="print the JSON alone on stdout, report on stderr, so it can be piped")
+                    help="print the merged JSON alone on stdout, report on stderr")
     args = ap.parse_args()
 
     folder = Path(args.folder)
     if not folder.is_dir():
         sys.exit(f"{folder} is not a directory")
 
-    payload, report = build(folder)
-    text = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+    merged, report = build(folder)
+    text = json.dumps(merged, indent=2, ensure_ascii=False) + "\n"
+    dest = folder / "metadata.json"
+    before = dest.read_text(encoding="utf-8") if dest.exists() else ""
 
-    # With --stdout the JSON has to be the ONLY thing on stdout, or piping it into anything
-    # that parses JSON fails on the trailing report. The report still gets printed, just on
-    # stderr where a pipe will not swallow it.
     if args.stdout:
         print(text, end="")
         log = sys.stderr
+    elif args.check:
+        log = sys.stdout
+        if before.strip() != text.strip():
+            print(f"{dest} is out of date; run without --check to refresh it", file=log)
+            for line in report:
+                print(f"  note: {line}", file=log)
+            return 1
+        print(f"{dest} is up to date", file=log)
     else:
-        dest = Path(args.out) if args.out else folder / "form-payload.json"
         dest.write_text(text, encoding="utf-8")
         log = sys.stdout
-        print(f"wrote {dest}", file=log)
+        print(f"{'updated' if before else 'wrote'} {dest}", file=log)
 
-    r = payload["rubric"]
+    r = merged.get("rubric") or []
     print(
-        f"  instruction {len(payload['task_instruction'])} chars | "
-        f"{len(payload['input_files'])} input(s) | {len(payload['output_files'])} output(s) | "
-        f"{len(r)} criteria | {len(payload['tools'])} tool(s)",
+        f"  instruction {len(merged.get('task_instruction') or '')} chars | "
+        f"{len(merged.get('input_files') or [])} input(s) | "
+        f"{len(merged.get('output_files') or [])} output(s) | "
+        f"{len(r)} criteria | {len(merged.get('tools') or [])} tool(s)",
         file=log,
     )
     if r:
         nums = [c["weight"] for c in r if isinstance(c["weight"], (int, float))]
-        pos = sum(w for w in nums if w > 0)
-        neg = sum(w for w in nums if w < 0)
-        print(f"  rubric weights: +{pos:g} / {neg:g}", file=log)
+        print(f"  rubric weights: +{sum(w for w in nums if w > 0):g} / "
+              f"{sum(w for w in nums if w < 0):g}", file=log)
     for line in report:
         print(f"  note: {line}", file=log)
-    print("  uploads are not in the payload; attach both zips by hand", file=log)
+    print("  uploads are not in metadata.json; attach both zips by hand", file=log)
     return 0
 
 

@@ -151,5 +151,16 @@ PROCEDURAL = [
                   "something (2026-09-22: the desk's first difficulty_check FAIL, two of four weak-model "
                   "attempts clearing a rubric whose every trap was labelled). L7 catches the labelled "
                   "exception column; the rest is read by hand.",
+     "source": "memory/difficulty-check-lessons.md (2026-09-22)"},
+    {"id": "PR22",
+     "statement": "A numbered rule an input carries that turns on a supporting document or a written act "
+                  "(a certificate attached, a certified scale ticket, a confirmation in writing before "
+                  "delivery, a bulletin the contract subordinates to its table) is exercised on both arms "
+                  "in the inputs, with a record that satisfies it and a look-alike that does not (an "
+                  "unsigned notice, a dock readout, a ticket inside the tolerance, a request refused after "
+                  "delivery), so that the golden's call on each turns on reading the record and never on "
+                  "the two-file mismatch alone (2026-09-22: the desk's second difficulty_check FAIL, a "
+                  "rating audit whose every exception was a mismatch between two tidy CSVs that a script "
+                  "reproduces; one weak-model attempt in three cleared it).",
      "source": "memory/difficulty-check-lessons.md (2026-09-22)"}
 ]

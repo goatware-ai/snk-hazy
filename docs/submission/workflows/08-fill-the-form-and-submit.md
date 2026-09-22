@@ -1,33 +1,30 @@
-# Workflow 08 — Form Payload and Submit
+# Workflow 08 — Fill the Form and Submit
 
 The last stage. The package is built and the audit in
 [07-pre-submission-audit.md](07-pre-submission-audit.md) passes. What remains is getting it
 onto the form without transcription errors, and submitting.
 
-Everything on the form except the two file uploads is filled from one JSON file. Browsers
-will not let a page set a file input from a path, so the two zips are attached by hand.
+Everything on the form except the two file uploads is filled from the task's own
+`metadata.json`. Browsers will not let a page set a file input from a path, so the two zips
+are attached by hand.
 
 ```bash
-.venv/bin/python tools/form_payload.py drafts/NN-task-name
+.venv/bin/python tools/sync_metadata.py drafts/NN-task-name
 ```
 
-That reads the task folder and writes `form-payload.json` **inside that same folder**, next
-to `instruction.md` and `metadata.json`. It works the same way on a promoted task in
-`submissions/`. Then it prints what it found and anything it could not fill.
+That folds the form's fields into the folder's `metadata.json`, leaving `task_name`,
+`taskboard_uid`, `built_with` and `build_session` untouched, then prints what it found and
+anything it could not fill.
 
-Three things about where it lands, all checked:
+`metadata.json` is the only file the helper needs. It already carried the build record; it
+now carries the form's fields too, so there is no second file to keep in step.
 
-- **It is never zipped.** The two archives are flat builds from `inputs/` and `solution/`
-  (`cd inputs && zip ../i-<task-name>.zip *`), and the payload sits above both, so it cannot
-  reach the platform.
-- **The gate ignores it.** The N1 leakage check walks only files directly inside `inputs/`
-  and `solution/`; everything else is skipped. That matters because the payload contains the
-  whole rubric, which is exactly what N1 exists to keep out of shipped files.
-- **It is gitignored.** It is regenerated from the folder it sits in, so committing it would
-  only create a second copy of the rubric that can go stale. Regenerate it rather than
-  editing it; a hand-edit is lost the next time anyone runs the generator.
+**It holds copies.** `task_instruction` copies `instruction.md`, and `rubric` copies the
+rubric CSV. That duplication is deliberate, because the helper can only be handed one file,
+and it is why check **M7** exists: it errors when a copy stops matching its source. Re-run
+the sync after editing either source, and never hand-edit the copies.
 
-Load that file in the Hazy Helper extension (`tools/hazy-helper`, see its README to
+Load `metadata.json` in the Hazy Helper extension (`tools/hazy-helper`, see its README to
 install), press **Scan page**, then **Fill all**.
 
 ---
@@ -37,22 +34,21 @@ install), press **Scan page**, then **Fill all**.
 The generator reads the task folder. Nothing is invented: a value it cannot source is left
 empty and named in its report.
 
-| Payload key | Read from | Fills |
+| metadata.json key | Read from | Fills |
 |---|---|---|
 | `domain` | `form-lists.md` → Domain and occupation | Section 1, Domain |
-| `occupation` | `form-lists.md` → Domain and occupation | Section 1, Occupation |
-| `occupation_code` | `form-lists.md` → O*NET code | nothing; carried for your reference |
+| `onet_occupation.title` | `form-lists.md` → Domain and occupation | Section 1, Occupation |
+| `onet_occupation.code` | `form-lists.md` → O*NET code | nothing; carried for your reference |
 | `task_instruction` | `instruction.md`, verbatim | Section 2, Task Instruction |
 | `input_files[]` | `form-lists.md` → Input File List | Section 2, Input File List |
 | `output_files[]` | `form-lists.md` → Output File List | Section 3, Output File List |
-| `times.*` | `form-lists.md` → Times and tools | Section 3, the five time fields |
+| `time_*_minutes`, `total_time_hours` | `form-lists.md` → Times and tools | Section 3, the five time fields |
 | `tools[]` | `form-lists.md` → Tools, split on `;` | Section 3, Tool list |
 | `rubric[]` | `rubric-*.csv`, one row per criterion | Section 4, one rubric row each |
 
 **`form-lists.md` is the source.** Someone wrote those entries for the form, in the form's
-own shape, so the generator copies them rather than inferring anything. `metadata.json` is
-only a fallback for a field `form-lists.md` does not carry, and the two disagreeing is
-reported: the form gets `form-lists.md`.
+own shape, so the generator copies them rather than inferring anything. Where `form-lists.md` and the existing metadata disagree on domain or occupation, the
+sync takes `form-lists.md` and reports the change.
 
 `occupation_code` is the one key the extension never reads. The form asks for the
 occupation by name, not by code, so the code rides along only so you can check it against
@@ -62,21 +58,30 @@ occupation by name, not by code, so the code rides along only so you can check i
 
 ```json
 {
+  "task_name": "carton-bid-evaluation",
+  "taskboard_uid": "bd686eba-...",
   "domain": "Management",
-  "occupation": "Purchasing Managers",
-  "occupation_code": "11-3061.00",
-  "task_instruction": "I run the outbound freight desk here, and ...",
+  "onet_occupation": { "code": "11-3061.00", "title": "Purchasing Managers" },
   "input_files": [
     "rate_pages.xlsx - the carrier's published rates for the period",
     "bills_q2.csv - every invoice paid in the quarter"
   ],
-  "output_files": ["freight_audit_q2.docx"],
-  "times": { "read": 25, "files": 85, "work": 240, "qa": 40, "total_hours": 6.5 },
-  "tools": ["Excel", "Adobe Acrobat"],
+  "output_files": ["freight_audit_q2.docx - the audit memo"],
+  "input_file_count": 2,
+  "output_file_count": 1,
+  "tools": ["Microsoft Excel", "Microsoft Word"],
+  "time_read_minutes": 25,
+  "time_files_minutes": 85,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 40,
+  "total_time_hours": 6.5,
+  "task_instruction": "I run the outbound freight desk here, and ...",
   "rubric": [
     { "description": "The memo is addressed to the requester and covers the quarter.", "weight": 1 },
     { "description": "Overall formatting and style of the deliverable.", "weight": 5 }
-  ]
+  ],
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
 }
 ```
 
@@ -85,6 +90,9 @@ Rules the extension relies on:
 - **Every key is optional.** A missing key means that part of the form is left alone, which
   is how the per-section buttons work. An empty `rubric` writes no criteria rather than
   clearing the ones already there.
+- **The helper reads metadata's own shape.** The occupation nested under `onet_occupation`,
+  the times as flat `time_*_minutes` keys. A flat `occupation` / `times` object still works,
+  so a hand-written payload is still a valid thing to paste.
 - **`input_files` and `output_files` are plain strings**, one per row, not objects. The form
   wants `name - what it contains`, so that whole line is one string.
 - **`times` values are numbers**, minutes for the first four and decimal hours for the
@@ -125,7 +133,7 @@ named in the report. Writing `form-lists.md` is the better answer.
 ## Filling
 
 1. Open the submission form. The extension opens each section itself.
-2. Load `form-payload.json` in the popup.
+2. Load the task's `metadata.json` in the popup.
 3. **Scan page.** It reports every section as open, closed or not found, what section 1
    currently has selected, how many rubric rows exist, and how many checklist boxes are
    ticked. Nothing is written. Read it before going further.

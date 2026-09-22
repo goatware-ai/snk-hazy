@@ -26,6 +26,7 @@
     } catch (e) {
       return `<span class="bad">${where}: not valid JSON</span>`;
     }
+    const occ = p.occupation || (p.onet_occupation || {}).title;
     const ins = p.input_files || [];
     const described = ins.filter((e) => / - | \u2014 /.test(e)).length;
     const bits = [
@@ -34,12 +35,12 @@
       `${(p.rubric || []).length} criteria`,
       `${(p.tools || []).length} tool${(p.tools || []).length === 1 ? "" : "s"}`,
     ];
-    let line = `<span class="ok">${where}</span> ${esc(p.occupation || "no occupation")} | ${bits.join(" | ")}`;
+    let line = `<span class="ok">${where}</span> ${esc(occ || "no occupation")} | ${bits.join(" | ")}`;
     if (ins.length && described < ins.length) {
       line +=
         `\n<span class="bad">${ins.length - described} input(s) are a bare file name with no ` +
         `description.</span> The form wants "name - what it contains". If you regenerated ` +
-        `form-payload.json, press Load JSON again: the box above still holds the copy you ` +
+        `metadata.json, press Load JSON again: the box above still holds the copy you ` +
         `loaded last, not the file on disk.`;
     }
     return line;
@@ -68,7 +69,7 @@
 
   function parsePayload() {
     const raw = ta.value.trim();
-    if (!raw) throw new Error("No payload. Paste the JSON or load form-payload.json.");
+    if (!raw) throw new Error("Nothing loaded. Load the task's metadata.json.");
     let p;
     try {
       p = JSON.parse(raw);

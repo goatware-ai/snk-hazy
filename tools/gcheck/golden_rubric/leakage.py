@@ -156,7 +156,7 @@ def check_meta_references(folder):
 
     Codes:
       N1  no input or solution file carries project/eval vocabulary in its content, XML parts or name, and no file name reads as a category or AI-output label
-      H1  the programme codename appears in no file of the folder (every member of every Office package, every text file)
+      H1  the programme codename appears in no file of the folder (every member of every Office package, every text file; feedback-log.md and the fetched feedback-<uid8>.md are skipped, since both quote the platform)
     Since: N1 2026-08-26 (creating-input-files.md section 4 and the in-app Name Check); H1 the audit_task canary.
     Source: the platform's Name Check; docs/submission/platform/creating-input-files.md; style-guide-llm-tells.md.
     Drift-notes: H1 is computed from this check's single pass over the folder since 2026-09-11; check_hygiene
@@ -166,7 +166,7 @@ def check_meta_references(folder):
     # one walk over the folder: every file is read once, its members feeding both codes
     for r, _dirs, fs in os.walk(root):
         for f in sorted(fs):
-            if f == "feedback-log.md":
+            if f == "feedback-log.md" or re.match(r"feedback-[0-9a-f]{8}\.md$", f):  # the desk log and the fetched platform return (2026-09-22), never packaged
                 continue      # quotes historical defects verbatim; not a deliverable
             p = os.path.join(r, f)
             path = Path(p)

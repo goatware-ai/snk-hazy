@@ -248,8 +248,10 @@ checked to submit, so every box must be true of the package before it is.
    Never label a trap: no input column states a record's exception with the rule it breaks
    (L7), and every decision the golden makes turns on a fact the solver has to find in a
    record's own prose, a second file or a status column, never in the sentence that states the
-   rule (PR21); the platform's difficulty check re-runs weak models on the files and fails a
-   task two of four attempts can clear.
+   rule (PR21); a rule that turns on a document or a written act is exercised on both arms with a
+   look-alike that fails it, never left as a two-file mismatch a script reproduces (PR22); the
+   platform's difficulty check re-runs weak models on the files and fails a task that one attempt
+   in three, or two of four, can clear.
 3. **Files.** Could someone who never worked in this field have produced this layout? If yes,
    rebuild it with the conventions a real practitioner document carries. Each planted
    inconsistency is one the golden resolves and the rubric credits.
@@ -348,15 +350,17 @@ the Application pair. Unzip both archives once and inspect them.
 3. **The prompt text** and **the rubric**, each in one fenced block ready to paste.
 4. **The metadata block** printed from `metadata.json`: domain, occupation with its code, input
    and output file counts, the tools list, the four minute values and the total in hours.
-5. **`form-payload.json`**, built by running
-   `.venv/bin/python tools/form_payload.py <task-folder>`, with its report printed. This is
-   what fills the submission form, so its report is a reading of the package: an input it
-   cannot describe, a time value it cannot find or an empty tools list is a hole to fix
-   here, not to type around on the form. It reads `form-lists.md` for the two file lists,
-   the times, the tools and the domain and occupation, so those entries must be written
-   there first; it also checks both file lists against `inputs/` and `solution/` in both
-   directions and reports any disagreement with `metadata.json`.
-   See docs/submission/workflows/08-form-payload-and-submit.md.
+5. **`metadata.json` synced**, by running
+   `.venv/bin/python tools/sync_metadata.py <task-folder>`, with its report printed. That
+   folds the form's fields into the folder's metadata, which is the one file the browser
+   helper fills the form from. Its report is a reading of the package: an input it cannot
+   describe, a missing time value or an empty tools list is a hole to fix here, not to type
+   around on the form. It reads `form-lists.md` for the two file lists, the times, the tools
+   and the domain and occupation, so those entries must be written there first; it also
+   checks both file lists against `inputs/` and `solution/` in both directions. The
+   `task_instruction` and `rubric` it stores are copies of `instruction.md` and the rubric
+   CSV, so re-run it after editing either; check M7 errors when a copy goes stale.
+   See docs/submission/workflows/08-fill-the-form-and-submit.md.
 
 Then stop. The only addition allowed is a short list of anything genuinely broken or unresolved
 that the operator must act on before submitting; if there is nothing, say nothing.

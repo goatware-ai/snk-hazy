@@ -6,6 +6,17 @@
     "code": "11-3061.00",
     "title": "Purchasing Managers"
   },
+  "input_files": [
+    "itb_2026_17_cartons.docx - the invitation to bid for the annual corrugated carton requirement: items and quantities, bid submittals, pricing terms, and the evaluation and award rules",
+    "itb_2026_17_addendum_2.docx - the second addendum, changing the item 3 quantity and the item 5 board grade, with the questions received and the answers given",
+    "purchasing_policy_pp3_excerpt.docx - the company's competitive bidding policy on evaluation, responsiveness, exceptions, responsibility, the award recommendation and its approver",
+    "bid_forms_itb_2026_17.docx - the six bidders' completed bid forms as marked and the letter each enclosed with its bid, compiled as opened",
+    "bid_tabulation_itb_2026_17.xlsx - the six bids as opened, unit prices and extensions as written, tooling, the bid form terms and submittals, the inbound freight schedule and the item shipping weights by drawing revision",
+    "supplier_quality_holds_2026.xlsx - the quality engineering register of supplier quality holds opened since April 2025, with each hold's status and clearance date"
+  ],
+  "output_files": [
+    "bid_evaluation_itb_2026_17.xlsx - the bid evaluation workbook with the recommendation, the bids as written beside the evaluated figures, the recomputed extensions, freight and discount, the responsiveness and responsibility checks and the note to the vice president"
+  ],
   "input_file_count": 6,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +28,125 @@
   "time_work_minutes": 240,
   "time_qa_minutes": 75,
   "total_time_hours": 7.0,
+  "task_instruction": "The carton bids opened on the 6th, and Torsten wants the award recommendation on his desk before the current carton contract runs out at the end of the month. I'm the purchasing manager at Nordvik Manufacturing in Alexandria, Minnesota, and every competitive award over the corrugated line comes through me. Torsten Nordvik is the vice president of operations and signs the award, so what he needs from me is an evaluation he can approve without reworking it and that will hold up when the bidder who thinks it was low asks why it lost. I am at the supplier summit in Minneapolis through next week, and you have a few years of purchasing behind you, so I am handing you the bid file: itb_2026_17_cartons.docx, itb_2026_17_addendum_2.docx, purchasing_policy_pp3_excerpt.docx, bid_forms_itb_2026_17.docx, bid_tabulation_itb_2026_17.xlsx, and the quality office's supplier_quality_holds_2026.xlsx.\n\nBuild the evaluation as one workbook named bid_evaluation_itb_2026_17.xlsx. The first tab is the recommendation Torsten reads: which bidders are responsive and why any bid was set aside, each responsive bidder's total evaluated price with its components, the recommended award and its margin over the next bidder, and who has to approve it. Behind it I want the bids as written beside the evaluated figures, every extension recomputed, the freight and the discount worked where they apply, the responsiveness check bidder by bidder against the invitation as amended, and the bidder in line for award checked under PP-3.7 before its name goes on the page. Put a note to Torsten on the last tab with anything he should weigh that the evaluation does not decide, and what to tell the bidder that was low on paper. I need the workbook by Friday, October 23.",
+  "rubric": [
+    {
+      "description": "The deliverable is a single workbook named exactly bid_evaluation_itb_2026_17.xlsx whose first worksheet is the award recommendation.",
+      "weight": 1
+    },
+    {
+      "description": "The recommendation's corrected extensions for the recommended bidder reaches its value through a plain cell reference to the evaluation behind it, or a sum over the same item extensions alike, standing at $132,876.",
+      "weight": 5
+    },
+    {
+      "description": "The award is recommended to Pemberton Container at a total evaluated price of $134,726 on the recommendation tab.",
+      "weight": 3
+    },
+    {
+      "description": "The margin over the next responsive bid is stated as $4,924.99 on the recommendation tab.",
+      "weight": 1
+    },
+    {
+      "description": "Ridgecrest Packaging is named as the next responsive bidder on the recommendation tab.",
+      "weight": 1
+    },
+    {
+      "description": "Loken & Vik Container's total evaluated price is stated as $130,480.96 on the recommendation tab.",
+      "weight": 1
+    },
+    {
+      "description": "Brannock Box Company is found non-responsive for not acknowledging addendum 2.",
+      "weight": 1
+    },
+    {
+      "description": "Brannock's item 3 extension of $13,248 is shown as written at the superseded quantity beside its corrected extension.",
+      "weight": 1
+    },
+    {
+      "description": "Halvard Corrugated is found non-responsive for the six month price hold stated in its letter, an exception to a material term.",
+      "weight": 2
+    },
+    {
+      "description": "Otter Tail Corrugated is found non-responsive for conditioning its price on full truckload releases, an exception to the quantity term.",
+      "weight": 2
+    },
+    {
+      "description": "Pemberton's written extension of $45,112 on the second item is corrected to $35,112 under the unit price rule, shown on the recommendation tab.",
+      "weight": 2
+    },
+    {
+      "description": "Ridgecrest's freight of $9,297.45 is added for its FOB origin bid on the evaluation tab.",
+      "weight": 1
+    },
+    {
+      "description": "The annual shipping weight for freight is stated as 1,917 hundredweight at the current drawing revisions.",
+      "weight": 1
+    },
+    {
+      "description": "Ridgecrest's payment discount of $1,292.46 is credited because its 20 day period meets the invitation's floor.",
+      "weight": 1
+    },
+    {
+      "description": "Ridgecrest's total evaluated price is stated as $139,650.99.",
+      "weight": 1
+    },
+    {
+      "description": "The approver required is named as the vice president of operations because the award value is above one hundred thousand dollars.",
+      "weight": 1
+    },
+    {
+      "description": "Brannock is shown as the lowest bid as written at $130,500 on the recommendation tab.",
+      "weight": 1
+    },
+    {
+      "description": "The note to the vice president is the last worksheet.",
+      "weight": 1
+    },
+    {
+      "description": "The note tells the vice president that the low bidder on paper was set aside for not acknowledging the second addendum.",
+      "weight": 1
+    },
+    {
+      "description": "The note to the vice president states $4,245.04 as the amount by which the passed-over Loken & Vik bid sits below the Pemberton award.",
+      "weight": 1
+    },
+    {
+      "description": "The recommendation counts 3 responsive bids among the 6 received.",
+      "weight": 1
+    },
+    {
+      "description": "The workbook wrongly recommends award to a bid set aside as non-responsive although PP-3.4.1 decides responsiveness before price.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly recommends award to a bidder whose hold in the quality register reads Open although PP-3.7.1 makes that bidder not responsible until the hold is cleared.",
+      "weight": -3
+    },
+    {
+      "description": "The workbook wrongly credits Pemberton's ten day discount although ITB 5.5 credits only a period of twenty days or longer.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly splits the award by item although ITB 5.1 awards the five items by lot.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly evaluates the mailer item at the superseded 48,000 cartons for the responsive bidders although addendum 2 sets the quantity at 36,000.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly computes Ridgecrest's freight on 1,842 hundredweight at the superseded item 5 weight although addendum 2 replaced drawing NM-CTN-26-05 revision A.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly evaluates Pemberton's item 4 alternate for award although ITB 4.4 keeps alternates out of the evaluation.",
+      "weight": -1
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as an award recommendation the vice president can approve, with a bidder's protest answerable from it.",
+      "weight": 3
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }

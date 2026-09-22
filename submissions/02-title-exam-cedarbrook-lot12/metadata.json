@@ -6,6 +6,15 @@
     "code": "23-2093.00",
     "title": "Title Examiners, Abstractors, and Searchers"
   },
+  "input_files": [
+    "recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries for the parcel by name and legal description, 1986 through the October 2, 2026 search date: instrument number, recording date, document type, parties, volume and page, amount, legal description, and referenced instrument",
+    "instrument_abstracts_hlt262214.docx - the searcher's abstracts of the recorded instruments that matter, with parties, marital recitals, legal descriptions as written, signatures, and release references, plus the searcher's notes",
+    "title_order_hlt262214.docx - the closing agent's title order and closing instructions for order HLT-26-2214, with the parties, price, lender, closing date, proration instructions, and the underwriter's examination guideline excerpts",
+    "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel, the clerk of courts judgment lien search results, and the names searched with the period each held an interest"
+  ],
+  "output_files": [
+    "title_exam_report_cedarbrook_lot12.docx - the title examination report to the closing agent with vesting, chain of title, requirements, exceptions, closing figures, and open matters"
+  ],
   "input_file_count": 4,
   "output_file_count": 1,
   "tools": [
@@ -17,6 +26,117 @@
   "time_work_minutes": 240,
   "time_qa_minutes": 60,
   "total_time_hours": 6.75,
+  "task_instruction": "Priya has a closing on Cedarbrook Drive set for Friday, November 6, and she needs the examination report on order HLT-26-2214 before she can build the commitment. I'm the senior examiner at Heritage Land Title Agency here in Newark, Ohio, so the examination is mine. I am out for a deposition and two other closings this week, and I am handing this one to you because you have examined Licking County titles for years and know how our underwriter wants Ohio title defects handled. The search came back from the recorder on October 2, and the pull is in the folder: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The abstracts are the searcher's notes on the instruments that matter, and the order carries the closer's instructions along with the underwriter guideline excerpts she wants applied.\n\nWrite the examination report as one document named title_exam_report_cedarbrook_lot12.docx for Priya Ramanathan, who is closing the file. She needs the vesting and the chain of title as you find it, every requirement the underwriter will want cleared before it insures with the instrument each one rests on, the exceptions that will carry into Schedule B, the figures she has to collect at closing for anything of record that has to be paid, and anything the record leaves open that she should chase before the sixth. The buyers' lender wants a loan policy as well as the owner's policy. I need it by Wednesday, October 14.",
+  "rubric": [
+    {
+      "description": "The report, title_exam_report_cedarbrook_lot12.docx, is addressed to Priya Ramanathan as closing agent and dated October 14, 2026.",
+      "weight": 1
+    },
+    {
+      "description": "The report finds that the warranty deed at instrument 201409190112 describes Lot 12 alone, leaving record title to the north half of the adjoining lot in Daniel Pruitt.",
+      "weight": 5
+    },
+    {
+      "description": "The report requires a corrective conveyance of the north half of Lot 13 from Daniel Pruitt to the seller, or a judgment quieting title, before that land is insured.",
+      "weight": 3
+    },
+    {
+      "description": "The report requires a release of dower from Lorraine Pruitt, or evidence that her dower has terminated, because the deed at instrument 201409190112 was signed by a married grantor alone.",
+      "weight": 3
+    },
+    {
+      "description": "The report lists the mortgage to Buckeye Home Lending LLC at instrument 201103140062 for $88,000.00 as open of record and requires a recorded satisfaction or a payoff.",
+      "weight": 4
+    },
+    {
+      "description": "The report requires a payoff and recorded release of the seller's mortgage to Muskingum Valley Bank at instrument 201805040072.",
+      "weight": 3
+    },
+    {
+      "description": "The report requires payment and release of the Capital Recovery Associates LLC judgment against the seller, computing the payoff through the closing date as $10,556.19.",
+      "weight": 3
+    },
+    {
+      "description": "The judgment payoff carries $957.19 of simple interest at the rate the certificate of judgment states, run from the judgment date through the closing date.",
+      "weight": 1
+    },
+    {
+      "description": "The report states that the 2020 judgment against a Robert Kessler does not attach to the parcel because the Kesslers conveyed the parcel before it was filed.",
+      "weight": 2
+    },
+    {
+      "description": "The report requires an affidavit of identity establishing that Peggy Kessler and Margaret Ann Kessler are the same person.",
+      "weight": 2
+    },
+    {
+      "description": "The report requires the seller's spouse to join the deed to the buyers to release dower.",
+      "weight": 2
+    },
+    {
+      "description": "The report states the delinquent second-half 2025 taxes and assessment, with penalty, as $2,319.48 to be paid at closing.",
+      "weight": 2
+    },
+    {
+      "description": "The delinquency figure applies the 10% penalty to the tax installment and to the assessment installment alike.",
+      "weight": 1
+    },
+    {
+      "description": "The report prorates the current-year taxes through the day of closing on a 365-day year as a seller credit of $3,050.94.",
+      "weight": 2
+    },
+    {
+      "description": "Schedule B, Section II of the report excepts the utility easement to Licking Rural Electric Cooperative at instrument 202110080144.",
+      "weight": 2
+    },
+    {
+      "description": "Schedule B, Section II of the report excepts the declaration of restrictions at instrument 198611030018.",
+      "weight": 1
+    },
+    {
+      "description": "The report states record title to Lot 12 as vested in Tamsin Okafor by the warranty deed at instrument 201805040071.",
+      "weight": 2
+    },
+    {
+      "description": "The chain of title table runs from the 1987 deed out of Cedarbrook Development to the 2018 deed to Tamsin Okafor, giving each conveyance's instrument number.",
+      "weight": 2
+    },
+    {
+      "description": "The report states the period searched, ending on the October 2, 2026 search date of the recorder's index.",
+      "weight": 1
+    },
+    {
+      "description": "The report requires the buyers' mortgage to Newark Federal Savings & Loan for $171,200.00 to be recorded after the deed for the loan policy.",
+      "weight": 1
+    },
+    {
+      "description": "The report closes with the matters the record leaves open, among them whether the Buckeye Home Lending mortgage was paid at the 2014 sale.",
+      "weight": 1
+    },
+    {
+      "description": "The report explains that the insure-over allowance for unreleased mortgages does not reach the 2011 mortgage because it was recorded fewer than twenty years before the search.",
+      "weight": 2
+    },
+    {
+      "description": "The report wrongly treats the roofing contractor's 2023 mechanics lien as an open requirement although a release of it referencing the lien is of record.",
+      "weight": -3
+    },
+    {
+      "description": "The report invents a payoff figure for the seller's mortgage although no payoff statement is among the records.",
+      "weight": -3
+    },
+    {
+      "description": "The report cites an instrument number that no search record carries, although every requirement it makes rests on an instrument of record.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly prorates the special assessment installments not yet due, although the closing instructions collect only the delinquent installment and except the rest.",
+      "weight": -2
+    },
+    {
+      "description": "Overall formatting and style of the deliverable as an examination report the closing agent can build the commitment from.",
+      "weight": 4
+    }
+  ],
   "built_with": "claude-fable-5-1",
   "build_session": "afce3ffb"
 }
