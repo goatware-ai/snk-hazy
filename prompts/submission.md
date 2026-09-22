@@ -246,6 +246,11 @@ checked to submit, so every box must be true of the package before it is.
    conflicting sources, inferring the method from domain evidence, producing a native
    professional artifact. Not volume or obscurity. Pressure-test before building files: if a
    frontier model one-shots the answer from the prompt plus a sketch of the inputs, harden now.
+   Never label a trap: no input column states a record's exception with the rule it breaks
+   (L7), and every decision the golden makes turns on a fact the solver has to find in a
+   record's own prose, a second file or a status column, never in the sentence that states the
+   rule (PR21); the platform's difficulty check re-runs weak models on the files and fails a
+   task two of four attempts can clear.
 3. **Files.** Could someone who never worked in this field have produced this layout? If yes,
    rebuild it with the conventions a real practitioner document carries. Each planted
    inconsistency is one the golden resolves and the rubric credits.

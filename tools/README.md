@@ -121,6 +121,16 @@ symlink to it; recreate that symlink after moving to a new machine.
   values (`34.04799999999999`) to shortest clean decimals. The LLM-authorship
   check flags these HIGH. Run `scan` on every xlsx (inputs AND solution)
   immediately before every zip build.
+- **fetch_feedback.py** `<uid> [--folder DIR] [--json-only] [--keep-json PATH]` — the first
+    step of a revision. Wraps `stb submissions fetch-task` and `stb submissions feedback`,
+    read-only, and writes `feedback-<uid8>.md` into the task folder. Reads the JSON rather
+    than the notes file, because a return often carries a header and no note text at all
+    while the verdict and the per-check details sit in
+    `evaluations[].overall_evaluation_result`. It also diffs the platform's prompt and every
+    rubric row against the folder's: an edit made on the platform after submission never
+    comes back, and a fill that stopped part-way leaves the platform holding fewer criteria
+    than the CSV, which nothing else would surface.
+
 - **form_payload.py** `<task-folder> [-o out.json] [--stdout]` — builds the submission
     form's payload from a task folder (schema and the filling runbook:
     `../docs/submission/workflows/08-form-payload-and-submit.md`): domain and occupation and the five time values from

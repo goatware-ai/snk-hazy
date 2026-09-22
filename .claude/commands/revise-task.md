@@ -42,9 +42,9 @@ slice of them leaves the artifacts disagreeing with each other.
 - `built_with` is a `claude-fable-*` id: invoke the skill **`revise-task-fable`**.
 - `built_with` is a `claude-opus-*` id: invoke the skill **`revise-task-opus`**.
 
-Pass the UID through as the skill's argument. Feedback is never passed on the command line; I
-supply it when the skill stops and asks, and nothing is fetched from the platform (see
-`prompts/revise-task.md`).
+Pass the UID through as the skill's argument. The feedback is not passed on the command line
+and is not asked for: the skill fetches it from the platform with
+`tools/fetch_feedback.py <uid>` once the model is verified (see `prompts/revise-task.md`).
 
 **Invoke the skill and stop.** Do not read the task files, diagnose, or edit anything in this
 turn: the model override is adopted at the turn boundary, so the revision has to begin in the

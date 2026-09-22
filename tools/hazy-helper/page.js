@@ -210,7 +210,9 @@ async function pageOps(op, payload) {
     return el;
   }
 
-  // Rubric rows are accordions of their own, inside the Task Rubrics section.
+  // Section-level use only. Rubric rows are NOT opened through here: bulk-clicking every
+  // collapsed accordion loses most of the clicks, so openRow() opens one row at a time and
+  // waits for its fields. See the note there.
   async function expandRows(root) {
     const scope = root || document;
     for (let pass = 0; pass < 4; pass++) {
@@ -478,73 +480,155 @@ async function pageOps(op, payload) {
     return { desc, weight };
   }
 
+  // The control that opens and closes one rubric row. It lives in the row's own header;
+  // the "Delete section" button beside it carries no aria-expanded, so this finds the
+  // toggle and not the delete.
+  function rowToggle(row) {
+    return row.querySelector("button[aria-expanded]");
+  }
+
+  function rowDelete(row) {
+    return [...row.querySelectorAll("button")].find((b) =>
+      /^delete(\s+section)?$/i.test(norm(b.textContent))
+    );
+  }
+
+  // Open ONE row and wait for its fields to render.
+  //
+  // Bulk-expanding every row first does not work. Clicking 25 collapsed accordions in a
+  // tight loop and sleeping once loses most of the clicks: on a 26-row rubric exactly 12
+  // rows opened and the other 14 were reported as unreachable. Each row is opened at the
+  // moment it is needed instead, and the wait is on the field appearing rather than on a
+  // fixed delay.
+  async function openRow(row) {
+    if (rubricFields(row).desc) return true;
+    const t = rowToggle(row);
+    if (!t) return false;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (t.getAttribute("aria-expanded") !== "true") t.click();
+      for (let w = 0; w < 24; w++) {
+        await sleep(50);
+        if (rubricFields(row).desc) return true;
+      }
+    }
+    return !!rubricFields(row).desc;
+  }
+
+  // Remove a row. The form puts a "Delete section" button in each row header; some builds
+  // put a confirmation behind it, so an obvious confirm button is pressed if one appears.
+  async function deleteRow(row) {
+    const btn = rowDelete(row);
+    if (!btn) return false;
+    btn.click();
+    await sleep(220);
+    const dlg = document.querySelector('[role="alertdialog"], [role="dialog"], dialog[open]');
+    if (dlg) {
+      const ok = [...dlg.querySelectorAll("button")].find((b) =>
+        /^(delete|remove|confirm|yes|ok)\b/i.test(norm(b.textContent))
+      );
+      if (ok) {
+        ok.click();
+        await sleep(220);
+      }
+    }
+    return true;
+  }
+
   async function fillRubric(criteria, root) {
-    const res = { name: "rubric", wanted: criteria.length, written: 0, rows: 0, problems: [] };
+    const res = {
+      name: "rubric", wanted: criteria.length, written: 0, rows: 0,
+      added: 0, removed: 0, problems: [],
+    };
     if (!criteria.length) {
       res.problems.push("nothing to write");
       return res;
     }
+
     const addBtn = findButton(RUBRIC_ADD, root);
     let rows = rubricRows(root);
     const startedWith = rows.length;
     if (!rows.length && !addBtn) {
-      res.problems.push("no rubric rows and no \"Add a New Rubric\" button on this page");
+      res.problems.push('no rubric rows and no "Add a New Rubric" button on this page');
       return res;
     }
 
-    // Add only what is missing. rubricRows counts collapsed rows too, so this starts from
-    // the real total rather than from the one row that happens to be open.
+    // Surplus rows go FIRST, from the end, so what remains is exactly this rubric and the
+    // formatting-and-style criterion still lands last. Leaving them behind would strand
+    // whatever the previous fill wrote in the rows past the new rubric's length.
     let guard = 0;
+    while (rows.length > criteria.length && guard++ < 200) {
+      const victim = rows[rows.length - 1];
+      if (!(await deleteRow(victim))) {
+        res.problems.push(
+          `${rows.length - criteria.length} row(s) beyond the ${criteria.length} supplied, ` +
+            'and no "Delete section" button on the last one; remove them by hand'
+        );
+        break;
+      }
+      const before = rows.length;
+      rows = rubricRows(root);
+      if (rows.length >= before) {
+        res.problems.push("a delete did not remove the row; stopped removing");
+        break;
+      }
+    }
+    res.removed = Math.max(0, startedWith - rows.length);
+
+    // Then top up.
+    guard = 0;
     while (rows.length < criteria.length && addBtn && guard++ < 400) {
       addBtn.click();
-      await sleep(140);
+      await sleep(150);
+      const before = rows.length;
       rows = rubricRows(root);
+      if (rows.length === before) {
+        res.problems.push(
+          `"Add a New Rubric" added no row on click ${guard}; stopped at ${rows.length} ` +
+            `of ${criteria.length}`
+        );
+        break;
+      }
     }
-    res.added = Math.max(0, rows.length - startedWith);
-
-    // Expand every row, then re-read: a collapsed row has no fields to write into.
-    await expandRows(root);
-    rows = rubricRows(root);
     res.rows = rows.length;
+    res.added = Math.max(0, rows.length - (startedWith - res.removed));
 
-    const stillShut = rows.filter((r) => !rubricFields(r).desc).length;
-    if (stillShut) {
-      res.problems.push(
-        `${stillShut} row(s) would not expand, so their fields could not be reached`
-      );
-    }
     if (rows.length < criteria.length) {
       res.problems.push(
-        `only ${rows.length} rows for ${criteria.length} criteria` +
+        `only ${rows.length} row(s) for ${criteria.length} criteria` +
           (addBtn ? "" : ' (no "Add a New Rubric" button found)')
       );
     }
-    if (rows.length < criteria.length) {
-      res.problems.push(
-        `only ${rows.length} rows for ${criteria.length} criteria` +
-          (addBtn ? "" : ' (no "Add a New Rubric" button found)')
-      );
-    }
-    criteria.forEach((c, i) => {
+
+    // Every row is rewritten from the start, so a revision replaces what was there rather
+    // than editing around it.
+    const unreachable = [];
+    for (let i = 0; i < criteria.length; i++) {
       const row = rows[i];
-      if (!row) return;
+      if (!row) break;
+      const c = criteria[i];
+      if (!(await openRow(row))) {
+        unreachable.push(i + 1);
+        continue;
+      }
       const { desc, weight } = rubricFields(row);
       if (!desc) {
-        res.problems.push(`row ${i + 1}: no description field`);
-        return;
+        unreachable.push(i + 1);
+        continue;
       }
-      setValue(desc, c.description);
-      if (weight != null && c.weight != null && c.weight !== "") {
-        setValue(weight, c.weight);
-      } else if (c.weight != null && c.weight !== "") {
+      const bad = setChecked(desc, c.description);
+      if (bad) res.problems.push(`row ${i + 1}: ${bad}`);
+      if (weight && c.weight !== null && c.weight !== undefined && c.weight !== "") {
+        setChecked(weight, c.weight);
+      } else if (!weight && c.weight !== "" && c.weight != null) {
         res.problems.push(`row ${i + 1}: no weight field`);
       }
       res.written++;
-    });
-    if (rows.length > criteria.length) {
+    }
+
+    if (unreachable.length) {
       res.problems.push(
-        `${rows.length - criteria.length} row(s) on the form beyond the ${criteria.length} supplied; ` +
-          "they were left untouched and must be removed by hand"
+        `${unreachable.length} row(s) would not open: ${unreachable.slice(0, 12).join(", ")}` +
+          (unreachable.length > 12 ? ", ..." : "") + ". Open them and fill those by hand"
       );
     }
     return res;

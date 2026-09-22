@@ -1,7 +1,8 @@
 # Prompt: revise a task based on new feedback
 
 - **Task UID:** {TASK_UID}
-- **Feedback:** {paste the full feedback text / verdict / scores below}
+
+The feedback is fetched from the platform, not pasted. Step 2 does it.
 
 ---
 
@@ -11,10 +12,10 @@ metadata.json) even if a check or diagnosis surfaces the same defect there; repo
 findings in the summary instead. A change to `tools/` is re-run portfolio-wide as read-only
 reporting, never as a license to fix other tasks in this run.
 
-**No `stb` CLI, hard limit:** never run any `stb` command during a revision: no `fetch-task`,
-no `download`, no status sync. Everything from the platform (feedback text, verdicts, scores,
-and the live prompt or criteria when an edit made on the platform may have changed them)
-arrives pasted by the operator. When you need a live part, ask for it.
+**`stb` is read-only here, hard limit:** the only platform call a revision makes is
+`tools/fetch_feedback.py`, which wraps `stb submissions fetch-task` and
+`stb submissions feedback`. Never run `stb submissions create` or `update`, never sync
+status, never upload. Submitting the revision is the operator's, on the platform.
 
 ## Steps
 
@@ -24,10 +25,31 @@ arrives pasted by the operator. When you need a live part, ask for it.
    verified that the model running now is the one recorded in `built_with`; never edit
    `built_with` to match the model you happen to be.
 
-2. **Stop and ask for the feedback.** With the task verified, end the turn: report the folder,
-   the recorded model and the gate result, then ask for the feedback: where it came from and
-   the full text, verdicts and scores. If the platform may hold parts the repo does not
-   (an edit made there after submission), ask for the fetch-task JSON alongside the feedback.
+2. **Fetch the feedback.** Do not ask for it; the platform has it.
+
+   ```bash
+   .venv/bin/python tools/fetch_feedback.py <uid>
+   ```
+
+   That writes `feedback-<uid8>.md` into the task folder and prints it. Read all of it before
+   diagnosing anything. Four parts matter:
+
+   - **Outcome and the revision notes.** `eval_revision_notes` is the auto-eval's verdict,
+     `revision_notes` a reviewer's. Either can be absent.
+   - **The per-check list.** Each check's own text, with the failures marked. A check that
+     passed still tells you what the grader read.
+   - **Platform vs repo.** The prompt and every rubric row, compared. The platform's copy is
+     what was graded, so where they disagree, the platform is the fact and the folder is the
+     thing to correct. An edit made on the platform after submission never came back here.
+   - **What the platform holds.** Domain, occupation, file counts, times, tools. Check these
+     against `metadata.json` and `form-lists.md`.
+
+   A return whose notes say nothing is normal, not a failure to fetch: the JSON usually
+   carries the trigger the note does not. If the report is thin, the failing check's text and
+   the drift section are what you have; say so plainly rather than inventing a cause.
+
+   Fetching also refuses to guess. If no folder carries the UID it says so and writes nothing;
+   resolve the folder first rather than working on the wrong task.
 
 3. **Diagnose.** Read the folder's `instruction.md`, `rubric-{task-name}-{uid8}.csv`,
    `feedback-log.md`, and the files the feedback names. Determine the root cause of each

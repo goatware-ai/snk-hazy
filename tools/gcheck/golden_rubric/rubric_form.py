@@ -1891,6 +1891,15 @@ def check_atomicity(rows):
     R85 2026-09-03; R105 2026-09-11.
     Source: the Agentic Rubric Quality Review (non_atomic) and hand reads ('one could be wrong and two right').
     Drift-notes: six detectors merged into one walk over the rubric on 2026-09-11; splits stay weight-neutral.
+    Still manual (2026-09-22, the form's in-app Criteria atomic FAIL): a relative or "with" clause
+    that stacks a serial list of checks ("whose first worksheet is the recommendation with each
+    bidder's responsiveness, evaluated price and the recommended award"), a figure beside the name
+    of its owner ("$4,924.99, with Ridgecrest named as that bidder"), two reasons under one verdict
+    ("for not acknowledging addendum 2 and bidding ... at the superseded quantity") and a second
+    location claim ("first worksheet, with the note on the last") all passed R54/R55 and were
+    returned as bundles. A serial-list-inside-with arm was probed 2026-09-22 and fired on three
+    rows of rubrics the platform had already passed to review, so it is read by hand: split each
+    weight-neutrally, the basename staying inside one content claim (R83).
     """
     from .. import core as _core
     g = globals()

@@ -541,6 +541,7 @@ PRIMARY = {
     # Both from docs/submission/platform/creating-input-files.md (2026-08-26).
     "L2": "DATA-LEAK", "L3": "DATA-LEAK", "L4": "DATA-LEAK", "L5": "DATA-LEAK", "T1": "DATA-LEAK",
     "L6": "DATA-LEAK",      # a conclusion word in a note on an input row the golden cites
+    "L7": "DATA-LEAK",      # an input exception column citing the rule the record breaks (2026-09-22)
     # Stage 3
     "A6": "REV-PROSE", "A10": "REV-PROSE",
     # A20: a missing comma before a clause-joining conjunction, or three or more clauses in one

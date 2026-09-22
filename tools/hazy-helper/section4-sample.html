@@ -10,7 +10,15 @@
      criterion count adds a full set of new rows on top of the three already present.
 
      Rows must be counted by their instance containers, which exist whether or not the row
-     is expanded, and the fields read only after expanding. -->
+     is expanded, and the fields read only after expanding.
+
+     Two more things the live form showed, both recorded here:
+
+       - The trigger's data-value lists the indices currently OPEN, e.g.
+         data-value="0,23,24,25,22,21,20,19,18,17,16,15" on a 26-row rubric where only
+         twelve rows were open. Several rows can be open at once.
+       - Every row header carries a "Delete section" button, which is what makes removing
+         surplus rows possible when a revision has fewer criteria than the form has rows. -->
 <div data-testid="section-Task Rubrics" data-open="">
   <button aria-expanded="true" id="base-ui-_r_2hk_">Task Rubrics</button>
   <div data-orientation="vertical" data-index="3" data-open="" id="base-ui-_r_2hj_"
@@ -26,12 +34,15 @@
              data-testid="repeatable-repeatable-bfbf1-instance-0" class="group/accordion-item">
           <div class="group gap-sm flex items-center w-full px-sm">
             <h3 data-orientation="vertical" data-index="0" data-open="" class="flex min-w-0 flex-1">
-              <button type="button" data-value="0" data-orientation="vertical" data-panel-open=""
+              <button type="button" data-value="0,23,24,25,22,21,20,19,18,17,16,15" data-orientation="vertical" data-panel-open=""
                       tabindex="0" aria-disabled="false" aria-controls="base-ui-_r_3r5_"
                       aria-expanded="true" id="base-ui-_r_3r6_" class="group gap-sm relative flex">
                 <span class="text-sm-normal text-color-primary min-w-0 flex-1"><span class="text-lg-medium">Rubric 1</span></span>
               </button>
             </h3>
+            <div class="gap-sm flex shrink-0 items-center">
+              <button type="button">Delete section</button>
+            </div>
           </div>
           <div data-orientation="vertical" data-index="0" data-open="" id="base-ui-_r_3r5_"
                aria-labelledby="base-ui-_r_3r6_" role="region">

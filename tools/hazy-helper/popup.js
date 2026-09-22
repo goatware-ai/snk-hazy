@@ -194,6 +194,7 @@
       else if (typeof s.written === "number") bits.push(`${s.written}/${s.wanted} written`);
       if (s.rows !== undefined) bits.push(`${s.rows} row(s) on form`);
       if (s.added) bits.push(`${s.added} added`);
+      if (s.removed) bits.push(`${s.removed} removed`);
       if (s.selected) {
         bits.push(`domain: ${s.selected.domain || "none"}`);
         bits.push(`occupation: ${s.selected.occupation || "none"}`);

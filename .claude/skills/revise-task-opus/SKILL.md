@@ -24,5 +24,15 @@ It must report **OK**. On MISMATCH, **stop before touching anything** and tell m
 ## 2. Do the work
 
 Read `prompts/revise-task.md` in full and follow it; this skill has verified the model, so its
-model step is already done. Its first two steps are the whole of this turn: verify the folder, then stop and ask me
-for the feedback.
+model step is already done.
+
+Do not ask me for the feedback. Step 2 fetches it:
+
+```bash
+.venv/bin/python tools/fetch_feedback.py <uid>
+```
+
+That writes `feedback-<uid8>.md` into the task folder and prints it, including a comparison of
+what the platform holds against what the folder holds. Read it, then carry straight on into
+the diagnosis. Stop and ask only if the fetch fails, if no folder carries the UID, or if the
+report leaves a finding genuinely ambiguous.

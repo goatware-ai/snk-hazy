@@ -142,4 +142,14 @@ PROCEDURAL = [
                   "searches the whole package for it (2026-09-15: a struck Appendix B "
                   "claim survived in a table cell).",
      "source": "memory/revision-workflow.md (2026-09-15)"},
+    {"id": "PR21",
+     "statement": "Before a build is called done, list every decision the golden makes and name where a "
+                  "solver learns the fact it turns on; a fact that sits in a column naming the rule, or "
+                  "in the sentence that states the rule, is relocated into a record's own prose, a "
+                  "second file that must be reconciled, or a status column a reader can skip, and a "
+                  "numbered rule an input carries that the golden never applies is made to decide "
+                  "something (2026-09-22: the desk's first difficulty_check FAIL, two of four weak-model "
+                  "attempts clearing a rubric whose every trap was labelled). L7 catches the labelled "
+                  "exception column; the rest is read by hand.",
+     "source": "memory/difficulty-check-lessons.md (2026-09-22)"}
 ]

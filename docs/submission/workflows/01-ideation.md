@@ -62,6 +62,13 @@ Record the pair in `metadata.json` (`06-metadata.md`).
   where each wrong one carries a different disqualifying property discoverable only in the
   files. The difficulty is in the set, not in the volume of any member, and it is cheaper
   to build than cross-referencing.
+- **Never label the trap.** A column that states a record's exception with the section it
+  breaks, or a flag that names the rule, hands the graded call to the solver; the platform's
+  difficulty check failed a four-bid evaluation built that way on 2026-09-22 (two of four
+  weak-model attempts cleared the rubric). Put the condition in the record's own prose, in a
+  second file that has to be reconciled, or under a status column a reader can skip, and make
+  every numbered rule an input carries decide something (L7 for the labelled column, PR21 for
+  the walk; `memory/difficulty-check-lessons.md` carries the case).
 - **Prefer real published data where the occupation offers it.** Real data carries its own
   ambiguity, discontinued series, revision flags and withheld cells; a fabricated pack has
   to invent that friction, and the absence shows (all-whole-dollar cost figures, A15).

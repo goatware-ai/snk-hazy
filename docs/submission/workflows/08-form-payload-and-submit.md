@@ -147,8 +147,8 @@ knowing before you see them:
 |---|---|
 | `domain reads back as "X", not "Y"` | The click landed on the wrong option, or the form rejected it. Section 1 arrives with a domain already selected, so this check exists precisely because "something is selected" proves nothing. |
 | `"10.255" did not fit (maxlength 5)` | The field truncated your value. Round the total and regenerate. |
-| `N row(s) beyond the M supplied were left untouched` | The form had more rubric rows than your rubric. Delete the extras by hand, or the formatting-and-style criterion is no longer last. |
-| `N row(s) would not expand` | A rubric row stayed collapsed, so its fields could not be reached. Open it and fill that one by hand. |
+| `N removed` on the rubric line | The form held more rows than your rubric has criteria, and the surplus was deleted from the end. Expected on a revision that drops criteria. |
+| `N row(s) would not open: 4, 7, 9` | Those rubric rows stayed collapsed and could not be written. Open them on the form and fill those by hand. |
 | `total Xh is below the four parts` | Your own arithmetic does not hold. Fix the metadata, not the form. |
 | `N of M entries are a bare file name with no description` | The popup is filling from a payload you loaded before regenerating the file. Press Load JSON again. |
 | `found N boxes, expected 14` | The checklist changed. Read it, and update the capture in [platform-submission-form.md](../platform/platform-submission-form.md). |

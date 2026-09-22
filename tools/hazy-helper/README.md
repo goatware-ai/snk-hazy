@@ -60,9 +60,20 @@ needed, which avoids both writing nothing and leaving a stray empty row.
 
 **The rubric arrives with three rows, but only the first is open.** Rows 2 and 3 have no
 panel in the DOM at all, so they carry no description and no weight field. Rows are counted
-by their containers, which exist either way, and every row is expanded before anything is
-written. Counting only rows that already show a field sees one row, then adds a fresh row
-per criterion on top of the three you already had.
+by their containers, which exist either way. Counting only rows that already show a field
+sees one row, then adds a fresh row per criterion on top of the three you already had.
+
+**Each row is opened at the moment it is written into, not all at once.** Bulk-expanding
+does not survive a real rubric: clicking 25 collapsed accordions in a loop and sleeping once
+loses most of the clicks, and on a 26-row rubric exactly 12 rows opened while 14 were
+reported unreachable. Now a row is opened, the code waits for its description field to
+appear rather than for a fixed delay, and only then writes.
+
+**A fill rewrites the whole rubric.** Every row is written from the start, so revising
+replaces what was there. If the form holds more rows than your rubric has criteria, the
+surplus is deleted first, from the end, using the "Delete section" button in each row
+header. Leaving them would strand the previous fill's text in the rows past your new
+rubric's length, and would stop the formatting-and-style criterion being last.
 
 **Expanding never clicks a dialog trigger.** The "Show criteria" buttons in sections 2 and 3
 also carry `aria-expanded="false"`, so the expand pass skips anything with `aria-haspopup`.

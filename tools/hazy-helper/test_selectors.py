@@ -533,12 +533,11 @@ def main() -> int:
               and "if (all.length) return all;" in rr,
               "it still filters by field presence")
 
-        # the fill must expand before it writes, and add only the shortfall
+        # the fill opens each row as it reaches it, and adds only the shortfall
         fr = src[src.index("async function fillRubric"):src.index("// ------------------------------------------------------------ radio picks")]
         check("fillRubric records how many rows it started with", "startedWith" in fr)
-        check("fillRubric expands rows before writing",
-              fr.index("expandRows") < fr.index("criteria.forEach"))
-        check("fillRubric reports rows that would not expand", "would not expand" in fr)
+        check("fillRubric opens each row before writing into it", "await openRow(row)" in fr)
+        check("fillRubric names the rows that would not open", "would not open" in fr)
 
         # expanding must never click a dialog trigger
         check("the expand pass excludes aria-haspopup",
@@ -547,6 +546,24 @@ def main() -> int:
 
         html4 = SECTION4_SAMPLE.read_text(errors="ignore")
         check('the "Add a New Rubric" button is present', "Add a New Rubric" in html4)
+
+        # every row header carries its own delete, which is what lets a revision shrink
+        check('each row has a "Delete section" button', "Delete section" in html4)
+        check("the toggle is found by aria-expanded, the delete is not",
+              'function rowToggle' in src and 'button[aria-expanded]' in src)
+
+        # rows are opened ONE AT A TIME. Bulk-clicking 25 collapsed accordions lost most
+        # of the clicks: 12 of 26 rows opened and 14 were reported unreachable.
+        check("openRow opens a single row and waits for its field",
+              "async function openRow" in src and "rubricFields(row).desc" in src)
+        fr2 = src[src.index("async function fillRubric"):src.index("// ------------------------------------------------------------ radio picks")]
+        check("fillRubric no longer bulk-expands", "expandRows" not in fr2,
+              "it still calls expandRows, which loses clicks at this row count")
+        check("fillRubric deletes surplus rows before writing",
+              fr2.index("deleteRow") < fr2.index("addBtn.click()"))
+        check("deletion works from the END of the list", "rows[rows.length - 1]" in fr2)
+        check("it stops if a delete does not remove the row",
+              "did not remove the row" in fr2)
 
     # --------------------------------------------------------------- section 5
     print("\nsection 5: the submit checklist")

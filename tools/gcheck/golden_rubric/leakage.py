@@ -512,3 +512,66 @@ def check_conclusion_in_cited_note(folder):
                       "(2026-09-14: three adjustment comments stating the "
                       "diagnosis and the action). A note on a cited row names a document or a bin, never the "
                       "finding")
+
+
+# L7 (2026-09-22): the desk's first difficulty_check FAIL. The bid tabulation's
+# EXCEPTIONS_AND_ALTERNATES column read "Exception to ITB section 4.3: prices firm for 6 months
+# ..." beside a PRICE_HOLD_STATED column, so the responsiveness call the rubric graded was typed
+# into the input with the rule it broke, and a weak model cleared the rubric in two of four
+# attempts. The condition belongs in the bidder's own prose (a letter, a form remark), read against
+# the rule by the solver.
+_L7_HDR_RE = re.compile(r"\b(?:exceptions?|deviations?|qualifications?|non ?compliances?|departures?)\b", re.I)
+_L7_CITE_RE = re.compile(r"\b(?:section|sec\.?|clause|para(?:graph)?|article|itb|rfp|rfq|rfb|policy|pp)\s*-?\s*\d+(?:\.\d+)*\b", re.I)
+
+
+def _l7_grids(folder):
+    """Every input sheet or CSV as a grid of raw values, header row wherever it sits (a title row above it is common)."""
+    import csv
+    d = folder / "inputs"
+    for path in sorted(d.glob("*")) if d.is_dir() else []:
+        if path.suffix.lower() == ".csv":
+            try:
+                yield path.name, list(csv.reader(path.open(encoding="utf-8-sig", errors="ignore")))
+            except Exception:
+                continue
+        elif path.suffix.lower() == ".xlsx":
+            try:
+                wb = workbook(path, data_only=True)
+            except Exception:
+                continue
+            for ws in wb.worksheets:
+                yield f"{path.name} {ws.title}", list(ws.iter_rows(values_only=True))
+
+
+@check(codes=['L7'], rules=['DATA-LEAK'], needs=['inputs'], params=['folder'])
+def check_labelled_exception_column(folder):
+    """An input table column headed as exceptions, deviations, qualifications or departures carries no cell that cites the section, clause or policy number the record breaks; a record that labels its own defect with the rule hands the solver the graded call.
+
+    Since: 2026-09-22.
+    Source: the platform's difficulty_check (one task, NEEDS_REVISION): glm-5.2 passed the rubric
+    in two of four attempts on a bid tabulation whose EXCEPTIONS_AND_ALTERNATES column read
+    "Exception to ITB section 4.3: prices firm for 6 months ..." and whose PRICE_HOLD_STATED
+    column restated it. The fix moved every condition into the bidders' letters.
+    Drift-notes: the header is matched with underscores and hyphens read as spaces; the cell arm
+    needs a document noun (section, clause, ITB, PP, policy) followed by a number, so a bare
+    remark ("prices firm for 6 months") or a plain "None" is not read. The hand rule for the
+    design (no decision turning on a column that names the rule) is PR21.
+    """
+    leaks = []
+    for name, grid in _l7_grids(folder):
+        for r, row in enumerate(grid[:12]):
+            for j, h in enumerate(row):
+                if not isinstance(h, str) or len(h) > 40 or not _L7_HDR_RE.search(re.sub(r"[_\-]+", " ", h)):
+                    continue
+                for below in grid[r + 1:]:
+                    v = below[j] if j < len(below) else None
+                    if not isinstance(v, str):
+                        continue
+                    m = _L7_CITE_RE.search(v)
+                    if m:
+                        leaks.append(f"{name} \"{h}\": \"{v[:90]}\" ({m.group(0)})")
+    if leaks:
+        emit("ERROR", f"[L7] {len(leaks)} input cell(s) label a record's exception with the rule it breaks: "
+                      f"{'; '.join(leaks[:4])}. The platform's difficulty check failed a task built this way "
+                      "(2026-09-22: two of four weak-model attempts cleared the rubric). Put the condition in "
+                      "the record's own prose and let the solver read it against the rule (PR21)")

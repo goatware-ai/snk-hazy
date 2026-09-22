@@ -1,8 +1,11 @@
 ---
 name: platform-expertdocs
 description: "What the platform's expert-doc captures state beyond the live submission form: difficulty_check passes when worst-agent accuracy is 80% or under, golden_solution_check is 3 agents all at 1.0000, LLM assistance on input files is permitted when the result is indistinguishable from a real document, and the coded checks N1/L2/T1/A1-extended. Carried over from the desk this repo was built from and not yet confirmed here; on any conflict the live form wins"
-metadata:
+metadata: 
+  node_type: memory
   type: reference
+  originSessionId: 12ee6dd7-5e9b-4059-aab3-83e9dc851d57
+  modified: 2026-09-22T08:07:52.390Z
 ---
 
 The two captures that are authoritative for this desk are
@@ -19,8 +22,14 @@ confirmed here. It is background; nothing in it blocks a submission on its own.
 
 - ~~Rubric band 15-60~~ SUPERSEDED 2026-09-21: the form sets no ceiling and expects 20-60+, with
   an error floor of 6 from the guidelines PDF. See [[rubric-criterion-count]].
-- **difficulty_check passes when worst-agent accuracy is 80% or under** (it fails as Easy only
-  when both models exceed 80) - not "both under 80".
+- ~~difficulty_check passes when worst-agent accuracy is 80% or under~~ CONTRADICTED on this desk
+  2026-09-22: the first difficulty return here (`evaluations[*].children_results[]`, evaluator
+  `difficulty_check`, `metadata.agent_result.models`) showed glm-5.2 with attempts PASS, PASS,
+  FAIL, FAIL marked `solved: true` and qwen3.6-27b with four INCOMPLETE attempts and zero valid
+  ones, verdict FAIL, outcome NEEDS_REVISION. Two PASS attempts in four on ONE model fail the
+  task; the second model contributing nothing does not rescue it. The note text carries only
+  "Hazy difficulty: FAIL"; the per-model attempts are in the fetch JSON. See
+  [[difficulty-check-lessons]].
 - **golden_solution_check = 3 agents, all must score 1.0000** - the [x, y, z] triples in oracle
   feedback are this check's raw scores.
 - **LLM assistance on input files is permitted** when the result is indistinguishable from a real

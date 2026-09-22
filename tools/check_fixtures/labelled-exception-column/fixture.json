@@ -1,0 +1,10 @@
+{
+ "about": "An input tabulation whose EXCEPTIONS_AND_ALTERNATES column cites the ITB section each exception breaks, the labelled trap behind the desk's first difficulty_check FAIL (2026-09-22).",
+ "base": "package-corrected",
+ "fires": [
+  {
+   "code": "L7",
+   "contains": "section 4.3"
+  }
+ ]
+}

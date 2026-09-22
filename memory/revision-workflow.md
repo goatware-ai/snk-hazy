@@ -1,23 +1,44 @@
 ---
 name: revision-workflow
-description: "How a submitted task is revised under /revise-task: no stb command in any revision (verify model and folder, then ask the operator for the pasted feedback and live parts), the platform's four independent parts and the per-part re-upload check, salvages that live only on the platform, debt that cannot shelter a re-entered rubric, the authorship check's two gates, and review-comment.md left untouched on AutoEval rounds (2026-09-11)"
-metadata:
+description: "How a submitted task is revised under /revise-task: the revision fetches its own feedback with tools/fetch_feedback.py (verify model and folder, then fetch; stb is read-only, never create/update/sync) (the pasted feedback and live parts), the platform's four independent parts and the per-part re-upload check, salvages that live only on the platform, debt that cannot shelter a re-entered rubric, the authorship check's two gates, and review-comment.md left untouched on AutoEval rounds (2026-09-11)"
+metadata: 
+  node_type: memory
   type: feedback
+  originSessionId: 12ee6dd7-5e9b-4059-aab3-83e9dc851d57
+  modified: 2026-09-22T08:08:24.791Z
 ---
 
 > **Caveat:** the platform behaviour below is carried over from the desk this repo was built
-> from and not yet confirmed here - no submission has come back on this project yet. The no-stb
-> rule and the operator-controls-the-platform rule are house policy and stand regardless.
+> from. Returns have since been seen on this project, so the parts a fetched
+> `feedback-<uid8>.md` confirms can be trusted; the rest has not been re-checked. The
+> read-only-stb rule and the operator-submits rule are house policy and stand regardless.
 
-## No stb in a revision (2026-08-31)
+## The revision fetches its own feedback (2026-09-22, replaces the no-stb rule)
 
-`/revise-task` never runs any `stb` command: no fetch-task, no download, no status sync. The
-first turn verifies the task folder (UID via submission-list.md and metadata.json) and the build
-model (`tools/build_model.py check`, [[model-routing]]), then stops and asks the operator for the
-feedback: owner, full text, verdicts, scores. The command takes only the UID; feedback is never a
-command argument, and live platform parts (a fetch-task JSON) arrive pasted by the operator on
-request. The operator controls all platform interaction. Encoded in prompts/revise-task.md, both
-revise-task skills and .claude/commands/revise-task.md.
+`/revise-task` takes only the UID. The first turn verifies the task folder (UID via
+metadata.json) and the build model (`tools/build_model.py check`, [[model-routing]]), then
+FETCHES the feedback rather than asking for it:
+
+    .venv/bin/python tools/fetch_feedback.py <uid>
+
+It wraps `stb submissions fetch-task` and `stb submissions feedback`, writes
+`feedback-<uid8>.md` into the task folder and prints it. Read it before diagnosing.
+
+`stb` is read-only in a revision: fetch only. Never `submissions create` or `update`, never a
+status sync, never an upload. Submitting stays the operator's, on the platform.
+
+Two things the fetch is for, beyond the verdict. **The notes are often empty** - a return can
+carry a header and nothing else - and the real signal sits in the JSON under
+`eval_revision_notes` and the per-check notes in `evaluations[].overall_evaluation_result`,
+which is why the note's silence is not a failed fetch. And it **diffs the platform against the
+folder**: prompt text, rubric row count and every criterion. An edit made on the platform after
+submission never comes back here, so where they disagree the platform is the fact and the
+folder is what needs correcting. Observed 2026-09-22: a fill that stopped part-way left the
+platform holding 23 of 29 criteria while the CSV had all 29, invisible until the two were
+compared.
+
+Encoded in prompts/revise-task.md step 2, both revise-task skills and
+.claude/commands/revise-task.md.
 
 ## The platform holds four independent parts
 
@@ -167,6 +188,13 @@ finding even when every file is clean. Describe such a person by role, never by 
   picks, rubric to the +39 two-strict shape with critical-class negatives, golden date and prose
   repairs, input comma repairs, clause map and struck ledger, then the Package sequence; the H8
   preview window on a copied source tab is cleared by relaying the INPUT into side-by-side blocks.
+
+- 2026-09-22 (the desk's first return, a difficulty FAIL): the note carried one sentence and no
+  findings, and the session ran the fetch itself. That is now the standing behaviour rather
+  than an exception: `tools/fetch_feedback.py <uid>` wraps the read-only calls and every
+  revision starts with it. The JSON's difficulty child carried the per-model attempts the note did not
+  ([[difficulty-check-lessons]]). /fetch-status had already moved the row to NEEDS_REVISION
+  before the revision started, so step 7's list move was a no-op.
 
 - 2026-09-17 (a second operator-directed modernization the same day): the sequence above held
   (stamp, gate as feedback, verify_golden.py first, prompt frame, picks, rubric to +39, golden
