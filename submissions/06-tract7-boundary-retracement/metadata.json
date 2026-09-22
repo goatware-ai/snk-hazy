@@ -1,0 +1,22 @@
+{
+  "task_name": "tract7-boundary-retracement",
+  "taskboard_uid": "bd4c9fd2-060e-41f4-bcdb-76cee0b48cc0",
+  "domain": "Architecture and Engineering",
+  "onet_occupation": {
+    "code": "17-1022.00",
+    "title": "Surveyors"
+  },
+  "input_file_count": 4,
+  "output_file_count": 1,
+  "tools": [
+    "Microsoft Excel",
+    "Microsoft Word"
+  ],
+  "time_read_minutes": 15,
+  "time_files_minutes": 60,
+  "time_work_minutes": 240,
+  "time_qa_minutes": 60,
+  "total_time_hours": 6.25,
+  "built_with": "claude-fable-5-1",
+  "build_session": "afce3ffb"
+}
