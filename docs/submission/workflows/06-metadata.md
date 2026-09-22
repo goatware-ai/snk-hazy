@@ -1,7 +1,7 @@
 # Workflow 06 — Metadata and the platform form
 
 The live form is `../platform/platform-submission-form.md`; the field-by-field guidance is
-`../platform/create-the-task-guidelines.md#1-select-the-onet-domain-and-sector` and
+`../platform/domains-and-occupations.md` and
 `#6-record-the-human-time-estimate`. The repo records only the values, in each task's
 `metadata.json`; the reasoning behind a pick belongs in the build summary and the
 feedback-log entry, never in the metadata file.

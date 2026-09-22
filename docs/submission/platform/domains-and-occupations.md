@@ -6,7 +6,7 @@
 > fit one of the entries below or it cannot be submitted.
 
 The form header points at <https://www.onetonline.org/find/industry> for picking the
-closest occupation; the guidelines PDF points at <https://www.onetonline.org/find/all> for
+closest occupation. <https://www.onetonline.org/find/all> is the fuller list for
 the occupation and its code. Titles below are reproduced as the form spells them, which is
 sometimes shorter than the official O*NET title.
 

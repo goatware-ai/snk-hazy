@@ -8,20 +8,19 @@ metadata:
   modified: 2026-09-22T08:07:52.390Z
 ---
 
-The two captures that are authoritative for this desk are
-`docs/submission/platform/platform-submission-form.md` (the live form, which blocks submission)
-and `docs/submission/platform/create-the-task-guidelines.md`. The supporting captures are
-`creating-input-files.md`, `style-guide-llm-tells.md`, and the two list captures
-`domains-and-occupations.md` and `onet-codes.md`.
+The capture that is authoritative for this desk is
+`docs/submission/platform/platform-submission-form.md`, the live form, which blocks submission.
+`docs/submission/house-rules.md` holds this desk's own standards for what the form leaves
+unsaid. The supporting captures are `creating-input-files.md`, `style-guide-llm-tells.md`, and
+the two list captures `domains-and-occupations.md` and `onet-codes.md`.
 
-**On any conflict the form wins**, then the guidelines PDF, then anything else
-([[golden-solution-required]] is the worked example of that order).
+**On any conflict the form wins**; house-rules.md covers only what the form leaves unsaid.
 
 Everything in this file is carried over from the desk this repo was built from and not yet
 confirmed here. It is background; nothing in it blocks a submission on its own.
 
 - ~~Rubric band 15-60~~ SUPERSEDED 2026-09-21: the form sets no ceiling and expects 20-60+, with
-  an error floor of 6 from the guidelines PDF. See [[rubric-criterion-count]].
+  a house error floor of 6. See [[rubric-criterion-count]].
 - ~~difficulty_check passes when worst-agent accuracy is 80% or under~~ CONTRADICTED on this desk
   2026-09-22: the first difficulty return here (`evaluations[*].children_results[]`, evaluator
   `difficulty_check`, `metadata.agent_result.models`) showed glm-5.2 with attempts PASS, PASS,

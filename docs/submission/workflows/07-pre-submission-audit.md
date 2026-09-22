@@ -3,7 +3,7 @@
 One row per gate. Walk every row against what you actually built, in order, and fix
 failures before submitting, since a failed gate means the submission is sent back. Modeled
 on `../platform/platform-submission-form.md#5-before-you-submit--task-creation-checklist`
-and `../platform/create-the-task-guidelines.md#before-submitting`; on any conflict, the form
+and `../platform/platform-submission-form.md#5-before-you-submit--task-creation-checklist`; on any conflict, the form
 wins.
 
 The **Check** column names the registry id that codes the row (one line per id in

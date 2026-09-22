@@ -11,9 +11,9 @@ this repo's own derived working material.
 
 Two things govern above everything else:
 
-1. **The live form beats the guidelines PDF.** The form is what blocks submission. The one
-   known disagreement between them is whether the author produces a solution; the form
-   requires one. See `submission/platform/create-the-task-guidelines.md` section 0.
+1. **The submission form is the authority.** It is what blocks submission, and where it
+   speaks it governs. `submission/house-rules.md` holds this desk's own standards for what
+   the form leaves unsaid; nothing there is a platform requirement.
 2. **There is no fixed sector.** Each task picks one of 14 domains and one of 64
    occupations from a closed list. See `submission/platform/domains-and-occupations.md`.
 
@@ -34,7 +34,6 @@ docs/
 ├── submission/                      ← authoring a task (the whole job)
 │   ├── platform/                    ← AUTHORITATIVE captures
 │   │   ├── platform-submission-form.md      the live form, section by section — TOP AUTHORITY
-│   │   ├── create-the-task-guidelines.md    the guidelines PDF; §0 holds the solution conflict
 │   │   ├── domains-and-occupations.md       the closed 14-domain / 64-occupation lists
 │   │   ├── onet-codes.md                    verified codes, job families, and the four traps
 │   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage

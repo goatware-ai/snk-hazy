@@ -5,7 +5,7 @@ states the rules in two places: the count, the weight range, the negative-weight
 the values-from-ground-truth rule and the mandatory closing line in
 `../platform/platform-submission-form.md#4-task-rubrics`; the criterion properties, the
 weighting meanings and the mirroring mistake in
-`../platform/create-the-task-guidelines.md#5-write-task-rubrics`. This page holds what the
+`../platform/platform-submission-form.md#4-task-rubrics`. This page holds what the
 house adds on top; every coded rule carries its id, and `../../rules.md` states each in one
 line.
 

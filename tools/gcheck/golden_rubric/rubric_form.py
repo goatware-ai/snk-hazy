@@ -908,9 +908,8 @@ def check_form_basics(rows):
     """
     for num, text, weight in rows:
         if len(text) > 500:
-            # HOUSE RULE, not a platform cap. Neither the submission form nor the
-            # guidelines states a character limit; the 500 was carried over from the desk
-            # this repo was built from and is kept on its own merits. The form asks each
+            # HOUSE RULE, not a platform cap (docs/submission/house-rules.md, Rubric).
+            # No platform document states a character limit. The form asks each
             # line to "test exactly one thing: a specific number, name, date, format
             # requirement, or structural detail - not a bundled description", and a
             # criterion past 500 characters is reliably a bundle. Raise or drop the number
@@ -966,20 +965,20 @@ def check_weight_bands(rows):
 def check_criterion_count(rows):
     """The rubric carries at least 6 criteria, and 20+ for anything but a simple task.
 
-    Source: docs/submission/platform/platform-submission-form.md section 4 ("minimum of 3
-    criteria; expect somewhere in the 20-60+ range depending on complexity") and
-    create-the-task-guidelines.md section 5 ("at least six criteria").
-    Drift-notes: rewritten 2026-09-21 in the Hazy port. An earlier rule
-    required 15-60 and capped at 60; the Hazy form's range is open at the top ("20-60+"),
-    so there is no ceiling any more. The floor is the guidelines' 6 rather than the form's
-    3, because the guidelines are the stricter of the two and both must pass.
+    Source: the form, section 4 - "minimum of 3 criteria; expect somewhere in the 20-60+
+    range depending on complexity", and its checklist item 9.
+    Drift-notes: the form's floor is THREE. Erroring under six is this desk's own practice
+    (docs/submission/house-rules.md, Rubric), kept because a five-criterion rubric has never
+    covered a task worth submitting. The form expects 20-60+ anyway, so the floor is nowhere
+    near the binding constraint; lower it to three if that stops being true. No ceiling: the
+    form's range is open at the top.
     """
     n = len(rows)
     if n < 6:
-        emit("ERROR", f"[R11] {n} criteria - the guidelines require at least six "
-                      "(create-the-task-guidelines.md section 5, restated in its Before "
-                      "Submitting list). The form's checklist item 9 sets a floor of 3 and "
-                      "adds that most real tasks need well more than 3")
+        emit("ERROR", f"[R11] {n} criteria - under this desk's floor of six "
+                      "(docs/submission/house-rules.md, Rubric). The form itself requires "
+                      "only 3 and expects 20-60+, so this is house practice; it is here "
+                      "because a rubric this short has never covered a task worth submitting")
     elif n < 20:
         recommend(f"[R11] {n} criteria - the form expects 20-60+ depending on complexity "
                   "(platform-submission-form.md section 4). Below 20 the rubric probably "
@@ -1319,7 +1318,7 @@ def rubric_info(rows):
 # analytical work (rating every bill, the rated total, the overcharge classification, the claim
 # total) sat at +2 while the rubric's top positive was +3, and the task was sent
 # back to put them at +4 or +5: "so the central deliverable requirements are weighted at the top
-# of the 1-5 scale". The platform guidelines list "flat weighting (at least one core criterion at
+# of the 1-5 scale". This desk bans flat weighting (at least one core criterion at
 # +4/5)" among the rubric mistakes, and Hazy's form restates the spirit as "weight by how
 # central the item is to a correct deliverable". This
 # is the mechanical half: a rubric whose highest positive weight is under 4 is flat by
@@ -1339,7 +1338,7 @@ def check_flat_weighting(rows):
     top = max(pos)
     if top < 4:
         emit("ERROR", f"[R99] the highest positive weight is +{top:g}: the rubric is flat. The platform "
-                      "guidelines list 'flat weighting (at least one core criterion at +4/5)' as a "
+                      "house rules ban flat weighting (at least one core criterion at +4/5) as a "
                       "rubric mistake and a task was sent back on it "
                       "(2026-09-09), asking for the rows that grade the central deliverable (the rated "
                       "total, the classification, the claim total) at +4 or +5. Raise the core rows, "

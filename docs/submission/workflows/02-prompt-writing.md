@@ -4,7 +4,7 @@ The platform states the prompt rules twice and they agree: the field's own bulle
 placeholder in
 `../platform/platform-submission-form.md#task-instruction`, and the required properties,
 the voice and the overspecification warning in
-`../platform/create-the-task-guidelines.md#2-write-the-task-instruction`. The tell list is
+`../platform/platform-submission-form.md#2-metadata`. The tell list is
 `../platform/style-guide-llm-tells.md` and `../../reference/llm-prose-tells.md`. This page
 holds only what the house adds on top. Coded rules carry their check id; the one-line
 statement of every id is `../../rules.md`.

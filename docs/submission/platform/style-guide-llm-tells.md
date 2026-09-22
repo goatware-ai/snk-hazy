@@ -3,7 +3,7 @@
 > **Carried over from the desk this repo was built from and not yet confirmed here.** This
 > document describes the LLM tells that get a file sent back. It is kept because the guidance
 > is domain-agnostic, but nothing in it has been checked against Hazy's own platform. Where it
-> disagrees with `create-the-task-guidelines.md` or `platform-submission-form.md`, those win.
+> disagrees with `house-rules.md` or `platform-submission-form.md`, those win.
 
 Style Guide for Expert Contributors
 

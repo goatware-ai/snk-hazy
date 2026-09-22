@@ -4,7 +4,7 @@ The platform states the input rules in three places: the standard, the fingerpri
 out, the leakage hard line, the LLM-assist workflow and the tell log in
 `../platform/creating-input-files.md`; the count, the formats and the
 field-authenticity test in
-`../platform/create-the-task-guidelines.md#3-list-and-upload-input-files`; and the list-
+`../house-rules.md`; and the list-
 versus-upload matching rule in
 `../platform/platform-submission-form.md#input-file-list`. This page holds the packaging
 shape the tools expect and the house additions the checks code.
@@ -41,7 +41,7 @@ note, never the em dash the form's placeholder shows (A6).
 - Substantial, real or indistinguishable from real, nothing paywalled or
   employer-proprietary: `../platform/creating-input-files.md#1-the-standard-real-documents-not-clean-ones`
   and `#3-the-fingerprints-to-keep-out`,
-  `../platform/create-the-task-guidelines.md#using-ai-to-create-input-files`. Checklist item
+  `../platform/creating-input-files.md`. Checklist item
   8 is the authorization confirmation: only files you may share, nothing confidential,
   proprietary or IP-restricted.
 - **The package-provenance stop is a house rule the captures do not state.** Batch

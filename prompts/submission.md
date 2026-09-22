@@ -3,9 +3,9 @@
 You are authoring **one** submission for Snorkel's Project Hazy (GDPVal++), the benchmark of
 economically valuable, real-world professional workplace tasks. `./docs/submission/` is the
 authoring rule set: `platform/` holds the platform captures, of which
-`create-the-task-guidelines.md` and `platform-submission-form.md` are authoritative and the
-form wins where the two disagree; `workflows/` is the working decomposition, one stage per
-file, and is the build order. Check ids cited here are defined in `docs/rules.md` and run by
+`platform-submission-form.md` is authoritative because it is what blocks submission;
+`house-rules.md` holds this desk's own standards for what the form leaves unsaid;
+`workflows/` is the working decomposition, one stage per file, and is the build order. Check ids cited here are defined in `docs/rules.md` and run by
 `tools/autoeval_check.py`; where this file states a count, a band or a weight range, this file
 and the platform section it names govern over `docs/rules.md`.
 
@@ -45,9 +45,9 @@ Record the domain, the occupation title and the code in `metadata.json`.
 
 ## Read before designing anything, in this order
 
-1. `docs/submission/platform/create-the-task-guidelines.md`, in full
-2. `docs/submission/platform/platform-submission-form.md`, in full: it is what blocks submission,
-   and its section 5 checklist is the gate every box of which must be true
+1. `docs/submission/platform/platform-submission-form.md`, in full: it is what blocks
+   submission, and its section 5 checklist is the gate every box of which must be true
+2. `docs/submission/house-rules.md`, in full: this desk's standards beyond the form
 3. `docs/submission/platform/domains-and-occupations.md` and `onet-codes.md`, before any concept
    work
 4. `docs/submission/platform/creating-input-files.md`
@@ -106,8 +106,8 @@ checked to submit, so every box must be true of the package before it is.
   this form, so do not read one as headroom.
 
 **Input files**
-- **At least 2 files, 3 or more strongly preferred** (`create-the-task-guidelines.md`, "3. List
-  and upload input files"), each one necessary to the answer, with no upper bound. Accepted
+- **At least 2 files, 3 or more strongly preferred** (`house-rules.md`, "Input files"),
+  each one necessary to the answer, with no upper bound. Accepted
   formats include .docx, .pdf, .xlsx, .pptx, engineering files (STEP, STL, GERBER) and
   multimedia. The uploader takes a single ZIP or TAR.GZ to 100GB and standalone audio to 200MB,
   so size is never the constraint: substance over decoration is (A11, A12).
@@ -140,10 +140,9 @@ checked to submit, so every box must be true of the package before it is.
   inputs and are a rejection without a revision cycle.
 
 **Golden solution**
-- **Required, and the rubric is built from it.** The guidelines PDF says three times that the
-  creator does not produce a solution. The live form carries a required **Completed Task Upload**
-  under "complete the task yourself ... This is your ground truth and what you will build your
-  rubric off of", and the form wins (`create-the-task-guidelines.md`, "0. Known conflict"). Build
+- **Required, and the rubric is built from it.** The form carries a required **Completed Task
+  Upload** under "complete the task yourself ... This is your ground truth and what you will
+  build your rubric off of" (`platform-submission-form.md`, "3. Completed Task"). Build
   it in full, before the rubric, and **pull every exact value in the rubric straight from it and
   from the input files, never estimated** (`platform-submission-form.md`, "4. Task Rubrics").
 - The Output File List names every file the task produces, with the exact names the prompt
@@ -164,8 +163,8 @@ checked to submit, so every box must be true of the package before it is.
   that is the likeliest way to lose an otherwise correct task.
 
 **Rubric**
-- **At least 6 criteria** (`create-the-task-guidelines.md`, "Before submitting", which also
-  satisfies the form's minimum of 3), and in practice **20 or more**: the form expects "somewhere
+- **At least 6 criteria** (`house-rules.md`, "Rubric" - a house floor; the form itself
+  requires 3), and in practice **20 or more**: the form expects "somewhere
   in the 20-60+ range depending on complexity" and its checklist says most real tasks need well
   more than 3. **There is no ceiling**: a rubric above 60 rows is not a defect if the task earns
   them. One simple atomic sentence each (R55), no line bundling two checks with "and", explicit

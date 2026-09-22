@@ -71,7 +71,7 @@ have to be re-entered on every revision.
   learning missing domain knowledge, waiting on other people or approvals, breaks, and web
   research unless the prompt explicitly requires it.
 - The form's advisory Difficulty check wants estimated manual effort **over 3 hours**; the
-  guidelines PDF targets **5-10 hours**. Treat under 3 as an error and under 5 as worth a second
+  house rules target **5-10 hours**. Treat under 3 as an error and under 5 as worth a second
   look at the task's size.
 
 ## tools (2026-09-21, new)

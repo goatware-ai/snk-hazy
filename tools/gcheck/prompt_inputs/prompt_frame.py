@@ -184,7 +184,7 @@ _P2_AFTER_RE = re.compile(
 # and does not clearly frame the analyst's professional role or assumed purchasing expertise
 # level. Add a brief opening that identifies the requester/analyst as U.S.-based and states
 # the expected procurement or purchasing experience." Both halves sit in the project
-# guidelines (a workflow "in the United States"; no job outside the US), and a sweep
+# house rules (a workflow "in the United States"; no job outside the US), and a sweep
 # found no prompt in this catalogue establishing either, so this is a
 # portfolio-wide exposure rather than one task's slip.
 #
@@ -196,7 +196,7 @@ _P2_AFTER_RE = re.compile(
 #        carried it and the finding still named no role framed.
 #   P4c  the prompt says what the reader is expected to already know (the purchasing or
 #        procurement experience assumed).
-# And the repair must not swing into the guidelines' own banned example, "You are a financial
+# And the repair must not swing into the banned persona shape, "You are a financial
 # analyst. Utilizing your expertise ..." - P4d fires on that persona shape. All three halves
 # are written in the requester's own voice, a plain sentence or two, e.g. "I buy the
 # mechanical line for a wholesaler in north central Illinois ... whoever picks this up should
@@ -375,7 +375,7 @@ def check_prompt_role_and_locale(folder):
                       "inputs, golden and rubric all called strong. Add a brief opening in the "
                       "requester's own voice, inside the first ~900 characters")
     if _P4_PERSONA_RE.search(text):
-        emit("ERROR", "[P4] instruction.md uses the persona shape the guidelines ban as their own "
+        emit("ERROR", "[P4] instruction.md uses the persona shape the house rules ban "
                       "bad example (\"You are a financial analyst. Utilizing your expertise "
                       "...\"). Frame the role as the requester talking about themselves, never "
                       "as an instruction addressed to the solver")

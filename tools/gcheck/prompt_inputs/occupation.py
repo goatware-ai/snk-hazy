@@ -216,12 +216,13 @@ TIME_KEYS = (
     ("time_qa_minutes",      "verification/QA and final review"),
 )
 
-# The form's advisory Difficulty check wants manual effort over 3 hours; the guidelines
-# target 5-10. Below 3 the task is rejected as too easy, between 3 and 5 it is thin.
+# The form's advisory Difficulty check wants manual effort over 3 hours; this desk aims at
+# 5-10 (docs/submission/house-rules.md, Difficulty). Below 3 a task reads as too easy,
+# between 3 and 5 it is thin.
 TOTAL_HOURS_FLOOR = 3
 TOTAL_HOURS_TARGET = 5
 
-INPUT_MIN = 2          # form section 3: "Minimum 2 files"
+INPUT_MIN = 2          # house rule: docs/submission/house-rules.md, Input files
 INPUT_PREFERRED = 3    # "3+ strongly preferred"
 
 
@@ -281,8 +282,8 @@ def check_form_fields(folder):
                           "and a task under it reads as too easy for the benchmark")
         elif total < TOTAL_HOURS_TARGET:
             recommend(f"[M4] total_time_hours {total:g} clears the 3-hour floor but the "
-                      "guidelines target 5-10 hours (create-the-task-guidelines.md, "
-                      "\"The key rule\"). Check the task is really hard enough")
+                      "this desk targets 5-10 hours (docs/submission/house-rules.md, "
+                      "Difficulty). Check the task is really hard enough")
 
     # --- M5: tools ---------------------------------------------------------
     tools = meta.get("tools")
@@ -304,8 +305,9 @@ def check_form_fields(folder):
         n = len([f for f in inputs.iterdir()
                  if f.is_file() and not f.name.startswith((".", "~$"))])
         if n < INPUT_MIN:
-            emit("ERROR", f"[M6] {n} input file(s) - the form requires a minimum of 2 "
-                          "(platform-submission-form.md section 3)")
+            emit("ERROR", f"[M6] {n} input file(s) - this desk's floor is 2, and 3+ is "
+                          "preferred (docs/submission/house-rules.md, Input files). One "
+                          "input cannot distribute the information a task reconciles")
         elif n < INPUT_PREFERRED:
             recommend(f"[M6] {n} input files - 3 or more is strongly preferred, and difficulty "
                       "is supposed to come from information distributed across sources")

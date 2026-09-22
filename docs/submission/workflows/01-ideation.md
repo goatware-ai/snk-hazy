@@ -2,7 +2,7 @@
 
 Everything downstream — prompt, files, solution, rubric — inherits the quality of this
 decision. A weak concept cannot be rescued by good packaging. The platform states its bar in
-`../platform/create-the-task-guidelines.md#task-creation`; this page adds the house reading
+`../house-rules.md`; this page adds the house reading
 of it.
 
 ## Start by picking the domain and the occupation
@@ -39,7 +39,7 @@ Record the pair in `metadata.json` (`06-metadata.md`).
 1. **Over 3 hours by hand, aim for 5 to 10.** Without an LLM, from genuine analytical work,
    never padding. The form's Difficulty check wants estimated manual effort over 3 hours
    (`../platform/platform-submission-form.md#completed-task-checks-optional`) and the
-   guidelines target 5 to 10 (`../platform/create-the-task-guidelines.md#task-creation`).
+   guidelines target 5 to 10 (`../house-rules.md`).
    The estimate is entered as four minute fields plus a total in hours (`06-metadata.md`),
    so decide at this stage where each of the four blocks of time actually goes.
 2. **A frontier model cannot do it perfectly today.** The guidelines' key rule: a model
@@ -48,7 +48,7 @@ Record the pair in `metadata.json` (`06-metadata.md`).
    edits, the task is not hard enough. Test this before file production, not after.
 3. **Difficulty lives in the files, not the prompt.** If the task can be answered without
    opening the attachments, the files are decoration and the task is sent back
-   (`../platform/create-the-task-guidelines.md#2-write-the-task-instruction`). Difficulty
+   (`../platform/platform-submission-form.md#2-metadata`). Difficulty
    comes from source materials and the reasoning required to reconcile them, never from
    making the prompt longer or more prescriptive.
 

@@ -8,9 +8,7 @@ grades against and proof the task is doable.
 the instruction to complete the task yourself, "the way the qualified professional you
 described in your instruction would actually do it", and states that it is "your ground
 truth and what you will build your rubric off of"
-(`../platform/platform-submission-form.md#3-completed-task`). The guidelines PDF says three
-times that the creator does not produce a solution; the form wins, and the contradiction is
-recorded in `../platform/create-the-task-guidelines.md#0-known-conflict--the-completed-solution`.
+(`../platform/platform-submission-form.md#3-completed-task`). The form cannot be submitted without it, and its own rubric rules derive every exact value from it.
 Build the solution before drafting a single criterion: every rubric value is read off it
 (`05-rubric.md`).
 
@@ -22,7 +20,7 @@ and the upload must match that list including extension
 prompt already committed to, so all three (prompt, Output File List, uploaded file) have to
 agree character for character. H5 codes it. Outputs are concrete professional work
 products: a spreadsheet, report, presentation, design file or revised document
-(`../platform/create-the-task-guidelines.md#4-define-expected-output-files`).
+(`../platform/platform-submission-form.md#3-completed-task`).
 
 ## A shape to model when the deliverable is a document
 

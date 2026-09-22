@@ -13,11 +13,11 @@ positive-at-66 arithmetic is superseded; do not reinstate either ceiling.
 **Count (2026-09-21).** There is no upper band. The form
 (docs/submission/platform/platform-submission-form.md) asks for "a minimum of 3 criteria; expect
 somewhere in the 20-60+ range depending on complexity", and checklist item 9 repeats the 3 with
-"most real tasks need well more than 3". The guidelines PDF
-(docs/submission/platform/create-the-task-guidelines.md) sets a higher floor twice, "at least six
-criteria" / "The rubric has at least six clear criteria". So: **ERROR under 6** (the PDF floor,
-which also clears the form's 3), **RECOMMEND under 20** (the bottom of the form's expected range),
-**no ceiling**: a rubric past 60 is not a defect, because the form's own range is open-ended.
+"most real tasks need well more than 3". So: **ERROR under 6** as HOUSE practice
+(docs/submission/house-rules.md, Rubric), kept because a five-criterion rubric has never
+covered a task worth submitting, not because the platform asks for it; the form's real floor
+is 3, so lower this if it ever bites a legitimate rubric. **RECOMMEND under 20** (the bottom of the form's expected range), **no
+ceiling**: a rubric past 60 is not a defect, because the form's own range is open-ended.
 The older 15-60 band and its aim-for-15-25 advice are dead; do not reinstate either from an old
 rubric.
 

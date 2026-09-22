@@ -3,9 +3,9 @@
 > Captured 2026-09-21 from the live form (submission `aa146ff6-4558-4117-9a35-68ce26d6233c`,
 > task UID `d2aa8273-c67c-49f0-ac97-9f6b515cbdae`) on
 > `experts.snorkel-ai.com/projects/cda2e943-8524-45f0-a966-469903337102`.
-> **This file is authoritative.** Where the guidelines PDF
-> ([create-the-task-guidelines.md](create-the-task-guidelines.md)) disagrees, the form wins:
-> it is what blocks submission.
+> **This file is authoritative.** It is what blocks submission, so where it speaks it
+> governs. This desk's own standards for what it leaves unsaid are in
+> [../house-rules.md](../house-rules.md).
 
 Form header: "Please select the closest occupation to this task using the list here:
 <https://www.onetonline.org/find/industry>. All form questions are required unless marked
