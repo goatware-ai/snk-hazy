@@ -885,7 +885,9 @@ _R38_CHAIN_RE = re.compile(r"\A=\s*'?[^!()=]*'?!?\$?[A-Z]{1,3}\$?\d{1,5}\s*\Z")
 # knows compound cells read as typed but only fires on a keyed range, and this criterion
 # keyed none. Both clause texts carried "the requested date stands", so one COUNTIF over
 # the column reaches 11 in a single call and the flake goes away.
-_PURE_CALL_RE = re.compile(r"^=\s*[A-Z][A-Z0-9.]*\((?:[^()]|\([^()]*\))*\)\s*$", re.I)
+# Excel writes its newer functions with the _xlfn. prefix (DAYS, MAXIFS, MINIFS); the prefixed call is
+# still one function call (2026-09-28: =_xlfn.DAYS(AL5,AK5) was read as compound and failed R42).
+_PURE_CALL_RE = re.compile(r"^=\s*(?:_xlfn\.)?[A-Z][A-Z0-9.]*\((?:[^()]|\([^()]*\))*\)\s*$", re.I)
 
 
 # A read-through is a cell that only forwards another cell. R42 carved out the
@@ -914,7 +916,8 @@ def check_liveness_anchor_cell(rows, folder):
 
     Since: 2026-08-24 (an oracle run, =A53+A54).
     Source: the oracle.
-    Drift-notes: bare same-sheet read-throughs accepted 2026-08-24.
+    Drift-notes: bare same-sheet read-throughs accepted 2026-08-24; a call Excel writes with its _xlfn. prefix
+    (=_xlfn.DAYS(AL5,AK5)) is one function call, accepted 2026-09-28.
     """
     d = folder / "solution"
     paths = sorted(d.glob("*.xlsx")) if d.is_dir() else []

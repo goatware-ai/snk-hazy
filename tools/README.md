@@ -129,7 +129,10 @@ symlink to it; recreate that symlink after moving to a new machine.
     `evaluations[].overall_evaluation_result`. It also diffs the platform's prompt and every
     rubric row against the folder's: an edit made on the platform after submission never
     comes back, and a fill that stopped part-way leaves the platform holding fewer criteria
-    than the CSV, which nothing else would surface.
+    than the CSV, which nothing else would surface. The difficulty_check child is printed per
+    model (attempts, valid attempts, solved, verdict), since its note is one sentence and an
+    INCOMPLETE verdict with no PASS on any model is a runner error, not a task finding; a
+    lapsed expiry_time is flagged in the header (2026-09-28).
 
 - **sync_metadata.py** `<task-folder> [--check] [--stdout]` — folds the submission form's
     fields into that folder's `metadata.json`, which is then the one file the browser helper

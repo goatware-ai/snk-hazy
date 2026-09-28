@@ -545,6 +545,7 @@ PRIMARY = {
     "L2": "DATA-LEAK", "L3": "DATA-LEAK", "L4": "DATA-LEAK", "L5": "DATA-LEAK", "T1": "DATA-LEAK",
     "L6": "DATA-LEAK",      # a conclusion word in a note on an input row the golden cites
     "L7": "DATA-LEAK",      # an input exception column citing the rule the record breaks (2026-09-22)
+    "L8": "DATA-LEAK",      # an input table cell stating a record's compliance disposition beside its flag (2026-09-28)
     # Stage 3
     "A6": "REV-PROSE", "A10": "REV-PROSE",
     # A20: a missing comma before a clause-joining conjunction, or three or more clauses in one

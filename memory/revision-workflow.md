@@ -208,3 +208,13 @@ finding even when every file is clean. Describe such a person by role, never by 
   typed copy of it: dropping the typed money column and re-basing the figure on a visible
   item-file column cleared both CSV hits without relaying either file. An integer-dollar total is
   written with the mark and no cents ($12,473) so R50 and R82 both hold.
+
+- 2026-09-28 (a /revise-task re-run on a UID already resubmitted): the fetched report repeats the
+  OLD outcome (NEEDS_REVISION, the 2026-09-23 note) because it reads the last completed evaluation,
+  while `evaluations[-1]` was QUEUED / PENDING, created two minutes after the s- zip upload. Before
+  diagnosing, read the last evaluation's status and both uploadedAt stamps against the local zip
+  build times: a queued evaluation on stamps newer than the folder's zips means the revision is up
+  and the run is a state check only (re-verify the folder, move the row to EVALUATION_PENDING, log
+  it, change no file). Also: in this harness a chained `cd` is refused and the cwd drifts between
+  calls, so every gate, sweep and verify command takes absolute paths, and package_sweep.py run
+  outside the repo root reports "0 files across 2 roots", a false clean.

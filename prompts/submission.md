@@ -246,7 +246,9 @@ checked to submit, so every box must be true of the package before it is.
    professional artifact. Not volume or obscurity. Pressure-test before building files: if a
    frontier model one-shots the answer from the prompt plus a sketch of the inputs, harden now.
    Never label a trap: no input column states a record's exception with the rule it breaks
-   (L7), and every decision the golden makes turns on a fact the solver has to find in a
+   (L7), no flag legend or note states the record's disposition under the rule (L8: "not valid
+   for compliance use" beside a lab qualifier failed a task on 2026-09-28), and every decision
+   the golden makes turns on a fact the solver has to find in a
    record's own prose, a second file or a status column, never in the sentence that states the
    rule (PR21); a rule that turns on a document or a written act is exercised on both arms with a
    look-alike that fails it, never left as a two-file mismatch a script reproduces (PR22); the

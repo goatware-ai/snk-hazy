@@ -575,3 +575,44 @@ def check_labelled_exception_column(folder):
                       f"{'; '.join(leaks[:4])}. The platform's difficulty check failed a task built this way "
                       "(2026-09-22: two of four weak-model attempts cleared the rubric). Put the condition in "
                       "the record's own prose and let the solver read it against the rule (PR21)")
+
+
+# L8 (2026-09-28): the desk's third difficulty_check FAIL. The laboratory file's qualifier legend read
+# "H = holding time exceeded, result not valid for compliance use" and its chain-of-custody note said
+# "nickel result qualified H", so the one call the permit's Section 2.3 leaves to the reader (a sample
+# analyzed outside its holding period is not a valid sample) was typed into the input beside the flag,
+# and a weak model cleared the rubric in one of three valid attempts. A flag may say what the laboratory
+# observed; the disposition under the permit is the solver's to make from the analysis dates.
+_L8_RE = re.compile(r"\b(?:not valid for (?:compliance|reporting|permit)(?: use)?|not (?:to be )?used for compliance|"
+                    r"excluded from (?:the )?(?:monthly )?(?:averages?|computations?|calculations?)|"
+                    r"(?:does|do) not count (?:toward|as a (?:valid )?(?:sample|measurement))|"
+                    r"not a valid (?:sample|measurement))\b", re.I)
+
+
+@check(codes=['L8'], rules=['DATA-LEAK'], needs=['inputs'], params=['folder'])
+def check_disposition_in_legend(folder):
+    """No cell of an input table states a record's compliance disposition (not valid for compliance use, excluded from the average, not a valid sample) beside its flag or note; the input reports what was observed and the solver applies the rule that disposes of it.
+
+    Since: 2026-09-28.
+    Source: the platform's difficulty_check (one task, NEEDS_REVISION): glm-5.2 passed the rubric in one of
+    three valid attempts on a laboratory results file whose qualifier legend read "H = holding time exceeded,
+    result not valid for compliance use" and whose chain-of-custody note said "nickel result qualified H".
+    The fix left the analysis dates in the log and the Section 2.3 call to the solver.
+    Drift-notes: reads xlsx and csv inputs only, every cell, because a permit or contract docx states the
+    rule itself in these words ("is not a valid sample and shall not be used in any computation"); the
+    disposition phrases are a closed list, so a legend that defines a flag by what was observed ("holding
+    time exceeded") is not read. The hand rule for the design is PR21.
+    """
+    leaks = []
+    for name, grid in _l7_grids(folder):
+        for row in grid:
+            for v in row:
+                if isinstance(v, str):
+                    m = _L8_RE.search(v)
+                    if m:
+                        leaks.append(f"{name}: \"{v[:100]}\" ({m.group(0)})")
+    if leaks:
+        emit("ERROR", f"[L8] {len(leaks)} input cell(s) state a record's compliance disposition beside its flag: "
+                      f"{'; '.join(leaks[:4])}. The platform's difficulty check failed a task built this way "
+                      "(2026-09-28: one of three valid weak-model attempts cleared the rubric). Report what was "
+                      "observed and leave the rule's call to the solver (PR21)")

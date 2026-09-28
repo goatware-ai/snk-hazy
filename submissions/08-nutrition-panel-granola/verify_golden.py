@@ -36,6 +36,36 @@ rec = {pb.cell(row=r, column=1).value: pb.cell(row=r, column=2).value for r in r
 FINISHED = D(str(rec["Finished batch weight, net of trim (kg)"])); BAR_G = D(str(rec["Target bar net weight (g)"])); BAR_SAMPLE = D(str(rec["Average bar weight, 30-bar sample (g)"]))
 SPEC = {r["INGREDIENT_CODE"]: r for r in csv.DictReader(open(INPUTS / "ingredient_nutrient_specs.csv", newline=""))}
 sop = "\n".join(p.text for p in Document(INPUTS / "sop_qa14_nutrition_labeling.docx").paragraphs)
+
+
+def spec_sub_ingredients():
+    """Sub-ingredients per compound ingredient, read from each supplier specification docx in inputs/ whose
+    title names the specification the nutrient sheet cites (S-1187, S-3301): the 'Ingredients as supplied' row."""
+    subs = {}
+    for f in sorted(INPUTS.glob("supplier_spec_*.docx")):
+        doc = Document(f); title = doc.paragraphs[1].text
+        code = "RM-" + title.split("S-")[1].split(",")[0].strip()
+        for t in doc.tables:
+            for row in t.rows:
+                if row.cells[0].text.strip() == "Ingredients as supplied":
+                    subs[code] = row.cells[1].text.strip().lower()
+    return subs
+
+
+def ingredient_statement():
+    """SOP 4.1: descending formula weight, the formula's common name in lower case, water removed in the bake left off,
+    a compound ingredient's sub-ingredients in parentheses in the order its specification lists them; 4.2 Contains."""
+    subs = spec_sub_ingredients()
+    parts = []
+    for code, name, kg in sorted(FORMULA, key=lambda x: -x[2]):
+        if code == "RM-4010":
+            continue
+        n = name.lower()
+        parts.append(f"{n} ({subs[code]})" if code in subs else n)
+    text = ", ".join(parts); text = text[0].upper() + text[1:] + "."
+    names = " ".join(n for _, n, _ in FORMULA).lower()
+    contains = "Contains: " + ", ".join(a for a in ("almonds", "soy") if a.rstrip("s") in names) + "."
+    return text, contains, len(parts)
 assert "40 grams" in sop and "8 grams of whole grain" in sop
 
 
@@ -148,6 +178,11 @@ if __name__ == "__main__":
     for k in ("Good source of fiber", "Low sodium", "Made with whole grain oats", "No artificial flavors", "No added sugar", "Real fruit"):
         rep.expect(f"claim {k}", fig[f"claim {k}"], claims[k])
     note = "\n".join(str(c.value) for row in wb["Note to Priya"].iter_rows() for c in row if c.value)
+    stmt, contains, n_decl = ingredient_statement()
+    rep.expect("ingredient statement", stmt, rows["Ingredients"][0])
+    rep.expect("contains statement", contains, rows["Allergens"][0])
+    rep.expect("ingredients declared", str(n_decl), str(wb["Ingredient Statement"]["B19"].value))
+    rep.expect("note states the statement", stmt.rstrip(".") in note, True)
     for phrase in (f"{fig['fiber pct dv racc']} percent", f"{D(fig['sodium racc']).normalize()} mg", "per 30 g serving", "revision 5"):
         rep.expect(f"note states {phrase}", phrase in note, True)
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)

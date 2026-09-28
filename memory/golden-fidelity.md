@@ -253,3 +253,16 @@ golden against itself. The list, each item a check id or a hand read:
 - 2026-09-16 (a round 5, adjudication, uncoded): adjudication's extract of a GOLDEN sheet has a text budget too: a 14-row Claims tab whose notes summed to 1,711 characters was shown to row 11 (the running total passing about 1,300) and the note called the Summary totals over it "hard-coded" and uncheckable. Keep every note column on a small tab short (40 to 60 characters, 1,300 for the sheet) so the whole tab lands inside the extract; the totals stay formulas whatever the extract shows.
 - 2026-09-17 (a draft, H8 figure arm): a 371-line parcel log whose weights and billed amounts the golden types into its data tab fires H8 on 213 hidden-middle rows, and the settled remedy applies at that length too: ten side-by-side blocks of 38 lines (headers _2 to _10), the unpivot in block order proven equal to the original before packaging, the golden's note saying the blocks are read back in block order, and verify_golden.py reading the relaid file. Two 73-row rate sheets went to two panels of 35 pounds with the title saying which pounds sit on which side.
 - 2026-09-17 (a draft brought forward for a retired task): a TYPED classification column can silently disagree with the rule the golden's own Legend and Params state, and no gate check reads one against the other; the only thing that caught it was verify_golden.py failing to reproduce the per-class split. Derive every typed code column in the verifier and diff it against the golden before writing EXPECTED. Also: a plain office_resave does NOT recalculate COUNTIFS/SUMIFS caches after an XML edit to their inputs (the diff showed zero Dock Causes changes while fix_floats rewrote the OLD value); set calcPr fullCalcOnLoad="1" for the resave, diff against a snapshot, strip the flag. And G43 passes on the verifier's OWN expectations, so it proves the golden only when its EXPECTED came from the golden's cells after that recalc.
+
+- 2026-09-28 (nutrition-panel-granola, an input_sufficiency FAIL): the judge reads every compound-looking
+  ingredient (crisp rice, syrup, extract, nut butter) and asks where its sub-ingredients or its
+  single-ingredient status is stated; a golden ingredient statement that prints a parenthesised list no
+  input carries ("crisp rice (rice flour, sugar, salt)"), drops a word the specification lists ("tart"), or
+  renames a formula item against the SOP's "common name on the formula" is an unsourced claim the rubric
+  then grades. Fix shape: a supplier specification per compound item with "Ingredients as supplied" in
+  the order the golden prints, a purchasing sentence in the brief for the single-ingredient rest, the
+  golden's declared names as =LOWER() of the formula names, and verify_golden.py deriving the statement
+  from the formula plus every supplier_spec_*.docx. Gate lessons on the rows: a positive citing "SOP 4.1"
+  trips W12/R20 and mirrors any negative citing 4.1 (R22); a negative on "the Contains statement" shares
+  its subject with the positives (R41), so it is written on "the bar's allergen declaration" with the
+  "wrongly carries ... into" frame, never "lists" (W19).

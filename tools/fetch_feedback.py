@@ -14,6 +14,10 @@ under `eval_revision_notes` and the per-check notes inside
 `evaluations[].overall_evaluation_result`. A return whose visible note says nothing is the
 normal case, not an error, so this reads the JSON first and treats notes.txt as an extra.
 
+The difficulty_check child is printed per model (attempts, valid attempts, solved, verdict),
+because its note is one sentence ("Hazy difficulty: FAIL" or "INCOMPLETE") and the
+attempts that explain it sit only in the JSON. An expired offer is flagged in the header.
+
 It also diffs what the PLATFORM holds against what the repo holds, because the two can
 disagree: an edit made on the platform after submission does not come back to the folder,
 and a criterion changed there is invisible locally until something compares them.
@@ -98,6 +102,56 @@ def checks_from(data: dict) -> list[dict]:
                 "fields": note.get("associated_fields"),
             })
     return rows
+
+
+def difficulty_from(data: dict) -> list[str]:
+    """The difficulty_check child, one line per model.
+
+    Observed 2026-09-22 to 2026-09-28: a PASS on any model in any valid attempt fails the
+    task (verdict FAIL). No PASS on four valid attempts marks the model solved=False; no
+    PASS on fewer than four valid attempts leaves solved=None, and with no model solved the
+    verdict is INCOMPLETE, a platform-side runner error rather than a task finding.
+    """
+    out = []
+    for ev in data.get("evaluations") or []:
+        overall = ev.get("overall_evaluation_result") or {}
+        for child in overall.get("children_results") or []:
+            if not isinstance(child, dict):
+                continue
+            agent = (child.get("metadata") or {}).get("agent_result") or {}
+            models = agent.get("models")
+            if child.get("evaluator_name") != "difficulty_check" and not models:
+                continue
+            out.append(f"verdict **{agent.get('verdict') or 'none'}**")
+            for name, m in (models or {}).items():
+                if not isinstance(m, dict):
+                    continue
+                attempts = ", ".join(str(a) for a in m.get("attempts") or []) or "none"
+                out.append(
+                    f"{name}: {attempts} "
+                    f"({m.get('valid_attempts')} valid, solved {m.get('solved')})"
+                )
+            for err in agent.get("errors") or []:
+                out.append(f"runner error: {err}")
+    return out
+
+
+def expired_line(data: dict) -> str | None:
+    """A header line when expiry_time has passed at fetch time, else None."""
+    from datetime import datetime, timezone
+    raw = data.get("expiry_time")
+    if not raw:
+        return None
+    try:
+        exp = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    now = datetime.now(timezone.utc)
+    if exp > now:
+        return None
+    hours = (now - exp).total_seconds() / 3600
+    return (f"- **EXPIRED:** the offer lapsed {hours:.1f} h before this fetch; the operator "
+            "checks whether the platform still takes the resubmission")
 
 
 def local_rubric(folder: Path) -> list[tuple[str, str]]:
@@ -230,6 +284,8 @@ def report(uid: str, data: dict, notes: str, folder: Path | None) -> str:
         if data.get(key):
             L.append(f"- **{label}:** {data[key]}")
     L.append(f"- **Further revisions allowed:** {data.get('further_revision_requests_allowed')}")
+    if (exp := expired_line(data)):
+        L.append(exp)
     L.append("")
 
     for key, label in (
@@ -257,6 +313,16 @@ def report(uid: str, data: dict, notes: str, folder: Path | None) -> str:
             L += ["", f"**Suggestions:** {c['suggestions']}"]
         if c.get("fields"):
             L += ["", f"**Fields:** {c['fields']}"]
+        L.append("")
+
+    diff_lines = difficulty_from(data)
+    if diff_lines:
+        L += ["## Difficulty check", ""]
+        L.append("A PASS on any model in any valid attempt fails the task; no PASS on fewer than "
+                 "four valid attempts leaves that model undetermined and the verdict INCOMPLETE.")
+        L.append("")
+        for line in diff_lines:
+            L.append(f"- {line}")
         L.append("")
 
     d = drift(folder, sd) if folder else []

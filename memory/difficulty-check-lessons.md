@@ -1,6 +1,6 @@
 ---
 name: difficulty-check-lessons
-description: "The desk's two difficulty_check FAILs (carton-bid-evaluation and freight-invoice-audit, 2026-09-22): what the platform measures (per-model PASS/FAIL attempts in the fetch JSON; two PASS of four, and ONE PASS of three valid, each fail the task), why each task was easy (every trap labelled in a tidy column; every exception a two-file mismatch a script reproduces), and the rebuild shapes that answered them (a candidate set with a decoy per trap, conditions in prose letters, a status column; a rule with a document or written-act condition exercised on both arms, a look-alike record that fails it, a bulletin the contract subordinates to its table)"
+description: "The desk's three difficulty_check FAILs (carton-bid-evaluation and freight-invoice-audit, 2026-09-22; pretreatment-smr-q3-2026, 2026-09-28) and one INCOMPLETE that was a runner error, not a finding (title-exam-cedarbrook-lot12, 2026-09-28): what the platform measures (per-model PASS/FAIL attempts in the fetch JSON; two PASS of four, and ONE PASS of three valid, each fail the task), why each task was easy (every trap labelled in a tidy column; every exception a two-file mismatch a script reproduces), and the rebuild shapes that answered them (a candidate set with a decoy per trap, conditions in prose letters, a status column; a rule with a document or written-act condition exercised on both arms, a look-alike record that fails it, a bulletin the contract subordinates to its table; a lab flag unlabelled and the decisive record left unflagged, with the verdict figure on the threshold)"
 metadata: 
   node_type: memory
   type: feedback
@@ -8,7 +8,7 @@ metadata:
   modified: 2026-09-22T08:24:19.654Z
 ---
 
-Open on any "Hazy difficulty: FAIL" note, and before calling a new build hard enough.
+Open on any "Hazy difficulty: FAIL" or "Hazy difficulty: INCOMPLETE" note, and before calling a new build hard enough.
 
 **What the check is.** `evaluations[*].children_results[]` with `evaluator_name: difficulty_check`
 carries `metadata.agent_result.models.<model>.attempts` (PASS / FAIL / INCOMPLETE per attempt),
@@ -88,3 +88,50 @@ exercised on both arms with a look-alike that fails it. H1 now skips the fetched
 Also learned: a rubric figure on a cell storing a tenth (190.3) is caught between R50 (quote as
 stored) and R82 (money to the cent); anchor the row on a cell storing two decimals instead.
 
+
+**Third FAIL (pretreatment-smr-q3-2026, fetched 2026-09-28).** glm-5.2 went PASS, FAIL, FAIL, INCOMPLETE
+(`solved: true`, 3 valid), qwen3.6-27b FAIL x4; verdict FAIL. The offer had expired (expiry_time
+2026-09-28T00:45Z, read at 05:08Z) with further_revision_requests_allowed true; the operator checks
+whether the platform still takes the resubmission.
+
+**Why it was easy.** A permit's computation rules stated once and applied once to a tidy lab table:
+the lab's qualifier legend read "H = holding time exceeded, result not valid for compliance use" and the
+chain-of-custody note "nickel result qualified H" (the Section 2.3 call typed beside the flag); the
+plant manager's email confessed the missing Section 3.2 calls ("I have not been calling her"); the
+daily flows were typed in the log with the 47,300 day annotated; the six-month copper share sat at
+38.5 percent, far from the 33 threshold, so no misread moved the verdict.
+
+**What fixed it (PR21 relocations, PR22 both arms, no rubric-only tightening).**
+- The flag legend defines U, J, NS only; the lab log carries analysis dates and factual notes ("digestate
+  lost ... re-digested and analyzed 08/06"), the holding periods in its footer, and the solver computes
+  the days. The decisive instance is the one the lab never flagged at all: the July 7 sample's metals at
+  30 days, which drops the copper denominator from 13 to 12 and moves the TRC share from 30.8 (clear) to
+  33.3 (significant noncompliance), so the verdict Gordon does not expect turns on that one read. Both
+  arms: a 27-day metals run and a 13-day cyanide run stand; a 34-day nickel and the 30-day metals fall.
+- The Coordinator's telephone log ("your calls of September 10 and September 17") establishes the missing
+  copper notices; the manager's email asks a question instead of confessing. The 09/17 excursion is called
+  in at 15:20 and reported in writing (the Section 3.2 arm met), beside the overflow's late call.
+- The log carries totalizer register readings, not daily flows; 47,300 exists only as a difference. A
+  6.0 in-line low on 09/11 is the in-range look-alike for the 5.8 excursion (a -2 for listing it).
+- Golden: validity is a formula over the chain-of-custody dates (DATE(VALUE(...)) serial helpers and
+  _xlfn.DAYS, which R42 now reads as one call), Flow Sep differences the register, the note names the
+  30.8-versus-33.3 hinge. Rubric 31 rows at +33/-9 (R129 non-live cap), the +5 strict row on "exactly 4".
+- Coded: L8 in leakage.py (an input xlsx/csv cell stating a record's compliance disposition beside its
+  flag), fixture labelled-disposition-legend; a permit docx stating the rule in the same words is out of
+  scope by design.
+
+**Pipeline traps this round.** openpyxl's save stamps dcterms:modified with today and office_resave
+restores that stamp, so the in-world core.xml goes back at zip level before the resave; Excel writes DAYS
+as _xlfn.DAYS and office_resave rolls the file back as changed content unless the prefix is written first
+(the MAXIFS/MINIFS rule again); R42's pure-call regex had no room for the prefix (fixed).
+
+**An INCOMPLETE verdict is a runner error, not a task finding (title-exam-cedarbrook-lot12, fetched
+2026-09-28).** Note text "Agent Runner Error: An internal error occurred during agent execution. Hazy
+difficulty: INCOMPLETE", outcome NEEDS_REVISION. JSON: glm-5.2 FAIL x4 (4 valid, `solved: false`);
+qwen3.6-27b FAIL, INCOMPLETE, FAIL, FAIL (3 valid, `solved: null`); verdict INCOMPLETE. So the rule
+set reads: a PASS anywhere fails the task; no PASS on four valid attempts is `solved: false`; no PASS
+on FEWER than four valid attempts leaves `solved: null`, and a null with no model solved gives
+INCOMPLETE rather than PASS. Zero of seven valid attempts passed, so the task was hard and nothing was
+changed: gate 0 errors under the newer checks, zips byte-identical to the folder, resubmit unchanged,
+offer already expired (same as the pretreatment round). `tools/fetch_feedback.py` now prints the
+difficulty child per model and an EXPIRED header line, so the JSON dive is no longer needed.

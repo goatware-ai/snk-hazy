@@ -11,23 +11,24 @@
     "ingredient_nutrient_specs.csv - the nutrient values for each formula ingredient from its supplier specification, with the basis weight each specification is stated on and the specification cited",
     "sop_qa14_nutrition_labeling.docx - the company's nutrition labeling procedure: basis of the declaration, serving size, rounding rules, daily values and percent daily value, ingredient and allergen statements, and claim thresholds",
     "supplier_spec_s3301_dried_cherries.docx - the supplier specification for the infused dried cherries with sub-ingredients and proportions, nutrition per 100 g including added sugars, and the note on prior revisions",
+    "supplier_spec_s1187_crisp_rice.docx - the supplier specification for the crisp rice with sub-ingredients and proportions, the nutrition table on the supplier's serving basis, the allergen and packing line statement, and the note on prior revisions",
     "product_brief_oat_cherry_bar.docx - the brand manager's brief listing the front panel claims marketing proposes, the pack format and what product development is asked to return"
   ],
   "output_files": [
     "oat_cherry_bar_label_review.xlsx - the label review workbook with the panel as it will print, the computation behind each declared value, the rounding, the claims check and the note to the brand manager"
   ],
-  "input_file_count": 5,
+  "input_file_count": 6,
   "output_file_count": 1,
   "tools": [
     "Microsoft Excel",
     "Microsoft Word"
   ],
   "time_read_minutes": 15,
-  "time_files_minutes": 60,
+  "time_files_minutes": 70,
   "time_work_minutes": 240,
   "time_qa_minutes": 60,
-  "total_time_hours": 6.25,
-  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
+  "total_time_hours": 6.5,
+  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, supplier_spec_s1187_crisp_rice.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
   "rubric": [
     {
       "description": "The deliverable is a single workbook named exactly oat_cherry_bar_label_review.xlsx whose first worksheet is the panel as it will print, with the serving size, the nutrient lines, the ingredient statement and the Contains statement.",
@@ -74,8 +75,12 @@
       "weight": 1
     },
     {
-      "description": "The ingredient statement lists all 12 declared ingredients in descending order of formula weight, opening with whole grain rolled oats and brown rice syrup, with the crisp rice and cherry sub-ingredients in parentheses.",
+      "description": "The ingredient statement lists all 12 declared ingredients in descending order of formula weight, opening with whole grain rolled oats and brown rice syrup, with the cherries' sub-ingredients tart cherries, sugar and sunflower oil in parentheses.",
       "weight": 2
+    },
+    {
+      "description": "The ingredient statement carries the crisp rice sub-ingredients in parentheses as rice, sugar, barley malt extract and salt in the order specification S-1187 lists them.",
+      "weight": 1
     },
     {
       "description": "The Contains statement names almonds and soy.",
@@ -118,8 +123,12 @@
       "weight": -1
     },
     {
+      "description": "The workbook wrongly carries wheat or barley into the bar's allergen declaration although specification S-1187 states that no major food allergen is present in the crisp rice.",
+      "weight": -2
+    },
+    {
       "description": "Overall formatting and style of the deliverable as a label review the brand manager can take to legal.",
-      "weight": 3
+      "weight": 2
     }
   ],
   "built_with": "claude-fable-5-1",

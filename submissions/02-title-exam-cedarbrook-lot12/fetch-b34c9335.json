@@ -1,0 +1,2251 @@
+{
+  "project": "Hazy_Task_Creation",
+  "project_id": "cda2e943-8524-45f0-a966-469903337102",
+  "assignment_id": "f2a0d51a-2fbd-4d02-bf8d-813dc621443b",
+  "task_category": "SUBMISSION",
+  "task_config": {
+    "task_timeout_min": null,
+    "max_total_completed": null,
+    "evaluation_task_config": {
+      "ec_metadata_visible_evaluator_names": [],
+      "evaluation_result_hidden_evaluator_names": [],
+      "entire_form_level_in_app_deployment_names": [],
+      "in_app_deployment_names_by_section_id": {
+        "oa-metadata": "Hazy_Task_Creation_Metadata:IN_APP",
+        "oa-human": "Hazy_Task_Creation_Completed:IN_APP",
+        "section-Rubrics": "Hazy_Task_Creation_Rubrics:IN_APP"
+      },
+      "retrigger_required_in_app_deployment_names": [],
+      "manual_success_criteria": []
+    },
+    "task_tag_eligibility_opt_out": false,
+    "task_tag_eligibility_opt_out_allowlist": [],
+    "tool_box_config": null,
+    "automated_feedback_config": {
+      "default_open": true,
+      "accent_color": "yellow"
+    },
+    "reviewer_feedback_config": {
+      "default_open": true,
+      "accent_color": "yellow"
+    }
+  },
+  "task_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+  "submission_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+  "is_skippable": false,
+  "static_document": {
+    "task_type": "auto-dataset-8f641339-1560-482d-89f0-c2e46afc5519",
+    "static_document": {}
+  },
+  "task_documents": [
+    {
+      "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+      "submission_document": {
+        "radio-domain": "legal",
+        "radio-occupation": "title_examiners_abstractors_and_searchers",
+        "task-prompt": "Priya has a closing on Cedarbrook Drive set for Friday, November 6, and she needs the examination report on order HLT-26-2214 before she can build the commitment. I'm the senior examiner at Heritage Land Title Agency here in Newark, Ohio, so the examination is mine. I am out for a deposition and two other closings this week, and I am handing this one to you because you have examined Licking County titles for years and know how our underwriter wants Ohio title defects handled. The search came back from the recorder on October 2, and the pull is in the folder: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The abstracts are the searcher's notes on the instruments that matter, and the order carries the closer's instructions along with the underwriter guideline excerpts she wants applied.\n\nWrite the examination report as one document named title_exam_report_cedarbrook_lot12.docx for Priya Ramanathan, who is closing the file. She needs the vesting and the chain of title as you find it, every requirement the underwriter will want cleared before it insures with the instrument each one rests on, the exceptions that will carry into Schedule B, the figures she has to collect at closing for anything of record that has to be paid, and anything the record leaves open that she should chase before the sixth. The buyers' lender wants a loan policy as well as the owner's policy. I need it by Wednesday, October 14.",
+        "repeatabletextarea-input_file_list": [
+          "recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries for the parcel by name and legal description, 1986 through the October 2, 2026 search date: instrument number, recording date, document type, parties, volume and page, amount, legal description, and referenced instrument",
+          "instrument_abstracts_hlt262214.docx - the searcher's abstracts of the recorded instruments that matter, with parties, marital recitals, legal descriptions as written, signatures, and release references, plus the searcher's notes",
+          "title_order_hlt262214.docx - the closing agent's title order and closing instructions for order HLT-26-2214, with the parties, price, lender, closing date, proration instructions, and the underwriter's examination guideline excerpts",
+          "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel, the clerk of courts judgment lien search results, and the names searched with the period each held an interest"
+        ],
+        "s3fileuploader-file_uploader": {
+          "s3Key": "prd/cda2e943-8524-45f0-a966-469903337102/f2a0d51a-2fbd-4d02-bf8d-813dc621443b/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-21T22:27:01.108Z.zip",
+          "filename": "i-title-exam-cedarbrook-lot12.zip",
+          "uploadedAt": "2026-09-21T22:27:02.190Z",
+          "s3Uri": "s3://daas-blobs/prd/cda2e943-8524-45f0-a966-469903337102/f2a0d51a-2fbd-4d02-bf8d-813dc621443b/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-21T22:27:01.108Z.zip"
+        },
+        "feedbackbutton-task_instructions_quality_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": {
+            "instruction_uniqueness": [
+              {
+                "similar_ids": {
+                  "sample_ids": [],
+                  "evaluation_ids": [],
+                  "submission_ids": []
+                },
+                "detection_method": [],
+                "min_edit_distance_ratio": 1
+              }
+            ],
+            "instruction_authorship": [
+              {
+                "raw": "[{\"prob_generated\": 0.019640322774648666}]",
+                "endpoint": "ai-detector-cpu-1770779941",
+                "threshold": 0.69,
+                "ai_probability": 0.019640322774648666,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "concatenated_fields": null
+              }
+            ],
+            "instruction_quality": [
+              {
+                "criteria_results": [
+                  {
+                    "name": "specific_context",
+                    "passed": true,
+                    "details": "The instruction provides a specific role for the reader (examiner at Heritage Land Title Agency), mentions the organization (Heritage Land Title Agency in Newark, Ohio), and provides a concrete trigger for the work happening now (a closing on Cedarbrook Drive and the senior examiner being out for other responsibilities).",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "deliverable_specified",
+                    "passed": true,
+                    "details": "The deliverable is clearly specified: 'Write the examination report as one document named title_exam_report_cedarbrook_lot12.docx.' This includes the file format (.docx) and a specific naming convention.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "files_described",
+                    "passed": true,
+                    "details": "Each input file is described with enough detail about its contents and relevance to the task, such as 'recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries...,' ensuring the reader knows what each file contains.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "no_answer_leakage",
+                    "passed": true,
+                    "details": "The instruction does not disclose any findings or conclusions that need to be derived from the input files. It focuses only on what needs to be included in the report.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "realistic_not_synthetic",
+                    "passed": true,
+                    "details": "The scenario is realistic and plausible, describing a typical professional task in real estate title examination with real-world constraints and clear outcomes expected.",
+                    "suggestions": []
+                  }
+                ]
+              }
+            ]
+          },
+          "notes": {
+            "prompt_min_length": [
+              {
+                "name": "Task Instruction Length",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Task instruction has enough substance to review.",
+                "suggestions": null,
+                "evaluation_node_result_id": "f0e06e03-605d-491e-87be-663dcd3d5d64",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "prompt_names_listed_files": [
+              {
+                "name": "Prompt Names Every Input File",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Every listed input file is named in the instruction.",
+                "suggestions": null,
+                "evaluation_node_result_id": "f32899c6-0aa5-4a46-a199-530da55c0182",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "input_list_populated": [
+              {
+                "name": "Input File List Present",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Input File List is populated.",
+                "suggestions": null,
+                "evaluation_node_result_id": "c3ed5958-943c-4995-b545-368b47bf225b",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "source_breadth_advisory": [
+              {
+                "name": "Source Breadth",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Task draws on multiple sources.",
+                "suggestions": null,
+                "evaluation_node_result_id": "c8fe7de9-1c9e-44d0-b1f6-b85b9bc68fe1",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_uniqueness": [
+              {
+                "name": "Uniqueness",
+                "passed": true,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "details": "No duplication found.",
+                "suggestions": null,
+                "evaluation_node_result_id": "f40b3771-d2ff-4074-bf08-3246f3c097f2",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_authorship": [
+              {
+                "name": "LLM Detection",
+                "passed": true,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "details": "No LLM-generated content detected.",
+                "suggestions": null,
+                "evaluation_node_result_id": "44bc40bd-9388-40aa-bc9b-e542918a2c1c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_quality": [
+              {
+                "name": "Specific context",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The instruction provides a specific role for the reader (examiner at Heritage Land Title Agency), mentions the organization (Heritage Land Title Agency in Newark, Ohio), and provides a concrete trigger for the work happening now (a closing on Cedarbrook Drive and the senior examiner being out for other responsibilities).",
+                "suggestions": [],
+                "evaluation_node_result_id": "0857b832-98b5-44e7-9b74-ab437020dea5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Deliverable specified",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The deliverable is clearly specified: 'Write the examination report as one document named title_exam_report_cedarbrook_lot12.docx.' This includes the file format (.docx) and a specific naming convention.",
+                "suggestions": [],
+                "evaluation_node_result_id": "0857b832-98b5-44e7-9b74-ab437020dea5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Files described",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "Each input file is described with enough detail about its contents and relevance to the task, such as 'recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries...,' ensuring the reader knows what each file contains.",
+                "suggestions": [],
+                "evaluation_node_result_id": "0857b832-98b5-44e7-9b74-ab437020dea5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "No answer leakage",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The instruction does not disclose any findings or conclusions that need to be derived from the input files. It focuses only on what needs to be included in the report.",
+                "suggestions": [],
+                "evaluation_node_result_id": "0857b832-98b5-44e7-9b74-ab437020dea5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Realistic not synthetic",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The scenario is realistic and plausible, describing a typical professional task in real estate title examination with real-world constraints and clear outcomes expected.",
+                "suggestions": [],
+                "evaluation_node_result_id": "0857b832-98b5-44e7-9b74-ab437020dea5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Metadata:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Metadata:IN_APP:b34c9335-ad1a-4139-b078-c58d929b0ef8"
+        },
+        "repeatabletextarea-output_file_list": [
+          "title_exam_report_cedarbrook_lot12.docx - the title examination report to the closing agent with vesting, chain of title, requirements, exceptions, closing figures, and open matters"
+        ],
+        "s3fileuploader-completed_task_upload": {
+          "s3Key": "prd/cda2e943-8524-45f0-a966-469903337102/f2a0d51a-2fbd-4d02-bf8d-813dc621443b/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-21T22:27:49.417Z.zip",
+          "filename": "s-title-exam-cedarbrook-lot12.zip",
+          "uploadedAt": "2026-09-21T22:27:50.322Z",
+          "s3Uri": "s3://daas-blobs/prd/cda2e943-8524-45f0-a966-469903337102/f2a0d51a-2fbd-4d02-bf8d-813dc621443b/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-21T22:27:49.417Z.zip"
+        },
+        "textarea-time_to_read_prompt": "15",
+        "textarea-time_to_open_skimsearch_and_use_the_reference_files_human": "90",
+        "textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human": "240",
+        "textarea-time_for_verificationqa_and_final_review_human": "60",
+        "textarea-total_time_in_hours": "6.75",
+        "repeatabletextarea-please_insert_any_tool_used_for_this_task_human": [
+          "Microsoft Word",
+          "Microsoft Excel"
+        ],
+        "feedbackbutton-completed_task_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": null,
+          "notes": {
+            "output_list_populated": [
+              {
+                "name": "Output File List Present",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Output File List is populated.",
+                "suggestions": null,
+                "evaluation_node_result_id": "7816fd9a-9ed0-4634-99cb-27c5e73a531a",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "time_fields_numeric": [
+              {
+                "name": "Time Fields Numeric",
+                "passed": true,
+                "associated_fields": null,
+                "details": "All time fields are numeric.",
+                "suggestions": null,
+                "evaluation_node_result_id": "55ce3d6a-cddb-43aa-9f6e-4940b7f35e3e",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "total_time_reconciles": [
+              {
+                "name": "Total Time Reconciles",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Total time reconciles with its components.",
+                "suggestions": null,
+                "evaluation_node_result_id": "d82470d0-383c-493e-a3fd-a45f1712df67",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "tools_logged": [
+              {
+                "name": "Tools Logged",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Tools are logged.",
+                "suggestions": null,
+                "evaluation_node_result_id": "21f177b8-2deb-4b1f-b9fa-fddbde9d63bd",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Completed:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Completed:IN_APP:b34c9335-ad1a-4139-b078-c58d929b0ef8"
+        },
+        "repeatable-bfbf1": [
+          {
+            "textarea-rubric_description": "The report, title_exam_report_cedarbrook_lot12.docx, is addressed to Priya Ramanathan as closing agent and dated October 14, 2026.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report finds that the warranty deed at instrument 201409190112 describes Lot 12 alone, leaving record title to the north half of the adjoining lot in Daniel Pruitt.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 5
+          },
+          {
+            "textarea-rubric_description": "The report requires a corrective conveyance of the north half of Lot 13 from Daniel Pruitt to the seller, or a judgment quieting title, before that land is insured.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+          },
+          {
+            "textarea-rubric_description": "The report requires a release of dower from Lorraine Pruitt, or evidence that her dower has terminated, because the deed at instrument 201409190112 was signed by a married grantor alone.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+          },
+          {
+            "textarea-rubric_description": "The report lists the mortgage to Buckeye Home Lending LLC at instrument 201103140062 for $88,000.00 as open of record and requires a recorded satisfaction or a payoff.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4
+          },
+          {
+            "textarea-rubric_description": "The report requires a payoff and recorded release of the seller's mortgage to Muskingum Valley Bank at instrument 201805040072.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+          },
+          {
+            "textarea-rubric_description": "The report requires payment and release of the Capital Recovery Associates LLC judgment against the seller, computing the payoff through the closing date as $10,556.19.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+          },
+          {
+            "textarea-rubric_description": "The judgment payoff carries $957.19 of simple interest at the rate the certificate of judgment states, run from the judgment date through the closing date.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report states that the 2020 judgment against a Robert Kessler does not attach to the parcel because the Kesslers conveyed the parcel before it was filed.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The report requires an affidavit of identity establishing that Peggy Kessler and Margaret Ann Kessler are the same person.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The report requires the seller's spouse to join the deed to the buyers to release dower.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The report states the delinquent second-half 2025 taxes and assessment, with penalty, as $2,319.48 to be paid at closing.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The delinquency figure applies the 10% penalty to the tax installment and to the assessment installment alike.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report prorates the current-year taxes through the day of closing on a 365-day year as a seller credit of $3,050.94.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "Schedule B, Section II of the report excepts the utility easement to Licking Rural Electric Cooperative at instrument 202110080144.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "Schedule B, Section II of the report excepts the declaration of restrictions at instrument 198611030018.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report states record title to Lot 12 as vested in Tamsin Okafor by the warranty deed at instrument 201805040071.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The chain of title table runs from the 1987 deed out of Cedarbrook Development to the 2018 deed to Tamsin Okafor, giving each conveyance's instrument number.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The report states the period searched, ending on the October 2, 2026 search date of the recorder's index.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report requires the buyers' mortgage to Newark Federal Savings & Loan for $171,200.00 to be recorded after the deed for the loan policy.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report closes with the matters the record leaves open, among them whether the Buckeye Home Lending mortgage was paid at the 2014 sale.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+          },
+          {
+            "textarea-rubric_description": "The report explains that the insure-over allowance for unreleased mortgages does not reach the 2011 mortgage because it was recorded fewer than twenty years before the search.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+          },
+          {
+            "textarea-rubric_description": "The report wrongly treats the roofing contractor's 2023 mechanics lien as an open requirement although a release of it referencing the lien is of record.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3
+          },
+          {
+            "textarea-rubric_description": "The report invents a payoff figure for the seller's mortgage although no payoff statement is among the records.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3
+          },
+          {
+            "textarea-rubric_description": "The report cites an instrument number that no search record carries, although every requirement it makes rests on an instrument of record.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2
+          },
+          {
+            "textarea-rubric_description": "The report wrongly prorates the special assessment installments not yet due, although the closing instructions collect only the delinquent installment and except the rest.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2
+          },
+          {
+            "textarea-rubric_description": "Overall formatting and style of the deliverable as an examination report the closing agent can build the commitment from.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4
+          }
+        ],
+        "feedbackbutton-rubric_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": {
+            "rubric_quality": [
+              {
+                "error": "Missing criteria: criteria_objectively_checkable, criteria_values_grounded, rubric_blind_solvable, rubric_covers_deliverable. Expected a 1:1 match of: criteria_atomic, criteria_objectively_checkable, criteria_values_grounded, rubric_blind_solvable, rubric_covers_deliverable.",
+                "criteria_results": [
+                  {
+                    "name": "criteria_atomic",
+                    "passed": true,
+                    "details": "Each rubric criterion tests a specific requirement or error without bundling separate checks together. For example, requiring a specific corrective conveyance or stating a particular vesting situation.",
+                    "suggestions": []
+                  }
+                ],
+                "configured_criterion_names": [
+                  "criteria_atomic",
+                  "criteria_objectively_checkable",
+                  "criteria_values_grounded",
+                  "rubric_blind_solvable",
+                  "rubric_covers_deliverable"
+                ]
+              }
+            ]
+          },
+          "notes": {
+            "rubric_rows_well_formed": [
+              {
+                "name": "Rubric Rows Well Formed",
+                "passed": true,
+                "associated_fields": null,
+                "details": "All rubric rows are complete and weighted in range.",
+                "suggestions": null,
+                "evaluation_node_result_id": "e3debad9-0355-4d85-bd90-82920e14c9ee",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "rubric_has_positive_weight": [
+              {
+                "name": "Rubric Has Positive Criteria",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Rubric contains positive-weight criteria.",
+                "suggestions": null,
+                "evaluation_node_result_id": "2852b02a-75cd-46bf-8d70-3b7cf158b9e8",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "rubric_rows_unique": [
+              {
+                "name": "Rubric Rows Are Distinct",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Every rubric criterion is distinct.",
+                "suggestions": null,
+                "evaluation_node_result_id": "6bac60d0-2e34-4c32-b9e4-edd062bbf710",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Rubrics:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Rubrics:IN_APP:b34c9335-ad1a-4139-b078-c58d929b0ef8"
+        },
+        "multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_": [
+          "instruction_specific_context",
+          "instruction_named_all_files",
+          "instruction_deliverable_spec",
+          "instruction_scenario_constraints",
+          "instruction_no_answer_leakage",
+          "instruction_self_contained",
+          "files_names_match",
+          "files_authorized_to_share",
+          "rubric_minimum_criteria",
+          "rubric_atomic_criteria",
+          "rubric_weights_reflect_centrality",
+          "rubric_ends_with_formatting_line",
+          "rubric_facts_derivable_from_files",
+          "final_rubric_blind_expert_would_pass"
+        ],
+        "task_type_discriminator": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c"
+      }
+    }
+  ],
+  "review_documents": null,
+  "revision_notes": null,
+  "reviewer_revision_requested_at": null,
+  "eval_revision_notes": "Agent Runner Error: An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+  "eval_revision_requested_at": "2026-09-23T00:52:54.233200Z",
+  "further_revision_requests_allowed": true,
+  "rebuttal_notes": null,
+  "accept_notes": null,
+  "ec_override_feedback": null,
+  "project_tasks": {
+    "auto-dataset-8f641339-1560-482d-89f0-c2e46afc5519": {
+      "task_category": "STATIC_ASSET",
+      "task_config": {
+        "task_timeout_min": null,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+      "task_category": "ADJUDICATION",
+      "task_config": {
+        "task_timeout_min": 120,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+      "task_category": "REVIEW",
+      "task_config": {
+        "task_timeout_min": 180,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+      "task_category": "SUBMISSION",
+      "task_config": {
+        "task_timeout_min": null,
+        "max_total_completed": null,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {
+            "oa-metadata": "Hazy_Task_Creation_Metadata:IN_APP",
+            "oa-human": "Hazy_Task_Creation_Completed:IN_APP",
+            "section-Rubrics": "Hazy_Task_Creation_Rubrics:IN_APP"
+          },
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    }
+  },
+  "evaluations": [
+    {
+      "evaluation_id": "7a29d761-464a-4c80-b16f-95469124ee99",
+      "created_at": "2026-09-21T22:32:54.621536Z",
+      "updated_at": "2026-09-23T00:52:54.127656Z",
+      "submission_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+      "submission_version_id": "fa1031f0-f919-4b9f-ae5e-4a9c42b9ecfa",
+      "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+      "task_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+      "evaluation_type": "SUBMISSION",
+      "status": "COMPLETED",
+      "outcome": "NEEDS_REVISION",
+      "overall_evaluation_result": {
+        "passed": null,
+        "failed": false,
+        "score": null,
+        "metadata": null,
+        "notes": [
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. 4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are complete and well-specified. The role (title examiner with Licking County experience), organization (Heritage Land Title Agency, Newark, Ohio), purpose (examination report for order HLT-26-2214 to support a November 6 closing commitment), inputs (four named files all present in inventory), deliverable (title_exam_report_cedarbrook_lot12.docx with specified content sections), and constraints (underwriter guidelines, proration rules, deadline, payoff calculations) are all clearly stated. No material defects were found.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. input_sufficiency: PASS. All four input files referenced in the instructions are present and machine-readable. The inputs collectively provide sufficient evidence for every material output the task requires: chain of title and vesting, underwriter requirements (dower, name variance, unreleased mortgages, legal description gap, judgment liens, delinquent taxes), Schedule B exceptions (restrictions, easements, plat dedications, survey, taxes not yet due), payoff figures (mortgages, judgment lien with interest, delinquent tax with penalty), and open items to chase before closing. The underwriter guideline excerpts are embedded in the title order. No material gap, contradiction, or missing file prevents the solver from producing a supported examination report.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Error",
+            "passed": false,
+            "associated_fields": null,
+            "details": "An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "NEEDS_REVISION"
+          }
+        ],
+        "children_results": [
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "n_files": 4,
+                "summary": "4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "file_rows": [
+                  {
+                    "file": "instrument_abstracts_hlt262214.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "recorder_index_cedarbrook_lot12.csv",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "tax_and_lien_search_hlt262214.xlsx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "title_order_hlt262214.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  }
+                ],
+                "n_neither": 0,
+                "n_unknown": 0,
+                "n_native_ok": 4,
+                "neither_files": [],
+                "unknown_files": [],
+                "n_ocr_recovers": 0,
+                "tesseract_ocrable": true
+              },
+              "s3_artifacts": {},
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Af049e315-829e-4949-8449-e4e1d7402070",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/input_files_ocrable/1a9bf9927bb2/output.json",
+              "runtime_error": false,
+              "display_message": "4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. 4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "input_files_ocrable",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "prompt_completeness",
+                    "notes": [],
+                    "summary": "The task instructions are complete and well-specified. The role (title examiner with Licking County experience), organization (Heritage Land Title Agency, Newark, Ohio), purpose (examination report for order HLT-26-2214 to support a November 6 closing commitment), inputs (four named files all present in inventory), deliverable (title_exam_report_cedarbrook_lot12.docx with specified content sections), and constraints (underwriter guidelines, proration rules, deadline, payoff calculations) are all clearly stated. No material defects were found.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "role",
+                        "reason": "The instructions clearly establish the solver's role as a title examiner experienced with Licking County titles and Ohio title defect handling. The senior examiner delegates the examination because the solver 'examined Licking County titles for years and know how our underwriter wants Ohio title defects handled.' This is a sufficiently clear professional responsibility.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "organization",
+                        "reason": "The organization is explicitly identified as Heritage Land Title Agency in Newark, Ohio. The underwriter is Buckeye State Title Insurance Company. The closing agent is Priya Ramanathan. The setting is fully specified.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "purpose",
+                        "reason": "The purpose is clearly stated: produce a title examination report on order HLT-26-2214 so that the closing agent (Priya Ramanathan) can build the title commitment before the November 6, 2026 closing on 418 Cedarbrook Drive. The report must serve both the owner's policy and the lender's loan policy.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "inputs",
+                        "reason": "Four input files are named in the instructions: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. All four appear in inventory.json. The instructions describe their purposes: the CSV is the recorder's index pull, the abstracts are the searcher's notes on key instruments, the title order carries closing instructions and underwriter guideline excerpts, and the tax/lien search carries tax duplicate and judgment lien data. The file contents match these descriptions accurately.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inventory.json",
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "deliverable",
+                        "reason": "The deliverable is clearly specified: a single document named title_exam_report_cedarbrook_lot12.docx addressed to Priya Ramanathan. Required content sections are enumerated: (1) vesting and chain of title, (2) requirements the underwriter will want cleared before insuring with the instrument each rests on, (3) Schedule B exceptions, (4) figures to collect at closing for amounts of record, and (5) anything the record leaves open that needs to be chased before November 6. The format (.docx) and addressee are clear. The content requirements are detailed enough for a competent title examiner to produce an acceptable report.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "constraints",
+                        "reason": "Material constraints are thoroughly specified: (1) deadline of Wednesday, October 14 (consistent with October 14, 2026 being a Wednesday); (2) underwriter guidelines from Buckeye State Title Insurance Company covering dower (4.2), name variances (5.1), unreleased mortgages (6.3), judgment liens (7.4), legal descriptions (8.1), taxes/assessments (9.2), and released liens (10.5); (3) tax proration rules: 365-day year through closing day using most recent full-year bill; (4) delinquent taxes with statutory penalty collected from seller; (5) judgment lien interest calculated at stated rate, simple basis, 365-day year, from judgment date through closing; (6) seller conveys by warranty deed free of liens; (7) lender requires first-lien mortgage; (8) survey matters treated as standard exception unless survey delivered before closing. These constraints are detailed and sufficient.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/instrument_abstracts_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/recorder_index_cedarbrook_lot12.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/tax_and_lien_search_hlt262214.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/title_order_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [
+                      {
+                        "name": "recorder_index_cedarbrook_lot12.csv",
+                        "status": "present",
+                        "matches": [
+                          "recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "name": "instrument_abstracts_hlt262214.docx",
+                        "status": "present",
+                        "matches": [
+                          "instrument_abstracts_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "name": "title_order_hlt262214.docx",
+                        "status": "present",
+                        "matches": [
+                          "title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "name": "tax_and_lien_search_hlt262214.xlsx",
+                        "status": "present",
+                        "matches": [
+                          "tax_and_lien_search_hlt262214.xlsx"
+                        ]
+                      }
+                    ],
+                    "limitations": [],
+                    "file_references": [
+                      {
+                        "name": "recorder_index_cedarbrook_lot12.csv",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "instrument_abstracts_hlt262214.docx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "title_order_hlt262214.docx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "tax_and_lien_search_hlt262214.xlsx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      }
+                    ],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "attempt": 1,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfKNGgBF5mLDLYLC9cGin",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/prompt_completeness_audit/7b9a2a5e90f3/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3A09d1ba66-3b2b-41ed-9ca4-078dfd54864d",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/prompt_completeness_audit/7b9a2a5e90f3/output.json",
+              "runtime_error": false,
+              "display_message": "prompt_completeness: PASS. The task instructions are complete and well-specified. The role (title examiner with Licking County experience), organization (Heritage Land Title Agency, Newark, Ohio), purpose (examination report for order HLT-26-2214 to support a November 6 closing commitment), inputs (four named files all present in inventory), deliverable (title_exam_report_cedarbrook_lot12.docx with specified content sections), and constraints (underwriter guidelines, proration rules, deadline, payoff calculations) are all clearly stated. No material defects were found."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are complete and well-specified. The role (title examiner with Licking County experience), organization (Heritage Land Title Agency, Newark, Ohio), purpose (examination report for order HLT-26-2214 to support a November 6 closing commitment), inputs (four named files all present in inventory), deliverable (title_exam_report_cedarbrook_lot12.docx with specified content sections), and constraints (underwriter guidelines, proration rules, deadline, payoff calculations) are all clearly stated. No material defects were found.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "prompt_completeness_audit",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "input_sufficiency",
+                    "notes": [],
+                    "summary": "All four input files referenced in the instructions are present and machine-readable. The inputs collectively provide sufficient evidence for every material output the task requires: chain of title and vesting, underwriter requirements (dower, name variance, unreleased mortgages, legal description gap, judgment liens, delinquent taxes), Schedule B exceptions (restrictions, easements, plat dedications, survey, taxes not yet due), payoff figures (mortgages, judgment lien with interest, delinquent tax with penalty), and open items to chase before closing. The underwriter guideline excerpts are embedded in the title order. No material gap, contradiction, or missing file prevents the solver from producing a supported examination report.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "vesting_and_chain",
+                        "reason": "The instrument abstracts trace the chain from the 1986 declaration and 1987 deed through to the current owner Tamsin Okafor (2018 deed). The recorder index corroborates each link and supplies additional entries (original Voss mortgage, its satisfaction, Pruitt's 2003 mortgage, its satisfaction). The title order identifies current vesting as Tamsin Okafor, married to Emeka Okafor, and the proposed new vesting as Delaney M. Whitcomb and Sean P. Whitcomb as survivorship tenants. The data is sufficient to state vesting and build the full chain.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "underwriter_requirements",
+                        "reason": "Multiple requirements are identifiable from the supplied evidence and guidelines: (1) Dower release from Lorraine K. Pruitt on the 2014 deed that omitted her (Guideline 4.2, abstract p14); (2) Corrective deed for N 1/2 Lot 13 omitted from the 2014 deed (Guideline 8.1, abstract p13); (3) Name variance affidavit for Margaret Ann Kessler / Peggy A. Kessler (Guideline 5.1, abstract p18-19); (4) Payoff/release of 2011 Buckeye Home Lending mortgage\u2014maturity March 2026 passed but no release of record, and the 20-year safe harbor does not apply since it was recorded only ~15 years ago (Guideline 6.3, abstract p10-12); (5) Payoff/release of 2018 Muskingum Valley Bank mortgage (Guideline 6.3, abstract p20-21); (6) Judgment lien 25JL01133 against Okafor Tamsin, current owner, payoff required (Guideline 7.4, tax/lien search row 6); (7) Dower release from Emeka Okafor on the closing deed (Guideline 4.2, title order row 6); (8) Delinquent 2025 second-half taxes plus penalty (Guideline 9.2, tax duplicate row 10). Judgment 20JL00417 against 'Kessler Robert J' must be analyzed against chain-of-title name 'Kessler Robert L'\u2014the name does not match and Guideline 7.4 only attaches when the debtor's name matches; the data is sufficient to reach a conclusion either way. All guidelines needed are supplied in the title order document.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "id": "schedule_b_exceptions",
+                        "reason": "Standard exceptions identifiable from supplied data: (1) Declaration of restrictions, instrument 198611030018; (2) 10-foot utility easement along rear per plat (PB 9/41); (3) 30-foot building setback per plat; (4) Perpetual easement to Licking Rural Electric Cooperative, instrument 202110080144; (5) Taxes and assessments for the current year not yet due; (6) Future installments of the Cedarbrook sanitary sewer special assessment; (7) Survey exception unless survey is delivered before closing. The released mechanics lien (Guideline 10.5) is cleared and not an exception. Sufficient data exists for each.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx"
+                        ]
+                      },
+                      {
+                        "id": "closing_figures",
+                        "reason": "The task requires figures for items of record that must be paid at closing. The tax duplicate provides the delinquent 2025 second-half installment ($1,796.12 gross tax + $312.50 assessment = $2,108.62) and the penalty rate (10% or 5% if within 10 days). The proration instructions specify using the most recent full-year tax bill on a 365-day basis; the 2025 full-year figures are available ($3,592.24 tax + $625.00 assessment). The Okafor judgment lien provides principal ($9,412), costs ($187), rate (8%), and filing date (07/30/2025) for interest calculation through 11/06/2026. The two unreleased mortgages (Buckeye Home Lending $88,000 and Muskingum Valley Bank $137,600) are identified as payoffs; exact payoff amounts would come from lender statements, which is standard practice\u2014the examiner identifies them as requirements and the closer obtains payoff letters. This is sufficient.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/instrument_abstracts_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "open_items_to_chase",
+                        "reason": "The task asks the examiner to flag anything the record leaves open that Priya should chase before November 6. The supplied data supports identifying: corrective deed for N 1/2 Lot 13, dower release from Lorraine K. Pruitt, name affidavit for Margaret Ann / Peggy A. Kessler, mortgage payoff letters, judgment lien payoff/satisfaction, survey delivery, and Emeka Okafor joining the closing deed. All these are derivable from the supplied instruments and guidelines.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx"
+                        ]
+                      },
+                      {
+                        "id": "input_file_inventory",
+                        "reason": "The instructions reference four input files: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The runtime inventory.json confirms all four are present. All four have been successfully extracted and their content is available.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inventory.json"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/instrument_abstracts_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/recorder_index_cedarbrook_lot12.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/tax_and_lien_search_hlt262214.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/title_order_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [],
+                    "limitations": [],
+                    "file_references": [],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "error": "InternalServerError",
+                        "attempt": 1,
+                        "status_code": 500
+                      },
+                      {
+                        "attempt": 2,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfKNLNK4wQh1TfHpQdEbo",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/self_containment/62e216867e55/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Ad1543be0-67ba-4ffa-bf4b-9f8f70150355",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/self_containment/62e216867e55/output.json",
+              "runtime_error": false,
+              "display_message": "input_sufficiency: PASS. All four input files referenced in the instructions are present and machine-readable. The inputs collectively provide sufficient evidence for every material output the task requires: chain of title and vesting, underwriter requirements (dower, name variance, unreleased mortgages, legal description gap, judgment liens, delinquent taxes), Schedule B exceptions (restrictions, easements, plat dedications, survey, taxes not yet due), payoff figures (mortgages, judgment lien with interest, delinquent tax with penalty), and open items to chase before closing. The underwriter guideline excerpts are embedded in the title order. No material gap, contradiction, or missing file prevents the solver from producing a supported examination report."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. input_sufficiency: PASS. All four input files referenced in the instructions are present and machine-readable. The inputs collectively provide sufficient evidence for every material output the task requires: chain of title and vesting, underwriter requirements (dower, name variance, unreleased mortgages, legal description gap, judgment liens, delinquent taxes), Schedule B exceptions (restrictions, easements, plat dedications, survey, taxes not yet due), payoff figures (mortgages, judgment lien with interest, delinquent tax with penalty), and open items to chase before closing. The underwriter guideline excerpts are embedded in the title order. No material gap, contradiction, or missing file prevents the solver from producing a supported examination report.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "self_containment",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": null,
+            "failed": true,
+            "score": null,
+            "metadata": {
+              "error": "CodeBuild build ended FAILED in phase COMPLETED",
+              "job_id": "agent-framework-fde:ff0d9db8-b080-400c-9638-e839f4dad529",
+              "agent_result": {
+                "errors": [],
+                "models": {
+                  "glm-5.2": {
+                    "solved": false,
+                    "attempts": [
+                      "FAIL",
+                      "FAIL",
+                      "FAIL",
+                      "FAIL"
+                    ],
+                    "valid_attempts": 4
+                  },
+                  "qwen3.6-27b": {
+                    "solved": null,
+                    "attempts": [
+                      "FAIL",
+                      "INCOMPLETE",
+                      "FAIL",
+                      "FAIL"
+                    ],
+                    "valid_attempts": 3
+                  }
+                },
+                "verdict": "INCOMPLETE"
+              },
+              "s3_artifacts": {
+                "trials": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/difficulty_check/30d39fdc2342/trials_artifact.zip",
+                "summary": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/difficulty_check/30d39fdc2342/summary_artifact.json"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Aff0d9db8-b080-400c-9638-e839f4dad529",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/7a29d761-464a-4c80-b16f-95469124ee99/difficulty_check/30d39fdc2342/output.json",
+              "runtime_error": true,
+              "display_message": "Hazy difficulty: INCOMPLETE"
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Error",
+                "passed": false,
+                "associated_fields": null,
+                "details": "An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "NEEDS_REVISION"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "difficulty_check",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          }
+        ],
+        "combiner_id": "commons/by_evaluation_result_field",
+        "evaluation_outcome": "NEEDS_REVISION"
+      },
+      "job_id": "54dc744e-834c-4dbe-9ad1-1e03aca655de"
+    }
+  ],
+  "evaluation_display_results": [],
+  "evaluation_labels": [],
+  "available_segments": [],
+  "non_blocking_check_enums": [
+    "PASS",
+    "PENDING"
+  ],
+  "blocking_check_enums": [
+    "NEEDS_REVISION",
+    "FAIL"
+  ],
+  "submission_task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+  "form_schema": {
+    "steps": [
+      {
+        "name": "New Step",
+        "sections": [
+          {
+            "id": "section-Domain",
+            "title": "Select the Domain and Sector",
+            "fields": [
+              {
+                "type": "radio",
+                "field": "radio-domain",
+                "label": "Domain",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Architecture and Engineering",
+                    "value": "architecture_and_engineering"
+                  },
+                  {
+                    "label": "Building and Grounds Cleaning and Maintenance",
+                    "value": "building_and_grounds_cleaning_and_maintenance"
+                  },
+                  {
+                    "label": "Community and Social Service",
+                    "value": "community_and_social_service"
+                  },
+                  {
+                    "label": "Educational Instruction and Library",
+                    "value": "educational_instruction_and_library"
+                  },
+                  {
+                    "label": "Food Preparation and Serving",
+                    "value": "food_preparation_and_serving"
+                  },
+                  {
+                    "label": "Healthcare Practitioners / Support",
+                    "value": "healthcare_practitioners_support"
+                  },
+                  {
+                    "label": "Healthcare Practitioners and Technical",
+                    "value": "healthcare_practitioners_and_technical"
+                  },
+                  {
+                    "label": "Healthcare Support",
+                    "value": "healthcare_support"
+                  },
+                  {
+                    "label": "Installation, Maintenance, and Repair",
+                    "value": "installation_maintenance_and_repair"
+                  },
+                  {
+                    "label": "Legal",
+                    "value": "legal"
+                  },
+                  {
+                    "label": "Life, Physical, and Social Science",
+                    "value": "life_physical_and_social_science"
+                  },
+                  {
+                    "label": "Management",
+                    "value": "management"
+                  },
+                  {
+                    "label": "Production",
+                    "value": "production"
+                  },
+                  {
+                    "label": "Transportation and Material Moving",
+                    "value": "transportation_and_material_moving"
+                  }
+                ],
+                "required": true,
+                "description": "<p>Please select one based on your area of expertise</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "radio",
+                "field": "radio-occupation",
+                "label": "Occupation",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Arbitrators, Mediators, and Conciliators",
+                    "value": "arbitrators_mediators_and_conciliators"
+                  },
+                  {
+                    "label": "Architectural and Engineering Managers",
+                    "value": "architectural_and_engineering_managers"
+                  },
+                  {
+                    "label": "Atmospheric and Space Scientists",
+                    "value": "atmospheric_and_space_scientists"
+                  },
+                  {
+                    "label": "Biochemists and Biophysicists",
+                    "value": "biochemists_and_biophysicists"
+                  },
+                  {
+                    "label": "Biofuels/Biodiesel Technology and Product Development Managers",
+                    "value": "biofuels_biodiesel_technology_and_product_development_managers"
+                  },
+                  {
+                    "label": "Bioinformatics Scientists",
+                    "value": "bioinformatics_scientists"
+                  },
+                  {
+                    "label": "Biological Technicians",
+                    "value": "biological_technicians"
+                  },
+                  {
+                    "label": "Biologists",
+                    "value": "biologists"
+                  },
+                  {
+                    "label": "Chemists",
+                    "value": "chemists"
+                  },
+                  {
+                    "label": "Civil Engineering Technologists and Technicians",
+                    "value": "civil_engineering_technologists_and_technicians"
+                  },
+                  {
+                    "label": "Compliance Managers",
+                    "value": "compliance_managers"
+                  },
+                  {
+                    "label": "Computer Hardware Engineers",
+                    "value": "computer_hardware_engineers"
+                  },
+                  {
+                    "label": "Dental Hygienists",
+                    "value": "dental_hygienists"
+                  },
+                  {
+                    "label": "Economists",
+                    "value": "economists"
+                  },
+                  {
+                    "label": "Electrical Engineers",
+                    "value": "electrical_engineers"
+                  },
+                  {
+                    "label": "Emergency Medical Technicians",
+                    "value": "emergency_medical_technicians"
+                  },
+                  {
+                    "label": "Environmental Engineers",
+                    "value": "environmental_engineers"
+                  },
+                  {
+                    "label": "Environmental Scientists and Specialists",
+                    "value": "environmental_scientists_and_specialists"
+                  },
+                  {
+                    "label": "First Line Supervisors of Food Prep and Serving Workers",
+                    "value": "first_line_supervisors_of_food_prep_and_serving_workers"
+                  },
+                  {
+                    "label": "First Line Supervisors of Housekeeping and Janitorial Workers",
+                    "value": "first_line_supervisors_of_housekeeping_and_janitorial_workers"
+                  },
+                  {
+                    "label": "First Line Supervisors of Material Moving Operators",
+                    "value": "first_line_supervisors_of_material_moving_operators"
+                  },
+                  {
+                    "label": "First Line Supervisors of Mechanics, Installers, and Repairers",
+                    "value": "first_line_supervisors_of_mechanics_installers_and_repairers"
+                  },
+                  {
+                    "label": "Food Scientists and Technologists",
+                    "value": "food_scientists_and_technologists"
+                  },
+                  {
+                    "label": "General Internal Medicine Physicians",
+                    "value": "general_internal_medicine_physicians"
+                  },
+                  {
+                    "label": "Geoscientists",
+                    "value": "geoscientists"
+                  },
+                  {
+                    "label": "Home Health Aides",
+                    "value": "home_health_aides"
+                  },
+                  {
+                    "label": "Human Resources Managers",
+                    "value": "human_resources_managers"
+                  },
+                  {
+                    "label": "Inspectors, Testers, Sorters, Samplers, and Weighers",
+                    "value": "inspectors_testers_sorters_samplers_and_weighers"
+                  },
+                  {
+                    "label": "Instructional Coordinators",
+                    "value": "instructional_coordinators"
+                  },
+                  {
+                    "label": "Judges, Magistrate Judges, and Magistrates",
+                    "value": "judges_magistrate_judges_and_magistrates"
+                  },
+                  {
+                    "label": "Judicial Law Clerks",
+                    "value": "judicial_law_clerks"
+                  },
+                  {
+                    "label": "Librarians and Media Collections Specialists",
+                    "value": "librarians_and_media_collections_specialists"
+                  },
+                  {
+                    "label": "Machinists",
+                    "value": "machinists"
+                  },
+                  {
+                    "label": "Manufacturing Engineers",
+                    "value": "manufacturing_engineers"
+                  },
+                  {
+                    "label": "Marketing Managers",
+                    "value": "marketing_managers"
+                  },
+                  {
+                    "label": "Medical Assistants",
+                    "value": "medical_assistants"
+                  },
+                  {
+                    "label": "Medical Transcriptionists",
+                    "value": "medical_transcriptionists"
+                  },
+                  {
+                    "label": "Mental Health Counselors",
+                    "value": "mental_health_counselors"
+                  },
+                  {
+                    "label": "Mental Health and Substance Abuse Social Workers",
+                    "value": "mental_health_and_substance_abuse_social_workers"
+                  },
+                  {
+                    "label": "Molecular and Cellular Biologists",
+                    "value": "molecular_and_cellular_biologists"
+                  },
+                  {
+                    "label": "Natural Sciences Managers",
+                    "value": "natural_sciences_managers"
+                  },
+                  {
+                    "label": "Nursing Assistants",
+                    "value": "nursing_assistants"
+                  },
+                  {
+                    "label": "Obstetricians and Gynecologists",
+                    "value": "obstetricians_and_gynecologists"
+                  },
+                  {
+                    "label": "Occupational Therapy Assistants",
+                    "value": "occupational_therapy_assistants"
+                  },
+                  {
+                    "label": "Packaging and Filling Machine Operators and Tenders",
+                    "value": "packaging_and_filling_machine_operators_and_tenders"
+                  },
+                  {
+                    "label": "Paralegals and Legal Assistants",
+                    "value": "paralegals_and_legal_assistants"
+                  },
+                  {
+                    "label": "Paramedics",
+                    "value": "paramedics"
+                  },
+                  {
+                    "label": "Pediatricians, General",
+                    "value": "pediatricians_general"
+                  },
+                  {
+                    "label": "Personal Care Aides",
+                    "value": "personal_care_aides"
+                  },
+                  {
+                    "label": "Pharmacy Aides",
+                    "value": "pharmacy_aides"
+                  },
+                  {
+                    "label": "Phlebotomists",
+                    "value": "phlebotomists"
+                  },
+                  {
+                    "label": "Psychiatric Aides",
+                    "value": "psychiatric_aides"
+                  },
+                  {
+                    "label": "Purchasing Managers",
+                    "value": "purchasing_managers"
+                  },
+                  {
+                    "label": "Quality Control Systems Managers",
+                    "value": "quality_control_systems_managers"
+                  },
+                  {
+                    "label": "Respiratory Therapists",
+                    "value": "respiratory_therapists"
+                  },
+                  {
+                    "label": "Social and Human Service Assistants",
+                    "value": "social_and_human_service_assistants"
+                  },
+                  {
+                    "label": "Soil and Plant Scientists",
+                    "value": "soil_and_plant_scientists"
+                  },
+                  {
+                    "label": "Substance Abuse and Behavioral Disorder Counselors",
+                    "value": "substance_abuse_and_behavioral_disorder_counselors"
+                  },
+                  {
+                    "label": "Surveyors",
+                    "value": "surveyors"
+                  },
+                  {
+                    "label": "Title Examiners, Abstractors, and Searchers",
+                    "value": "title_examiners_abstractors_and_searchers"
+                  },
+                  {
+                    "label": "Transportation, Storage, and Distribution Managers",
+                    "value": "transportation_storage_and_distribution_managers"
+                  },
+                  {
+                    "label": "Treasurers and Controllers",
+                    "value": "treasurers_and_controllers"
+                  },
+                  {
+                    "label": "Veterinary Assistants and Laboratory Animal Caretakers",
+                    "value": "veterinary_assistants_and_laboratory_animal_caretakers"
+                  },
+                  {
+                    "label": "Zoologists and Wildlife Biologists",
+                    "value": "zoologists_and_wildlife_biologists"
+                  }
+                ],
+                "required": true,
+                "description": "<p>Please select one based on your area of expertise</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              }
+            ],
+            "description": "<p></p>"
+          },
+          {
+            "id": "oa-metadata",
+            "title": "MetaData",
+            "fields": [
+              {
+                "type": "textarea",
+                "field": "task-prompt",
+                "label": "Task Instruction",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "description": "<p>Below, please write the instructions for a task in your selected domain above. Write it as if you&#39;re briefing a skilled colleague on a real assignment.</p><p></p><p>Make sure your instructions:</p><p></p><ul><li>Set specific context: your role, your organization, and what&#39;s prompting this work today.</li><li>Name every input file you&#39;re uploading and what it contains.</li><li>State the exact deliverable: file format, and any length or structural requirements (page limit, number of tabs, required columns, naming convention).</li><li>Include real scenario numbers and constraints where they belong \u2014 budgets, deadlines, headcounts, thresholds. These are fine and expected.</li><li>Leave out any number, name, or finding that the reader can only get by actually working through your input files \u2014 those are what the exercise is testing, so save them for your rubric, not your instructions.</li><li>Be fully self-contained: whoever completes this task, including an AI model, will not see your rubric. Everything needed to produce a correct, complete answer must be here.</li></ul>",
+                "placeholder": "e.g. \"You are the [role] at [company]. [What's prompting this task today]. Using the attached [file name], which contains [what it contains]..., produce a [file format] that [what it should show/recommend], no more than [length/structure limit].\"",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              },
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-input_file_list",
+                "label": "Input File List",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 0,
+                "description": "<ul><li>List each input file you&#39;re providing, using the exact file name it will have when uploaded below (same spelling, capitalization, and extension). </li><li>Start each entry with the file name, then a dash, then briefly note what it contains.</li><li>This list is checked against your actual upload \u2014 a mismatched name, a missing file, or a file listed here that never gets uploaded is one of the most common reasons a submission gets sent back. If you&#39;re referencing the file by name anywhere in your Task Instruction, make sure it matches this list exactly too.</li></ul>",
+                "placeholder": "",
+                "addItemTitle": "File",
+                "addItemButtonLabel": "Add Another Input File",
+                "addItemDescription": "e.g. \"Q3_Regional_Sales.xlsx \u2014 monthly sales by region, includes conflicting totals between the summary tab and the raw data tab\"",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "s3FileUploader",
+                "field": "s3fileuploader-file_uploader",
+                "label": "File Uploader",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "required": true,
+                "description": "<p>Compress all of your input files into a single ZIP before uploading here. Each file name inside the ZIP must exactly match an entry in the Input File List above \u2014 this is what confirms your task package is complete before it moves forward.</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                },
+                "nodeDependentConfiguration": {
+                  "review": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "submission": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "adjudication": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  }
+                }
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-task_instructions_quality_checks",
+                "label": "Task Instruction Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Metadata:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Task Instruction</em> \u2014 long enough to stand on its own, and names every file in your Input File List</li><li><em>Input File List</em> \u2014 populated, with each entry starting with a real file name</li><li><em>Sources</em> \u2014 advisory note on how many input files the task draws on</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "oa-human",
+            "title": "Completed Task",
+            "fields": [
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-output_file_list",
+                "label": "Output File List",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 0,
+                "description": "<p>List every file your completed task produces, using the exact file name and format you specified in your Task Instruction&#39;s deliverable requirements.</p>",
+                "addItemTitle": "File",
+                "addItemButtonLabel": "Add Another Output File",
+                "addItemDescription": "",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "s3FileUploader",
+                "field": "s3fileuploader-completed_task_upload",
+                "label": "Completed Task Upload",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "required": true,
+                "description": "<p>Upload your completed deliverable(s) here. File names must exactly match the Output File List above, including extension.</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                },
+                "nodeDependentConfiguration": {
+                  "review": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "submission": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "adjudication": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_read_prompt",
+                "label": "Time to read and understand the prompt and requirements (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p>Estimated number of minutes required to complete the tasks described in the prompt without using any AI assistant, based on the prompt and any provided reference files.</p><p></p><p><strong style=\"color: rgb(29, 28, 29);\">Exclude</strong></p><ul><li><span style=\"color: rgb(29, 28, 29);\">Time spent learning missing domain knowledge.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Waiting on other people/approvals.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Breaks or unrelated distractions.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Web research unless explicitly required by the prompt (default: do not assume browsing).</span></li></ul><p></p><p><strong>Time to read and understand the prompt and requirements (in minutes)</strong></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_open_skimsearch_and_use_the_reference_files_human",
+                "label": "Time to open, skim/search, and use the reference files (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human",
+                "label": "Time to perform the required work (analysis, writing, calculations, coding, spreadsheet edits, formatting) (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_for_verificationqa_and_final_review_human",
+                "label": "Time for verification/QA and final review (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-total_time_in_hours",
+                "label": "Total time (in hours)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p>For tasks that do not amount to an exact number of min, please provide it in decimals.</p><p>For example, <strong><em>90 minutes</em></strong> should be calculated as <strong><em>1.5 hours.</em></strong></p><p>This should be at least the sum of the four figures above, converted to hours. It may be higher.</p>",
+                "placeholder": "Hours only (e.g., 1.5)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-please_insert_any_tool_used_for_this_task_human",
+                "label": "Please Insert Any Tool Used For this Task",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 1,
+                "description": "<p>e.g., Excel, Photoshop, DaVinci, SolidWorks, LabVIEW</p>",
+                "addItemTitle": "Tool",
+                "addItemButtonLabel": "Add Another Tool",
+                "addItemDescription": "",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-completed_task_checks",
+                "label": "Completed Task Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Completed:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Output File List</em> \u2014 populated</li><li><em>Times</em> \u2014 all five fields are numbers, and the total is at least the sum of the four parts</li><li><em>Tools</em> \u2014 at least one tool logged</li><li><em>Difficulty</em> \u2014 estimated manual effort is over 3 hours</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ],
+            "description": "<p>Now that you&#39;ve updated your Task Instruction and Input Files, complete the task yourself \u2014 the way the qualified professional you described in your instruction would actually do it. This is your ground truth and what you will build your rubric off of.</p>"
+          },
+          {
+            "id": "section-Rubrics",
+            "title": "Task Rubrics",
+            "fields": [
+              {
+                "type": "repeatable",
+                "field": "repeatable-bfbf1",
+                "label": "Rubric",
+                "fields": [
+                  {
+                    "type": "textarea",
+                    "field": "textarea-rubric_description",
+                    "label": "Rubric Description",
+                    "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                    "description": "",
+                    "configurationSettings": {
+                      "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      }
+                    }
+                  },
+                  {
+                    "max": 5,
+                    "min": -5,
+                    "type": "numeric",
+                    "field": "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable",
+                    "label": "Add a criteria weight -5 to +5 based on how central the item is to a correct deliverable.",
+                    "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                    "required": true,
+                    "configurationSettings": {
+                      "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      }
+                    }
+                  }
+                ],
+                "minEntries": 3,
+                "addItemTitle": "Click Here To Add A New Rubric",
+                "allowComments": false,
+                "addItemButtonLabel": "Add a New Rubric",
+                "addItemDescription": ""
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-rubric_checks",
+                "label": "Task Rubric Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Rubrics:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Rubric rows</em> \u2014 every criterion has a description and a weight between -5 and +5</li><li><em>Scoring</em> \u2014 at least one weight is positive, so a correct deliverable can score</li><li><em>Depth</em> \u2014 advisory note on whether the rubric covers the task's complexity</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ],
+            "description": "<p>List your criteria one by one \u2014 most tasks will need a minimum of 3 criteria; expect somewhere in the 20\u201360+ range depending on complexity. Each line should test exactly one thing: a specific number, name, date, format requirement, or structural detail \u2014 not a bundled description.</p><ul><li>Weight -5 to +5 based on how central the item is to a correct deliverable.</li><li>Use negative weights where useful, to penalize specific unwanted outcomes (extra items included that shouldn&#39;t be, page limit exceeded, wrong file type).</li><li>Pull every exact value straight from your own reference files and ground-truth answer \u2014 never estimate what a criterion should check.<ul><li>Bad (estimated): [+2] The workbook states total damage revenue as approximately $15,000.</li><li>Good (pulled from the actual data): [+2] The workbook states total damage revenue as $15,170.</li></ul></li><li>End with a general &quot;Overall formatting and style of the deliverable&quot; line (commonly ~+5) to catch polish and presentation.</li></ul>"
+          },
+          {
+            "id": "section-2af45",
+            "title": "Before You Submit \u2014 Task Creation Checklist",
+            "fields": [
+              {
+                "type": "multiSelect",
+                "field": "multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_",
+                "label": "Confirm each item below applies to your submission before you check it off. All boxes must be checked to submit.\n",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Task Instruction: My instruction sets specific context: a named role, organization, and a reason this work is happening today.",
+                    "value": "instruction_specific_context"
+                  },
+                  {
+                    "label": "Task Instruction: I named every input file I'm uploading and briefly described what each one contains.",
+                    "value": "instruction_named_all_files"
+                  },
+                  {
+                    "label": "Task Instruction: I stated the exact deliverable format (file type), plus any length or structural requirements (page limit, tab count, required columns, naming convention).",
+                    "value": "instruction_deliverable_spec"
+                  },
+                  {
+                    "label": "Task Instruction: I included real scenario constraints where they belong (budget, deadline, headcount, threshold).",
+                    "value": "instruction_scenario_constraints"
+                  },
+                  {
+                    "label": "Task Instruction: I did not include any number, name, or finding that can only come from actually working through the input files \u2014 those live in the rubric, not here.",
+                    "value": "instruction_no_answer_leakage"
+                  },
+                  {
+                    "label": "Task Instruction: My instruction is fully self-contained: someone with no rubric access could read it and my input files and have everything they need to produce a complete, correct answer.",
+                    "value": "instruction_self_contained"
+                  },
+                  {
+                    "label": "Input Files: Every file I listed is actually uploaded, and every file I uploaded is listed \u2014 names match exactly, including extension and case.",
+                    "value": "files_names_match"
+                  },
+                  {
+                    "label": "Input Files: I'm only using files I'm authorized to share \u2014 no confidential, proprietary, or IP-restricted material.",
+                    "value": "files_authorized_to_share"
+                  },
+                  {
+                    "label": "Task Rubric: I have at least 3 criteria, and enough to genuinely cover the task's complexity (most real tasks need well more than 3).",
+                    "value": "rubric_minimum_criteria"
+                  },
+                  {
+                    "label": "Task Rubric: Each criterion tests exactly one thing \u2014 no line bundles two separate checks with \"and.\"",
+                    "value": "rubric_atomic_criteria"
+                  },
+                  {
+                    "label": "Task Rubric: Each criterion's weight (-5 to +5) reflects how central that item actually is to a correct deliverable.",
+                    "value": "rubric_weights_reflect_centrality"
+                  },
+                  {
+                    "label": "Task Rubric: My rubric ends with a general \"Overall formatting and style of the deliverable\" line.",
+                    "value": "rubric_ends_with_formatting_line"
+                  },
+                  {
+                    "label": "Task Rubric: Nothing in my rubric asserts a fact that isn't actually derivable from the input files I'm providing.",
+                    "value": "rubric_facts_derivable_from_files"
+                  },
+                  {
+                    "label": "Final Check: If someone with real expertise in this domain \u2014 but no access to my rubric \u2014 read only my instruction and files, they could produce work that passes my rubric.",
+                    "value": "final_rubric_blind_expert_would_pass"
+                  }
+                ],
+                "variant": "checkbox",
+                "required": true,
+                "minSelectedOptions": 14,
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "New Step",
+        "sections": [
+          {
+            "id": "section-13351",
+            "title": "New Section",
+            "fields": []
+          }
+        ]
+      }
+    ],
+    "configurationMap": {
+      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+        "description": "<p>Please select the closest occupation to this task using the list here: https://www.onetonline.org/find/industry</p>"
+      }
+    },
+    "_configurationSettings": true
+  },
+  "static_asset_schema": {
+    "fields": []
+  },
+  "form_schema_revision_id": "11a1b308-72e7-4e34-9575-71347618abf6",
+  "user_reviews": null,
+  "expiry_time": "2026-09-28T00:52:54.233200Z",
+  "schema_ui": null,
+  "task_document": null,
+  "review_document": null,
+  "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c"
+}

@@ -1,0 +1,10 @@
+{
+ "about": "A laboratory results input whose qualifier legend states the compliance disposition of a flagged result (\"H = holding time exceeded, result not valid for compliance use\"), the labelled trap behind the desk's third difficulty_check FAIL (2026-09-28).",
+ "base": "package-corrected",
+ "fires": [
+  {
+   "code": "L8",
+   "contains": "not valid for compliance use"
+  }
+ ]
+}

@@ -67,8 +67,13 @@ Record the pair in `metadata.json` (`06-metadata.md`).
   difficulty check failed a four-bid evaluation built that way on 2026-09-22 (two of four
   weak-model attempts cleared the rubric). Put the condition in the record's own prose, in a
   second file that has to be reconciled, or under a status column a reader can skip, and make
-  every numbered rule an input carries decide something (L7 for the labelled column, PR21 for
-  the walk; `memory/difficulty-check-lessons.md` carries the case).
+  every numbered rule an input carries decide something (L7 for the labelled column, L8 for a
+  flag legend that states the record's disposition, PR21 for the walk;
+  `memory/difficulty-check-lessons.md` carries the cases). A flag that says what was observed
+  ("holding time exceeded") is data; a legend that says what follows ("not valid for compliance
+  use") is the answer, and a permit report built that way failed the same check on 2026-09-28
+  (one weak-model attempt in three cleared it). Leave the dates in the record and the call to the
+  solver, and put the decisive instance where the file does not flag it at all.
 - **A mismatch is not a trap either.** A rating audit whose every exception was a difference
   between two tidy files failed the same check on 2026-09-22 (one weak-model attempt in three
   cleared it): a script reproduces a mismatch. A rule that turns on a document or a written act
