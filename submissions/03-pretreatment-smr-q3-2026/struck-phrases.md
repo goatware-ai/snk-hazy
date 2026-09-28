@@ -15,3 +15,8 @@ One bullet per phrase struck from the package, as a quoted literal or a /pattern
 - "2.93 mg/L" (the first build's July copper monthly average on two samples; struck in the difficulty revision, 2026-09-28)
 - "The laboratory invalidated the nickel result" (the first note's sentence, which credited the laboratory with a call the permit makes; struck in the difficulty revision, 2026-09-28)
 - "copper produces eight more" (the first note's count of copper lines in the violations table; struck in the difficulty revision, 2026-09-28)
+- "Luis's log is September only" (the prompt's sentence, the July and August logs now supplied; struck in the second difficulty revision, 2026-09-28)
+- "no day above the limit per the plant manager's review of the operator logs" (the report's July and August flow cells, now worked from the register readings; struck in the second difficulty revision, 2026-09-28)
+- "In-line meter: none reported" (the report's July and August pH cells, now read off the logs' chart bands; struck in the second difficulty revision, 2026-09-28)
+- "the operator log covers September only" (the first negative's condition; struck in the second difficulty revision, 2026-09-28)
+- "standing at exactly 4" (the strict row's count, which held whether or not the July 7 sample was dropped; the row now anchors on the 12 measurements; struck in the second difficulty revision, 2026-09-28)

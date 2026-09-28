@@ -135,3 +135,29 @@ INCOMPLETE rather than PASS. Zero of seven valid attempts passed, so the task wa
 changed: gate 0 errors under the newer checks, zips byte-identical to the folder, resubmit unchanged,
 offer already expired (same as the pretreatment round). `tools/fetch_feedback.py` now prints the
 difficulty child per model and an EXPIRED header line, so the JSON dive is no longer needed.
+
+**Same task, second return the same day (2026-09-28, after the rebuild above).** Resubmitted on the
+rebuilt package: run one INCOMPLETE (glm FAIL x4, qwen one attempt lost), resubmitted unchanged, run two
+FAIL (glm PASS, FAIL, FAIL, FAIL). One pass in eight valid glm attempts on a package with the trap
+unlabelled. Two rubric reasons, both design reads with no detector:
+- **The strict +5 row must anchor on a figure the central trap moves.** It anchored on the count above
+  the threshold ("exactly 4"), identical whether or not the invalid sample is dropped; re-anchored on the
+  measurement count ("exactly 12", a pure COUNTIFS).
+- **Weight follows judgment, not arithmetic.** 24 of 33 positive points sat on figures a tidy read of the
+  lab table gives; a solver that missed every judgment still cleared most of the weight. Cut the
+  trap-independent figure rows, fund the judgment rows (+3 for the exclusion, +2 each for the frequency
+  call and the two August findings).
+- **Supply the file the prompt says is missing.** input_sufficiency failed the July and August logs'
+  absence even though the prompt said "Luis's log is September only". Supplying them also turned the
+  manager's attestation into a written claim the records contradict (PR22): 08/13 over the flow limit by
+  register difference, 08/20 pH band high 9.2, with July look-alikes at 44,880 and 9.0.
+- Pipeline: deleting a sheet leaves formulas pointing at it; Excel rewrites them to #REF! and office_resave
+  rolls the file back as changed content, so grep every formula for the old sheet name first.
+
+**Second INCOMPLETE-by-runner-error, same day (lien-analysis-larkspur, fetched 2026-09-28).** Same note
+text, glm-5.2 FAIL x4 (solved false), qwen3.6-27b FAIL, FAIL, FAIL, INCOMPLETE (3 valid, solved null),
+verdict INCOMPLETE; the difficulty child's `metadata.error` reads "CodeBuild build ended FAILED in phase
+COMPLETED", which is the runner-side signature to look for. Zero of seven valid attempts passed; gate 0
+errors, zips byte-identical, resubmit unchanged, offer still open (expires 2026-10-03). The
+`rubric_checks` block's "Missing criteria: criteria_objectively_checkable, ..." string appears in every
+fetch JSON with `feedback_outcome: PASS` and is a platform artifact, not a finding.

@@ -1,0 +1,2340 @@
+{
+  "project": "Hazy_Task_Creation",
+  "project_id": "cda2e943-8524-45f0-a966-469903337102",
+  "assignment_id": "18d35996-934b-445f-959f-7f50883924ce",
+  "task_category": "SUBMISSION",
+  "task_config": {
+    "task_timeout_min": null,
+    "max_total_completed": null,
+    "evaluation_task_config": {
+      "ec_metadata_visible_evaluator_names": [],
+      "evaluation_result_hidden_evaluator_names": [],
+      "entire_form_level_in_app_deployment_names": [],
+      "in_app_deployment_names_by_section_id": {
+        "oa-metadata": "Hazy_Task_Creation_Metadata:IN_APP",
+        "oa-human": "Hazy_Task_Creation_Completed:IN_APP",
+        "section-Rubrics": "Hazy_Task_Creation_Rubrics:IN_APP"
+      },
+      "retrigger_required_in_app_deployment_names": [],
+      "manual_success_criteria": []
+    },
+    "task_tag_eligibility_opt_out": false,
+    "task_tag_eligibility_opt_out_allowlist": [],
+    "tool_box_config": null,
+    "automated_feedback_config": {
+      "default_open": true,
+      "accent_color": "yellow"
+    },
+    "reviewer_feedback_config": {
+      "default_open": true,
+      "accent_color": "yellow"
+    }
+  },
+  "task_id": "a5f1d783-e915-427c-abd4-f467617f09c3",
+  "submission_id": "a5f1d783-e915-427c-abd4-f467617f09c3",
+  "is_skippable": false,
+  "static_document": {
+    "task_type": "auto-dataset-8f641339-1560-482d-89f0-c2e46afc5519",
+    "static_document": {}
+  },
+  "task_documents": [
+    {
+      "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+      "submission_document": {
+        "radio-domain": "legal",
+        "radio-occupation": "paralegals_and_legal_assistants",
+        "task-prompt": "Nadia at Piedmont Ridge wants the Larkspur Crossing liens dealt with before the refinance closes on November 20, and Marguerite has to tell her by the end of the month which claims we demand released and which the bank will make us bond. I'm the paralegal on the Piedmont Ridge account at Ferraro Whitcombe in Sacramento, California, and the first analysis on every lien file the office defends starts with me. I am in trial in Redding through the 16th, so I am handing this one to you because you have worked mechanics lien claims in this office for years and can read a waiver form against a check register without the Code open beside you. The file is in the folder: practice_note_pn14_mechanics_liens.docx, claims_of_lien_larkspur_crossing.docx, owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx. The claims are our transcriptions of the recorder's copies with whatever each claimant attached, and the payments file is what Dunmore-Kettle's controller sent when Marguerite asked for it.\n\nBuild the analysis as one workbook named lien_analysis_larkspur_crossing.xlsx. The first tab is what Marguerite reads: for each recorded claim, whether the claimant has lien rights at all, whether the claim was recorded in time, what the waivers on file do to it, the amount the claimant could actually enforce against the property, what we do about it, and what a release bond would have to be for each lien we cannot clear. Behind it I want the dates worked from the notice of completion under the practice note, the preliminary notices and the waivers checked claimant by claimant against the payments, and each enforceable amount built up so that Marguerite can follow every dollar to the claim or the ledger it came from. Put a note to Marguerite on the last tab with anything the file leaves open and anything that cuts against what Nadia expects. Nadia's position with the bank is that every claim is either late, waived, or Dunmore-Kettle's to answer, and if the record says otherwise Marguerite needs to hear it from us first. I need the workbook by Tuesday, October 20.",
+        "repeatabletextarea-input_file_list": [
+          "practice_note_pn14_mechanics_liens.docx - the firm's practice note on mechanics lien claims on private works: preliminary notice, completion and the notice of completion, the time to record, the amount of the lien, waivers and releases, the 90 day enforcement period, the owner's remedies, and the counting conventions the office uses",
+          "claims_of_lien_larkspur_crossing.docx - the seven claims of mechanics lien recorded against the property, transcribed from the recorder's copies with each proof of service affidavit and the exhibits two claimants attached",
+          "owner_project_file_larkspur.xlsx - the owner's project file: the preliminary notices received, the waivers and releases received with each payment application, the owner's payments to the direct contractor with retention, and the subcontractor list with subcontract values",
+          "dk_subcontractor_payments.csv - the direct contractor's subcontractor payment ledger for the job, every check issued to a subcontractor with its payment application, amount, and bank status",
+          "completion_and_correspondence_larkspur.docx - the notice of completion as recorded, the construction manager's completion memorandum, the email exchange among the owner, the direct contractor, and the firm, and the civil index and recorder searches"
+        ],
+        "s3fileuploader-file_uploader": {
+          "s3Key": "prd/cda2e943-8524-45f0-a966-469903337102/18d35996-934b-445f-959f-7f50883924ce/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-28T06:53:49.598Z.zip",
+          "filename": "i-lien-analysis-larkspur.zip",
+          "uploadedAt": "2026-09-28T06:53:50.645Z",
+          "s3Uri": "s3://daas-blobs/prd/cda2e943-8524-45f0-a966-469903337102/18d35996-934b-445f-959f-7f50883924ce/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-28T06:53:49.598Z.zip"
+        },
+        "feedbackbutton-task_instructions_quality_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": {
+            "instruction_uniqueness": [
+              {
+                "similar_ids": {
+                  "sample_ids": [],
+                  "evaluation_ids": [],
+                  "submission_ids": []
+                },
+                "detection_method": [],
+                "min_edit_distance_ratio": 1
+              }
+            ],
+            "instruction_quality": [
+              {
+                "criteria_results": [
+                  {
+                    "name": "specific_context",
+                    "passed": true,
+                    "details": "The instruction sets a specific context by naming roles (Nadia, Marguerite, and the paralegal), the organization (Ferraro Whitcombe), and a clear trigger (the refinance closing on November 20 and Marguerite needing to report by end of month).",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "deliverable_specified",
+                    "passed": true,
+                    "details": "The deliverable is clearly specified as an 'analysis' in the format of a workbook named 'lien_analysis_larkspur_crossing.xlsx' with specific structural requirements for tabs and content.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "files_described",
+                    "passed": true,
+                    "details": "Each input file is well described, with contents and relevance to the task explained, e.g., 'practice_note_pn14_mechanics_liens.docx' includes practice notes on lien claims.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "no_answer_leakage",
+                    "passed": true,
+                    "details": "The instruction provides scenario constraints but does not disclose any concluded findings or computed results, allowing the solver to derive all necessary information.",
+                    "suggestions": []
+                  },
+                  {
+                    "name": "realistic_not_synthetic",
+                    "passed": true,
+                    "details": "The instruction reads as a realistic professional task with specific names, roles, deadlines, and legal context, making it plausible work.",
+                    "suggestions": []
+                  }
+                ]
+              }
+            ],
+            "instruction_authorship": [
+              {
+                "raw": "[{\"prob_generated\": 0.009544899687170982}]",
+                "endpoint": "ai-detector-cpu-1770779941",
+                "threshold": 0.69,
+                "ai_probability": 0.009544899687170982,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "concatenated_fields": null
+              }
+            ]
+          },
+          "notes": {
+            "prompt_min_length": [
+              {
+                "name": "Task Instruction Length",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Task instruction has enough substance to review.",
+                "suggestions": null,
+                "evaluation_node_result_id": "df66f77c-c8af-43c2-aa53-3897dcf3efe9",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "prompt_names_listed_files": [
+              {
+                "name": "Prompt Names Every Input File",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Every listed input file is named in the instruction.",
+                "suggestions": null,
+                "evaluation_node_result_id": "cefdf29d-2e03-4ee9-9efa-fb4cd9e66d7f",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "input_list_populated": [
+              {
+                "name": "Input File List Present",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Input File List is populated.",
+                "suggestions": null,
+                "evaluation_node_result_id": "845b2de6-702d-4d62-8696-9ad2d82177e5",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "source_breadth_advisory": [
+              {
+                "name": "Source Breadth",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Task draws on multiple sources.",
+                "suggestions": null,
+                "evaluation_node_result_id": "54587f39-f313-43bc-b243-74fc4fc701dd",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_uniqueness": [
+              {
+                "name": "Uniqueness",
+                "passed": true,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "details": "No duplication found.",
+                "suggestions": null,
+                "evaluation_node_result_id": "06becd42-8400-474c-98e0-2c41a7412485",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_quality": [
+              {
+                "name": "Specific context",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The instruction sets a specific context by naming roles (Nadia, Marguerite, and the paralegal), the organization (Ferraro Whitcombe), and a clear trigger (the refinance closing on November 20 and Marguerite needing to report by end of month).",
+                "suggestions": [],
+                "evaluation_node_result_id": "a7aa625e-88a3-4e98-a1c7-406a270f5e2c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Deliverable specified",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The deliverable is clearly specified as an 'analysis' in the format of a workbook named 'lien_analysis_larkspur_crossing.xlsx' with specific structural requirements for tabs and content.",
+                "suggestions": [],
+                "evaluation_node_result_id": "a7aa625e-88a3-4e98-a1c7-406a270f5e2c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Files described",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "Each input file is well described, with contents and relevance to the task explained, e.g., 'practice_note_pn14_mechanics_liens.docx' includes practice notes on lien claims.",
+                "suggestions": [],
+                "evaluation_node_result_id": "a7aa625e-88a3-4e98-a1c7-406a270f5e2c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "No answer leakage",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The instruction provides scenario constraints but does not disclose any concluded findings or computed results, allowing the solver to derive all necessary information.",
+                "suggestions": [],
+                "evaluation_node_result_id": "a7aa625e-88a3-4e98-a1c7-406a270f5e2c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              },
+              {
+                "name": "Realistic not synthetic",
+                "passed": true,
+                "associated_fields": [
+                  "data['repeatabletextarea-input_file_list']",
+                  "data['task-prompt']"
+                ],
+                "details": "The instruction reads as a realistic professional task with specific names, roles, deadlines, and legal context, making it plausible work.",
+                "suggestions": [],
+                "evaluation_node_result_id": "a7aa625e-88a3-4e98-a1c7-406a270f5e2c",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "instruction_authorship": [
+              {
+                "name": "LLM Detection",
+                "passed": true,
+                "associated_fields": [
+                  "data.task-prompt"
+                ],
+                "details": "No LLM-generated content detected.",
+                "suggestions": null,
+                "evaluation_node_result_id": "a36d5c0c-6ad5-491b-ad10-a1fdbde13ef9",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Metadata:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Metadata:IN_APP:a5f1d783-e915-427c-abd4-f467617f09c3"
+        },
+        "repeatabletextarea-output_file_list": [
+          "lien_analysis_larkspur_crossing.xlsx - the lien analysis workbook with the page for the partner, the governing dates, the preliminary notice and deadline tests, the waivers read against the payment ledger, each claim built up to its enforceable amount, the standing and bond for each claim, and the note to the partner"
+        ],
+        "s3fileuploader-completed_task_upload": {
+          "s3Key": "prd/cda2e943-8524-45f0-a966-469903337102/18d35996-934b-445f-959f-7f50883924ce/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-28T06:54:47.166Z.zip",
+          "filename": "s-lien-analysis-larkspur.zip",
+          "uploadedAt": "2026-09-28T06:54:48.140Z",
+          "s3Uri": "s3://daas-blobs/prd/cda2e943-8524-45f0-a966-469903337102/18d35996-934b-445f-959f-7f50883924ce/477f0f81-b5f2-418f-9b0c-2b56283b6e44_submission_2026-09-28T06:54:47.166Z.zip"
+        },
+        "textarea-time_to_read_prompt": "15",
+        "textarea-time_to_open_skimsearch_and_use_the_reference_files_human": "75",
+        "textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human": "240",
+        "textarea-time_for_verificationqa_and_final_review_human": "60",
+        "textarea-total_time_in_hours": "6.5",
+        "repeatabletextarea-please_insert_any_tool_used_for_this_task_human": [
+          "Microsoft Excel",
+          "Microsoft Word"
+        ],
+        "feedbackbutton-completed_task_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": null,
+          "notes": {
+            "output_list_populated": [
+              {
+                "name": "Output File List Present",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Output File List is populated.",
+                "suggestions": null,
+                "evaluation_node_result_id": "9a0a4e5e-ad70-440f-96e7-2d02d0f56d0a",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "time_fields_numeric": [
+              {
+                "name": "Time Fields Numeric",
+                "passed": true,
+                "associated_fields": null,
+                "details": "All time fields are numeric.",
+                "suggestions": null,
+                "evaluation_node_result_id": "afdbd2bb-8215-4f02-a773-443aa2672b80",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "total_time_reconciles": [
+              {
+                "name": "Total Time Reconciles",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Total time reconciles with its components.",
+                "suggestions": null,
+                "evaluation_node_result_id": "5a4fda09-4f76-4e62-a230-c3446edbcb01",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "tools_logged": [
+              {
+                "name": "Tools Logged",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Tools are logged.",
+                "suggestions": null,
+                "evaluation_node_result_id": "7313e8c7-5c6a-425a-8ea4-4f05ff5737b6",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Completed:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Completed:IN_APP:a5f1d783-e915-427c-abd4-f467617f09c3"
+        },
+        "repeatable-bfbf1": [
+          {
+            "textarea-rubric_description": "The deliverable is a single workbook named exactly lien_analysis_larkspur_crossing.xlsx whose first worksheet states the standing of each of the 7 recorded claims.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "6953499e-5464-45f1-ace1-6c6420310427"
+          },
+          {
+            "textarea-rubric_description": "The first worksheet's release bonds required total reaches its value through a plain cell reference to the claim-by-claim standing behind it, or a sum over the same per-claim bonds alike, standing at $399,425.55.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 5,
+            "$entryId": "7cbbe02c-bd23-4f35-971e-b93b93ad7361"
+          },
+          {
+            "textarea-rubric_description": "The last day for a claimant other than the direct contractor to record is stated as 09/21/2026 because the thirtieth day after the notice of completion fell on a Saturday.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "b211d81a-39d1-465b-aaa6-b324ba9d00f3"
+          },
+          {
+            "textarea-rubric_description": "Ostrowski Electric's claim recorded 09/21/2026 is found timely.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "517649d9-d4c5-4aae-9e40-d53b308aa163"
+          },
+          {
+            "textarea-rubric_description": "Calder Drywall's claim recorded 09/22/2026 is found untimely.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "f6fd8c45-9a95-4dcf-a00f-ed507c48d085"
+          },
+          {
+            "textarea-rubric_description": "Norcal Rebar is found to have no lien rights because its preliminary notice was given to the direct contractor and never to the owner.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "9e4b9702-2308-42cb-9723-3e3c2265f8e8"
+          },
+          {
+            "textarea-rubric_description": "Tallac Concrete's lien is found expired because no action was commenced within 90 days after its recording.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "391562f9-5c40-4d73-a31d-2e29417f6059"
+          },
+          {
+            "textarea-rubric_description": "Hedrick & Sons' enforceable amount is stated as $33,982.19 on the first worksheet.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "81de048f-0554-41f9-a9c5-0cd7a0a1d200"
+          },
+          {
+            "textarea-rubric_description": "Kastner Mechanical's enforceable amount is stated as $159,145 on the first worksheet.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "1022cc19-c432-4ef9-962e-79ec3273bd19"
+          },
+          {
+            "textarea-rubric_description": "Bautista Painting's enforceable amount is stated as $8,125 on the first worksheet.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "507755ad-56c9-4ce2-8917-f7c38425636c"
+          },
+          {
+            "textarea-rubric_description": "The first worksheet carries all 7 recorded claims, 3 of them routed to a demand for release.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "637446c3-42a0-46af-9168-c5eb02fedf3a"
+          },
+          {
+            "textarea-rubric_description": "The amount the claimants could enforce against the property is stated as $262,729.19 on the first worksheet.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "e163a8e0-8ea3-4972-9724-226fe070e0ea"
+          },
+          {
+            "textarea-rubric_description": "The recorded amount of the claims to demand released is stated as $99,830.00.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "4a6e695b-4b98-47f8-b325-790e1bdd9d71"
+          },
+          {
+            "textarea-rubric_description": "The three claims that cannot be enforced are routed to a demand for release under section 8482 as the first step.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "9ef41e28-0926-4b2e-9750-b0c4b9f4eec2"
+          },
+          {
+            "textarea-rubric_description": "The note to Marguerite is the last worksheet.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "4abf3221-fa63-45a6-93b7-207cf4252ce1"
+          },
+          {
+            "textarea-rubric_description": "The note tells Marguerite that the direct contractor can still record a claim until 10/19/2026.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "3b8adb00-a084-467e-9425-5fbde73e54ed"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly treats the HVAC subcontractor's conditional waiver through 07/31/2026 as releasing the July payment although check 4460 was stopped.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3,
+            "$entryId": "a4c92244-4e45-48cc-b4b7-184aea9b9161"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly treats the painting subcontractor's unconditional waiver through 07/31/2026 as ineffective for want of payment although section 8134 makes it effective when signed.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2,
+            "$entryId": "1a3622b0-81ea-4626-8dc0-2fc7ec6f47db"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly measures a release bond by the enforceable amount although section 8424(b) sets it at 125 percent of the claim as recorded.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2,
+            "$entryId": "b169cdd7-d27a-4f3e-995b-1e2b5548b070"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly includes the lumber supplier's April deliveries in its enforceable amount although its late preliminary notice reaches back only twenty days before it was given.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -1,
+            "$entryId": "b2d72405-66b9-4e1d-b303-aaba36c2dd93"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly starts the 30 days at the completion date rather than at the recording of the notice of completion.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -1,
+            "$entryId": "d6ec9a8f-5d22-40d9-847a-a11a253245ad"
+          },
+          {
+            "textarea-rubric_description": "The workbook wrongly treats the site concrete subcontractor's lien release letter as releasing the May balance although it is not in the statutory form.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -1,
+            "$entryId": "088838ec-7ef5-4bbb-9b4c-d73aa4c12e28"
+          },
+          {
+            "textarea-rubric_description": "Overall formatting and style of the deliverable as a lien analysis the partner can act on with the bank's counsel.",
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3,
+            "$entryId": "57d6f3c6-b557-4f49-bc05-793994d9d845"
+          }
+        ],
+        "feedbackbutton-rubric_checks": {
+          "feedback_outcome": "PASS",
+          "status": "success",
+          "metadata": {
+            "rubric_quality": [
+              {
+                "error": "Missing criteria: criteria_objectively_checkable, criteria_values_grounded, rubric_blind_solvable, rubric_covers_deliverable. Expected a 1:1 match of: criteria_atomic, criteria_objectively_checkable, criteria_values_grounded, rubric_blind_solvable, rubric_covers_deliverable.",
+                "criteria_results": [
+                  {
+                    "name": "criteria_atomic",
+                    "passed": true,
+                    "details": "Each rubric criterion tests a single fact or figure, such as 'The workbook wrongly includes the lumber supplier's April deliveries' or 'Ostrowski Electric's claim recorded 09/21/2026 is found timely.' There are no instances of criteria bundling multiple checks together.",
+                    "suggestions": []
+                  }
+                ],
+                "configured_criterion_names": [
+                  "criteria_atomic",
+                  "criteria_objectively_checkable",
+                  "criteria_values_grounded",
+                  "rubric_blind_solvable",
+                  "rubric_covers_deliverable"
+                ]
+              }
+            ]
+          },
+          "notes": {
+            "rubric_rows_well_formed": [
+              {
+                "name": "Rubric Rows Well Formed",
+                "passed": true,
+                "associated_fields": null,
+                "details": "All rubric rows are complete and weighted in range.",
+                "suggestions": null,
+                "evaluation_node_result_id": "7aba2107-0d70-4808-b7b7-62b28b45d970",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "rubric_has_positive_weight": [
+              {
+                "name": "Rubric Has Positive Criteria",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Rubric contains positive-weight criteria.",
+                "suggestions": null,
+                "evaluation_node_result_id": "6bc48931-527c-4496-86e6-cf24f8a52c30",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ],
+            "rubric_rows_unique": [
+              {
+                "name": "Rubric Rows Are Distinct",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Every rubric criterion is distinct.",
+                "suggestions": null,
+                "evaluation_node_result_id": "12bd77f5-292c-4f50-835b-88a05697efef",
+                "metadata": null,
+                "note_type": "DEFAULT",
+                "full_logs": null,
+                "outcome": null
+              }
+            ]
+          },
+          "message": null,
+          "_feedbackId": "Hazy_Task_Creation_Rubrics:IN_APP",
+          "_feedbackKey": "Hazy_Task_Creation_Rubrics:IN_APP:a5f1d783-e915-427c-abd4-f467617f09c3"
+        },
+        "multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_": [
+          "instruction_specific_context",
+          "instruction_named_all_files",
+          "instruction_deliverable_spec",
+          "instruction_scenario_constraints",
+          "instruction_no_answer_leakage",
+          "instruction_self_contained",
+          "files_names_match",
+          "files_authorized_to_share",
+          "rubric_minimum_criteria",
+          "rubric_atomic_criteria",
+          "rubric_weights_reflect_centrality",
+          "rubric_ends_with_formatting_line",
+          "rubric_facts_derivable_from_files",
+          "final_rubric_blind_expert_would_pass"
+        ],
+        "task_type_discriminator": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c"
+      }
+    }
+  ],
+  "review_documents": null,
+  "revision_notes": null,
+  "reviewer_revision_requested_at": null,
+  "eval_revision_notes": "Agent Runner Error: An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+  "eval_revision_requested_at": "2026-09-28T07:58:37.419376Z",
+  "further_revision_requests_allowed": true,
+  "rebuttal_notes": null,
+  "accept_notes": null,
+  "ec_override_feedback": null,
+  "project_tasks": {
+    "auto-dataset-8f641339-1560-482d-89f0-c2e46afc5519": {
+      "task_category": "STATIC_ASSET",
+      "task_config": {
+        "task_timeout_min": null,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+      "task_category": "ADJUDICATION",
+      "task_config": {
+        "task_timeout_min": 120,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+      "task_category": "REVIEW",
+      "task_config": {
+        "task_timeout_min": 180,
+        "max_total_completed": 1,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {},
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    },
+    "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+      "task_category": "SUBMISSION",
+      "task_config": {
+        "task_timeout_min": null,
+        "max_total_completed": null,
+        "evaluation_task_config": {
+          "ec_metadata_visible_evaluator_names": [],
+          "evaluation_result_hidden_evaluator_names": [],
+          "entire_form_level_in_app_deployment_names": [],
+          "in_app_deployment_names_by_section_id": {
+            "oa-metadata": "Hazy_Task_Creation_Metadata:IN_APP",
+            "oa-human": "Hazy_Task_Creation_Completed:IN_APP",
+            "section-Rubrics": "Hazy_Task_Creation_Rubrics:IN_APP"
+          },
+          "retrigger_required_in_app_deployment_names": [],
+          "manual_success_criteria": []
+        },
+        "task_tag_eligibility_opt_out": false,
+        "task_tag_eligibility_opt_out_allowlist": [],
+        "tool_box_config": null,
+        "automated_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        },
+        "reviewer_feedback_config": {
+          "default_open": true,
+          "accent_color": "yellow"
+        }
+      }
+    }
+  },
+  "evaluations": [
+    {
+      "evaluation_id": "6d228a37-68a0-4276-8b26-fad15d14bffc",
+      "created_at": "2026-09-28T06:58:35.321129Z",
+      "updated_at": "2026-09-28T07:58:37.336927Z",
+      "submission_id": "a5f1d783-e915-427c-abd4-f467617f09c3",
+      "submission_version_id": "4719ae50-5ea8-40c4-8a09-4197b13464cf",
+      "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+      "task_id": "a5f1d783-e915-427c-abd4-f467617f09c3",
+      "evaluation_type": "SUBMISSION",
+      "status": "COMPLETED",
+      "outcome": "NEEDS_REVISION",
+      "overall_evaluation_result": {
+        "passed": null,
+        "failed": false,
+        "score": null,
+        "metadata": null,
+        "notes": [
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. 5 files: 5 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A paralegal at Ferraro Whitcombe LLP in Sacramento delegates a mechanics lien analysis for the Larkspur Crossing project to a colleague. The role, organization, purpose, inputs, deliverable, and constraints are all clearly articulated. All five input files named in the instructions are present in the runtime inventory. The deliverable is specified as a single workbook with named tabs and detailed content requirements. Key constraints including deadlines, the refinance closing date, bond requirements, and the analytical framework from the practice note are all stated. One minor finding: the Norcal Rebar preliminary notice to the owner is ambiguous in the file\u2014the proof of service attached to the claim shows service only on the direct contractor, and the owner's prelim log does not list Norcal Rebar. However, this is a factual gap the analyst is expected to identify and flag, not an instruction deficiency. No material defects were found.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. input_sufficiency: PASS. The supplied inputs are sufficient for the requested work. The five files named in the instructions are all present and machine-readable. They collectively provide: (1) the legal framework (practice note PN-14), (2) all seven recorded claims with dates, amounts, and attachments, (3) the notice of completion and completion memorandum with key dates, (4) the owner's preliminary notice log, waiver log, payment register, and subcontractor list, (5) the general contractor's subcontractor payment ledger, and (6) civil index and recorder search results. Every material analytical step\u2014lien rights, timeliness, waiver analysis, enforceable amount computation, recommended actions, and bond amounts\u2014can be performed from these inputs combined with ordinary professional knowledge (calendar calculations, California Civil Code mechanics lien rules as summarized in the practice note). Where the file intentionally leaves a point open (e.g., Norcal Rebar's preliminary notice to the owner, Tallac-to-Norcal payment history), the practice note explicitly instructs the analyst to flag the gap, which is itself a required output, not a missing input.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Error",
+            "passed": false,
+            "associated_fields": null,
+            "details": "An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "NEEDS_REVISION"
+          }
+        ],
+        "children_results": [
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "n_files": 5,
+                "summary": "5 files: 5 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "file_rows": [
+                  {
+                    "file": "claims_of_lien_larkspur_crossing.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "completion_and_correspondence_larkspur.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "dk_subcontractor_payments.csv",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "owner_project_file_larkspur.xlsx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "practice_note_pn14_mechanics_liens.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  }
+                ],
+                "n_neither": 0,
+                "n_unknown": 0,
+                "n_native_ok": 5,
+                "neither_files": [],
+                "unknown_files": [],
+                "n_ocr_recovers": 0,
+                "tesseract_ocrable": true
+              },
+              "s3_artifacts": {},
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Af3e790d7-8104-4364-be36-b18cd6cb6deb",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/input_files_ocrable/06b375913697/output.json",
+              "runtime_error": false,
+              "display_message": "5 files: 5 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. 5 files: 5 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "input_files_ocrable",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "prompt_completeness",
+                    "notes": [],
+                    "summary": "The task instructions are comprehensive and well-specified. A paralegal at Ferraro Whitcombe LLP in Sacramento delegates a mechanics lien analysis for the Larkspur Crossing project to a colleague. The role, organization, purpose, inputs, deliverable, and constraints are all clearly articulated. All five input files named in the instructions are present in the runtime inventory. The deliverable is specified as a single workbook with named tabs and detailed content requirements. Key constraints including deadlines, the refinance closing date, bond requirements, and the analytical framework from the practice note are all stated. One minor finding: the Norcal Rebar preliminary notice to the owner is ambiguous in the file\u2014the proof of service attached to the claim shows service only on the direct contractor, and the owner's prelim log does not list Norcal Rebar. However, this is a factual gap the analyst is expected to identify and flag, not an instruction deficiency. No material defects were found.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "role",
+                        "reason": "The instructions clearly identify the role: 'I'm the paralegal on the Piedmont Ridge account at Ferraro Whitcombe in Sacramento, California, and the first analysis on every lien file the office defends starts with me.' The delegation is to a colleague who 'worked mechanics lien claims in this office for years and can read a waiver form against a check register without the Code open beside you.' The professional perspective (paralegal performing first-pass lien analysis at a law firm) is unambiguous.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "organization",
+                        "reason": "The organization is Ferraro Whitcombe LLP, a law firm in Sacramento, California. The client is Piedmont Ridge Properties, LLC (the owner). The supervising attorney is Marguerite Okonjo, partner. The operating context\u2014a real estate law practice defending an owner against mechanics lien claims on a commercial construction project\u2014is thoroughly established.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "purpose",
+                        "reason": "The trigger and business question are explicit: Piedmont Ridge is refinancing Larkspur Crossing with Sutter Valley Bank, closing November 20, 2026. The bank requires all recorded lien claims to be released of record or bonded by November 6. Marguerite needs to tell Nadia by end of month which claims to demand released and which must be bonded. The analysis must determine for each of seven recorded claims: lien rights, timeliness, waiver effects, enforceable amount, recommended action, and bond amount where needed.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/completion_and_correspondence_larkspur.docx"
+                        ]
+                      },
+                      {
+                        "id": "inputs",
+                        "reason": "The instructions name five input files: practice_note_pn14_mechanics_liens.docx, claims_of_lien_larkspur_crossing.docx, owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx. All five are present in the runtime inventory and their rendered contents are accessible. The instructions describe each file's purpose: the practice note provides the analytical framework; the claims file contains transcriptions of the seven recorded lien claims; the owner project file contains the preliminary notice log, waiver log, owner payments, and subcontractor list; the CSV is the direct contractor's subcontractor payment ledger; and the completion/correspondence file has the notice of completion, completion memo, and relevant correspondence. Each file's actual contents match its described purpose.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inventory.json",
+                          "inputs/practice_note_pn14_mechanics_liens.docx",
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inputs/dk_subcontractor_payments.csv",
+                          "inputs/completion_and_correspondence_larkspur.docx"
+                        ]
+                      },
+                      {
+                        "id": "deliverable",
+                        "reason": "The deliverable is clearly specified: one workbook named lien_analysis_larkspur_crossing.xlsx. The first tab is the summary for Marguerite, covering for each recorded claim: lien rights, timeliness, waiver effects, enforceable amount, recommended action, and release bond amount where applicable. Behind it, supporting tabs with dates worked from the notice of completion under the practice note, preliminary notices and waivers checked claimant-by-claimant against payments, and enforceable amounts built up with traceable figures. The last tab is a note to Marguerite identifying open issues and anything contrary to Nadia's position. The output format (Excel workbook), filename, tab structure, and content for each tab are all sufficiently specified for a competent colleague to produce an acceptable deliverable.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "constraints",
+                        "reason": "Material constraints are stated: (1) Delivery deadline: Tuesday, October 20. (2) Refinance closing: November 20, 2026. (3) Bank's lien clearance deadline: November 6. (4) The practice note (PN-14) provides the analytical framework, counting conventions, and legal standards to apply\u2014including specific Civil Code sections, date-counting rules, waiver validation procedures, and bond calculation (125% of recorded amount). (5) Nadia's position (every claim is late, waived, or DK's to answer) must be tested and contradicted where the record says otherwise. (6) The analysis must follow the office's established methodology per the practice note. No missing material constraints were identified; the scenario is self-contained with all necessary dates, legal standards, and analytical requirements.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/practice_note_pn14_mechanics_liens.docx",
+                          "inputs/completion_and_correspondence_larkspur.docx"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/claims_of_lien_larkspur_crossing.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/completion_and_correspondence_larkspur.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/dk_subcontractor_payments.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/owner_project_file_larkspur.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/practice_note_pn14_mechanics_liens.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [
+                      {
+                        "name": "practice_note_pn14_mechanics_liens.docx",
+                        "status": "present",
+                        "matches": [
+                          "practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "name": "claims_of_lien_larkspur_crossing.docx",
+                        "status": "present",
+                        "matches": [
+                          "claims_of_lien_larkspur_crossing.docx"
+                        ]
+                      },
+                      {
+                        "name": "owner_project_file_larkspur.xlsx",
+                        "status": "present",
+                        "matches": [
+                          "owner_project_file_larkspur.xlsx"
+                        ]
+                      },
+                      {
+                        "name": "dk_subcontractor_payments.csv",
+                        "status": "present",
+                        "matches": [
+                          "dk_subcontractor_payments.csv"
+                        ]
+                      },
+                      {
+                        "name": "completion_and_correspondence_larkspur.docx",
+                        "status": "present",
+                        "matches": [
+                          "completion_and_correspondence_larkspur.docx"
+                        ]
+                      }
+                    ],
+                    "limitations": [],
+                    "file_references": [
+                      {
+                        "name": "practice_note_pn14_mechanics_liens.docx",
+                        "instruction_quote": "The file is in the folder: practice_note_pn14_mechanics_liens.docx"
+                      },
+                      {
+                        "name": "claims_of_lien_larkspur_crossing.docx",
+                        "instruction_quote": "The file is in the folder: practice_note_pn14_mechanics_liens.docx, claims_of_lien_larkspur_crossing.docx"
+                      },
+                      {
+                        "name": "owner_project_file_larkspur.xlsx",
+                        "instruction_quote": "claims_of_lien_larkspur_crossing.docx, owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv"
+                      },
+                      {
+                        "name": "dk_subcontractor_payments.csv",
+                        "instruction_quote": "owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx"
+                      },
+                      {
+                        "name": "completion_and_correspondence_larkspur.docx",
+                        "instruction_quote": "dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx"
+                      }
+                    ],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "attempt": 1,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfVQYTA8WjbyotipyvUfQ",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/prompt_completeness_audit/e1e71b9fc96d/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3A5358bc3c-5ebe-415b-a532-1afe7893ea60",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/prompt_completeness_audit/e1e71b9fc96d/output.json",
+              "runtime_error": false,
+              "display_message": "prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A paralegal at Ferraro Whitcombe LLP in Sacramento delegates a mechanics lien analysis for the Larkspur Crossing project to a colleague. The role, organization, purpose, inputs, deliverable, and constraints are all clearly articulated. All five input files named in the instructions are present in the runtime inventory. The deliverable is specified as a single workbook with named tabs and detailed content requirements. Key constraints including deadlines, the refinance closing date, bond requirements, and the analytical framework from the practice note are all stated. One minor finding: the Norcal Rebar preliminary notice to the owner is ambiguous in the file\u2014the proof of service attached to the claim shows service only on the direct contractor, and the owner's prelim log does not list Norcal Rebar. However, this is a factual gap the analyst is expected to identify and flag, not an instruction deficiency. No material defects were found."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A paralegal at Ferraro Whitcombe LLP in Sacramento delegates a mechanics lien analysis for the Larkspur Crossing project to a colleague. The role, organization, purpose, inputs, deliverable, and constraints are all clearly articulated. All five input files named in the instructions are present in the runtime inventory. The deliverable is specified as a single workbook with named tabs and detailed content requirements. Key constraints including deadlines, the refinance closing date, bond requirements, and the analytical framework from the practice note are all stated. One minor finding: the Norcal Rebar preliminary notice to the owner is ambiguous in the file\u2014the proof of service attached to the claim shows service only on the direct contractor, and the owner's prelim log does not list Norcal Rebar. However, this is a factual gap the analyst is expected to identify and flag, not an instruction deficiency. No material defects were found.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "prompt_completeness_audit",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "input_sufficiency",
+                    "notes": [],
+                    "summary": "The supplied inputs are sufficient for the requested work. The five files named in the instructions are all present and machine-readable. They collectively provide: (1) the legal framework (practice note PN-14), (2) all seven recorded claims with dates, amounts, and attachments, (3) the notice of completion and completion memorandum with key dates, (4) the owner's preliminary notice log, waiver log, payment register, and subcontractor list, (5) the general contractor's subcontractor payment ledger, and (6) civil index and recorder search results. Every material analytical step\u2014lien rights, timeliness, waiver analysis, enforceable amount computation, recommended actions, and bond amounts\u2014can be performed from these inputs combined with ordinary professional knowledge (calendar calculations, California Civil Code mechanics lien rules as summarized in the practice note). Where the file intentionally leaves a point open (e.g., Norcal Rebar's preliminary notice to the owner, Tallac-to-Norcal payment history), the practice note explicitly instructs the analyst to flag the gap, which is itself a required output, not a missing input.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "lien_rights_determination",
+                        "reason": "For each of the 7 claimants, preliminary notice data is available from the owner's Prelim Log (13 entries covering all direct-contractor subs) and the claims themselves (which attach proof of service where applicable). The practice note specifies how to evaluate lien rights (\u00a71). Norcal Rebar's notice to the owner is deliberately ambiguous\u2014Exhibit A shows service only on the contractor, the Prelim Log has no Norcal entry, and Reid's correspondence confirms uncertainty\u2014but the practice note \u00a75 instructs the analyst to flag such gaps. All data needed to assess lien rights is present or the gap is an intended analytical finding.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "timeliness_of_recording",
+                        "reason": "The notice of completion was recorded August 20, 2026 (completion date August 11, 2026, within the 15-day window). All seven claims have recording dates in the claims file. The practice note \u00a72 provides counting rules (CCP \u00a712/12a). For subcontractors, the deadline is 30 days after NOC recording; for the direct contractor, 60 days. Calendar computation (weekends/holidays) is ordinary professional knowledge. All necessary dates are supplied.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "waiver_analysis",
+                        "reason": "The Waiver Log in owner_project_file_larkspur.xlsx lists every waiver received, with form title, through-date, amount, exceptions, check reference, and dates. The DK subcontractor payment CSV provides check status (cleared/stopped) to validate conditional waivers. The practice note \u00a73 specifies how to read each waiver form type. Key scenarios are all tractable: Kastner's conditional waiver on stopped check 4460, Bautista's unconditional waiver through 07/31 despite no payment, Tallac's non-statutory lien release letter, Ostrowski's conditional waiver on cleared check 4461, Calder's unconditional waivers through 06/30. No waiver for Norcal Rebar or Hedrick appears, which is consistent with them being sub-tier suppliers not paid by DK.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inputs/dk_subcontractor_payments.csv",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "enforceable_amount_computation",
+                        "reason": "For direct-contractor subcontractors (Tallac, Kastner, Bautista, Ostrowski, Calder), the subcontract values are in the Subcontractors sheet, payments are in the CSV, waivers define what's released, and claim amounts are in the claims file. For sub-tier suppliers (Norcal Rebar, Hedrick), the claims include their own account statements or claim amounts. Hedrick's Exhibit A provides invoice-level detail with payments noted. For Norcal, the Tallac-to-Norcal payment history is not in the file, but the practice note \u00a75 instructs the analyst to flag missing documents rather than guess\u2014this is an expected analytical output, not a missing input. The practice note \u00a73.1 and \u00a71.2 (late preliminary notice window) provide the rules for computing enforceable amounts.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inputs/dk_subcontractor_payments.csv",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "recommended_actions_and_bond_amounts",
+                        "reason": "Practice note \u00a74 specifies the owner's remedies: demand release for untimely/unenforceable liens, or bond at 125% of recorded amount for enforceable ones. The civil index search (no pending actions) and recorder search (no releases, no notice of credit) are provided in completion_and_correspondence_larkspur.docx \u00a7D. The bank's November 6 recording deadline and November 20 closing date are stated in Nadia's correspondence. All recorded claim amounts are stated in the claims file, so bond computations (125% \u00d7 recorded amount) can be performed.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "note_to_marguerite_on_open_issues",
+                        "reason": "The instructions require flagging anything the file leaves open and anything that cuts against Nadia's position. The supplied evidence contains several such items: (a) Norcal's preliminary notice to the owner is unconfirmed, (b) Tallac's lien release letter is non-statutory and may not release the lien, (c) Kastner's check was stopped so the conditional waiver is ineffective, (d) Bautista signed an unconditional waiver but was never paid, (e) Hedrick's preliminary notice was late so the enforceable amount is reduced, (f) the Kastner airflow deficiency and $22,000 correction cost, (g) DK's threat to record its own claim. All of these are identifiable from the supplied files. The practice note \u00a75 instructs the analyst to name documents that would resolve open points.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inputs/dk_subcontractor_payments.csv",
+                          "inputs/practice_note_pn14_mechanics_liens.docx"
+                        ]
+                      },
+                      {
+                        "id": "workbook_structure",
+                        "reason": "The instructions specify a workbook named lien_analysis_larkspur_crossing.xlsx with a summary tab, supporting date/notice/waiver tabs, and a note-to-Marguerite tab. This is a formatting/output-structure requirement that depends on no additional input data. All content for each tab is derivable from the supplied files.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "file_claims_of_lien_larkspur_crossing",
+                        "reason": "Present in inventory and fully rendered. Contains all 7 claims with recording dates, amounts, claimant details, preliminary notice recitals, proof of service affidavits, and exhibits (Norcal's Exhibit A proof of service, Hedrick's Exhibit A statement of account).",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/claims_of_lien_larkspur_crossing.docx",
+                          "inventory.json"
+                        ]
+                      },
+                      {
+                        "id": "file_completion_and_correspondence",
+                        "reason": "Present in inventory and fully rendered. Contains the notice of completion (recorded Aug 20, 2026, completion date Aug 11, 2026), Devlin Marsh's completion memorandum, Reid Castellano's correspondence on each claim, Nadia's letter to Marguerite with the refinance timeline, Marguerite's response, Lorna's cover note for the payment ledger, and the civil/recorder index searches.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/completion_and_correspondence_larkspur.docx",
+                          "inventory.json"
+                        ]
+                      },
+                      {
+                        "id": "file_dk_subcontractor_payments",
+                        "reason": "Present in inventory and fully rendered. Contains 39 payment records with check number, date, payee, trade, pay app number, amount, status (Cleared/Stopped), and status date. Covers all DK subcontractor payments through the project. Only check 4460 (Kastner, $73,910) is stopped; all others cleared.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/dk_subcontractor_payments.csv",
+                          "inventory.json"
+                        ]
+                      },
+                      {
+                        "id": "file_owner_project_file",
+                        "reason": "Present in inventory and fully rendered. Four sheets: Prelim Log (13 preliminary notices), Waiver Log (40 waiver entries across columns A-I and J-R), Owner Payments (8 pay apps plus retention), and Subcontractors (12 subcontractors with contract values and retention rates).",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/owner_project_file_larkspur.xlsx",
+                          "inventory.json"
+                        ]
+                      },
+                      {
+                        "id": "file_practice_note",
+                        "reason": "Present in inventory and fully rendered. Contains 5 sections covering preliminary notice rules, completion and recording deadlines, waiver analysis, owner's remedies including bond amounts, and the first-analysis methodology. Provides all legal rules and counting conventions needed.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/practice_note_pn14_mechanics_liens.docx",
+                          "inventory.json"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/claims_of_lien_larkspur_crossing.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/completion_and_correspondence_larkspur.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/dk_subcontractor_payments.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/owner_project_file_larkspur.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/practice_note_pn14_mechanics_liens.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [],
+                    "limitations": [],
+                    "file_references": [],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "attempt": 1,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfVQYT2CBjxZnSVFWBebv",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/self_containment/9e650f8843e3/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3A57c11e92-c750-4684-b559-2bdd6c132b02",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/self_containment/9e650f8843e3/output.json",
+              "runtime_error": false,
+              "display_message": "input_sufficiency: PASS. The supplied inputs are sufficient for the requested work. The five files named in the instructions are all present and machine-readable. They collectively provide: (1) the legal framework (practice note PN-14), (2) all seven recorded claims with dates, amounts, and attachments, (3) the notice of completion and completion memorandum with key dates, (4) the owner's preliminary notice log, waiver log, payment register, and subcontractor list, (5) the general contractor's subcontractor payment ledger, and (6) civil index and recorder search results. Every material analytical step\u2014lien rights, timeliness, waiver analysis, enforceable amount computation, recommended actions, and bond amounts\u2014can be performed from these inputs combined with ordinary professional knowledge (calendar calculations, California Civil Code mechanics lien rules as summarized in the practice note). Where the file intentionally leaves a point open (e.g., Norcal Rebar's preliminary notice to the owner, Tallac-to-Norcal payment history), the practice note explicitly instructs the analyst to flag the gap, which is itself a required output, not a missing input."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. input_sufficiency: PASS. The supplied inputs are sufficient for the requested work. The five files named in the instructions are all present and machine-readable. They collectively provide: (1) the legal framework (practice note PN-14), (2) all seven recorded claims with dates, amounts, and attachments, (3) the notice of completion and completion memorandum with key dates, (4) the owner's preliminary notice log, waiver log, payment register, and subcontractor list, (5) the general contractor's subcontractor payment ledger, and (6) civil index and recorder search results. Every material analytical step\u2014lien rights, timeliness, waiver analysis, enforceable amount computation, recommended actions, and bond amounts\u2014can be performed from these inputs combined with ordinary professional knowledge (calendar calculations, California Civil Code mechanics lien rules as summarized in the practice note). Where the file intentionally leaves a point open (e.g., Norcal Rebar's preliminary notice to the owner, Tallac-to-Norcal payment history), the practice note explicitly instructs the analyst to flag the gap, which is itself a required output, not a missing input.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "self_containment",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": null,
+            "failed": true,
+            "score": null,
+            "metadata": {
+              "error": "CodeBuild build ended FAILED in phase COMPLETED",
+              "job_id": "agent-framework-fde:be2b64e1-0874-475f-af62-5d5275f02a0a",
+              "agent_result": {
+                "errors": [],
+                "models": {
+                  "glm-5.2": {
+                    "solved": false,
+                    "attempts": [
+                      "FAIL",
+                      "FAIL",
+                      "FAIL",
+                      "FAIL"
+                    ],
+                    "valid_attempts": 4
+                  },
+                  "qwen3.6-27b": {
+                    "solved": null,
+                    "attempts": [
+                      "FAIL",
+                      "FAIL",
+                      "FAIL",
+                      "INCOMPLETE"
+                    ],
+                    "valid_attempts": 3
+                  }
+                },
+                "verdict": "INCOMPLETE"
+              },
+              "s3_artifacts": {
+                "trials": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/difficulty_check/4283218b44de/trials_artifact.zip",
+                "summary": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/difficulty_check/4283218b44de/summary_artifact.json"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Abe2b64e1-0874-475f-af62-5d5275f02a0a",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/6d228a37-68a0-4276-8b26-fad15d14bffc/difficulty_check/4283218b44de/output.json",
+              "runtime_error": true,
+              "display_message": "Hazy difficulty: INCOMPLETE"
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Error",
+                "passed": false,
+                "associated_fields": null,
+                "details": "An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "NEEDS_REVISION"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "difficulty_check",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          }
+        ],
+        "combiner_id": "commons/by_evaluation_result_field",
+        "evaluation_outcome": "NEEDS_REVISION"
+      },
+      "job_id": "8dd9eafc-51a9-4f34-8205-441825a17501"
+    }
+  ],
+  "evaluation_display_results": [],
+  "evaluation_labels": [],
+  "available_segments": [],
+  "non_blocking_check_enums": [
+    "PASS",
+    "PENDING"
+  ],
+  "blocking_check_enums": [
+    "NEEDS_REVISION",
+    "FAIL"
+  ],
+  "submission_task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+  "form_schema": {
+    "steps": [
+      {
+        "name": "New Step",
+        "sections": [
+          {
+            "id": "section-Domain",
+            "title": "Select the Domain and Sector",
+            "fields": [
+              {
+                "type": "radio",
+                "field": "radio-domain",
+                "label": "Domain",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Architecture and Engineering",
+                    "value": "architecture_and_engineering"
+                  },
+                  {
+                    "label": "Building and Grounds Cleaning and Maintenance",
+                    "value": "building_and_grounds_cleaning_and_maintenance"
+                  },
+                  {
+                    "label": "Community and Social Service",
+                    "value": "community_and_social_service"
+                  },
+                  {
+                    "label": "Educational Instruction and Library",
+                    "value": "educational_instruction_and_library"
+                  },
+                  {
+                    "label": "Food Preparation and Serving",
+                    "value": "food_preparation_and_serving"
+                  },
+                  {
+                    "label": "Healthcare Practitioners / Support",
+                    "value": "healthcare_practitioners_support"
+                  },
+                  {
+                    "label": "Healthcare Practitioners and Technical",
+                    "value": "healthcare_practitioners_and_technical"
+                  },
+                  {
+                    "label": "Healthcare Support",
+                    "value": "healthcare_support"
+                  },
+                  {
+                    "label": "Installation, Maintenance, and Repair",
+                    "value": "installation_maintenance_and_repair"
+                  },
+                  {
+                    "label": "Legal",
+                    "value": "legal"
+                  },
+                  {
+                    "label": "Life, Physical, and Social Science",
+                    "value": "life_physical_and_social_science"
+                  },
+                  {
+                    "label": "Management",
+                    "value": "management"
+                  },
+                  {
+                    "label": "Production",
+                    "value": "production"
+                  },
+                  {
+                    "label": "Transportation and Material Moving",
+                    "value": "transportation_and_material_moving"
+                  }
+                ],
+                "required": true,
+                "description": "<p>Please select one based on your area of expertise</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "radio",
+                "field": "radio-occupation",
+                "label": "Occupation",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Arbitrators, Mediators, and Conciliators",
+                    "value": "arbitrators_mediators_and_conciliators"
+                  },
+                  {
+                    "label": "Architectural and Engineering Managers",
+                    "value": "architectural_and_engineering_managers"
+                  },
+                  {
+                    "label": "Atmospheric and Space Scientists",
+                    "value": "atmospheric_and_space_scientists"
+                  },
+                  {
+                    "label": "Biochemists and Biophysicists",
+                    "value": "biochemists_and_biophysicists"
+                  },
+                  {
+                    "label": "Biofuels/Biodiesel Technology and Product Development Managers",
+                    "value": "biofuels_biodiesel_technology_and_product_development_managers"
+                  },
+                  {
+                    "label": "Bioinformatics Scientists",
+                    "value": "bioinformatics_scientists"
+                  },
+                  {
+                    "label": "Biological Technicians",
+                    "value": "biological_technicians"
+                  },
+                  {
+                    "label": "Biologists",
+                    "value": "biologists"
+                  },
+                  {
+                    "label": "Chemists",
+                    "value": "chemists"
+                  },
+                  {
+                    "label": "Civil Engineering Technologists and Technicians",
+                    "value": "civil_engineering_technologists_and_technicians"
+                  },
+                  {
+                    "label": "Compliance Managers",
+                    "value": "compliance_managers"
+                  },
+                  {
+                    "label": "Computer Hardware Engineers",
+                    "value": "computer_hardware_engineers"
+                  },
+                  {
+                    "label": "Dental Hygienists",
+                    "value": "dental_hygienists"
+                  },
+                  {
+                    "label": "Economists",
+                    "value": "economists"
+                  },
+                  {
+                    "label": "Electrical Engineers",
+                    "value": "electrical_engineers"
+                  },
+                  {
+                    "label": "Emergency Medical Technicians",
+                    "value": "emergency_medical_technicians"
+                  },
+                  {
+                    "label": "Environmental Engineers",
+                    "value": "environmental_engineers"
+                  },
+                  {
+                    "label": "Environmental Scientists and Specialists",
+                    "value": "environmental_scientists_and_specialists"
+                  },
+                  {
+                    "label": "First Line Supervisors of Food Prep and Serving Workers",
+                    "value": "first_line_supervisors_of_food_prep_and_serving_workers"
+                  },
+                  {
+                    "label": "First Line Supervisors of Housekeeping and Janitorial Workers",
+                    "value": "first_line_supervisors_of_housekeeping_and_janitorial_workers"
+                  },
+                  {
+                    "label": "First Line Supervisors of Material Moving Operators",
+                    "value": "first_line_supervisors_of_material_moving_operators"
+                  },
+                  {
+                    "label": "First Line Supervisors of Mechanics, Installers, and Repairers",
+                    "value": "first_line_supervisors_of_mechanics_installers_and_repairers"
+                  },
+                  {
+                    "label": "Food Scientists and Technologists",
+                    "value": "food_scientists_and_technologists"
+                  },
+                  {
+                    "label": "General Internal Medicine Physicians",
+                    "value": "general_internal_medicine_physicians"
+                  },
+                  {
+                    "label": "Geoscientists",
+                    "value": "geoscientists"
+                  },
+                  {
+                    "label": "Home Health Aides",
+                    "value": "home_health_aides"
+                  },
+                  {
+                    "label": "Human Resources Managers",
+                    "value": "human_resources_managers"
+                  },
+                  {
+                    "label": "Inspectors, Testers, Sorters, Samplers, and Weighers",
+                    "value": "inspectors_testers_sorters_samplers_and_weighers"
+                  },
+                  {
+                    "label": "Instructional Coordinators",
+                    "value": "instructional_coordinators"
+                  },
+                  {
+                    "label": "Judges, Magistrate Judges, and Magistrates",
+                    "value": "judges_magistrate_judges_and_magistrates"
+                  },
+                  {
+                    "label": "Judicial Law Clerks",
+                    "value": "judicial_law_clerks"
+                  },
+                  {
+                    "label": "Librarians and Media Collections Specialists",
+                    "value": "librarians_and_media_collections_specialists"
+                  },
+                  {
+                    "label": "Machinists",
+                    "value": "machinists"
+                  },
+                  {
+                    "label": "Manufacturing Engineers",
+                    "value": "manufacturing_engineers"
+                  },
+                  {
+                    "label": "Marketing Managers",
+                    "value": "marketing_managers"
+                  },
+                  {
+                    "label": "Medical Assistants",
+                    "value": "medical_assistants"
+                  },
+                  {
+                    "label": "Medical Transcriptionists",
+                    "value": "medical_transcriptionists"
+                  },
+                  {
+                    "label": "Mental Health Counselors",
+                    "value": "mental_health_counselors"
+                  },
+                  {
+                    "label": "Mental Health and Substance Abuse Social Workers",
+                    "value": "mental_health_and_substance_abuse_social_workers"
+                  },
+                  {
+                    "label": "Molecular and Cellular Biologists",
+                    "value": "molecular_and_cellular_biologists"
+                  },
+                  {
+                    "label": "Natural Sciences Managers",
+                    "value": "natural_sciences_managers"
+                  },
+                  {
+                    "label": "Nursing Assistants",
+                    "value": "nursing_assistants"
+                  },
+                  {
+                    "label": "Obstetricians and Gynecologists",
+                    "value": "obstetricians_and_gynecologists"
+                  },
+                  {
+                    "label": "Occupational Therapy Assistants",
+                    "value": "occupational_therapy_assistants"
+                  },
+                  {
+                    "label": "Packaging and Filling Machine Operators and Tenders",
+                    "value": "packaging_and_filling_machine_operators_and_tenders"
+                  },
+                  {
+                    "label": "Paralegals and Legal Assistants",
+                    "value": "paralegals_and_legal_assistants"
+                  },
+                  {
+                    "label": "Paramedics",
+                    "value": "paramedics"
+                  },
+                  {
+                    "label": "Pediatricians, General",
+                    "value": "pediatricians_general"
+                  },
+                  {
+                    "label": "Personal Care Aides",
+                    "value": "personal_care_aides"
+                  },
+                  {
+                    "label": "Pharmacy Aides",
+                    "value": "pharmacy_aides"
+                  },
+                  {
+                    "label": "Phlebotomists",
+                    "value": "phlebotomists"
+                  },
+                  {
+                    "label": "Psychiatric Aides",
+                    "value": "psychiatric_aides"
+                  },
+                  {
+                    "label": "Purchasing Managers",
+                    "value": "purchasing_managers"
+                  },
+                  {
+                    "label": "Quality Control Systems Managers",
+                    "value": "quality_control_systems_managers"
+                  },
+                  {
+                    "label": "Respiratory Therapists",
+                    "value": "respiratory_therapists"
+                  },
+                  {
+                    "label": "Social and Human Service Assistants",
+                    "value": "social_and_human_service_assistants"
+                  },
+                  {
+                    "label": "Soil and Plant Scientists",
+                    "value": "soil_and_plant_scientists"
+                  },
+                  {
+                    "label": "Substance Abuse and Behavioral Disorder Counselors",
+                    "value": "substance_abuse_and_behavioral_disorder_counselors"
+                  },
+                  {
+                    "label": "Surveyors",
+                    "value": "surveyors"
+                  },
+                  {
+                    "label": "Title Examiners, Abstractors, and Searchers",
+                    "value": "title_examiners_abstractors_and_searchers"
+                  },
+                  {
+                    "label": "Transportation, Storage, and Distribution Managers",
+                    "value": "transportation_storage_and_distribution_managers"
+                  },
+                  {
+                    "label": "Treasurers and Controllers",
+                    "value": "treasurers_and_controllers"
+                  },
+                  {
+                    "label": "Veterinary Assistants and Laboratory Animal Caretakers",
+                    "value": "veterinary_assistants_and_laboratory_animal_caretakers"
+                  },
+                  {
+                    "label": "Zoologists and Wildlife Biologists",
+                    "value": "zoologists_and_wildlife_biologists"
+                  }
+                ],
+                "required": true,
+                "description": "<p>Please select one based on your area of expertise</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              }
+            ],
+            "description": "<p></p>"
+          },
+          {
+            "id": "oa-metadata",
+            "title": "MetaData",
+            "fields": [
+              {
+                "type": "textarea",
+                "field": "task-prompt",
+                "label": "Task Instruction",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "description": "<p>Below, please write the instructions for a task in your selected domain above. Write it as if you&#39;re briefing a skilled colleague on a real assignment.</p><p></p><p>Make sure your instructions:</p><p></p><ul><li>Set specific context: your role, your organization, and what&#39;s prompting this work today.</li><li>Name every input file you&#39;re uploading and what it contains.</li><li>State the exact deliverable: file format, and any length or structural requirements (page limit, number of tabs, required columns, naming convention).</li><li>Include real scenario numbers and constraints where they belong \u2014 budgets, deadlines, headcounts, thresholds. These are fine and expected.</li><li>Leave out any number, name, or finding that the reader can only get by actually working through your input files \u2014 those are what the exercise is testing, so save them for your rubric, not your instructions.</li><li>Be fully self-contained: whoever completes this task, including an AI model, will not see your rubric. Everything needed to produce a correct, complete answer must be here.</li></ul>",
+                "placeholder": "e.g. \"You are the [role] at [company]. [What's prompting this task today]. Using the attached [file name], which contains [what it contains]..., produce a [file format] that [what it should show/recommend], no more than [length/structure limit].\"",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              },
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-input_file_list",
+                "label": "Input File List",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 0,
+                "description": "<ul><li>List each input file you&#39;re providing, using the exact file name it will have when uploaded below (same spelling, capitalization, and extension). </li><li>Start each entry with the file name, then a dash, then briefly note what it contains.</li><li>This list is checked against your actual upload \u2014 a mismatched name, a missing file, or a file listed here that never gets uploaded is one of the most common reasons a submission gets sent back. If you&#39;re referencing the file by name anywhere in your Task Instruction, make sure it matches this list exactly too.</li></ul>",
+                "placeholder": "",
+                "addItemTitle": "File",
+                "addItemButtonLabel": "Add Another Input File",
+                "addItemDescription": "e.g. \"Q3_Regional_Sales.xlsx \u2014 monthly sales by region, includes conflicting totals between the summary tab and the raw data tab\"",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "s3FileUploader",
+                "field": "s3fileuploader-file_uploader",
+                "label": "File Uploader",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "required": true,
+                "description": "<p>Compress all of your input files into a single ZIP before uploading here. Each file name inside the ZIP must exactly match an entry in the Input File List above \u2014 this is what confirms your task package is complete before it moves forward.</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                },
+                "nodeDependentConfiguration": {
+                  "review": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "submission": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "adjudication": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  }
+                }
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-task_instructions_quality_checks",
+                "label": "Task Instruction Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Metadata:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Task Instruction</em> \u2014 long enough to stand on its own, and names every file in your Input File List</li><li><em>Input File List</em> \u2014 populated, with each entry starting with a real file name</li><li><em>Sources</em> \u2014 advisory note on how many input files the task draws on</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "oa-human",
+            "title": "Completed Task",
+            "fields": [
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-output_file_list",
+                "label": "Output File List",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 0,
+                "description": "<p>List every file your completed task produces, using the exact file name and format you specified in your Task Instruction&#39;s deliverable requirements.</p>",
+                "addItemTitle": "File",
+                "addItemButtonLabel": "Add Another Output File",
+                "addItemDescription": "",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "s3FileUploader",
+                "field": "s3fileuploader-completed_task_upload",
+                "label": "Completed Task Upload",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "required": true,
+                "description": "<p>Upload your completed deliverable(s) here. File names must exactly match the Output File List above, including extension.</p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                },
+                "nodeDependentConfiguration": {
+                  "review": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "submission": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  },
+                  "adjudication": {
+                    "enableDelete": true,
+                    "enableReupload": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_read_prompt",
+                "label": "Time to read and understand the prompt and requirements (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p>Estimated number of minutes required to complete the tasks described in the prompt without using any AI assistant, based on the prompt and any provided reference files.</p><p></p><p><strong style=\"color: rgb(29, 28, 29);\">Exclude</strong></p><ul><li><span style=\"color: rgb(29, 28, 29);\">Time spent learning missing domain knowledge.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Waiting on other people/approvals.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Breaks or unrelated distractions.</span></li><li><span style=\"color: rgb(29, 28, 29);\">Web research unless explicitly required by the prompt (default: do not assume browsing).</span></li></ul><p></p><p><strong>Time to read and understand the prompt and requirements (in minutes)</strong></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_open_skimsearch_and_use_the_reference_files_human",
+                "label": "Time to open, skim/search, and use the reference files (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_to_perform_the_required_work_analysis_writing_calculations_coding_spreadsheet_edits_formatting_human",
+                "label": "Time to perform the required work (analysis, writing, calculations, coding, spreadsheet edits, formatting) (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-time_for_verificationqa_and_final_review_human",
+                "label": "Time for verification/QA and final review (in minutes)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p></p>",
+                "placeholder": "Minutes only (e.g., 30)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "rows": 1,
+                "type": "textarea",
+                "field": "textarea-total_time_in_hours",
+                "label": "Total time (in hours)",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "pattern": "",
+                "maxLength": 5,
+                "minLength": 1,
+                "description": "<p>For tasks that do not amount to an exact number of min, please provide it in decimals.</p><p>For example, <strong><em>90 minutes</em></strong> should be calculated as <strong><em>1.5 hours.</em></strong></p><p>This should be at least the sum of the four figures above, converted to hours. It may be higher.</p>",
+                "placeholder": "Hours only (e.g., 1.5)",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "repeatableTextarea",
+                "field": "repeatabletextarea-please_insert_any_tool_used_for_this_task_human",
+                "label": "Please Insert Any Tool Used For this Task",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "minEntries": 1,
+                "description": "<p>e.g., Excel, Photoshop, DaVinci, SolidWorks, LabVIEW</p>",
+                "addItemTitle": "Tool",
+                "addItemButtonLabel": "Add Another Tool",
+                "addItemDescription": "",
+                "listEnumerationStyle": "numbers",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-completed_task_checks",
+                "label": "Completed Task Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Completed:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Output File List</em> \u2014 populated</li><li><em>Times</em> \u2014 all five fields are numbers, and the total is at least the sum of the four parts</li><li><em>Tools</em> \u2014 at least one tool logged</li><li><em>Difficulty</em> \u2014 estimated manual effort is over 3 hours</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ],
+            "description": "<p>Now that you&#39;ve updated your Task Instruction and Input Files, complete the task yourself \u2014 the way the qualified professional you described in your instruction would actually do it. This is your ground truth and what you will build your rubric off of.</p>"
+          },
+          {
+            "id": "section-Rubrics",
+            "title": "Task Rubrics",
+            "fields": [
+              {
+                "type": "repeatable",
+                "field": "repeatable-bfbf1",
+                "label": "Rubric",
+                "fields": [
+                  {
+                    "type": "textarea",
+                    "field": "textarea-rubric_description",
+                    "label": "Rubric Description",
+                    "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                    "description": "",
+                    "configurationSettings": {
+                      "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      }
+                    }
+                  },
+                  {
+                    "max": 5,
+                    "min": -5,
+                    "type": "numeric",
+                    "field": "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable",
+                    "label": "Add a criteria weight -5 to +5 based on how central the item is to a correct deliverable.",
+                    "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                    "required": true,
+                    "configurationSettings": {
+                      "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      },
+                      "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                        "enabled": true,
+                        "visible": true,
+                        "required": false
+                      }
+                    }
+                  }
+                ],
+                "minEntries": 3,
+                "addItemTitle": "Click Here To Add A New Rubric",
+                "allowComments": false,
+                "addItemButtonLabel": "Add a New Rubric",
+                "addItemDescription": ""
+              },
+              {
+                "type": "feedbackButton",
+                "field": "feedbackbutton-rubric_checks",
+                "label": "Task Rubric Checks",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "buttonText": "Check feedback",
+                "feedbackId": "Hazy_Task_Creation_Rubrics:IN_APP",
+                "description": "<p><span style=\"background-color: rgb(249, 250, 251); color: rgb(0, 0, 0);\">Press this at any point while you work on this section. It reviews:</span></p><ul><li><em>Rubric rows</em> \u2014 every criterion has a description and a weight between -5 and +5</li><li><em>Scoring</em> \u2014 at least one weight is positive, so a correct deliverable can score</li><li><em>Depth</em> \u2014 advisory note on whether the rubric covers the task's complexity</li></ul><p><span style=\"color: rgb(29, 28, 29);\">This feedback is advisory and does not submit or block anything.</span></p>",
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": false
+                  }
+                }
+              }
+            ],
+            "description": "<p>List your criteria one by one \u2014 most tasks will need a minimum of 3 criteria; expect somewhere in the 20\u201360+ range depending on complexity. Each line should test exactly one thing: a specific number, name, date, format requirement, or structural detail \u2014 not a bundled description.</p><ul><li>Weight -5 to +5 based on how central the item is to a correct deliverable.</li><li>Use negative weights where useful, to penalize specific unwanted outcomes (extra items included that shouldn&#39;t be, page limit exceeded, wrong file type).</li><li>Pull every exact value straight from your own reference files and ground-truth answer \u2014 never estimate what a criterion should check.<ul><li>Bad (estimated): [+2] The workbook states total damage revenue as approximately $15,000.</li><li>Good (pulled from the actual data): [+2] The workbook states total damage revenue as $15,170.</li></ul></li><li>End with a general &quot;Overall formatting and style of the deliverable&quot; line (commonly ~+5) to catch polish and presentation.</li></ul>"
+          },
+          {
+            "id": "section-2af45",
+            "title": "Before You Submit \u2014 Task Creation Checklist",
+            "fields": [
+              {
+                "type": "multiSelect",
+                "field": "multiselect-confirm_each_item_below_applies_to_your_submission_before_you_check_it_off_all_boxes_must_be_checked_to_submit_",
+                "label": "Confirm each item below applies to your submission before you check it off. All boxes must be checked to submit.\n",
+                "origin": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+                "options": [
+                  {
+                    "label": "Task Instruction: My instruction sets specific context: a named role, organization, and a reason this work is happening today.",
+                    "value": "instruction_specific_context"
+                  },
+                  {
+                    "label": "Task Instruction: I named every input file I'm uploading and briefly described what each one contains.",
+                    "value": "instruction_named_all_files"
+                  },
+                  {
+                    "label": "Task Instruction: I stated the exact deliverable format (file type), plus any length or structural requirements (page limit, tab count, required columns, naming convention).",
+                    "value": "instruction_deliverable_spec"
+                  },
+                  {
+                    "label": "Task Instruction: I included real scenario constraints where they belong (budget, deadline, headcount, threshold).",
+                    "value": "instruction_scenario_constraints"
+                  },
+                  {
+                    "label": "Task Instruction: I did not include any number, name, or finding that can only come from actually working through the input files \u2014 those live in the rubric, not here.",
+                    "value": "instruction_no_answer_leakage"
+                  },
+                  {
+                    "label": "Task Instruction: My instruction is fully self-contained: someone with no rubric access could read it and my input files and have everything they need to produce a complete, correct answer.",
+                    "value": "instruction_self_contained"
+                  },
+                  {
+                    "label": "Input Files: Every file I listed is actually uploaded, and every file I uploaded is listed \u2014 names match exactly, including extension and case.",
+                    "value": "files_names_match"
+                  },
+                  {
+                    "label": "Input Files: I'm only using files I'm authorized to share \u2014 no confidential, proprietary, or IP-restricted material.",
+                    "value": "files_authorized_to_share"
+                  },
+                  {
+                    "label": "Task Rubric: I have at least 3 criteria, and enough to genuinely cover the task's complexity (most real tasks need well more than 3).",
+                    "value": "rubric_minimum_criteria"
+                  },
+                  {
+                    "label": "Task Rubric: Each criterion tests exactly one thing \u2014 no line bundles two separate checks with \"and.\"",
+                    "value": "rubric_atomic_criteria"
+                  },
+                  {
+                    "label": "Task Rubric: Each criterion's weight (-5 to +5) reflects how central that item actually is to a correct deliverable.",
+                    "value": "rubric_weights_reflect_centrality"
+                  },
+                  {
+                    "label": "Task Rubric: My rubric ends with a general \"Overall formatting and style of the deliverable\" line.",
+                    "value": "rubric_ends_with_formatting_line"
+                  },
+                  {
+                    "label": "Task Rubric: Nothing in my rubric asserts a fact that isn't actually derivable from the input files I'm providing.",
+                    "value": "rubric_facts_derivable_from_files"
+                  },
+                  {
+                    "label": "Final Check: If someone with real expertise in this domain \u2014 but no access to my rubric \u2014 read only my instruction and files, they could produce work that passes my rubric.",
+                    "value": "final_rubric_blind_expert_would_pass"
+                  }
+                ],
+                "variant": "checkbox",
+                "required": true,
+                "minSelectedOptions": 14,
+                "configurationSettings": {
+                  "review-39a041d5-d97c-494c-ac67-c1a55808ba7d": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  },
+                  "adjudication-34ca4e9b-562a-405b-a8cd-296854fc0d4f": {
+                    "enabled": true,
+                    "visible": true,
+                    "required": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "New Step",
+        "sections": [
+          {
+            "id": "section-13351",
+            "title": "New Section",
+            "fields": []
+          }
+        ]
+      }
+    ],
+    "configurationMap": {
+      "submission-aa146ff6-4558-4117-9a35-68ce26d6233c": {
+        "description": "<p>Please select the closest occupation to this task using the list here: https://www.onetonline.org/find/industry</p>"
+      }
+    },
+    "_configurationSettings": true
+  },
+  "static_asset_schema": {
+    "fields": []
+  },
+  "form_schema_revision_id": "11a1b308-72e7-4e34-9575-71347618abf6",
+  "user_reviews": null,
+  "expiry_time": "2026-10-03T07:58:37.419376Z",
+  "schema_ui": null,
+  "task_document": null,
+  "review_document": null,
+  "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c"
+}

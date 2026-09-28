@@ -34,3 +34,29 @@ Platform note (eval_revision_notes, 2026-09-23T00:45Z): "Agent Runner Summary: E
 5. Times 20 / 80 / 300 / 60, total 7.75; tools, domain and occupation unchanged.
 6. Section 3 unchanged (AutoEval feedback).
 7. The offer expired 2026-09-28T00:45Z before this revision was fetched; confirm on the platform that the resubmission is still accepted before re-entering anything.
+
+## 2026-09-28 · Auto-eval · difficulty_check and input_sufficiency · NEEDS_REVISION (second return, same day)
+
+Platform note (eval_revision_notes, 2026-09-28T07:49Z): "Agent Runner Summary: Evaluation FAILED. Hazy difficulty: FAIL". The fetch-task JSON carries three evaluations: eval 0 (09-21, the first build, FAIL); eval 1 (09-28 05:40Z, on the revised zips uploaded 05:36Z and 05:38Z, difficulty INCOMPLETE: glm-5.2 FAIL x4, qwen3.6-27b FAIL x3 plus one INCOMPLETE); eval 2 (09-28 06:58Z, a second submission version of the same package, difficulty FAIL: glm-5.2 PASS, FAIL, FAIL, FAIL on 4 valid; qwen FAIL x3 plus one INCOMPLETE) with self_containment FAIL as well ("the operator logs for July and August are not supplied ... the totalizer readings and pH chart data for July and August are absent"). Prompt and 31 criteria matched the folder; times 20/80/300/60 at 7.75 h. Offer expires 2026-10-03T07:49Z.
+
+**Findings**
+1. The first rebuild still let glm-5.2 clear the rubric once in eight valid attempts. Two reasons in the rubric itself: the +5 strict row anchored on the count above the threshold ("exactly 4"), which is the same whether or not the July 7 sample is dropped, so the trap never touched the heaviest row; and 24 of the 33 positive points sat on figures a tidy read of the lab table gives (August copper, zinc daily maximum, the TRC threshold, the filing deadline), so a solver that missed every judgment still collected most of the weight.
+2. input_sufficiency: the July and August operator logs were absent while Attachment B reports flow and pH by month, and the prompt's "Luis's log is September only" did not excuse it.
+
+**Actions taken**
+- Two new inputs, operator_log_jul2026.docx and operator_log_aug2026.docx, in the September log's form (register readings chained month to month from 4,850,733 at 07:00 on 07/01 to 6,418,255 at 07:00 on 09/01, in-line pH bands, grab readings on the sampling days, operator notes, 563 and 560 words). The plant manager's attestation ("no day in either month ran above the flow limit, and the in-line pH chart stayed inside the range") is now a written claim the logs contradict on both counts: 08/13 is 46,150 gallons by register difference and 08/20's band tops at 9.2 with the note "Caustic feed valve serviced at 11:00". July carries the look-alikes on both arms: 07/28 at 44,880 gallons and a 07/22 band high of 9.0, both inside the limits (PR22).
+- Prompt: the file sentence names the two logs, and "Luis's log is September only, which is the month with the overflow" became "Luis's logs cover the three months of the quarter, with the overflow in September's". Nothing else changed.
+- Golden: Flow Sep replaced by Flow Q3 (92 register rows, monthly MAXIFS/COUNTIFS/SUMIFS summaries, the quarter total as end register less start), the SMR's July and August flow and pH lines now read the logs (44,880 Met; 46,150 Exceeded; in-line 9.2 Exceeded), two August violation lines, an open notifications row on the 08/13 flow under Section 3.2, and a note paragraph on the attestation. Excel-recalculated (1,042 caches); verify_golden.py reads all three logs and reproduces 68 figures with eleven alternate readings (the attestation taken as fact flips the August standings, settled by "logs say otherwise"; the range read as exclusive flips July's pH, settled by "inside the range").
+- Rubric rebuilt at 28 rows, positive 33 / negative 9: the strict row re-anchored on the 12 measurements ("exactly 12", 'SNC Review'!B7, a pure COUNTIFS); weight moved onto the judgment rows (July 7 exclusion +3, July five metals below frequency +2, 08/13 flow +2, 08/20 pH +2); the trap-independent rows cut (August copper 4.24, September zinc daily maximum, the TRC threshold 4.056, the Apr-Sep coverage row, the "counts 12" row now subsumed by the strict row); the missing-notices row and the formatting row at +1; the September-only negative replaced by a -2 on listing the 07/22 high of 9.0 as a violation.
+- struck-phrases.md extended (the prompt sentence, the two attestation cells, the old negative's condition, "exactly 4"); clause-map.md re-mapped with the logs clause as row 13 and the Rebuilt line; form-lists.md six entries, times 20 / 100 / 330 / 60, total 8.5 h; metadata.json resynced (28 criteria, 6 inputs).
+- Gate findings on the draft fixed in place: a stale 'Flow Sep' reference the deleted sheet left in the violations table (Excel rewrote it to #REF! and office_resave rolled the file back), an A20 comma in the August end note, A11 word floors on both new logs.
+- Coded check: none this round. The two lessons (a strict row must anchor on a figure the central trap moves; a file the prompt says is missing is still missing to input_sufficiency) are design reads with no detector; recorded in memory/difficulty-check-lessons.md.
+- Gate: 0 errors on the packaged folder; fixture suite 8 of 8; package_sweep clean.
+
+**Form actions**
+1. Replace the prompt with instruction.md (the file sentence names two new logs; the September-only sentence reworded).
+2. Input File List: six entries from form-lists.md (two new logs, the September gloss reworded).
+3. Re-upload i-pretreatment-smr-q3-2026.zip (six members) and s-pretreatment-smr-q3-2026.zip; confirm both uploadedAt stamps moved on a re-fetch.
+4. Re-enter the rubric: 28 criteria from the CSV, positive 33 / negative 9, formatting row last; confirm the count on the form reads 28.
+5. Times 20 / 100 / 330 / 60, total 8.5; tools, domain and occupation unchanged.
+6. Section 3 unchanged (AutoEval feedback). Resubmit before 2026-10-03T07:49Z.

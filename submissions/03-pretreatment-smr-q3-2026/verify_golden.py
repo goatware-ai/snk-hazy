@@ -4,7 +4,8 @@ readings a reviewer could take with the phrase the golden uses to settle each on
 
 Validity is read off the laboratory's chain of custody dates (a result analyzed more than the holding
 period after collection is not a valid sample, Section 2.3); the lab file carries no flag for it. Daily
-flow is the difference between consecutive totalizer register readings in the operator log.
+flow is the difference between consecutive totalizer register readings in the three operator logs, and
+the in-line pH standing for a month is read off the daily low-to-high bands in the same logs.
 
     .venv/bin/python submissions/03-pretreatment-smr-q3-2026/verify_golden.py
 """
@@ -28,7 +29,9 @@ PARAMS = ["Cd", "Cr", "Cu", "Ni", "Zn", "CN"]
 DAILY = {"Cd": D("0.11"), "Cr": D("2.77"), "Cu": D("3.38"), "Ni": D("3.98"), "Zn": D("2.61"), "CN": D("1.20")}
 MONTHLY = {"Cd": D("0.07"), "Cr": D("1.71"), "Cu": D("2.07"), "Ni": D("2.38"), "Zn": D("1.48"), "CN": D("0.65")}
 FLOW_LIMIT = 45000
+PH_LO, PH_HI = D("6.0"), D("9.0")
 HOLD = {"metals": 28, "CN": 14}
+MONTHS = {7: "Jul", 8: "Aug", 9: "Sep"}
 
 
 def xround(x, places):
@@ -51,7 +54,6 @@ for r in rows[4:]:
     for p in PARAMS:
         rec[p] = (r[hdr.index(f"{p} MG/L")], (r[hdr.index(f"{p} QUAL")] or "").strip())
     EVENTS[r[0]] = rec
-# chain of custody: analysis dates by parameter, from the Sample Log tab
 for r in wb["Sample Log"].iter_rows(min_row=4, values_only=True):
     if not (isinstance(r[0], str) and r[0].startswith("VP-")):
         continue
@@ -70,20 +72,29 @@ for r in wb["Methods"].iter_rows(min_row=4, values_only=True):
         mdl[key] = D(str(r[2]))
 EVENTS = list(EVENTS.values())
 
-log = Document(INPUTS / "operator_log_sep2026.docx")
-intro = log.paragraphs[1].text
-START = int(re.search(r"Register at 07:00 on 09/01/2026: ([\d,]+) gallons", intro).group(1).replace(",", ""))
-REGISTER = {}
-for t in log.tables:
-    for row in t.rows[1:]:
-        cells = [c.text for c in row.cells]
-        if cells[0][:2] == "09":
-            REGISTER[int(cells[0][3:5])] = int(cells[1].replace(",", ""))
+# the three operator logs: register readings chained month to month, and the daily in-line pH bands
+START, REGISTER, BANDS = {}, {}, {}
+for month, name in ((7, "jul"), (8, "aug"), (9, "sep")):
+    log = Document(INPUTS / f"operator_log_{name}2026.docx")
+    intro = log.paragraphs[1].text
+    START[month] = int(re.search(r"Register at 07:00 on \d\d/01/2026: ([\d,]+) gallons", intro).group(1).replace(",", ""))
+    for t in log.tables:
+        for row in t.rows[1:]:
+            cells = [c.text for c in row.cells]
+            if re.match(r"\d\d/\d\d/2026", cells[0]):
+                day = int(cells[0][3:5])
+                REGISTER[(month, day)] = int(cells[1].replace(",", ""))
+                m = re.match(r"(\d\.\d) to (\d\.\d)", cells[2])
+                BANDS[(month, day)] = (D(m.group(1)), D(m.group(2))) if m else None
 FLOWS = {}
-prev = START
-for day in sorted(REGISTER):
-    FLOWS[day] = REGISTER[day] - prev
-    prev = REGISTER[day]
+for month in (7, 8, 9):
+    prev = START[month]
+    for day in range(1, 32):
+        if (month, day) in REGISTER:
+            FLOWS[(month, day)] = REGISTER[(month, day)] - prev
+            prev = REGISTER[(month, day)]
+    END = prev
+assert START[8] == max(REGISTER[(7, d)] for d in range(1, 32)) and START[9] == max(REGISTER[(8, d)] for d in range(1, 32))
 EVENT_TIME = dt.datetime(2026, 9, 9, 7, 50)
 NOTICE_TIME = dt.datetime(2026, 9, 10, 16, 30)
 PH_EVENT = dt.datetime(2026, 9, 17, 14, 10)
@@ -96,7 +107,8 @@ def hold_days(p, e):
 
 
 def derive(nondetect="zero", include_invalid=False, only_flagged_note=False, hold_from="collection",
-           resample_in_month=True, resample_in_snc=True, trc="1.2", notice_from_manager=False):
+           resample_in_month=True, resample_in_snc=True, trc="1.2", notice_from_manager=False,
+           manager_attestation=False, range_exclusive=False):
     def valid(p, e):
         val, q = e[p]
         if q == "NS":
@@ -119,7 +131,7 @@ def derive(nondetect="zero", include_invalid=False, only_flagged_note=False, hol
         return D(str(val))
 
     figures, standings = {}, {}
-    for m, label in ((7, "Jul"), (8, "Aug"), (9, "Sep")):
+    for m, label in MONTHS.items():
         for p in PARAMS:
             vals = [treated(p, e) for e in EVENTS if e["date"].month == m and (resample_in_month or e["kind"] != "Resample")]
             vals = [v for v in vals if v is not None]
@@ -148,18 +160,35 @@ def derive(nondetect="zero", include_invalid=False, only_flagged_note=False, hol
             d = hold_days(p, e)
             if d is not None:
                 figures[f"hold days {e['id']} {p}"] = str(d)
-    figures["September highest daily flow"] = str(max(FLOWS.values()))
-    figures["September days above the flow limit"] = str(sum(1 for v in FLOWS.values() if v > FLOW_LIMIT))
-    figures["September flow total"] = str(sum(FLOWS.values()))
-    figures["September flow total from the register"] = str(REGISTER[30] - START)
-    figures["September 9 daily flow"] = str(FLOWS[9])
+    # flow and in-line pH by month, from the register differences and the chart bands
+    for m, label in MONTHS.items():
+        flows = {d: f for (mm, d), f in FLOWS.items() if mm == m}
+        highs = [b[1] for (mm, d), b in BANDS.items() if mm == m and b]
+        lows = [b[0] for (mm, d), b in BANDS.items() if mm == m and b]
+        if manager_attestation and m in (7, 8):
+            figures[f"{label} highest daily flow"] = "within the limit per the plant manager"
+            standings[f"{label} flow"] = "Met"
+            standings[f"{label} in-line pH"] = "Met"
+            continue
+        figures[f"{label} highest daily flow"] = str(max(flows.values()))
+        figures[f"{label} days above the flow limit"] = str(sum(1 for v in flows.values() if v > FLOW_LIMIT))
+        figures[f"{label} flow total"] = str(sum(flows.values()))
+        figures[f"{label} in-line pH high"] = f"{max(highs)}"
+        figures[f"{label} in-line pH low"] = f"{min(lows)}"
+        standings[f"{label} flow"] = "Exceeded" if max(flows.values()) > FLOW_LIMIT else "Met"
+        inside = (lambda lo, hi: lo > PH_LO and hi < PH_HI) if range_exclusive else (lambda lo, hi: lo >= PH_LO and hi <= PH_HI)
+        standings[f"{label} in-line pH"] = "Met" if inside(min(lows), max(highs)) else "Exceeded"
+    figures["quarter flow total from the registers"] = str(END - START[7])
+    figures["quarter flow total"] = str(sum(FLOWS.values()))
+    figures["September 9 daily flow"] = str(FLOWS[(9, 9)])
+    figures["August 13 daily flow"] = str(FLOWS[(8, 13)])
+    figures["July 28 daily flow"] = str(FLOWS[(7, 28)])
     start = dt.datetime(2026, 9, 9, 8, 30) if notice_from_manager else EVENT_TIME
     late_by = NOTICE_TIME - (start + dt.timedelta(hours=24))
     standings["overflow telephone notice"] = "Late" if late_by.total_seconds() > 0 else "Met"
     standings["pH excursion telephone notice"] = "Met" if PH_NOTICE <= PH_EVENT + dt.timedelta(hours=24) else "Late"
     figures["hours from the overflow to the telephone notice"] = f"{(NOTICE_TIME - EVENT_TIME).total_seconds() / 3600:.2f}"
     figures["minutes from the pH excursion to the telephone notice"] = str(int((PH_NOTICE - PH_EVENT).total_seconds() // 60))
-    # resample deadlines: 30 days after the lab report of each daily maximum exceedance
     for e in EVENTS:
         for p in PARAMS:
             v = treated(p, e)
@@ -185,6 +214,8 @@ VARIANTS = {
     "resample left out of the six-month measurements": ({"resample_in_snc": False}, "resamples included"),
     "technical review criterion of 1.4 applied to metals": ({"trc": "1.4"}, "technical review criterion of 1.2"),
     "24 hours counted from the plant manager being told": ({"notice_from_manager": True}, "from the 07:50 event"),
+    "July and August flow and pH taken from the plant manager's note": ({"manager_attestation": True}, "logs say otherwise"),
+    "pH range read as excluding 6.0 and 9.0": ({"range_exclusive": True}, "inside the range"),
 }
 
 EXPECTED = {
@@ -203,9 +234,11 @@ EXPECTED = {
     "SNC Zn above limit": "1", "SNC Ni measurements": "11", "SNC CN measurements": "12",
     "hold days VP-260707 Cu": "30", "hold days VP-260825 Ni": "34", "hold days VP-260616 Cu": "27",
     "hold days VP-260909 CN": "13",
-    "September highest daily flow": "47300", "September 9 daily flow": "47300",
-    "September days above the flow limit": "1",
-    "September flow total": "755720", "September flow total from the register": "755720",
+    "Jul highest daily flow": "44880", "Jul days above the flow limit": "0", "July 28 daily flow": "44880",
+    "Aug highest daily flow": "46150", "Aug days above the flow limit": "1", "August 13 daily flow": "46150",
+    "Sep highest daily flow": "47300", "Sep days above the flow limit": "1", "September 9 daily flow": "47300",
+    "Sep flow total": "755720",
+    "Jul in-line pH high": "9.0", "Aug in-line pH high": "9.2", "Sep in-line pH low": "5.8",
     "hours from the overflow to the telephone notice": "32.67",
     "minutes from the pH excursion to the telephone notice": "70",
     "resample due after VP-260909 Zn": "10/15/2026",
@@ -218,12 +251,19 @@ if __name__ == "__main__":
     figures, standings = derive()
     for label, golden in EXPECTED.items():
         rep.expect(label, figures.get(label), golden)
+    rep.expect("quarter total ties to the registers", figures["quarter flow total"], figures["quarter flow total from the registers"])
     rep.expect("SNC Cu", standings["SNC Cu"], "Significant noncompliance")
     rep.expect("SNC Zn", standings["SNC Zn"], "Not in significant noncompliance")
     rep.expect("Jul Cu frequency status", standings["Jul Cu frequency status"], "Below frequency")
     rep.expect("Jul CN frequency status", standings["Jul CN frequency status"], "Met")
     rep.expect("Aug Ni frequency status", standings["Aug Ni frequency status"], "Below frequency")
     rep.expect("Jul Cu monthly average status", standings["Jul Cu monthly average status"], "Exceeded")
+    rep.expect("Jul flow", standings["Jul flow"], "Met")
+    rep.expect("Aug flow", standings["Aug flow"], "Exceeded")
+    rep.expect("Sep flow", standings["Sep flow"], "Exceeded")
+    rep.expect("Jul in-line pH", standings["Jul in-line pH"], "Met")
+    rep.expect("Aug in-line pH", standings["Aug in-line pH"], "Exceeded")
+    rep.expect("Sep in-line pH", standings["Sep in-line pH"], "Exceeded")
     rep.expect("overflow telephone notice", standings["overflow telephone notice"], "Late")
     rep.expect("pH excursion telephone notice", standings["pH excursion telephone notice"], "Met")
     rep.expect("second quarter report under the 45-day arm", standings["second quarter report under the 45-day arm"], "Not late")
