@@ -2,10 +2,15 @@
 from inputs/ alone under the permit's computation rules as the golden states them, and list the alternate
 readings a reviewer could take with the phrase the golden uses to settle each one.
 
-    .venv/bin/python drafts/03-pretreatment-smr-q3-2026/verify_golden.py
+Validity is read off the laboratory's chain of custody dates (a result analyzed more than the holding
+period after collection is not a valid sample, Section 2.3); the lab file carries no flag for it. Daily
+flow is the difference between consecutive totalizer register readings in the operator log.
+
+    .venv/bin/python submissions/03-pretreatment-smr-q3-2026/verify_golden.py
 """
 import datetime as dt
 import os
+import re
 import sys
 from decimal import Decimal as D, ROUND_HALF_UP
 from pathlib import Path
@@ -23,52 +28,96 @@ PARAMS = ["Cd", "Cr", "Cu", "Ni", "Zn", "CN"]
 DAILY = {"Cd": D("0.11"), "Cr": D("2.77"), "Cu": D("3.38"), "Ni": D("3.98"), "Zn": D("2.61"), "CN": D("1.20")}
 MONTHLY = {"Cd": D("0.07"), "Cr": D("1.71"), "Cu": D("2.07"), "Ni": D("2.38"), "Zn": D("1.48"), "CN": D("0.65")}
 FLOW_LIMIT = 45000
+HOLD = {"metals": 28, "CN": 14}
 
 
 def xround(x, places):
     return D(format(D(x), ".15g")).quantize(D(1).scaleb(-places), rounding=ROUND_HALF_UP)
 
 
+def mdy(s):
+    return dt.datetime.strptime(s.strip()[:10], "%m/%d/%Y").date()
+
+
 wb = openpyxl.load_workbook(INPUTS / "lab_results_apr_sep2026.xlsx", data_only=True)
 ws = wb["Results"]
 rows = list(ws.iter_rows(values_only=True))
 hdr = [str(h) for h in rows[3]]
-EVENTS = []
+EVENTS = {}
 for r in rows[4:]:
     if not (isinstance(r[0], str) and r[0].startswith("VP-")):
         continue
-    rec = dict(id=r[0], date=dt.datetime.strptime(r[1], "%m/%d/%Y").date(), kind=r[3], report=dt.datetime.strptime(r[hdr.index("REPORT DATE")], "%m/%d/%Y").date())
+    rec = dict(id=r[0], date=mdy(r[1]), kind=r[3], report=mdy(r[hdr.index("REPORT DATE")]))
     for p in PARAMS:
         rec[p] = (r[hdr.index(f"{p} MG/L")], (r[hdr.index(f"{p} QUAL")] or "").strip())
-    EVENTS.append(rec)
+    EVENTS[r[0]] = rec
+# chain of custody: analysis dates by parameter, from the Sample Log tab
+for r in wb["Sample Log"].iter_rows(min_row=4, values_only=True):
+    if not (isinstance(r[0], str) and r[0].startswith("VP-")):
+        continue
+    e = EVENTS[r[0]]
+    metals = str(r[3])
+    m = re.search(r"(\d\d/\d\d/\d{4}) \(Ni\); (\d\d/\d\d/\d{4}) \(others\)", metals)
+    ni_date, other_date = (mdy(m.group(1)), mdy(m.group(2))) if m else (mdy(metals), mdy(metals))
+    for p in ("Cd", "Cr", "Cu", "Zn"):
+        e[f"{p} analyzed"] = other_date
+    e["Ni analyzed"] = ni_date
+    e["CN analyzed"] = mdy(str(r[4])) if re.match(r"\d\d/\d\d/\d{4}", str(r[4])) else None
 mdl = {}
 for r in wb["Methods"].iter_rows(min_row=4, values_only=True):
     if isinstance(r[0], str) and r[0] != "pH":
         key = {"Cadmium, total": "Cd", "Chromium, total": "Cr", "Copper, total": "Cu", "Nickel, total": "Ni", "Zinc, total": "Zn", "Cyanide, total": "CN"}[r[0]]
         mdl[key] = D(str(r[2]))
+EVENTS = list(EVENTS.values())
 
 log = Document(INPUTS / "operator_log_sep2026.docx")
-FLOWS = {}
+intro = log.paragraphs[1].text
+START = int(re.search(r"Register at 07:00 on 09/01/2026: ([\d,]+) gallons", intro).group(1).replace(",", ""))
+REGISTER = {}
 for t in log.tables:
     for row in t.rows[1:]:
         cells = [c.text for c in row.cells]
         if cells[0][:2] == "09":
-            FLOWS[int(cells[0][3:5])] = int(cells[1].replace(",", ""))
+            REGISTER[int(cells[0][3:5])] = int(cells[1].replace(",", ""))
+FLOWS = {}
+prev = START
+for day in sorted(REGISTER):
+    FLOWS[day] = REGISTER[day] - prev
+    prev = REGISTER[day]
 EVENT_TIME = dt.datetime(2026, 9, 9, 7, 50)
 NOTICE_TIME = dt.datetime(2026, 9, 10, 16, 30)
+PH_EVENT = dt.datetime(2026, 9, 17, 14, 10)
+PH_NOTICE = dt.datetime(2026, 9, 17, 15, 20)
 
 
-def derive(nondetect="zero", include_invalid=False, resample_in_month=True, resample_in_snc=True, trc="1.2",
-           notice_from_manager=False):
-    def treated(p, rec):
-        val, q = rec[p]
+def hold_days(p, e):
+    a = e[f"{p} analyzed"]
+    return None if a is None else (a - e["date"]).days
+
+
+def derive(nondetect="zero", include_invalid=False, only_flagged_note=False, hold_from="collection",
+           resample_in_month=True, resample_in_snc=True, trc="1.2", notice_from_manager=False):
+    def valid(p, e):
+        val, q = e[p]
         if q == "NS":
-            return None
-        if q == "H" and not include_invalid:
+            return False
+        if include_invalid:
+            return True
+        if only_flagged_note:                      # a solver who drops the nickel result the lab note describes and nothing else
+            return not (e["id"] == "VP-260825" and p == "Ni")
+        days = hold_days(p, e)
+        if hold_from == "receipt":
+            days -= 1                              # every sample reached the laboratory the day after collection
+        return days <= HOLD["CN" if p == "CN" else "metals"]
+
+    def treated(p, e):
+        val, q = e[p]
+        if not valid(p, e):
             return None
         if q == "U":
             return {"zero": D(0), "mdl": mdl[p], "half": mdl[p] / 2}[nondetect]
         return D(str(val))
+
     figures, standings = {}, {}
     for m, label in ((7, "Jul"), (8, "Aug"), (9, "Sep")):
         for p in PARAMS:
@@ -94,13 +143,22 @@ def derive(nondetect="zero", include_invalid=False, resample_in_month=True, resa
         figures[f"SNC {p} above TRC"] = str(above_trc); figures[f"SNC {p} share above TRC pct"] = f"{share_trc}"
         figures[f"SNC {p} TRC threshold"] = f"{thr:.3f}"
         standings[f"SNC {p}"] = "Significant noncompliance" if share >= 66 or share_trc >= 33 else "Not in significant noncompliance"
+    for e in EVENTS:
+        for p in ("Cu", "Ni", "CN"):
+            d = hold_days(p, e)
+            if d is not None:
+                figures[f"hold days {e['id']} {p}"] = str(d)
     figures["September highest daily flow"] = str(max(FLOWS.values()))
     figures["September days above the flow limit"] = str(sum(1 for v in FLOWS.values() if v > FLOW_LIMIT))
     figures["September flow total"] = str(sum(FLOWS.values()))
+    figures["September flow total from the register"] = str(REGISTER[30] - START)
+    figures["September 9 daily flow"] = str(FLOWS[9])
     start = dt.datetime(2026, 9, 9, 8, 30) if notice_from_manager else EVENT_TIME
     late_by = NOTICE_TIME - (start + dt.timedelta(hours=24))
     standings["overflow telephone notice"] = "Late" if late_by.total_seconds() > 0 else "Met"
+    standings["pH excursion telephone notice"] = "Met" if PH_NOTICE <= PH_EVENT + dt.timedelta(hours=24) else "Late"
     figures["hours from the overflow to the telephone notice"] = f"{(NOTICE_TIME - EVENT_TIME).total_seconds() / 3600:.2f}"
+    figures["minutes from the pH excursion to the telephone notice"] = str(int((PH_NOTICE - PH_EVENT).total_seconds() // 60))
     # resample deadlines: 30 days after the lab report of each daily maximum exceedance
     for e in EVENTS:
         for p in PARAMS:
@@ -111,13 +169,18 @@ def derive(nondetect="zero", include_invalid=False, resample_in_month=True, resa
                 standings[f"resample after {e['id']} {p}"] = "Met" if later else "Open"
                 figures[f"resample due after {e['id']} {p}"] = f"{due:%m/%d/%Y}"
     figures["September Cu average without the resample"] = f"{xround(sum(D(str(e['Cu'][0])) for e in EVENTS if e['date'].month == 9 and e['kind'] == 'Routine') / 2, 3):.3f}"
+    figures["SNC Cu share with the July 7 sample counted"] = f"{xround(D(4) / 13 * 100, 1)}"
+    q2_due, q2_received = dt.date(2026, 7, 15), dt.date(2026, 7, 14)
+    standings["second quarter report under the 45-day arm"] = "Late" if (q2_received - q2_due).days > 45 else "Not late"
     return figures, standings
 
 
 VARIANTS = {
     "non-detects carried at the detection limit": ({"nondetect": "mdl"}, "carried at zero"),
     "non-detects carried at half the detection limit": ({"nondetect": "half"}, "carried at zero"),
-    "holding-time result kept in the August nickel average": ({"include_invalid": True}, "invalidated the nickel result"),
+    "every laboratory result kept regardless of the analysis date": ({"include_invalid": True}, "outside the 28-day holding period"),
+    "only the nickel result the laboratory note describes dropped": ({"only_flagged_note": True}, "30 days after collection"),
+    "holding period counted from receipt by the laboratory": ({"hold_from": "receipt"}, "days from collection"),
     "resample left out of the September averages": ({"resample_in_month": False}, "counts in the month's average"),
     "resample left out of the six-month measurements": ({"resample_in_snc": False}, "resamples included"),
     "technical review criterion of 1.4 applied to metals": ({"trc": "1.4"}, "technical review criterion of 1.2"),
@@ -125,18 +188,26 @@ VARIANTS = {
 }
 
 EXPECTED = {
-    "Jul Cu monthly average": "2.930", "Jul Cu daily maximum": "4.090",
+    "Jul Cu monthly average": "4.090", "Jul Cu daily maximum": "4.090", "Jul Cu valid samples": "1",
+    "Jul Ni valid samples": "1", "Jul Zn valid samples": "1", "Jul Cd valid samples": "1", "Jul Cr valid samples": "1",
+    "Jul CN valid samples": "2", "Jul CN monthly average": "0.310",
     "Aug Cu monthly average": "4.240", "Aug Cu daily maximum": "4.330",
     "Sep Cu monthly average": "2.053", "Sep Cu daily maximum": "2.960", "Sep Cu valid samples": "3",
     "Aug Ni monthly average": "2.610", "Aug Ni valid samples": "1",
     "Sep Zn monthly average": "1.653", "Sep Zn daily maximum": "3.140",
     "Sep Cd monthly average": "0.004",
     "Sep CN monthly average": "0.325", "Sep CN valid samples": "2",
-    "SNC Cu measurements": "13", "SNC Cu above limit": "6", "SNC Cu above TRC": "5",
-    "SNC Cu share above TRC pct": "38.5", "SNC Cu TRC threshold": "4.056",
-    "SNC Zn above limit": "1", "SNC Ni measurements": "12",
-    "September highest daily flow": "47300", "September days above the flow limit": "1",
+    "SNC Cu measurements": "12", "SNC Cu above limit": "6", "SNC Cu above TRC": "4",
+    "SNC Cu share above TRC pct": "33.3", "SNC Cu TRC threshold": "4.056",
+    "SNC Cu share with the July 7 sample counted": "30.8",
+    "SNC Zn above limit": "1", "SNC Ni measurements": "11", "SNC CN measurements": "12",
+    "hold days VP-260707 Cu": "30", "hold days VP-260825 Ni": "34", "hold days VP-260616 Cu": "27",
+    "hold days VP-260909 CN": "13",
+    "September highest daily flow": "47300", "September 9 daily flow": "47300",
+    "September days above the flow limit": "1",
+    "September flow total": "755720", "September flow total from the register": "755720",
     "hours from the overflow to the telephone notice": "32.67",
+    "minutes from the pH excursion to the telephone notice": "70",
     "resample due after VP-260909 Zn": "10/15/2026",
     "resample due after VP-260721 Cu": "08/29/2026",
     "September Cu average without the resample": "2.320",
@@ -149,7 +220,12 @@ if __name__ == "__main__":
         rep.expect(label, figures.get(label), golden)
     rep.expect("SNC Cu", standings["SNC Cu"], "Significant noncompliance")
     rep.expect("SNC Zn", standings["SNC Zn"], "Not in significant noncompliance")
+    rep.expect("Jul Cu frequency status", standings["Jul Cu frequency status"], "Below frequency")
+    rep.expect("Jul CN frequency status", standings["Jul CN frequency status"], "Met")
     rep.expect("Aug Ni frequency status", standings["Aug Ni frequency status"], "Below frequency")
+    rep.expect("Jul Cu monthly average status", standings["Jul Cu monthly average status"], "Exceeded")
     rep.expect("overflow telephone notice", standings["overflow telephone notice"], "Late")
+    rep.expect("pH excursion telephone notice", standings["pH excursion telephone notice"], "Met")
+    rep.expect("second quarter report under the 45-day arm", standings["second quarter report under the 45-day arm"], "Not late")
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)
     rep.finish()
