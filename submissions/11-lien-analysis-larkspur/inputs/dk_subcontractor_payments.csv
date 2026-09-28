@@ -1,0 +1,40 @@
+CHECK_NO,CHECK_DATE,PAYEE,TRADE,PAY_APP,AMOUNT,STATUS,STATUS_DATE
+4390,03/27/2026,Ostrowski Electric Inc,Electrical,2,152950.00,Cleared,04/01/2026
+4391,03/27/2026,Tallac Concrete Inc,Site concrete,2,71250.00,Cleared,03/31/2026
+4393,03/27/2026,Petrakis Plumbing Inc,Plumbing,2,61370.00,Cleared,04/02/2026
+4402,04/28/2026,Ostrowski Electric Inc,Electrical,3,121600.00,Cleared,05/01/2026
+4403,04/28/2026,Tallac Concrete Inc,Site concrete,3,158650.00,Cleared,04/30/2026
+4404,04/28/2026,R Nakamura Framing Inc,Rough carpentry,3,164730.00,Cleared,05/04/2026
+4405,04/28/2026,Fenwick Roofing Systems,Roofing,3,95410.00,Cleared,05/01/2026
+4407,04/29/2026,Kastner Mechanical Contractors Inc,HVAC,3,32110.00,Cleared,05/04/2026
+4409,04/29/2026,Petrakis Plumbing Inc,Plumbing,3,48830.00,Cleared,05/05/2026
+4418,05/29/2026,Ostrowski Electric Inc,Electrical,4,98325.00,Cleared,06/03/2026
+4419,05/29/2026,R Nakamura Framing Inc,Rough carpentry,4,194370.00,Cleared,06/02/2026
+4420,05/29/2026,Kastner Mechanical Contractors Inc,HVAC,4,97565.00,Cleared,06/03/2026
+4422,05/29/2026,Calder Drywall and Plaster LLC,Drywall and plaster,4,8700.00,Cleared,06/04/2026
+4423,05/29/2026,Fenwick Roofing Systems,Roofing,4,173465.00,Cleared,06/02/2026
+4424,06/01/2026,Lindqvist Fire Protection,Fire sprinklers,4,69501.50,Cleared,06/05/2026
+4426,06/01/2026,Tallac Concrete Inc,Site concrete,4,143710.00,Cleared,06/04/2026
+4433,06/26/2026,Ostrowski Electric Inc,Electrical,5,89305.00,Cleared,07/01/2026
+4434,06/26/2026,R Nakamura Framing Inc,Rough carpentry,5,106400.00,Cleared,07/01/2026
+4435,06/26/2026,Kastner Mechanical Contractors Inc,HVAC,5,66860.00,Cleared,06/30/2026
+4436,06/26/2026,Tallac Concrete Inc,Site concrete,5,5115.00,Cleared,07/02/2026
+4437,06/29/2026,Calder Drywall and Plaster LLC,Drywall and plaster,5,46170.00,Cleared,07/06/2026
+4438,06/29/2026,Bautista Painting Co,Painting,5,12825.00,Cleared,07/07/2026
+4439,06/29/2026,Abrego Glass and Glazing,Storefront and glazing,5,112765.00,Cleared,07/02/2026
+4440,06/30/2026,Petrakis Plumbing Inc,Plumbing,5,116525.00,Cleared,07/06/2026
+4448,07/29/2026,Fenwick Roofing Systems,Roofing,6,14937.50,Cleared,08/03/2026
+4449,07/29/2026,Ostrowski Electric Inc,Electrical,6,120113.00,Cleared,08/03/2026
+4451,07/29/2026,R Nakamura Framing Inc,Rough carpentry,6,21280.00,Cleared,08/04/2026
+4452,07/29/2026,Kastner Mechanical Contractors Inc,HVAC,6,88920.00,Cleared,08/03/2026
+4453,07/30/2026,Bautista Painting Co,Painting,6,21755.00,Cleared,08/05/2026
+4454,07/30/2026,Abrego Glass and Glazing,Storefront and glazing,6,64790.00,Cleared,08/04/2026
+4455,07/30/2026,Lindqvist Fire Protection,Fire sprinklers,6,66016.00,Cleared,08/05/2026
+4456,07/30/2026,Calder Drywall and Plaster LLC,Drywall and plaster,6,100515.00,Cleared,08/04/2026
+4457,07/31/2026,Sorensen Landscape Co,Landscape and irrigation,6,44200.00,Cleared,08/05/2026
+4458,07/31/2026,Capitol Door and Hardware,Doors frames hardware,6,29750.00,Cleared,08/06/2026
+4460,08/18/2026,Kastner Mechanical Contractors Inc,HVAC,7,73910.00,Stopped,08/24/2026
+4461,08/19/2026,Ostrowski Electric Inc,Electrical,7,41230.00,Cleared,08/24/2026
+4463,08/19/2026,Petrakis Plumbing Inc,Plumbing,7,37166.00,Cleared,08/25/2026
+4465,08/19/2026,Sorensen Landscape Co,Landscape and irrigation,7,35360.00,Cleared,08/24/2026
+4466,08/20/2026,Capitol Door and Hardware,Doors frames hardware,7,28437.50,Cleared,08/26/2026
