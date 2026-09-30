@@ -5,7 +5,7 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 ## Input File List
 
 - northline_invoices_sept_2026.csv - the carrier's September freight bills, one line per bill, with pro number, dates, billed weight and class, base charge, discount, net linehaul, fuel surcharge percent and amount, accessorials and total
-- bills_of_lading_sept_2026.csv - the shipper's bills of lading for the month with pro number, pickup date, consignee, product group, pieces, declared weight, the accessorial services requested and the delivery date
+- bills_of_lading_sept_2026.csv - the shipper's bills of lading behind the September freight bills, with pro number, pickup date, consignee, product group, pieces, declared weight, the accessorial services requested and the delivery date
 - northline_contract_2026.docx - the pricing sections of the motor carrier agreement: rating, deficit weight, class, discount and minimum, reweigh, fuel surcharge, accessorials, duplicate bills, claims and undercharges
 - northline_contract_rates_2026.xlsx - the contract tariff exhibit: lane rates by destination state and weight break, class factors and product group classes, accessorial schedule, discount and minimum, fuel surcharge table
 - northline_fuel_bulletin_sept_2026.docx - the carrier's monthly fuel bulletin with the DOE diesel index for each Monday and the surcharge percentage it printed for the week, and how the index is applied
@@ -21,10 +21,10 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 | Form field | Value |
 |---|---|
 | Time to read and understand the prompt and requirements (minutes) | 15 |
-| Time to open, skim/search, and use the reference files (minutes) | 90 |
-| Time to perform the required work (minutes) | 285 |
-| Time for verification/QA and final review (minutes) | 60 |
-| Total time (hours) | 7.5 |
+| Time to open, skim/search, and use the reference files (minutes) | 100 |
+| Time to perform the required work (minutes) | 330 |
+| Time for verification/QA and final review (minutes) | 65 |
+| Total time (hours) | 8.5 |
 | Tools | Microsoft Excel; Microsoft Word |
 
 ## Domain and occupation

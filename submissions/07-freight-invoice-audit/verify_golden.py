@@ -4,7 +4,7 @@ the phrase the golden uses to settle each one.
 
     .venv/bin/python submissions/07-freight-invoice-audit/verify_golden.py [--print]
 
-The seven inputs: the invoice and bill of lading CSVs, the contract and its rates exhibit, the fuel
+The seven inputs (46 freight bills, 44 bills of lading): the invoice and bill of lading CSVs, the contract and its rates exhibit, the fuel
 bulletin, Northline's billing file transmittal (scale tickets, an inspection certificate, a reclass
 notice and a dock readout, read from the particulars of each document) and the shipping desk's email
 printout (the services confirmed to Northline in writing, read from the messages themselves).
@@ -95,9 +95,29 @@ for text in paras:
             CONFIRMED.append((subject_pro, "Liftgate delivery", sent))
         if re.search(r"please reconsign", text, re.I):
             CONFIRMED.append((subject_pro, "Reconsignment", sent))
+        if re.search(r"bill the redelivery", text, re.I):
+            CONFIRMED.append((subject_pro, "Redelivery", sent))
 
-BOLS = {b["PRO_NO"]: b for b in csv.DictReader(open(INPUTS / "bills_of_lading_sept_2026.csv", newline=""))}
-INV = list(csv.DictReader(open(INPUTS / "northline_invoices_sept_2026.csv", newline="")))
+def read_panels(path):
+    """A CSV laid out in two side-by-side panels (the right panel's headers end in _2), read back as one list of records."""
+    rows = list(csv.reader(open(path, newline="")))
+    hdr = rows[0]; w = next((i for i, h in enumerate(hdr) if h.endswith("_2")), len(hdr))
+    recs = [dict(zip(hdr[:w], r[:w])) for r in rows[1:]]
+    recs += [dict(zip(hdr[:w], r[w:])) for r in rows[1:] if any(x for x in r[w:])]
+    return recs
+
+
+BOLS = {b["PRO_NO"]: b for b in read_panels(INPUTS / "bills_of_lading_sept_2026.csv")}
+INV = read_panels(INPUTS / "northline_invoices_sept_2026.csv")
+PRO_MATCH = {}  # billed pro -> bill of lading pro, where no bill of lading carries the billed pro
+for inv in INV:
+    if inv["PRO_NO"] in BOLS:
+        continue
+    billed_pros = {i["PRO_NO"] for i in INV}
+    hits = [b["PRO_NO"] for b in BOLS.values() if b["PICKUP_DATE"] == inv["SHIP_DATE"] and b["DEST_STATE"] == inv["DEST_STATE"]
+            and int(b["WEIGHT_LB"]) == int(inv["BILLED_WEIGHT"]) and GROUP_CLASS[b["PRODUCT_GROUP"]] == D(inv["BILLED_CLASS"]) and b["PRO_NO"] not in billed_pros]
+    assert len(hits) == 1, (inv["INVOICE_NO"], hits)
+    PRO_MATCH[inv["PRO_NO"]] = hits[0]
 
 
 def fsc_pct(price):
@@ -112,14 +132,19 @@ def monday(d):
     return d - dt.timedelta(days=d.weekday())
 
 
-def derive(deficit=True, fsc_on="pickup", fsc_source="table", tickets="apply", certs="apply", confirmations="apply", net_undercharges=False):
+def derive(deficit=True, fsc_on="pickup", fsc_source="table", tickets="apply", certs="apply", confirmations="apply", net_undercharges=False, pro_match="apply", acc_compare="amount"):
     """tickets: apply (certified and over the tolerance holds), all (every certified ticket holds), ignore (no ticket holds),
     billed (every billed weight holds). certs / confirmations: apply or ignore."""
     fig, standing = {}, {}
     seen = set(); rows = []
     for inv in INV:
-        pro = inv["PRO_NO"]; b = BOLS[pro]; pickup = pdate(b["PICKUP_DATE"]); delivered = pdate(b["DELIVERED_DATE"])
-        dup = pro in seen; seen.add(pro)
+        billed_pro = inv["PRO_NO"]; pro = PRO_MATCH.get(billed_pro, billed_pro)
+        if pro not in BOLS:
+            if pro_match == "drop":
+                standing[inv["INVOICE_NO"]] = "unrated"; continue
+            raise KeyError(pro)
+        b = BOLS[pro]; pickup = pdate(b["PICKUP_DATE"]); delivered = pdate(b["DELIVERED_DATE"])
+        dup = billed_pro in seen; seen.add(billed_pro)
         bol_w = int(b["WEIGHT_LB"]); billed_w = int(inv["BILLED_WEIGHT"])
         cert = pro in CERT_TICKET and TICKET_WEIGHT[pro] == billed_w
         over_tol = D(billed_w) > D(bol_w) * (1 + TOLERANCE)
@@ -156,12 +181,15 @@ def derive(deficit=True, fsc_on="pickup", fsc_source="table", tickets="apply", c
         elif billed_w != w: code = "4.5 reweigh"
         elif D(inv["BASE_CHARGE"]) != gross: code = "4.2 deficit weight"
         elif D(inv["FSC_PCT"]) / 100 != pct: code = "5.2 fuel week"
-        elif D(inv["ACCESSORIAL_AMT"]) > acc: code = "6.1 accessorial not requested"
+        elif D(inv["ACCESSORIAL_AMT"]) > acc and not (acc_compare == "service" and _same_services(inv, b, pro, confirmations)): code = "6.1 accessorial overbilled"
         elif D(inv["ACCESSORIAL_AMT"]) < acc: code = "6.1 accessorial omitted"
         else: code = ""
+        if acc_compare == "service" and _same_services(inv, b, pro, confirmations) and D(inv["ACCESSORIAL_AMT"]) > acc:
+            expected = D(inv["INVOICE_TOTAL"]) if not dup else D(0); var = billed - expected
         if certs == "apply" and pro in INSPECTION_CERT and billed_cls != group_cls: settled = "4.3 inspection certificate"
         elif tickets != "ignore" and cert and billed_w != bol_w and billed_w == w: settled = "4.5 certified scale ticket"
         elif acc_conf > 0: settled = "6.1 written confirmation"
+        elif pro != billed_pro: settled = "corrected pro number"
         else: settled = ""
         rows.append(dict(inv=inv["INVOICE_NO"], pro=pro, expected=expected, billed=billed, var=var, code=code, settled=settled,
                          net=net, fsc=fsc, acc=acc, pct=pct, gross=gross, w=w, cls=cls))
@@ -171,13 +199,23 @@ def derive(deficit=True, fsc_on="pickup", fsc_source="table", tickets="apply", c
     fig["overbilled"] = money(sum(r["var"] for r in over)); fig["underbilled"] = money(-sum(r["var"] for r in under))
     fig["claim total"] = money(sum(r["var"] for r in over) - (sum(-r["var"] for r in under) if net_undercharges else 0))
     fig["claims"] = len(over); fig["undercharges"] = len(under); fig["exceptions"] = sum(1 for r in rows if r["code"]); fig["clean"] = sum(1 for r in rows if not r["code"])
-    fig["settled"] = sum(1 for r in rows if r["settled"])
+    fig["settled"] = sum(1 for r in rows if r["settled"] and r["settled"] != "corrected pro number")
+    fig["pro matches"] = sum(1 for r in rows if r["settled"] == "corrected pro number")
     for c in ("7.1", "4.3", "4.5", "4.2", "5.2", "6.1"):
         fig[f"code {c}"] = sum(1 for r in rows if r["code"].startswith(c))
     fig["net difference"] = money(sum(r["var"] for r in rows))
     fig["rows"] = rows
-    standing["claim total"] = fig["claim total"]; standing["settled"] = fig["settled"]
+    standing["claim total"] = fig["claim total"]; standing["settled"] = fig["settled"]; standing["billed total"] = fig["billed total"]
     return fig, standing
+
+
+def _same_services(inv, b, pro, confirmations):
+    """True when the services Northline names are exactly the services due, whatever it charged for them."""
+    names = {x.strip() for x in inv["ACCESSORIAL_DESC"].split("/") if x.strip() and x.strip() != "None"}
+    due = {svc for flag, svc in (("LIFTGATE", "Liftgate delivery"), ("RESIDENTIAL", "Residential delivery"), ("LIMITED_ACCESS", "Limited access delivery"), ("INSIDE_DELIVERY", "Inside delivery")) if b[flag] == "Y"}
+    if confirmations == "apply":
+        due |= {svc for p, svc, d in CONFIRMED if p == pro and d < pdate(b["DELIVERED_DATE"])}
+    return names == due
 
 
 VARIANTS = {
@@ -190,14 +228,19 @@ VARIANTS = {
     "inspection certificate ignored": ({"certs": "ignore"}, "inspection certificate"),
     "written confirmation ignored": ({"confirmations": "ignore"}, "confirmed in writing"),
     "undercharges netted against the claim": ({"net_undercharges": True}, "not netted"),
+    "freight bill with an unmatched pro number left unrated": ({"pro_match": "drop"}, "corrected pro number"),
+    "accessorial checked by service name and not by the schedule rate": ({"acc_compare": "service"}, "flat rate"),
 }
 
 if __name__ == "__main__":
     fig, standing = derive()
+    if "--json" in sys.argv:
+        import json
+        print(json.dumps({k: v for k, v in fig.items() if k != "rows"})); sys.exit(0)
     if "--print" in sys.argv:
         for k, v in fig.items():
             if k != "rows": print(k, v)
-        print("certified tickets", sorted(CERT_TICKET), "inspection certificates", sorted(INSPECTION_CERT), "confirmed", CONFIRMED)
+        print("certified tickets", sorted(CERT_TICKET), "inspection certificates", sorted(INSPECTION_CERT), "confirmed", CONFIRMED, "pro matches", PRO_MATCH)
         for r in fig["rows"]:
             if r["code"] or r["var"] or r["settled"]: print(r["inv"], r["pro"], r["code"] or "-", r["settled"] or "-", money(r["billed"]), money(r["expected"]), money(r["var"]))
         sys.exit(0)
@@ -216,14 +259,15 @@ if __name__ == "__main__":
     rep.expect("exceptions", fig["exceptions"], summary["Freight bills with an exception"])
     rep.expect("clean", fig["clean"], summary["Freight bills billed as the contract provides"])
     rep.expect("settled", fig["settled"], summary["Billed items accepted on a document or a written confirmation"])
+    rep.expect("pro matches", fig["pro matches"], summary["Freight bills rated under a corrected pro number"])
     for c, label in (("7.1", "Duplicate freight bills (7.1)"), ("4.3", "Class not the product group class (4.3)"), ("4.5", "Reweigh that does not hold (4.5)"),
-                     ("4.2", "Deficit weight rule not applied (4.2)"), ("5.2", "Fuel surcharge on the wrong week (5.2)"), ("6.1", "Accessorial not requested or omitted (6.1)")):
+                     ("4.2", "Deficit weight rule not applied (4.2)"), ("5.2", "Fuel surcharge on the wrong week (5.2)"), ("6.1", "Accessorial overbilled or omitted (6.1)")):
         rep.expect(f"code {c}", fig[f"code {c}"], summary[label])
     # audit rows: every expected total, code and settlement across both panels
     a = wb["Audit"]
     hdr = {a.cell(row=3, column=c).value: c for c in range(1, a.max_column + 1) if a.cell(row=3, column=c).value}
     for k, r in enumerate(fig["rows"]):
-        panel = "" if k < 19 else "_2"; row = 4 + (k if k < 19 else k - 19)
+        panel = "" if k < 23 else "_2"; row = 4 + (k if k < 23 else k - 23)
         rep.expect(f"{r['inv']} key", r["inv"], a.cell(row=row, column=hdr["INVOICE_NO" + panel]).value)
         rep.expect(f"{r['inv']} expected", money(r["expected"]), money(a.cell(row=row, column=hdr["CONTRACT_TOTAL" + panel]).value))
         rep.expect(f"{r['inv']} variance", money(r["var"]), money(a.cell(row=row, column=hdr["VARIANCE" + panel]).value))
@@ -231,13 +275,14 @@ if __name__ == "__main__":
         rep.expect(f"{r['inv']} settled", r["settled"], a.cell(row=row, column=hdr["SETTLED_BY" + panel]).value or "")
         rep.expect(f"{r['inv']} contract weight", r["w"], a.cell(row=row, column=hdr["CONTRACT_WEIGHT" + panel]).value)
         rep.expect(f"{r['inv']} contract class", r["cls"], D(str(a.cell(row=row, column=hdr["CONTRACT_CLASS" + panel]).value)))
+        rep.expect(f"{r['inv']} pro", r["pro"], str(a.cell(row=row, column=hdr["PRO_NO" + panel]).value))
     cl = wb["Claim Schedule"]
     rep.expect("claim schedule total", fig["claim total"], money(cl.cell(row=4 + fig["claims"], column=5).value))
     rep.expect("claim schedule rows", fig["claims"], sum(1 for r in range(4, 4 + fig["claims"]) if cl.cell(row=r, column=2).value))
     un = wb["Undercharges"]
     rep.expect("undercharge total", fig["underbilled"], money(un.cell(row=4 + fig["undercharges"], column=5).value))
     note = "\n".join(str(c.value) for row in wb["Note to Ingrid"].iter_rows() for c in row if c.value)
-    for phrase in (f"${fig['overbilled']}", f"${fig['underbilled']}", f"${fig['billed total']}", f"${fig['contract total']}", f"{fig['claims']} freight bills"):
+    for phrase in (f"${fig['overbilled']}", f"${fig['underbilled']}", f"${fig['billed total']}", f"${fig['contract total']}", f"${fig['net difference']}", f"{fig['claims']} freight bills"):
         rep.expect(f"note states {phrase}", phrase in note, True)
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)
     rep.finish()
