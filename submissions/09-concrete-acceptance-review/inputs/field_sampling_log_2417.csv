@@ -1,0 +1,30 @@
+SET_NO,FIELD_TECH,DATE_CAST,TIME_MOLDED,LOCATION,TICKET_NO,TRUCK,MIX_DESIGN,BATCH_TIME,SLUMP_IN,AIR_PCT,CONC_TEMP_F,CYL_SIZE,CYLINDERS_MOLDED,INITIAL_CURING,BOX_TEMPS_F,PICKED_UP,REMARKS
+S-101,R. Okafor,08/03/2026,07:23,L2 deck bay A at pump,770418,37,4A317,06:41,4.25,6.2,74,6x12,4,Box 1,63/77,08/04/2026 07:52,
+S-102,R. Okafor,08/05/2026,08:12,L2 deck bay B at pump,770653,41,4A317,07:22,5.0,5.8,76,6x12,4,Box 1,64/78,08/06/2026 07:34,
+S-103,R. Okafor,08/10/2026,06:52,L2 deck C/D north pump,771106,29,4A317,06:04,4.0,6.4,71,6x12,4,Box 1,62/76,08/11/2026 06:56,
+S-104,R. Okafor,08/10/2026,10:18,L2 deck C/D north pump,771131,37,4A317,09:36,4.25,6.7,77,6x12,4,Box 1,62/76,08/11/2026 06:56,
+S-105,R. Okafor,08/12/2026,07:38,L3 deck bay A at pump,771342,41,4A317,06:18,5.25,5.9,81,6x12,4,Box 1,64/78,08/13/2026 07:47,Driver added water at pump before sample. Truck on site 70 min.
+S-106,R. Okafor,08/14/2026,07:17,L3 deck bay B at pump,771587,33,4A317,06:29,4.75,7.8,80,6x12,4,Box 1,63/79,08/17/2026 09:41,Site gate locked Saturday. Picked up Monday.
+S-107,R. Okafor,08/14/2026,09:48,L3 deck bay B at pump,771604,37,4A317,09:02,4.5,6.6,82,6x12,4,On L3 deck at bay B under burlap and poly,,09/11/2026 06:41,Extra set for Kessel. Left with the slab. A and B taken 08/17.
+S-108,R. Okafor,08/15/2026,06:43,South ramp lower run at chute,771688,29,4A317,05:58,4.0,6.1,69,6x12,4,Box 2,62/75,08/16/2026 07:36,
+S-109,R. Okafor,08/17/2026,08:06,L3 deck bay C at pump,771842,44,4A317,07:16,4.25,7.5,75,6x12,4,Box 1,63/77,08/19/2026 07:51,
+S-110,R. Okafor,08/19/2026,08:21,L3 deck bay D at pump,772071,33,4A317,07:33,4.5,5.6,73,6x12,4,Box 1,62/74,08/20/2026 07:18,
+S-111,R. Okafor,08/21/2026,09:13,North ramp at chute,772316,37,4A317,08:24,4.0,6.0,72,4x8,5,Box 2,61/73,08/22/2026 08:16,
+S-112,R. Okafor,08/24/2026,13:44,L4 deck bay A at pump,772569,41,4A317,12:58,4.5,6.3,79,6x12,4,Box 1,63/80,08/25/2026 07:29,
+S-113,R. Okafor,08/26/2026,07:19,L4 deck bay B at pump,772784,29,4A317,06:37,3.75,5.7,71,6x12,4,Box 2,66/91,08/27/2026 16:22,Box 2 heater ran without fan 08/27 midday.
+S-114,R. Okafor,08/28/2026,11:32,L4 deck bay C at pump,773127,44,4A317,10:44,4.25,6.5,90,6x12,4,Box 1,66/79,08/31/2026 06:33,
+S-115,R. Okafor,08/31/2026,11:22,L4 deck bay D at pump,773295,33,4A317,10:31,4.5,6.0,77,6x12,4,Box 1,64/78,09/01/2026 07:14,
+S-116,R. Okafor,09/08/2026,08:31,South ramp upper run at chute,773902,37,4A317,07:46,3.5,5.5,64,6x12,4,Box 2,57/74,09/09/2026 07:42,Cold night. Box heater found off at pickup.
+S-201,L. Brandvold,08/06/2026,9:36,Cols L2 grid 1-4 at bucket,770812,18,6S224,8:51,6.0,3.1,78,4x8,5,Box 2,78/65,08/07/2026 7:06,
+S-202,L. Brandvold,08/10/2026,2:37,L2 deck C/D south pump,771163,44,4A317,1:47,4.75,5.4,83,6x12,4,Box 2,79/65,08/11/2026 7:11,
+S-203,L. Brandvold,08/13/2026,9:04,Cols L2 grid 5-8 at bucket,771469,22,6S224,8:19,5.5,2.8,77,4x8,5,Box 2,77/64,08/14/2026 7:27,
+S-204,L. Brandvold,08/18/2026,9:53,Cols L3 grid 1-4 at bucket,771955,18,6S224,9:03,7.0,3.3,79,4x8,5,Box 2,77/60,08/19/2026 8:04,
+S-205,L. Brandvold,08/19/2026,8:27,L3 deck bay D at pump,772017,33,4A317,7:33,4.5,5.6,73,6x12,4,Box 1,74/62,08/20/2026 7:18,Extra set at supt request.
+S-206,L. Brandvold,08/20/2026,9:26,Cols L3 grid 5-8 at bucket,772203,22,6S224,8:42,6.5,3.4,78,4x8,5,Box 2,76/63,08/21/2026 7:39,
+S-207,L. Brandvold,08/24/2026,1:52,Cols L3 grid 9-12 at bucket,772531,18,6S224,1:09,6.25,2.9,81,4x8,5,Box 2,75/62,08/25/2026 7:43,
+S-208,L. Brandvold,08/26/2026,10:41,Cols L4 grid 1-4 at bucket,772809,22,6S224,9:54,5.75,3.0,76,4x8,5,Box 2,91/66,08/27/2026 4:22,
+S-209,L. Brandvold,08/27/2026,8:14,Stair 2 shear walls lift 1 at pump,772934,18,6S224,7:31,6.25,2.6,70,4x8,5,Box 1,76/63,08/28/2026 7:09,
+S-210,L. Brandvold,08/31/2026,6:57,L4 deck bay D at pump,773248,41,4A317,6:12,4.0,6.2,68,6x12,4,Box 1,78/64,09/01/2026 7:14,
+S-211,L. Brandvold,09/02/2026,9:19,Cols L4 grid 5-8 at bucket,773471,22,6S224,8:37,6.0,4.2,75,4x8,5,Box 2,74/62,09/03/2026 7:01,
+S-212,L. Brandvold,09/03/2026,8:07,Stair 2 shear walls lift 3 at pump,773586,18,6S224,7:22,6.75,3.6,71,4x8,5,Box 1,73/61,09/04/2026 7:32,
+S-213,L. Brandvold,09/10/2026,12:52,Cols L4 grid 9-12 at bucket,774119,22,6S224,12:08,5.75,2.7,69,4x8,5,Box 2,72/61,09/11/2026 7:21,
