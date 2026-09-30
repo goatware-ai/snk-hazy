@@ -4,14 +4,25 @@
 - **Folder:** `submissions/03-pretreatment-smr-q3-2026`
 - **Outcome:** NEEDS_REVISION
 - **Eval revision requested:** 2026-09-28T07:49:40.692232Z
-- **Expires:** 2026-10-03T07:49:40.692232Z
+- **Reviewer revision requested:** 2026-09-29T16:34:55.450998Z
+- **Expires:** 2026-10-04T16:34:55.450998Z
 - **Further revisions allowed:** True
 
 ## Eval revision notes
 
 Agent Runner Summary: Evaluation FAILED. Hazy difficulty: FAIL
 
-## Checks (4 failed of 12)
+## Reviewer revision notes
+
+please make this task harder
+
+## notes.txt
+
+Revision Notes
+
+please make this task harder
+
+## Checks (4 failed of 16)
 
 ### PASS — Agent Runner Summary
 
@@ -61,6 +72,22 @@ Evaluation FAILED. input_sufficiency: FAIL. The four promised input files are al
 
 Evaluation FAILED. Hazy difficulty: FAIL
 
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. 6 files: 6 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. prompt_completeness: PASS. The instructions are well-specified for a pretreatment compliance reporting task. The role, organization, purpose, inputs, deliverable, and constraints are all clearly articulated. All six referenced input files are present in the inventory. The instructions provide sufficient detail for a competent environmental professional to produce the requested workbook. No material defects found.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. input_sufficiency: PASS. All six input files listed in the instructions are present in the inventory and have been rendered with sufficient detail. The pretreatment permit provides effluent limits, computation rules, notification timelines, SNC criteria, and Attachment B format requirements. The lab results file covers the full April–September period with sample dates, results, qualifiers, report dates, and holding-time data. The three operator logs cover July, August, and September with daily flow totalizer readings, pH readings, and event narratives. The city correspondence provides Renee's requirements and Gordon's expectations. Together these inputs supply enough information to build all five requested workbook tabs: the Attachment B self-monitoring report, the monthly figures, the six-month SNC evaluation, the notification tracker, and the note to Gordon. No material input is missing; the task is answerable from the supplied evidence.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. Hazy difficulty: PASS
+
 ## Difficulty check
 
 A PASS on any model in any valid attempt fails the task; no PASS on fewer than four valid attempts leaves that model undetermined and the verdict INCOMPLETE.
@@ -74,16 +101,29 @@ A PASS on any model in any valid attempt fails the task; no PASS on fewer than f
 - verdict **FAIL**
 - glm-5.2: PASS, FAIL, FAIL, FAIL (4 valid, solved True)
 - qwen3.6-27b: FAIL, INCOMPLETE, FAIL, FAIL (3 valid, solved None)
+- verdict **PASS**
+- glm-5.2: FAIL, FAIL, FAIL, FAIL (4 valid, solved False)
+- qwen3.6-27b: FAIL, FAIL, FAIL, FAIL (4 valid, solved False)
 
 ## Platform vs repo
 
-The prompt and every rubric row match the folder.
+The platform's copy and this folder disagree. The platform's is what was graded.
+
+- instruction.md differs from the prompt the platform holds; the platform's copy is what was graded
+- rubric row count differs: **26** in the CSV, **28** on the platform
+- 23 of 26 compared criteria differ in text, first at row 2
+-   row 2 CSV:      The report's line for copper measurements in the six-month period reaches its value through a plain cell refer
+-   row 2 platform: The report's line for copper measurements in the six-month period reaches its value through a plain cell refer
+- criterion 15 weight differs: CSV 1, platform 2
+- criterion 16 weight differs: CSV 1, platform 2
+- 19 CSV criteria are absent from the platform entirely (a fill that stopped early leaves exactly this)
+- 21 platform criteria are not in the CSV
 
 ## What the platform holds
 
 - domain / occupation: life_physical_and_social_science / environmental_scientists_and_specialists
-- input files: 4
+- input files: 6
 - output files: 1
-- rubric rows: 31
+- rubric rows: 28
 - tools: Microsoft Excel, Microsoft Word
-- times: 20 / 80 / 300 / 60 min, total 7.75 h
+- times: 20 / 100 / 330 / 60 min, total 8.5 h

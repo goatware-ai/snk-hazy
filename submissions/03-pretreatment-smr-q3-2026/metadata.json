@@ -7,115 +7,72 @@
     "title": "Environmental Scientists and Specialists"
   },
   "input_files": [
-    "pretreatment_permit_ip0421.docx - Wastewater Discharge Permit IP-0421 for Vandeveer Plating: effluent limitations, monitoring and computation rules, reporting and notification conditions, the significant noncompliance test, bypass conditions, and the Attachment B report format and certification",
-    "lab_results_apr_sep2026.xlsx - the laboratory's results for April through September 2026, one row per sampling event with results and qualifiers by parameter, the chain of custody log with the analysis dates, and the methods with detection and reporting limits",
-    "operator_log_jul2026.docx - the pretreatment system operator's July 2026 log with the daily totalizer register readings, the in-line pH chart bands and grab readings, and the day's notes",
-    "operator_log_aug2026.docx - the pretreatment system operator's August 2026 log with the daily totalizer register readings, the in-line pH chart bands and grab readings, and the day's notes",
+    "pretreatment_permit_ip0421.docx - Wastewater Discharge Permit IP-0421 for Vandeveer Plating: effluent limitations, monitoring and computation rules, reporting and notification conditions, the significant noncompliance test, the signatory condition, bypass conditions, and the Attachment B report format and certification",
+    "lab_results_apr_sep2026.xlsx - the laboratory's compiled results from the reports issued April through October 1, 2026, one row per sample with results and qualifiers by parameter, the chain of custody log with sampling points, analysis dates and report issue times, and the methods with detection limits and holding times",
+    "lab_case_narratives_2026.docx - the laboratory's case narratives and report revisions for the same reports, covering qualified results, repeated analyses, held reports and a revised report",
+    "operator_log_jul2026.docx - the pretreatment system operator's July 2026 log with the daily totalizer register readings, the in-line pH chart bands and grab readings, and the day's notes on sampling, the totalizer register replacement, a contained rinse tank overflow and calls",
+    "operator_log_aug2026.docx - the pretreatment system operator's August 2026 log with the daily totalizer register readings, the in-line pH chart bands and grab readings, and the day's notes on sampling, the City's sampling crew and calls",
     "operator_log_sep2026.docx - the pretreatment system operator's September 2026 log with the daily totalizer register readings, the in-line pH chart bands and grab readings, and the notes on the rinse tank overflow, the acid dump, the notices made and the samples collected",
-    "city_correspondence_oct2026.docx - the Pretreatment Coordinator's note on the third quarter report, her telephone log for the quarter and the six-month review, and the plant manager's forwarding email to the consultant"
+    "city_correspondence_oct2026.docx - the Pretreatment Coordinator's note on the third quarter report with the City's own sampling results, composites and a grab, and her telephone log for the quarter, and the plant manager's forwarding email to the consultant"
   ],
   "output_files": [
-    "vandeveer_smr_q3_2026.xlsx - the third quarter 2026 self-monitoring report workbook with the report and certification, the monthly figures, the six-month evaluation, the notifications schedule, and the note to the plant manager"
+    "vandeveer_smr_q3_2026.xlsx - the third quarter 2026 self-monitoring report workbook with the report and certification, the monthly figures, the six-month evaluation, the flow working, the notifications schedule, and the note to the plant manager"
   ],
-  "input_file_count": 6,
+  "input_file_count": 7,
   "output_file_count": 1,
   "tools": [
     "Microsoft Excel",
     "Microsoft Word"
   ],
-  "time_read_minutes": 20,
-  "time_files_minutes": 100,
-  "time_work_minutes": 330,
-  "time_qa_minutes": 60,
-  "total_time_hours": 8.5,
-  "task_instruction": "Gordon wants to sign Vandeveer's third quarter self-monitoring report on Tuesday, October 13, and it has to be at the City by the 15th. I'm the environmental scientist on the Vandeveer Plating account at Talcott Environmental, and their pretreatment permit with the City of Wyoming, Michigan is my file. I am in the field on a remediation job through the 9th, so I am handing the quarter to you because you have handled pretreatment compliance reporting before and can work a permit's definitions without me. Everything is in the folder: pretreatment_permit_ip0421.docx, lab_results_apr_sep2026.xlsx, operator_log_jul2026.docx, operator_log_aug2026.docx, operator_log_sep2026.docx, and city_correspondence_oct2026.docx. The lab file is the full April through September run because Renee's six-month review closes with this quarter, and Luis's logs cover the three months of the quarter, with the overflow in September's.\n\nBuild the package as one workbook named vandeveer_smr_q3_2026.xlsx. The first tab is the self-monitoring report in the City's Attachment B format for July, August, and September, with the certification laid out for Gordon to sign. Behind it I want the monthly figures worked from the lab results under the permit's own rules, the six-month evaluation Renee will run, and each notification the quarter required with the date it was due and the date it happened. Put a note to Gordon on the last tab telling him where the plant stands before he signs, including anything that cuts against what he expects and anything the file leaves open. He believes the overflow on the 9th is the quarter's only problem, and if the numbers say otherwise he needs it from us before Renee tells him. I need the workbook by Monday, October 12.",
+  "time_read_minutes": 25,
+  "time_files_minutes": 160,
+  "time_work_minutes": 430,
+  "time_qa_minutes": 80,
+  "total_time_hours": 11.75,
+  "task_instruction": "Gordon wants to sign Vandeveer's third quarter self-monitoring report on Tuesday, October 13, and it has to be at the City by the 15th. I'm the environmental scientist on the Vandeveer Plating account at Talcott Environmental, and their pretreatment permit with the City of Wyoming, Michigan is my file. I am in the field on a remediation job through the 9th, so I am handing the quarter to you because you have handled pretreatment compliance reporting before and can work a permit's definitions without me. Everything is in the folder: pretreatment_permit_ip0421.docx, lab_results_apr_sep2026.xlsx, lab_case_narratives_2026.docx, operator_log_jul2026.docx, operator_log_aug2026.docx, operator_log_sep2026.docx, and city_correspondence_oct2026.docx. The lab file is the full April through September run because Renee's six-month review closes with this quarter, and Luis's logs cover the three months of the quarter, with the overflow in September's.\n\nBuild the package as one workbook named vandeveer_smr_q3_2026.xlsx. The first tab is the self-monitoring report in the City's Attachment B format for July, August, and September, with the certification laid out for Gordon to sign. Behind it I want the monthly figures worked from the lab results under the permit's own rules, the six-month evaluation Renee will run, and each notification the quarter required with the date it was due and the date it happened. Keep the figures live in the cells, because Renee traces each one back to the laboratory results and cannot do that against pasted values. Put a note to Gordon on the last tab telling him where the plant stands before he signs, including anything that cuts against what he expects and anything the file leaves open. He believes the overflow on the 9th is the quarter's only problem, and if the numbers say otherwise he needs it from us before Renee tells him. I need the workbook by Monday, October 12.",
   "rubric": [
     {
       "description": "The deliverable is a single workbook named exactly vandeveer_smr_q3_2026.xlsx whose first worksheet is the self-monitoring report carrying the certification and a signature line for the Plant Manager.",
       "weight": 1
     },
     {
-      "description": "The report's line for copper measurements in the six-month period reaches its value through a plain cell reference to the six-month evaluation behind it, or a count over the same result rows alike, standing at exactly 12.",
+      "description": "The report's line for copper measurements in the six-month period reaches its value through a plain cell reference to the six-month evaluation behind it, or a count over the same result rows alike, standing at exactly 14.",
       "weight": 5
     },
     {
-      "description": "The note to Gordon states that the six-month review places the plant in significant noncompliance for copper under the technical review criterion.",
-      "weight": 1
+      "description": "The flow working's line for the September 9 discharge reaches its value through a sum over its two component cells, or plain cell references to them alike, standing at exactly 46,550.",
+      "weight": 5
     },
     {
-      "description": "The six-month evaluation leaves the July 7 sample's metals out of the measurements because they were analyzed 30 days after collection, outside the 28-day holding period.",
+      "description": "The six-month evaluation puts the plant in significant noncompliance on the late first quarter report, received June 4, 50 days after its April 15 due date.",
       "weight": 3
     },
     {
-      "description": "The six-month evaluation states the share of copper measurements above the technical review criterion threshold as 33.3 percent against the 33 percent threshold.",
-      "weight": 1
-    },
-    {
-      "description": "The July copper monthly average is stated as 4.09 on the one valid July sample and marked exceeded.",
-      "weight": 1
-    },
-    {
-      "description": "The report marks cadmium, chromium, copper, nickel and zinc in July as monitored below the required frequency.",
+      "description": "The six-month evaluation states the share of copper measurements above the technical review criterion threshold as 28.6 percent against the 33 percent threshold.",
       "weight": 2
     },
     {
-      "description": "The September copper monthly average is stated as 2.053, with the resample of September 23 counted in the average.",
+      "description": "The six-month evaluation averages the two valid copper results of August 19 into one measurement of 3.86.",
       "weight": 1
     },
     {
-      "description": "The August nickel monthly average rests on the one valid August sample and is stated as 2.61, marked exceeded.",
+      "description": "The notifications schedule shows the repeat sampling result on the June 16 copper exceedance as late, its first valid repeat result being the sample reported July 30.",
+      "weight": 3
+    },
+    {
+      "description": "The notifications schedule shows the repeat sampling result on the June 16 zinc exceedance as late, its first valid repeat result being the sample reported August 27.",
+      "weight": 3
+    },
+    {
+      "description": "The report marks cyanide in August as monitored below the required frequency, its valid samples of August 19 and August 25 being six days apart.",
       "weight": 1
     },
     {
-      "description": "The report marks nickel in August as monitored below the required frequency because the August 25 nickel result was analyzed 34 days after collection.",
+      "description": "The note tells Gordon that his signature needs a written designation from Harlan Vandeveer, the authorized representative the permit names, filed with the Coordinator.",
       "weight": 1
     },
     {
-      "description": "The September zinc monthly average is stated as 1.653 and marked exceeded.",
-      "weight": 1
-    },
-    {
-      "description": "Non-detected results are carried at zero in the monthly averages, giving a September cadmium average of 0.004.",
-      "weight": 1
-    },
-    {
-      "description": "The violations table lists the September 9 rinse tank overflow as a bypass under Section 4.1 of the permit.",
-      "weight": 1
-    },
-    {
-      "description": "The violations table lists the September 9 daily flow of 47,300 gallons as above the daily flow limit.",
-      "weight": 1
-    },
-    {
-      "description": "The violations table lists the August 13 daily flow of 46,150 gallons as above the daily flow limit.",
-      "weight": 2
-    },
-    {
-      "description": "The violations table lists the in-line pH high reading of 9.2 on August 20 as a violation of the permit's range.",
-      "weight": 2
-    },
-    {
-      "description": "The violations table lists the in-line pH reading of 5.8 on September 17 with its duration and cause.",
-      "weight": 1
-    },
-    {
-      "description": "The notifications schedule marks the telephone notice of the overflow as late against the 24-hour requirement of Section 3.2.",
-      "weight": 1
-    },
-    {
-      "description": "The notifications schedule marks the telephone notice of the September 17 pH excursion as made within 24 hours.",
-      "weight": 1
-    },
-    {
-      "description": "The notifications schedule shows the zinc resample requirement met within 30 days of the September 15 lab report.",
-      "weight": 1
-    },
-    {
-      "description": "The notifications schedule shows the copper daily maximum exceedances of July and August followed by routine samples inside the 30-day resample period.",
-      "weight": 1
-    },
-    {
-      "description": "The violations table lists the missing telephone notices for the three copper daily maximum exceedances as violations of Section 3.2.",
+      "description": "The notifications schedule shows the notice of the 3.45 copper result as late, the operator's voicemail coming 25 hours 25 minutes after the report.",
       "weight": 1
     },
     {
@@ -123,11 +80,31 @@
       "weight": 1
     },
     {
-      "description": "The workbook includes cyanide or chromium in the violations table although the monthly figures mark both parameters Met in every month of the quarter.",
-      "weight": -2
+      "description": "The six-month evaluation leaves the City's June 23 grab at manhole 44-118 out of the copper measurements.",
+      "weight": 2
     },
     {
-      "description": "The workbook invents a telephone notice date for the July and August copper exceedances although the file records none.",
+      "description": "The flow working states the July 17 daily flow as 30,947 gallons on the replaced register.",
+      "weight": 2
+    },
+    {
+      "description": "The note to Gordon states that the designation letter filed for the air permit reports does not stand for the pretreatment report.",
+      "weight": 1
+    },
+    {
+      "description": "The six-month evaluation counts 7 copper measurements above the daily maximum limit, the cell carrying the count a formula rather than a keyed figure.",
+      "weight": 2
+    },
+    {
+      "description": "The six-month evaluation counts 12 cyanide measurements in the period, the cell carrying the count a formula rather than a keyed figure.",
+      "weight": 2
+    },
+    {
+      "description": "The quarter total of metered flow on the flow working is a formula summing the daily register differences rather than a keyed figure, at 2,319,592 gallons.",
+      "weight": 2
+    },
+    {
+      "description": "The workbook invents a telephone notice date for the August 13 flow exceedance although the telephone log for the quarter records none.",
       "weight": -3
     },
     {
@@ -136,6 +113,22 @@
     },
     {
       "description": "The workbook includes the in-line pH high reading of 9.0 on July 22 in the violations table although 9.0 is inside the permit's range of 6.0 to 9.0.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook includes the pH of 9.4 read at the clarifier weir on August 19 in the violations table although the reading was taken away from Outfall 001.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly carries the 4.27 copper result of the municipal sampling crew into the August monthly average although Section 2.5 keeps that monitoring off the report.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook includes the rinse tank overflow of July 15 in the violations table as a bypass although the sump returned the water to treatment and nothing reached the sewer connection.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook includes the copper test kit reading of September 24 in the September figures as a sample result although a test kit is not a method approved under 40 CFR Part 136.",
       "weight": -2
     },
     {
