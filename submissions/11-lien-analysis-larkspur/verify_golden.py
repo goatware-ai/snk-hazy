@@ -1,9 +1,10 @@
 """verify_golden.py for lien-analysis-larkspur: re-derive every figure the analysis states from inputs/ alone
-under Practice Note PN-14 as the golden applies it (the recorder's copies of the seven claims, the owner's notice
-and waiver logs, the direct contractor's check ledger, and the close-out file), and list the alternate readings a
-reviewer could take with the phrase the golden uses to settle each one.
+under Practice Note PN-14 as the golden applies it (the recorder's copies of the fifteen claims with the statements
+of account three suppliers attached, the owner's project file with its notice, waiver, payment and certified mail
+logs, the direct contractor's check ledger, and the close-out file), and list the alternate readings a solver could
+take with the phrase the golden uses to settle each one.
 
-    .venv/bin/python drafts/11-lien-analysis-larkspur/verify_golden.py
+    .venv/bin/python submissions/11-lien-analysis-larkspur/verify_golden.py [--print [--variants]]
 """
 import csv
 import os
@@ -17,12 +18,13 @@ import openpyxl
 from docx import Document
 
 HERE = Path(__file__).resolve().parent
-ROOT = os.environ.get("HAZY_ROOT") or next(str(p) for p in HERE.parents if (p / "tools" / "golden_verify.py").is_file())
+ROOT = os.environ.get("HAZY_ROOT") or next(
+    (str(p) for p in HERE.parents if (p / "tools" / "golden_verify.py").is_file()), "/Users/aladdin/projects/snk/hazy")
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 from golden_verify import Report  # noqa: E402
 
-INPUTS = HERE / "inputs"
-GOLDEN = HERE / "solution" / "lien_analysis_larkspur_crossing.xlsx"
+INPUTS = Path(os.environ.get("LIEN_INPUTS") or HERE / "inputs")
+GOLDEN = Path(os.environ.get("LIEN_GOLDEN") or HERE / "solution" / "lien_analysis_larkspur_crossing.xlsx")
 MONTHS = {m: i for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August",
                                        "September", "October", "November", "December"], start=1)}
 
@@ -32,7 +34,7 @@ def r2(x):
 
 
 def money(x):
-    return f"{D(x):,.2f}"
+    return f"{D(str(x)):,.2f}"
 
 
 def longdate(s):
@@ -58,189 +60,372 @@ def doc_text(path):
     return "\n".join(p.text for p in d.paragraphs), d
 
 
-# ---------------------------------------------------------------- practice note: the constants
+# ---------------------------------------------------------------- practice note: the rules and constants
 note, _ = doc_text(INPUTS / "practice_note_pn14_mechanics_liens.docx")
-assert "within 15 days after completion" in note and "30 days after the owner records a notice of completion" in note
-assert "60 days after the owner records a notice of completion" in note and "20 days after the claimant first furnishes" in note
-assert "within 90 days after the claim is recorded" in note and "125 percent of the amount of the claim of lien as recorded" in note
-assert "at least 10 days before the petition" in note and "Saturday, a Sunday, or a court holiday" in note
-assert "the day the notice is given is excluded" in note and "effective when signed, whether or not the claimant has been paid" in note
-assert "stopped or returned unpaid is not payment" in note and "does not follow the statutory form does not release the lien" in note
-NOC_DAYS, SUB_DAYS, DC_DAYS, PRELIM_DAYS, ACTION_DAYS, BOND_PCT, DEMAND_DAYS = 15, 30, 60, 20, 90, D(125), 10
+for phrase in ("within 15 days after completion", "within 10 days after it is recorded", "30 days after the owner records a notice of completion",
+               "60 days after the owner records a notice of completion", "ineffective to shorten the time",
+               "the 90 days after completion is that claimant's period", "not later than 20 days after the claimant first furnishes",
+               "within 90 days after the claim is recorded", "125 percent of the amount of the claim of lien as recorded",
+               "at least 10 days before the petition", "Saturday, a Sunday, or a holiday", "closed for the whole of the day is a holiday",
+               "the day the notice is given is not counted", "effective when signed, whether or not the claimant has been paid",
+               "only once the bank has paid it", "A payment the claimant receives after it records reduces what it can enforce", "finance charges",
+               "a change order request that was not approved adds nothing to it",
+               "A document in any other form does not release the lien", "retention included", "direct contractual relationship with the owner",
+               "only on a search run after the last day", "unenforceable as a matter of law", "at the address shown on the building permit",
+               "as adjusted by the change orders the owner has approved", "within 45 days after completion", "withhold 150 percent"):
+    assert phrase in note, phrase
+NOC_DAYS, COPY_DAYS, SUB_DAYS, DC_DAYS, NO_NOC_DAYS, PRELIM_DAYS, ACTION_DAYS, BOND_PCT = 15, 10, 30, 60, 90, 20, 90, D(125)
 
-# ---------------------------------------------------------------- close-out file: completion, NOC, searches
-corr, _ = doc_text(INPUTS / "completion_and_correspondence_larkspur.docx")
+# ---------------------------------------------------------------- close-out file
+corr, cdoc2 = doc_text(INPUTS / "completion_and_correspondence_larkspur.docx")
 COMPLETION = longdate(re.search(r"was completed on ([A-Z][a-z]+ \d+, \d{4})", corr).group(0))
-NOC_RECORDED = longdate(re.search(r"Recorded ([A-Z][a-z]+ \d+, \d{4}), Placer County Recorder, Document No\. 2026-0079143", corr).group(0))
+NOC_RECORDED = longdate(re.search(r"Recorded ([A-Z][a-z]+ \d+, \d{4}), Placer County Recorder, Document No\. 2026-0081562", corr).group(0))
 INDEX_DATE = longdate(re.search(r"civil case index search, run ([A-Z][a-z]+ \d+, \d{4})", corr).group(0))
 assert "no civil action found naming Piedmont Ridge Properties" in corr and "no notice of pendency of action" in corr
+assert "no notice of credit" in corr and "no release of any claim" in corr
 NO_ACTION = True
-RETENTION = dollars(re.search(r"stands at (\$[\d,]+\.\d\d) against the contract sum", corr).group(1))
+RETENTION = dollars(re.search(r"will stand at (\$[\d,]+\.\d\d) once application 8 is certified", corr).group(1))
+ADJUSTED = dollars(re.search(r"six approved change orders, (\$[\d,]+\.\d\d) against the original", corr).group(1))
+CONTRACT_SIGNED = dollars(re.search(r"against the original (\$[\d,]+\.\d\d)", corr).group(1))
 HVAC = dollars(re.search(r"estimated the correction at (\$[\d,]+\.\d\d)", corr).group(1))
-DC_WINDOW_OPEN = "We will record our own claim if the retention is not released" in corr
+SURETY_LINE = dollars(re.search(r"release bonds on this property up to (\$[\d,]+\.\d\d)", corr).group(1))
+PERMIT_ADDRESS = re.search(r"old office, (1440 Eureka Road, Suite 100), as the owner's address on that permit", corr).group(1)
+BANK_DATE = "November 6" in corr
+recorder_rows = [[c.text for c in r.cells] for r in cdoc2.tables[0].rows[1:]]
+HOLIDAYS = set()
+for m in re.finditer(r"closed on (?:Monday|Tuesday|Wednesday|Thursday|Friday), ([A-Z][a-z]+ \d{1,2})(?:, (\d{4}))?,? for Labor Day", corr):
+    HOLIDAYS.add(longdate(f"{m.group(1)}, {m.group(2) or 2026}"))
+CLOSURES = set()
+for m in re.finditer(r"closed to the public for the whole of (?:Monday|Tuesday|Wednesday|Thursday|Friday), ([A-Z][a-z]+ \d{1,2}, \d{4})", corr):
+    CLOSURES.add(longdate(m.group(1)))
+assert HOLIDAYS == {dt.date(2026, 9, 7)} and CLOSURES == {dt.date(2026, 9, 25)}, (HOLIDAYS, CLOSURES)
 
 # ---------------------------------------------------------------- the claims
 ctext, cdoc = doc_text(INPUTS / "claims_of_lien_larkspur_crossing.docx")
 CLAIMS = {}
-for m in re.finditer(r"Claim (\d)\. (.+?), recorded ([A-Z][a-z]+ \d+, \d{4}), Document No\. (\S+)\n(.*?)(?=\nClaim \d\. |\Z)", ctext, re.S):
+for m in re.finditer(r"Claim (\d+)\. (.+?), recorded ([A-Z][a-z]+ \d+, \d{4}), Document No\. (\S+)\n(.*?)(?=\nClaim \d+\. |\Z)", ctext, re.S):
     n, name, rec, doc, body = m.groups()
     amount = dollars(re.search(r"after deducting all just credits and offsets, is (\$[\d,]+\.\d\d)", body).group(1))
     first = longdate(re.search(r"first furnished work on ([A-Z][a-z]+ \d+, \d{4})", body).group(0))
     last = longdate(re.search(r"last furnished work on ([A-Z][a-z]+ \d+, \d{4})", body).group(0))
-    prelim = longdate(re.search(r"preliminary notice was given on ([A-Z][a-z]+ \d+, \d{4})", body).group(0))
+    pm = re.search(r"preliminary notice was given on ([A-Z][a-z]+ \d+, \d{4})", body)
+    item5 = re.search(r"\n5\. (.*?)\n6\.", body, re.S).group(1)
     item6 = re.search(r"6\. General description of the work furnished: (.*?)\n7\.", body, re.S).group(1)
-    CLAIMS[name] = dict(n=int(n), recorded=longdate(rec), doc=doc, amount=amount, first=first, last=last, prelim=prelim, item6=item6)
-assert len(CLAIMS) == 7
-# exhibits: Norcal's proof of service parties, Hedrick's statement of account
+    service = re.search(r"I served a copy of this claim of mechanics lien on .*?postage prepaid, addressed to (.*?)\. I declare", body, re.S).group(1)
+    CLAIMS[name] = dict(n=int(n), recorded=longdate(rec), doc=doc, amount=amount, first=first, last=last,
+                        recital=longdate(pm.group(0)) if pm else None, item5=item5, item6=item6,
+                        direct="at the request of Piedmont Ridge Properties, LLC, the owner" in item5,
+                        served_owner_office=service.startswith("the owner at Piedmont Ridge Properties") and "3100 Douglas Boulevard" in service,
+                        served_permit=service.startswith("the owner at Piedmont Ridge Properties") and PERMIT_ADDRESS in service and "building permit" in service)
+assert len(CLAIMS) == 15
+assert sorted(r[0] for r in recorder_rows if r[2] == "Claim of mechanics lien") == sorted(c["doc"] for c in CLAIMS.values())
 tables = cdoc.tables
 norcal_parties = [r.cells[0].text for r in tables[0].rows[1:]]
-assert all("direct contractor" in p for p in norcal_parties) and not any("Piedmont" in p or "owner" in p.lower() for p in norcal_parties)
-hedrick = []
-for r in tables[1].rows[1:-1]:
-    inv, delivered, mat, amt, paid, bal = [c.text for c in r.cells]
-    hedrick.append(dict(inv=inv, date=mdy(delivered), amount=dollars(amt), balance=dollars(bal)))
-assert sum(h["balance"] for h in hedrick) == CLAIMS["Hedrick & Sons Building Supply"]["amount"]
+NORCAL_OWNER_SERVED = any("Piedmont" in p or "owner" in p.lower() for p in norcal_parties)
+STATEMENTS = {}
+for name, tbl in (("Hedrick & Sons Building Supply", tables[1]), ("Sierra Pipe & Supply, Inc.", tables[2]), ("Capitol Wire & Lighting, Inc.", tables[3])):
+    assert [c.text for c in tbl.rows[0].cells] == ["Invoice", "Invoice date", "Delivery ticket", "Delivered", "Materials", "Amount", "Paid", "Balance"]
+    lines = []
+    for r in tbl.rows[1:-1]:
+        inv, invdate, ticket, delivered, mat, amt, paid, bal = [c.text for c in r.cells]
+        lines.append(dict(inv=inv, invdate=mdy(invdate), ticket=ticket, date=mdy(delivered) if delivered else None,
+                          amount=dollars(amt), balance=dollars(bal), charge="inance charge" in mat))
+    assert sum(h["balance"] for h in lines) == CLAIMS[name]["amount"], name
+    STATEMENTS[name] = lines
+    CLAIMS[name]["first_work"] = min(h["date"] for h in lines if h["date"])
+for name, c in CLAIMS.items():
+    c.setdefault("first_work", c["first"])
 
 # ---------------------------------------------------------------- owner's project file
 wb = openpyxl.load_workbook(INPUTS / "owner_project_file_larkspur.xlsx", data_only=True)
-ws = wb["Prelim Log"]
 PRELIM = {}
-for r in ws.iter_rows(min_row=5, values_only=True):
+for r in wb["Prelim Log"].iter_rows(min_row=5, values_only=True):
     if r[0]:
-        PRELIM[r[0]] = dict(mailed=mdy(r[4]), first=mdy(r[6]), served=r[8])
-ws = wb["Subcontractors"]
-SUBVAL = {r[0]: D(str(r[3])) for r in ws.iter_rows(min_row=4, values_only=True) if r[0]}
-ws = wb["Waiver Log"]
+        PRELIM[r[0]] = dict(on_notice=mdy(r[3]), mailed=mdy(r[4]), received=mdy(r[5]), first=mdy(r[6]))
+SUBVAL, SUBCO = {}, {}
+for r in wb["Subcontractors"].iter_rows(min_row=4, values_only=True):
+    if r[0]:
+        SUBVAL[r[0]] = D(str(r[3]))
+        SUBCO[r[0]] = D(str(r[4] or 0))
 WAIVERS = []
-for r in ws.iter_rows(min_row=5, values_only=True):
+for r in wb["Waiver Log"].iter_rows(min_row=5, values_only=True):
     for block in (r[0:9], r[9:18]):
         if block[0]:
-            WAIVERS.append(dict(claimant=block[0], form=block[2], through=mdy(block[3]), amount=D(str(block[4])), exceptions=block[5], check=block[6]))
-assert len(WAIVERS) == 40
+            WAIVERS.append(dict(claimant=block[0], form=block[2], through=mdy(block[3]) if block[3] else None,
+                                amount=D(str(block[4])), exceptions=block[5], check=block[6]))
+assert len(WAIVERS) == 39
+ws = wb["Owner Payments"]
+head = ws["A1"].value
+CO = dollars(re.search(r"approved change orders 1 to 6 (\$[\d,]+\.\d\d)", head).group(1))
+assert dollars(re.search(r"contract sum (\$[\d,]+\.\d\d), approved", head).group(1)) == CONTRACT_SIGNED
+assert CONTRACT_SIGNED + CO == ADJUSTED
+paid_dk = sum(D(str(r[5])) for r in ws.iter_rows(min_row=4, max_row=12, values_only=True) if r[5] is not None)
+certified = sum(D(str(r[3])) for r in ws.iter_rows(min_row=4, max_row=12, values_only=True) if r[3] is not None)
+retained = sum(D(str(r[4])) for r in ws.iter_rows(min_row=4, max_row=12, values_only=True) if r[4] is not None)
+assert certified == ADJUSTED and retained == RETENTION, (certified, retained)
+HELD = ADJUSTED - paid_dk
+HELD_SIGNED = CONTRACT_SIGNED - paid_dk
+DIRECT_VENDORS = {}
+for r in ws.iter_rows(min_row=18, max_row=24, values_only=True):
+    if r[0]:
+        DIRECT_VENDORS[r[0]] = dict(balance=D(str(r[6])), waiver=r[7])
+        m = re.match(r"(Unconditional|Conditional) Waiver and Release on (Progress|Final) Payment through (\d\d/\d\d/\d{4})", r[7] or "")
+        if m:
+            WAIVERS.append(dict(claimant=r[0], form=f"{m.group(1)} Waiver and Release on {m.group(2)} Payment",
+                                through=mdy(m.group(3)), amount=D(str(r[4])), exceptions="None", check=None))
+MAIL = []
+for r in wb["Certified Mail"].iter_rows(min_row=5, values_only=True):
+    if r[0] and "notice of completion" in (r[4] or "").lower():
+        MAIL.append(dict(mailed=mdy(r[0]), addressee=r[2]))
 
 # ---------------------------------------------------------------- the direct contractor's ledger
-LEDGER = {}
+CHECKS, STOPPED = {}, set()
 with open(INPUTS / "dk_subcontractor_payments.csv", encoding="utf-8-sig") as fh:
     for row in csv.DictReader(fh):
-        LEDGER[int(row["CHECK_NO"])] = row
-assert LEDGER[4460]["STATUS"] == "Stopped" and LEDGER[4461]["STATUS"] == "Cleared"
+        no = int(row["CHECK_NO"])
+        if row["TYPE"] == "CHK":
+            CHECKS[no] = row
+        elif row["TYPE"] == "STP":
+            STOPPED.add(no)
+
+
+def check_state(no):
+    if no in STOPPED:
+        return "Stopped"
+    return "Paid" if CHECKS[no]["BANK_CLEARED"] else "Not paid"
+
+
+assert check_state(4460) == "Stopped" and check_state(4461) == "Paid" and check_state(4479) == "Not paid" and check_state(4448) == "Paid"
+WAIVER_CHECKS = {int(m.group(1)) for w in WAIVERS for m in [re.search(r"check (\d{4})", w["check"] or "")] if m}
+
+
+def paid_later(name, amount):
+    """A check to the claimant for this amount that the bank paid and that no waiver on file names."""
+    for no, row in CHECKS.items():
+        if no in STOPPED or no in WAIVER_CHECKS or not row["BANK_CLEARED"]:
+            continue
+        if tokens(row["PAYEE"]) == tokens(name) and D(row["AMOUNT"]) == amount and mdy(row["ENTRY_DATE"]) > COMPLETION:
+            return no
+    return None
 
 
 # ---------------------------------------------------------------- the method
-def extend(d):
-    """Code of Civil Procedure section 12a: a last day on a weekend runs to the Monday."""
-    if d.weekday() == 5:
-        return d + dt.timedelta(days=2)
-    if d.weekday() == 6:
-        return d + dt.timedelta(days=1)
+def extend(d, holidays=None):
+    """Code of Civil Procedure sections 12a and 12b: a last day on a Saturday, a Sunday, a holiday or a whole-day office closure runs to the next day that is none of them."""
+    holidays = (HOLIDAYS | CLOSURES) if holidays is None else holidays
+    while d.weekday() >= 5 or d in holidays:
+        d += dt.timedelta(days=1)
     return d
 
 
+WORDS = {"bldg": "building", "&": "and"}
+DROP = {"inc", "llc", "co", "corp", "the"}
+
+
+def tokens(name):
+    out = []
+    for w in re.sub(r"[.,]", " ", name.lower()).replace("&", " and ").replace("-", " ").split():
+        w = WORDS.get(w, w)
+        if w not in DROP:
+            out.append(w)
+    return out
+
+
+def mailed_copy(name, match="full"):
+    """The date a copy of the notice of completion was deposited for this person, or None."""
+    want = tokens(name)
+    for row in MAIL:
+        have = tokens(row["addressee"])
+        if match == "surname":
+            hit = have[0] == want[0]
+        else:
+            hit = have == want[:len(have)]
+        if hit:
+            return row["mailed"]
+    return None
+
+
 def components(name):
-    """Each claim built up from its own statement: (label, date furnished through, amount, kind)."""
+    """Each claim built up from its own statement: (label, date furnished through, amount, kind, invoice date)."""
     c = CLAIMS[name]
     out = []
-    if name == "Hedrick & Sons Building Supply":
-        for h in hedrick:
+    if name in STATEMENTS:
+        for h in STATEMENTS[name]:
             if h["balance"] > 0:
-                out.append((h["inv"], h["date"], h["balance"], "materials"))
+                out.append((f"{h['inv']} {h['ticket']}", h["date"] or h["invdate"], h["balance"], "charges" if h["charge"] else "materials", h["invdate"]))
         return out
-    if name == "Norcal Rebar & Mesh, LLC":
-        return [("materials", c["last"], c["amount"], "materials")]
+    if name in ("Norcal Rebar & Mesh, LLC", "Foothill Ready Mix, Inc."):
+        return [("materials", c["last"], c["amount"], "materials", c["last"])]
     if name == "Tallac Concrete, Inc.":
         ret = r2(SUBVAL[name] * D("0.05"))
-        return [("retention", c["last"], ret, "retention"), ("May billing balance", c["last"], c["amount"] - ret, "progress")]
+        return [("retention", c["last"], ret, "retention", c["last"]), ("May billing balance", c["last"], c["amount"] - ret, "progress", c["last"])]
     t = c["item6"]
     for m in re.finditer(r"(?:progress payment|final billing|final progress payment) for the period ending ([A-Z][a-z]+ \d+, \d{4}) in the sum of (\$[\d,]+\.\d\d)", t):
-        out.append((m.group(0)[:40], longdate(m.group(1)), dollars(m.group(2)), "progress"))
+        out.append((m.group(0)[:40], longdate(m.group(1)), dollars(m.group(2)), "progress", longdate(m.group(1))))
+    m = re.search(r"final invoice for work performed .*? through ([A-Z][a-z]+ \d+, \d{4}) in the sum of (\$[\d,]+\.\d\d)", t)
+    if m:
+        out.append(("final invoice", longdate(m.group(1)), dollars(m.group(2)), "progress", longdate(m.group(1))))
     m = re.search(r"retention withheld in the sum of (\$[\d,]+\.\d\d)", t)
-    out.append(("retention", c["last"], dollars(m.group(1)), "retention"))
+    out.append(("retention", c["last"], dollars(m.group(1)), "retention", c["last"]))
     m = re.search(r"invoice (\S+) dated .*? through ([A-Z][a-z]+ \d+, \d{4}) in the sum of (\$[\d,]+\.\d\d)", t)
     if m:
-        out.append((m.group(1), longdate(m.group(2)), dollars(m.group(3)), "progress"))
+        out.append((m.group(1), longdate(m.group(2)), dollars(m.group(3)), "extra", longdate(m.group(2))))
+    m = re.search(r"change order request (\d+) dated .*? through ([A-Z][a-z]+ \d+, \d{4}) in the sum of (\$[\d,]+\.\d\d)", t)
+    if m:
+        out.append((f"change order request {m.group(1)}", longdate(m.group(2)), dollars(m.group(3)), "extra", longdate(m.group(2))))
     assert sum(x[2] for x in out) == c["amount"], (name, out, c["amount"])
     return out
 
 
-def derive(weekend_ext=True, cond_on_signing=False, uncond_needs_payment=False, dc_notice_suffices=False,
-           expiry_checked=True, late_notice_covers_all=False, bond_pct=BOND_PCT, deadline_from="noc"):
+def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, charges_out=True, copy_rule=True, copy_ext=True, copy_grace=0, mail_match="full",
+           direct_recognised=True, notice_date="mailed", first_from="statement", furnished="delivered", prelim_days=PRELIM_DAYS, noc_inclusive=False,
+           cond_on_signing=False, issued_is_paid=False, uncond_needs_payment=False, final_saves_retention=False, other_form_releases=False,
+           price_rule=True, service_checked=True, permit_address_ok=True, dc_notice_suffices=False, expiry="search", bond_pct=BOND_PCT,
+           deadline_from="noc", held_basis="adjusted"):
     fig, standing = {}, {}
-    noc_ok = (NOC_RECORDED - COMPLETION).days <= NOC_DAYS
+    hol = HOLIDAYS | (CLOSURES if closure_is_holiday else set())
+    ext = (lambda d: extend(d, hol)) if weekend_ext else (lambda d: d)
     fig["days completion to noc"] = (NOC_RECORDED - COMPLETION).days
+    noc_ok = fig["days completion to noc"] + (1 if noc_inclusive else 0) <= NOC_DAYS
     base = NOC_RECORDED if deadline_from == "noc" else COMPLETION
-    last_sub = base + dt.timedelta(days=SUB_DAYS)
-    last_dc = base + dt.timedelta(days=DC_DAYS)
-    if weekend_ext:
-        last_sub, last_dc = extend(last_sub), extend(last_dc)
+    last_sub, last_dc = ext(base + dt.timedelta(days=SUB_DAYS)), ext(base + dt.timedelta(days=DC_DAYS))
+    last_none = ext(COMPLETION + dt.timedelta(days=NO_NOC_DAYS))
+    copy_by = NOC_RECORDED + dt.timedelta(days=COPY_DAYS)
+    if copy_ext:
+        copy_by = extend(copy_by, hol)
+    copy_by += dt.timedelta(days=copy_grace)
+    held = HELD if held_basis == "adjusted" else HELD_SIGNED
+    fig["last day to give copy"] = fmt(copy_by)
     fig["last day others"] = fmt(last_sub)
-    fig["last day direct contractor"] = fmt(last_dc)
-    fig["retention due"] = fmt(extend(COMPLETION + dt.timedelta(days=45)))
+    fig["last day direct contractor with notice"] = fmt(last_dc)
+    fig["last day without notice"] = fmt(last_none)
+    fig["retention due"] = fmt(extend(COMPLETION + dt.timedelta(days=45), hol))
     fig["withhold for hvac"] = money(r2(HVAC * D("1.5")))
-    total_rec = total_enf = total_bond = release_amt = D(0)
+    fig["held on the direct contract"] = money(held)
+
+    def last_day(name, is_dc, entitled):
+        if not noc_ok:
+            return last_none
+        if copy_rule and entitled:
+            sent = mailed_copy(name, mail_match)
+            if sent is None or sent > copy_by:
+                return last_none
+        return last_dc if is_dc else last_sub
+
+    dk_last = last_day("Dunmore-Kettle Builders, Inc.", True, True)
+    fig["last day Dunmore-Kettle"] = fmt(dk_last)
+    total_rec = total_enf = total_bond = release_amt = chain_enf = D(0)
+    n_bond = n_release = 0
     for name, c in CLAIMS.items():
-        # lien rights: notice given to the owner
-        if name == "Norcal Rebar & Mesh, LLC":
-            given = c["prelim"]
-            served_owner = dc_notice_suffices
+        is_dc = c["direct"] and direct_recognised
+        # ---- lien rights
+        in_log = name in PRELIM
+        if is_dc:
+            rights, coverage, given = True, c["first_work"], None
         else:
-            given = PRELIM[name]["mailed"]
-            served_owner = PRELIM[name]["served"].startswith("Owner")
-        first = c["first"]
-        timely_notice = (given - first).days <= PRELIM_DAYS
-        coverage = first if (timely_notice or late_notice_covers_all) else given - dt.timedelta(days=PRELIM_DAYS)
-        rights = served_owner
-        # recording deadline
-        timely = c["recorded"] <= last_sub
-        # expiry
-        due = c["recorded"] + dt.timedelta(days=ACTION_DAYS)
-        if weekend_ext:
-            due = extend(due)
-        expired = expiry_checked and NO_ACTION and INDEX_DATE > due
-        # waivers
+            if in_log:
+                given = {"mailed": PRELIM[name]["mailed"], "on_notice": PRELIM[name]["on_notice"],
+                         "received": PRELIM[name]["received"], "recital": c["recital"] or PRELIM[name]["mailed"]}[notice_date]
+                rights = True
+            else:
+                given = c["recital"]
+                rights = bool(dc_notice_suffices and given)
+            first = {"statement": c["first_work"], "claim": c["first"], "log": PRELIM[name]["first"] if in_log else c["first"]}[first_from]
+            if given is None:
+                coverage = first
+            else:
+                coverage = first if (given - first).days <= prelim_days else given - dt.timedelta(days=PRELIM_DAYS)
+        entitled = is_dc or in_log
+        # ---- recording deadline
+        ld = last_day(name, is_dc, entitled)
+        timely = c["recorded"] <= ld
+        # ---- service
+        served = c["served_owner_office"] or (c["served_permit"] and permit_address_ok) or not service_checked
+        # ---- expiry
+        due = ext(c["recorded"] + dt.timedelta(days=ACTION_DAYS))
+        if expiry == "search":
+            expired = NO_ACTION and INDEX_DATE > due
+        elif expiry == "due date alone":
+            expired = NO_ACTION and dt.date(2026, 10, 20) > due
+        else:
+            expired = False
+
+        # ---- waivers
+        def effective(w):
+            title = w["form"]
+            statutory = title.startswith("Unconditional Waiver and Release") or title.startswith("Conditional Waiver and Release")
+            if not statutory:
+                return other_form_releases
+            if title.startswith("Unconditional"):
+                if uncond_needs_payment:
+                    return False
+                return True
+            m = re.search(r"check (\d{4})", w["check"] or "")
+            state = check_state(int(m.group(1))) if m else "Not paid"
+            if state == "Paid" or cond_on_signing:
+                return True
+            return state == "Not paid" and issued_is_paid
+
         def released(date, kind):
-            if kind == "retention":
-                return False
             for w in WAIVERS:
-                if w["claimant"] != name or w["through"] < date:
+                if w["claimant"] != name or not effective(w):
                     continue
-                statutory = w["form"].startswith("Unconditional") or w["form"].startswith("Conditional")
-                if not statutory:
-                    continue
-                if w["form"].startswith("Unconditional"):
-                    if uncond_needs_payment:
-                        m = re.search(r"check (\d{4})", w["check"] or "")
-                        paid = bool(m) and LEDGER[int(m.group(1))]["STATUS"] == "Cleared"
-                        if not paid:
-                            continue
+                if "Final Payment" in w["form"]:
+                    if kind == "retention" and final_saves_retention:
+                        continue
                     return True
-                m = re.search(r"check (\d{4})", w["check"] or "")
-                paid = bool(m) and LEDGER[int(m.group(1))]["STATUS"] == "Cleared"
-                if paid or cond_on_signing:
+                if kind in ("retention", "extra"):
+                    continue
+                if w["through"] is not None and w["through"] >= date:
                     return True
             return False
+
         enf = D(0)
-        for label, date, amt, kind in components(name):
-            if date >= coverage and not released(date, kind):
+        for label, date, amt, kind, invdate in components(name):
+            basis = date if furnished == "delivered" else invdate
+            if kind == "charges":
+                if not charges_out:
+                    enf += amt
+                continue
+            if kind == "extra" and price_rule and SUBCO.get(name, D(0)) < amt:
+                continue  # a change order request never approved is no part of the price agreed (section 8430(a))
+            if kind == "progress" and later_payment and paid_later(name, amt):
+                continue
+            if basis >= coverage and not released(date, kind):
                 enf += amt
         if not rights:
             st = "No lien rights"
         elif not timely:
             st = "Untimely"
+        elif not served:
+            st = "Not served on the owner"
         elif expired:
             st = "Expired"
+        elif enf == 0:
+            st = "Waived in full"
         else:
             st = "Enforceable"
         enforceable = enf if st == "Enforceable" else D(0)
         bond = r2(c["amount"] * bond_pct / 100) if st == "Enforceable" else D(0)
-        total_rec += c["amount"]; total_enf += enforceable; total_bond += bond
-        if st != "Enforceable":
+        total_rec += c["amount"]
+        total_enf += enforceable
+        total_bond += bond
+        if st == "Enforceable":
+            n_bond += 1
+            if not c["direct"]:
+                chain_enf += enforceable
+        else:
+            n_release += 1
             release_amt += c["amount"]
         fig[f"{name} standing"] = st
         fig[f"{name} enforceable"] = money(enforceable)
         fig[f"{name} bond"] = money(bond)
         fig[f"{name} timely"] = "Yes" if timely else "No"
         fig[f"{name} rights"] = "Yes" if rights else "No"
+        fig[f"{name} served"] = "Yes" if served else "No"
         fig[f"{name} expired"] = "Yes" if expired else "No"
+        fig[f"{name} last day"] = fmt(ld)
+        fig[f"{name} action due"] = fmt(due)
         fig[f"{name} coverage from"] = fmt(coverage)
         standing[f"{name} standing"] = st
         standing[f"{name} enforceable"] = money(enforceable)
@@ -249,66 +434,135 @@ def derive(weekend_ext=True, cond_on_signing=False, uncond_needs_payment=False, 
     fig["enforceable total"] = money(total_enf)
     fig["bonds total"] = money(total_bond)
     fig["release demands amount"] = money(release_amt)
+    fig["claims to bond"] = n_bond
+    fig["claims to demand released"] = n_release
+    fig["enforceable under the direct contract"] = money(chain_enf)
+    fig["bonds over the line"] = money(total_bond - SURETY_LINE)
+    fig["bonds fit the line"] = "Yes" if total_bond <= SURETY_LINE else "No"
+    fig["enforceable over what is held"] = money(chain_enf - held)
+    fig["held covers"] = "Yes" if chain_enf <= held else "No"
     fig["noc effective"] = "Yes" if noc_ok else "No"
-    standing["last day others"] = fig["last day others"]
-    standing["bonds total"] = fig["bonds total"]
+    for k in ("last day others", "last day Dunmore-Kettle", "bonds total", "enforceable under the direct contract",
+              "bonds fit the line", "held covers", "claims to bond", "noc effective", "held on the direct contract", "enforceable over what is held"):
+        standing[k] = fig[k]
     return fig, standing
 
 
 VARIANTS = {
-    "no weekend extension of the last day": ({"weekend_ext": False}, "fell on a Saturday"),
-    "conditional waiver treated as effective when signed": ({"cond_on_signing": True}, "stopped"),
+    "no extension of a last day at all": ({"weekend_ext": False}, "closed to the public for the whole of that day"),
+    "the September 25 closure not treated as a holiday": ({"closure_is_holiday": False}, "closed to the public for the whole of that day"),
+    "fifteen days to record the notice counted with the day of completion": ({"noc_inclusive": True}, "the fifteenth day after the completion"),
+    "replacement check not found on the ledger": ({"later_payment": False}, "check 4474"),
+    "finance charges left in the enforceable amount": ({"charges_out": False}, "finance charges"),
+    "copy of the notice of completion never checked": ({"copy_rule": False}, "was never given a copy of the notice of completion"),
+    "tenth day for the copy not extended": ({"copy_ext": False}, "Labor Day"),
+    "a copy mailed the day after the last day treated as given in time": ({"copy_grace": 1}, "one day after the last day to give it"),
+    "mail log matched on the surname alone": ({"mail_match": "surname"}, "Calder Bros. Masonry is a different company"),
+    "contract with the owner not recognised": ({"direct_recognised": False}, "contracted with the owner itself"),
+    "notice date read from the date typed on the notice": ({"notice_date": "on_notice"}, "deposited on May 29"),
+    "notice date read from the date received": ({"notice_date": "received"}, "deposited on May 29"),
+    "first furnishing read from the preliminary notice form": ({"first_from": "log"}, "first delivery was April 6"),
+    "first furnishing read from the recital in the claim": ({"first_from": "claim"}, "statement of account shows ticket R-51022 delivered on February 23"),
+    "the twenty-first day treated as within the 20 days": ({"prelim_days": 21}, "the twenty-first day after that delivery"),
+    "deliveries dated by invoice": ({"furnished": "invoice"}, "delivered on May 8"),
+    "conditional waiver treated as effective when signed": ({"cond_on_signing": True}, "has not paid at the bank"),
+    "issued check treated as payment": ({"issued_is_paid": True}, "has not paid at the bank"),
     "unconditional waiver treated as ineffective without payment": ({"uncond_needs_payment": True}, "effective when signed"),
+    "final waiver read as saving retention": ({"final_saves_retention": True}, "retention included"),
+    "release on the contractor's own form given effect": ({"other_form_releases": True}, "not one of the four statutory forms"),
+    "unapproved change order request treated as part of the price agreed": ({"price_rule": False}, "the request was never approved"),
+    "service on the owner not checked": ({"service_checked": False}, "was served on Dunmore-Kettle and not on the owner"),
+    "service at the building permit address rejected": ({"permit_address_ok": False}, "address shown on the building permit"),
     "notice to the direct contractor alone accepted": ({"dc_notice_suffices": True}, "never given to the owner"),
-    "ninety day expiry not checked": ({"expiry_checked": False}, "has expired"),
-    "late preliminary notice treated as covering all deliveries": ({"late_notice_covers_all": True}, "reaches back only to May 9"),
+    "expiry judged by the due date without a later search": ({"expiry": "due date alone"}, "before its last day"),
+    "ninety day expiry not checked": ({"expiry": "none"}, "has expired"),
     "bond measured at 100 percent": ({"bond_pct": D(100)}, "125 percent of the recorded"),
-    "thirty days counted from completion": ({"deadline_from": "completion"}, "thirtieth day after the notice of completion"),
+    "thirty days counted from completion": ({"deadline_from": "completion"}, "thirtieth day after the notice of completion was recorded"),
+    "money held measured against the contract sum as signed": ({"held_basis": "signed"}, "adjusted by the six approved change orders"),
 }
 
 if __name__ == "__main__":
     fig, standing = derive()
     if "--print" in sys.argv:
         for k, v in fig.items():
-            print(k, v)
+            print(k, "|", v)
+        if "--variants" in sys.argv:
+            for name, (kw, conv) in VARIANTS.items():
+                alt = derive(**kw)[1]
+                print("==", name, {k: (standing[k], v) for k, v in alt.items() if v != standing[k]})
         sys.exit(0)
     gwb = openpyxl.load_workbook(GOLDEN, data_only=True)
     rep = Report()
-    s = gwb["Summary"]
-    kd = {s.cell(row=r, column=1).value: s.cell(row=r, column=2).value for r in range(6, 15)}
-    rep.expect("days completion to noc", fig["days completion to noc"], kd["Days from completion to recording"])
-    rep.expect("last day others", fig["last day others"], kd["Last day to record, claimants other than the direct contractor"])
-    rep.expect("last day direct contractor", fig["last day direct contractor"], kd["Last day to record, direct contractor"])
-    rep.expect("noc effective", fig["noc effective"], "Yes" if str(kd["Notice of completion effective"]).startswith("Yes") else "No")
-    hdr_row = next(r for r in range(15, 20) if s.cell(row=r, column=1).value == "CLAIMANT")
-    for r in range(hdr_row + 1, hdr_row + 8):
+    s = gwb[gwb.sheetnames[0]]
+    rows = {str(s.cell(row=r, column=1).value): r for r in range(1, s.max_row + 1) if s.cell(row=r, column=1).value}
+    kv = lambda label: s.cell(row=rows[label], column=2).value  # noqa: E731
+    rep.expect("days completion to noc", fig["days completion to noc"], kv("Days from completion to recording"))
+    rep.expect("noc effective", fig["noc effective"], "Yes" if str(kv("Notice of completion effective")).startswith("Yes") else "No")
+    rep.expect("last day to give copy", fig["last day to give copy"], kv("Last day to give a copy of the notice of completion"))
+    rep.expect("last day others", fig["last day others"], kv("Last day to record, claimant given its copy in time"))
+    rep.expect("last day without notice", fig["last day without notice"], kv("Last day to record, person not given a copy in time"))
+    rep.expect("last day Dunmore-Kettle", fig["last day Dunmore-Kettle"], kv("Last day for Dunmore-Kettle Builders to record"))
+    hdr = rows["CLAIMANT"]
+    heads = {s.cell(row=hdr, column=c).value: c for c in range(1, s.max_column + 1) if s.cell(row=hdr, column=c).value}
+    for r in range(hdr + 1, hdr + 1 + len(CLAIMS)):
         name = s.cell(row=r, column=1).value
-        rep.expect(f"{name} standing", fig[f"{name} standing"], s.cell(row=r, column=7).value)
-        rep.expect(f"{name} rights", fig[f"{name} rights"], s.cell(row=r, column=4).value)
-        rep.expect(f"{name} timely", fig[f"{name} timely"], s.cell(row=r, column=5).value)
-        rep.expect(f"{name} expired", fig[f"{name} expired"], s.cell(row=r, column=6).value)
-        rep.expect(f"{name} enforceable", fig[f"{name} enforceable"], money(s.cell(row=r, column=8).value))
-        rep.expect(f"{name} bond", fig[f"{name} bond"], money(s.cell(row=r, column=10).value))
-        rep.expect(f"{name} recorded amount", money(CLAIMS[name]["amount"]), money(s.cell(row=r, column=3).value))
-    tot = {s.cell(row=r, column=1).value: s.cell(row=r, column=2).value for r in range(hdr_row + 8, hdr_row + 16) if s.cell(row=r, column=1).value}
-    rep.expect("claims as recorded", fig["claims as recorded"], money(tot["Amount of the seven claims as recorded"]))
-    rep.expect("enforceable total", fig["enforceable total"], money(tot["Amount the claimants could enforce against the property"]))
-    rep.expect("bonds total", fig["bonds total"], money(tot["Release bonds required, total penal sum at 125 percent"]))
-    rep.expect("release demands amount", fig["release demands amount"], money(tot["Recorded amount of the claims to demand released"]))
-    p = gwb["Prelim Notices"]
-    for r in range(4, 11):
+        g = lambda h: s.cell(row=r, column=heads[h]).value  # noqa: E731
+        rep.expect(f"{name} standing", fig[f"{name} standing"], g("STANDING"))
+        rep.expect(f"{name} rights", fig[f"{name} rights"], g("LIEN_RIGHTS"))
+        rep.expect(f"{name} timely", fig[f"{name} timely"], g("TIMELY"))
+        rep.expect(f"{name} served", fig[f"{name} served"], g("SERVED_ON_OWNER"))
+        rep.expect(f"{name} expired", fig[f"{name} expired"], "Yes" if g("EXPIRED") == "Yes" else "No")
+        rep.expect(f"{name} enforceable", fig[f"{name} enforceable"], money(g("ENFORCEABLE_AMOUNT")))
+        rep.expect(f"{name} bond", fig[f"{name} bond"], money(g("RELEASE_BOND")))
+        rep.expect(f"{name} recorded amount", money(CLAIMS[name]["amount"]), money(g("AMOUNT_AS_RECORDED")))
+        rep.expect(f"{name} recorded", fmt(CLAIMS[name]["recorded"]), g("RECORDED"))
+    rep.expect("claims as recorded", fig["claims as recorded"], money(kv("Amount of the fifteen claims as recorded")))
+    rep.expect("enforceable total", fig["enforceable total"], money(kv("Amount the claimants could enforce against the property")))
+    rep.expect("bonds total", fig["bonds total"], money(kv("Release bonds required, total penal sum at 125 percent")))
+    rep.expect("release demands amount", fig["release demands amount"], money(kv("Recorded amount of the claims to demand released")))
+    rep.expect("claims to bond", fig["claims to bond"], kv("Claims to bond or settle"))
+    rep.expect("claims to demand released", fig["claims to demand released"], kv("Claims to demand released"))
+    rep.expect("surety line", money(SURETY_LINE), money(kv("Line the surety has approved for release bonds")))
+    rep.expect("bonds over the line", fig["bonds over the line"], money(kv("Bonds required over the surety's line")))
+    rep.expect("bonds fit the line", fig["bonds fit the line"], "Yes" if str(kv("Do the bonds fit inside the surety's line")).startswith("Yes") else "No")
+    rep.expect("enforceable under the direct contract", fig["enforceable under the direct contract"],
+               money(kv("Enforceable by claimants under the Dunmore-Kettle contract")))
+    rep.expect("held on the direct contract", fig["held on the direct contract"], money(kv("Held by the owner on the Dunmore-Kettle contract")))
+    rep.expect("enforceable over what is held", fig["enforceable over what is held"], money(kv("Enforceable claims over what the owner holds")))
+    rep.expect("held covers", fig["held covers"], "Yes" if str(kv("Does what the owner holds cover those claims")).startswith("Yes") else "No")
+    # working tabs
+    p = gwb["Notices"]
+    for r in range(4, 4 + len(CLAIMS)):
         name = p.cell(row=r, column=1).value
-        rep.expect(f"{name} coverage from", fig[f"{name} coverage from"], p.cell(row=r, column=8).value)
+        rep.expect(f"{name} coverage from", fig[f"{name} coverage from"], p.cell(row=r, column=12).value)
+    dl = gwb["Deadlines"]
+    for r in range(4, 4 + len(CLAIMS)):
+        name = dl.cell(row=r, column=1).value
+        rep.expect(f"{name} last day", fig[f"{name} last day"], dl.cell(row=r, column=4).value)
+        rep.expect(f"{name} action due", fig[f"{name} action due"], dl.cell(row=r, column=8).value)
+    am = gwb["Amounts"]
+    parts = {}
+    for r in range(4, am.max_row + 1):
+        name = am.cell(row=r, column=1).value
+        if name in CLAIMS:
+            parts[name] = parts.get(name, D(0)) + D(str(am.cell(row=r, column=6).value))
+    for name, c in CLAIMS.items():
+        rep.expect(f"{name} components sum to the claim", money(c["amount"]), money(parts.get(name, 0)))
     pr = gwb["Parameters"]
-    prm = {pr.cell(row=r, column=1).value: pr.cell(row=r, column=2).value for r in range(4, 40) if pr.cell(row=r, column=1).value}
+    prm = {pr.cell(row=r, column=1).value: pr.cell(row=r, column=2).value for r in range(4, 60) if pr.cell(row=r, column=1).value}
     rep.expect("retention due", fig["retention due"], prm["Retention due to the direct contractor"])
     rep.expect("withhold for hvac", fig["withhold for hvac"], money(prm["Retention the owner may withhold for the rooftop unit correction"]))
     rep.expect("retention withheld", money(RETENTION), money(prm["Retention withheld from the direct contractor"]))
-    note = "\n".join(str(c.value) for row in gwb["Note to Marguerite"].iter_rows() for c in row if c.value)
-    for phrase in (f"${fig['bonds total']}", f"${fig['enforceable total']}" if False else "$33,982.19", "$8,125.00", "$159,145.00", "$61,477.00",
-                   "$198,931.25", "$76,846.25", "$65,398.05", "$58,250.00", "$99,830.00", f"${fig['claims as recorded']}",
-                   "September 21, 2026", "October 19, 2026", "$187,412.50", "$33,000.00", "check 4460", "check 4461", "May 9", "$18,336.25"):
-        rep.expect(f"note states {phrase}", phrase in note, True)
-    rep.expect("direct contractor window still open in the correspondence", DC_WINDOW_OPEN, True)
+    rep.expect("paid to the direct contractor", money(paid_dk), money(prm["Paid to the direct contractor to date"]))
+    rep.expect("adjusted contract sum", money(ADJUSTED), money(prm["Adjusted contract sum"]))
+    rep.expect("change orders approved", money(CO), money(prm["Change orders 1 to 6 approved by the owner"]))
+    notetab = gwb[gwb.sheetnames[-1]]
+    ntext = "\n".join(str(c.value) for row in notetab.iter_rows() for c in row if c.value)
+    for phrase in (f"${fig['bonds total']}", f"${fig['bonds over the line']}", f"${fig['enforceable under the direct contract']}",
+                   f"${fig['held on the direct contract']}", f"${fig['enforceable over what is held']}", f"${money(HELD_SIGNED)}",
+                   "$29,091.69", "$8,125.00", "$85,235.00", "$61,477.00", "$38,915.00", "$25,080.00", "$17,204.84", "$7,132.50", "$15,426.44", "$23,480.00",
+                   "$4,316.20", "$9,467.50", "$1,500.00", "November 9, 2026", "October 5, 2026", "check 4460", "check 4474", "check 4479", "May 9", "February 24",
+                   "1440 Eureka Road", "permit B25-1187", f"${fig['claims as recorded']}"):
+        rep.expect(f"note states {phrase}", phrase in ntext, True)
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)
     rep.finish()
