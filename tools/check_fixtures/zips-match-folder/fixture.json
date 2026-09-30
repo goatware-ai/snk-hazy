@@ -1,0 +1,9 @@
+{
+ "about": "package-corrected with both zips built from inputs/ and solution/ as they stand, so H10 stays silent on a package whose zips are the folder (2026-09-29).",
+ "base": "package-corrected",
+ "silent": [
+  {
+   "code": "H10"
+  }
+ ]
+}

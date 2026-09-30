@@ -603,6 +603,7 @@ PRIMARY = {
     "H7": "PRE-PACK",       # a chronological reference CSV longer than the adjudication preview window (2026-09-14)
     "H8": "PRE-PACK",       # a golden-cited id's input row in the hidden middle of a sheet longer than 40 rows
     "H9": "PRE-PACK",       # an input CSV field containing a comma, split naively by adjudication (2026-09-15)
+    "H10": "PRE-PACK",      # an i-/s- zip whose members are not the folder's files, byte for byte (2026-09-29)
     "R134": "PRE-COVER",    # every prompt ask mapped to a golden anchor and a positive rubric row in clause-map.md (a rejection, 2026-09-15)
     "G41": "GOLD-FID",      # an action row defers an asked-for artifact, or one schedule stands in for one form per record (a rejection, 2026-09-15)
     "G42": "GOLD-FID",      # a phrase recorded in struck-phrases.md back anywhere in the package (a rejection, 2026-09-15)

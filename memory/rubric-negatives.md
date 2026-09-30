@@ -176,3 +176,5 @@ thing, readable in one direction, bounded, and checkable against the inputs and 
 - 2026-09-21: section 1 rewritten, R67 and the two-negatives bar deleted. Every dated entry
   recording a penalty scope FAIL was cut with it; those rulings were about what a penalty was
   allowed to cover, which is no longer a question.
+
+- 2026-09-30 (lien-analysis-larkspur, the form's in-app Criteria atomic FAIL twice in one day): the "although <rule or record>" polarity clause on a negative now reads to the platform as a second check ("should be split into multiple criteria"), and the earlier FAIL named "found timely because <reason>" positives the same way. Write each negative as the one defect committed, with the record as a phrase inside the predicate ("as unpaid after check 4474 paid at the bank", "by the unpaid check 4479", "instead of the claim as recorded"), and each positive as one verdict or one figure with its reason on its own row when it carries weight. The gate's R84 still passes the shorter form.

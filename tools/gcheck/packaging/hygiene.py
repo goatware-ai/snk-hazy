@@ -12,6 +12,8 @@ Every file in the folder is read (docx/xlsx member by member) for:
       lorem ipsum, TBD), PDFs included: the platform's Input Files Quality Check FAILs on the
       bare keyword even inside a published report (2026-09-12: EIA's "estimated
       from sample data reported on Form EIA-857")
+  H10 each i-/s- zip holds exactly the files of inputs/ and solution/, byte for byte (2026-09-29:
+      a stale five-member input zip beside eight inputs passed the gate)
 
 Future dates (mm/dd/yyyy after today) are counted, not judged: genuinely prospective
 deadlines are allowed, so the count prompts a date audit by hand. The per-date list was
@@ -470,3 +472,61 @@ def check_csv_fields_without_commas(folder):
                       "reads every later column as shifted (2026-09-15: 18 fields against a 16-column "
                       "header). Reword each value without the comma")
 
+
+
+# H10 (2026-09-29): a rebuild left unpackaged by a session limit passed the gate at 0 errors while
+# i-<task>.zip still held the five inputs of the submitted version against eight files in inputs/;
+# H4 reads a zip's members for subfolders, spaces and empties and never asks whether they are the
+# folder's files. The gate on the zipped files is the only verification, so a zip that disagrees
+# with the folder is a stale package, not a hygiene nicety.
+def _h10_folder_files(d):
+    import zlib
+    out = {}
+    for p in sorted(d.iterdir()) if d.is_dir() else []:
+        if p.is_file() and not p.name.startswith("."):
+            out[p.name] = zlib.crc32(p.read_bytes()) & 0xFFFFFFFF
+    return out
+
+
+@check(codes=['H10'], rules=['PRE-PACK'], needs=['inputs', 'solution'], params=['folder'])
+def check_zips_match_folder(folder):
+    """Each packaged zip holds exactly the files of the folder it is built from, i-<task>.zip the files of inputs/ and s-<task>.zip the files of solution/, member for member and byte for byte, because the zips are what is uploaded and a zip built before the last edit ships the old package.
+
+    Since: 2026-09-29 (a revision whose rebuild passed the gate with the previous submission's five-member input zip beside eight inputs).
+    Source: house rule (prompts/submission.md, Package sequence: "the gate on the zipped files is the only verification").
+    Drift-notes: silent when the folder carries no i-*.zip and no s-*.zip (an unpackaged draft, a review packet);
+    once either exists both are judged, a missing one is an error. Members are compared by name and CRC-32
+    against the folder's files, dotfiles ignored; a member not in the folder, a folder file not in the zip and a
+    member whose bytes differ are each named. The remedy is the Package sequence run again from the top,
+    never a hand edit of the zip.
+    """
+    import zipfile
+    folder = folder if hasattr(folder, "glob") else __import__("pathlib").Path(str(folder))
+    zips = {"i": sorted(folder.glob("i-*.zip")), "s": sorted(folder.glob("s-*.zip"))}
+    if not zips["i"] and not zips["s"]:
+        return
+    for kind, sub in (("i", "inputs"), ("s", "solution")):
+        want = _h10_folder_files(folder / sub)
+        if not zips[kind]:
+            emit("ERROR", f"[H10] no {kind}-<task>.zip beside {sub}/ ({len(want)} file(s)) while the other zip exists; "
+                          "the package is half built, run the Package sequence again from the top")
+            continue
+        for z in zips[kind]:
+            try:
+                with zipfile.ZipFile(z) as zf:
+                    have = {i.filename: i.CRC & 0xFFFFFFFF for i in zf.infolist() if not i.is_dir()}
+            except (OSError, zipfile.BadZipFile):
+                continue     # H4 reports an unreadable zip
+            missing = sorted(set(want) - set(have))
+            extra = sorted(set(have) - set(want))
+            differ = sorted(n for n in set(want) & set(have) if want[n] != have[n])
+            if not (missing or extra or differ):
+                continue
+            parts = []
+            if missing: parts.append(f"{len(missing)} file(s) of {sub}/ not in the zip ({', '.join(missing[:4])})")
+            if extra: parts.append(f"{len(extra)} member(s) not in {sub}/ ({', '.join(extra[:4])})")
+            if differ: parts.append(f"{len(differ)} member(s) whose bytes differ from {sub}/ ({', '.join(differ[:4])})")
+            emit("ERROR", f"[H10] {z.name} does not match {sub}/: " + "; ".join(parts) +
+                          ". The zip is what is uploaded (2026-09-29: a rebuild passed the gate beside the "
+                          "previous submission's five-member input zip); run the Package sequence again from "
+                          "the top and rebuild both zips")

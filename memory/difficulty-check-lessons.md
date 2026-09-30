@@ -161,3 +161,91 @@ COMPLETED", which is the runner-side signature to look for. Zero of seven valid 
 errors, zips byte-identical, resubmit unchanged, offer still open (expires 2026-10-03). The
 `rubric_checks` block's "Missing criteria: criteria_objectively_checkable, ..." string appears in every
 fetch JSON with `feedback_outcome: PASS` and is a platform artifact, not a finding.
+
+**A reviewer's "please make this task harder" after a difficulty PASS (nutrition-panel-granola, 2026-09-29).**
+The same one-line note landed on at least two tasks one second apart, so it reads as a bulk note. The
+operator's direction was to keep the task and make it a little harder and bigger than the build, NOT to
+re-run the creation workflow (a first attempt to open the creation docs was stopped). Shape that fit: a
+basis column reduced to a status word with the weights in the specifications, a second per-serving
+ingredient with its own specification, a claim verdict moved onto its threshold by a small formula change
+(passes per reference amount, fails per serving, panel prints the ceiling), and the working sheet left on a
+superseded revision with the rule doc saying the specification in force governs.
+
+- 2026-09-29 (the same bulk note on concrete-acceptance-review, difficulty PASS on both models beforehand): rebuilt as 5 to 8 inputs and 22 to 27 rows, keeping the task. Shape that fit: the break record carries two measured diameters, loads and break times but no age or area (the solver computes both; the procedure's nominal areas and calendar-day ages are the look-alikes); a field log from two technicians' books, one on the 12 hour clock, with a delivery ticket keyed with two digits turned so two sets are one sample; a spec whose sampling rule is judged on the day's total of a mixture, whose age tolerance runs in hours, and whose set-aside needs the engineer's written direction (the contractor's void request is the arm that fails it, the engineer's letter the arm that holds); a July transmittal whose figure a later correction letter changes, so the carried-forward average decides a criterion (a) call; a memo whose expectations the records contradict in five places, each stated on the note tab. verify_golden.py lists 91 near flips settled by conventions the Parameters tab states. Session trap: the rebuild session hit its usage limit after the edits and before packaging, and the gate passed the folder at 0 errors beside the old zips (H10 since 2026-09-29, [[package-hygiene-pipeline]]).
+
+- 2026-09-30 (the same bulk note on freight-invoice-audit, difficulty PASS on both models beforehand): kept the task and grew it from 38 to 46 freight bills. Shape that fit: a late-August pickup billed in September on the wrong week beside one billed right (the bulletin's August rows finally decide something), a redelivery confirmed in writing beside one refused (the schedule line with no BOL flag, both arms), a requested liftgate billed above the schedule rate (the 6.1 flat-rate clause), a pro number with two digits turned that only the shipment's own facts match to its bill of lading (a Pro Matches tab in the golden, a criterion worded by property because R107 rejects a record id past the 28-row window), and a bill on which the carrier applied the deficit rule correctly as the look-alike; the transmittal's self-describing lines ("No inspector is named", "No weighmaster signature") rewritten as a clerk's particulars. Pipeline: 46 rows push a CSV past the 25+15 preview, so both CSVs went into two side-by-side panels, the golden copies them block for block, and the duplicate test is one two-dimensional COUNTIFS (R16 rejects COUNTIF+COUNTIF and COUNTIF-COUNTIF; COUNTIFS with a "<>" criterion is one call).
+
+- 2026-09-30 (the same bulk note on lien-analysis-larkspur, after a 2026-09-29 rebuild to twelve claims that two
+  blind solves on Sonnet and Opus then cleared in full): kept the task and grew it from 12 to 15 claims, each new one a
+  threshold arm of a rule already in play. Shape that fit: a supplier whose copy of the notice of completion went out
+  one day late beside one on the last day and one never sent (section 8190, three arms); a supplier whose own
+  statement of account shows a first delivery 21 days before its notice while the claim and the owner's log both recite
+  the notice-form date (one day late, the first invoice falls out) beside one at exactly 20 days; a subcontractor
+  served at the address on the building permit (holds) beside the one served on the direct contractor (fails); an
+  unapproved change order request in a claim beside an approved change order in another, the approval read off the
+  subcontractor list's CHANGE_ORDERS column; completion moved so the notice of completion sits on its fifteenth day;
+  the September 25 "court holiday" label stripped, the close-out file stating only an all-day office closure and the
+  practice note carrying CCP 12b; six approved change orders so the money held turns on the adjusted contract sum;
+  surety line and held figure reset so both answers stay within about $3,000 of their thresholds. Pipeline: openpyxl
+  overwrites wb.properties.modified at save (A3 fires when created is later), so the in-world stamp goes back at zip
+  level before office_resave; G18 reads a bare two-word company name ("Ferguson Enterprises") as a person and a name
+  carrying "Distributors" or "Supply" as a role, so fictional claimant names take a comma suffix and avoid those words;
+  a struck literal "CED" matches inside "Procedure", so short struck forms go in as /\bCED\b/; a rubric figure on a
+  cell storing a tenth is caught between R50 and R82, so the row grades the basis or is dropped in favour of its
+  negative.
+
+- 2026-09-30 (pretreatment-smr-q3-2026, operator direction "make this task more difficult and bigger" on top of the
+  09-29 reviewer rebuild, which passed difficulty on 09-28 before the reviewer's bulk note): kept the task and added
+  five look-alike arms of rules already in play, no new rule and no new deliverable. Shape that fit: a City grab at
+  the outfall manhole beside the City composites (a metals grab is not collected as 2.1 requires; counted, it is the
+  fifth result over the threshold at 33.3 percent, so the copper verdict turns on it); a totalizer register replaced
+  mid-July with the new one at zero, every later register shifted and the day read against zero (a difference taken
+  across the replacement is a five-million-gallon negative); a contained overflow pumped back to treatment beside the
+  bypass; a test-kit reading at the outfall beside the clarifier weir grab (2.5's method arm and its point arm); a
+  designation letter filed with another agency beside the filed-with-the-Coordinator arm. Rubric held at +39 by
+  cutting figure rows the golden still states. Pipeline: openpyxl insert_rows does not move formulas, so a row goes
+  in by translating each lower row down with openpyxl.formula.translate.Translator and widening every closed
+  $5:$22 range by regex; a session that fails after saving its docx edits must restore them from the backup before
+  the rerun (the build script asserts on the pre-edit text).
+
+- 2026-09-30 (title-exam-cedarbrook-lot12, operator direction "make this task harder and more complex" on top of the
+  09-29 reviewer rebuild, which had passed difficulty on 09-28 with FAIL x4 on both models): kept the task and added
+  three arms of rules already in play, no new rule and no new file. Shape that fit: a 1999 mortgage older than twenty
+  years with no enforcement action but a 2029 maturity (guideline 6.3's second test, which neither open mortgage had
+  failed on) beside the 1994 one that meets all three tests; a 2010 certificate kept alive by three refilings each inside
+  five years of the last, with a docket payment, in force on all three pieces of the land across the 2014 conveyance,
+  beside a 2016 certificate never refiled that ran out in 2021 (the five-year rule's third arm) and the existing timely
+  and late refilings; the amendment abstract reciting the renewal date so the golden's November 3, 2026 is input-carried
+  (G20 had fired on the derived date). Rubric 57 rows at +107/-24; every "although" negative and "because" positive
+  rewritten to one defect or one verdict with the record inside the predicate, ahead of the form's atomic check. Pipeline:
+  restore docProps/core.xml at zip level after every python-docx or openpyxl save, before office_resave; a new sentence
+  with a colon and three commas reads as four clauses to A20, split it first.
+
+- 2026-09-30 (tract7-boundary-retracement, the same 2026-09-29 bulk note after a difficulty PASS on both models): the
+  09-29 rebuild session had hit its limit with the inputs, golden, rubric and verify script rewritten but nothing packaged
+  (zips from 09-21, no caches, clause map untouched, no log entry); this session read the rebuild against the inputs and
+  finished it. Shape that fit: a notes file of 31 shots with a leg shot twice to the county's PK nail (0.28 foot, firm
+  standard 1.1's disagreeing-pair arm beside a leg whose pairs agree), a tie recorded from the wrong station and two point
+  numbers exchanged against their codes, prism constants and a taped offset only in the field book, an annexation that
+  takes in the parcel after the field dates beside one already in force on the other side of the road, 1994 and 2008
+  plat notes that class every mark (two original, three later, one of them past the 0.50 foot and set again on the
+  adjoiner's line), the rotation line between two non-adjacent original monuments computed through the calls that join
+  them with the call in error left out, and the 1978 deed of trust carrying the untransposed distance. Pipeline: the
+  DMS bearing-text formulas nested 3600 (R89 fires on /3600 as an operand, not on MOD(x,3600)); R29 fires only on
+  two-decimal figures, so gated "a formula rather than a keyed figure" clauses went on the rotation text, a count, a
+  three-decimal acreage and a one-decimal deed perimeter total (which also answers R74 with "total ... is a formula");
+  the record research's "parcels are Parcels" was A10 and its two-clause fix A20, recast as one clause with a "with"
+  phrase; `echo =====` fails under zsh (equals expansion), quote it.
+
+- 2026-09-30 (carton-bid-evaluation, operator direction "make this task harder and more complex" on top of the 09-29
+  reviewer rebuild, not yet uploaded): kept the task and grew it from ten to eleven bids with three arms of rules already in
+  play, no new rule and no new file. Shape that fit: a bidder that offers item 4 only as an alternate with no price on the
+  item as specified, FOB origin from one plant (4.4 and 5.2 beside the alternate-alongside bid; 5.4's single-plant arm
+  beside the two-plant one), lowest in the file if taken as a bid; the passed-over bidder's envelope logged at the due
+  minute (3.1 "by 10:00" beside the 10:22 return); a telephone price change logged at 09:35 that 3.4's signed-writing rule
+  excludes, and which hands the award to the caller if applied. The 09-29 session's generator (data.py, build_docs.py,
+  build_xlsx.py, gen_golden.py) was recovered from its scratchpad and patched, so the package regenerates from one bidder
+  list. Pipeline: office_resave rolls an unchanged docx back and leaves Word's ~$ owner file in inputs/, which breaks every
+  zip-reading check and rides into the zip; delete it before zipping. R55 reads "Co." as a sentence end, so a bidder named
+  "X Container Co." is written "X Container" in a criterion. form_payload.py is gone; sync_metadata.py embeds the
+  instruction, file lists and rubric into metadata.json, and M7 fires when the rubric changes without a re-sync.

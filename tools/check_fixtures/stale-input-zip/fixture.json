@@ -1,0 +1,18 @@
+{
+ "about": "package-corrected with an input zip built before the last edit: one input missing from it, a stray member the folder does not have, and no solution zip at all. H10 names each (2026-09-29, a rebuild that passed the gate beside the previous submission's five-member input zip).",
+ "base": "package-corrected",
+ "fires": [
+  {
+   "code": "H10",
+   "contains": "1 file(s) of inputs/ not in the zip (doe_diesel_index_2026.csv)"
+  },
+  {
+   "code": "H10",
+   "contains": "1 member(s) not in inputs/ (instruction.md)"
+  },
+  {
+   "code": "H10",
+   "contains": "no s-<task>.zip beside solution/"
+  }
+ ]
+}
