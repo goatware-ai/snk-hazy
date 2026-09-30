@@ -5,10 +5,11 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 ## Input File List
 
 - formula_ocb_26_03.xlsx - the frozen formula for the Oat and Cherry Bar with each ingredient's code, batch weight, percent of batch and process stage, and the pilot batch record with input weight, finished weight net of trim, bar count and target bar weight
-- ingredient_nutrient_specs.csv - the nutrient values for each formula ingredient from its supplier specification, with the basis weight each specification is stated on and the specification cited
+- ingredient_nutrient_specs.csv - the working nutrient sheet with the values for each formula ingredient, whether each row is stated per 100 g or per serving, and the supplier specification and revision each row was taken from
 - sop_qa14_nutrition_labeling.docx - the company's nutrition labeling procedure: basis of the declaration, serving size, rounding rules, daily values and percent daily value, ingredient and allergen statements, and claim thresholds
 - supplier_spec_s3301_dried_cherries.docx - the supplier specification for the infused dried cherries with sub-ingredients and proportions, nutrition per 100 g including added sugars, and the note on prior revisions
 - supplier_spec_s1187_crisp_rice.docx - the supplier specification for the crisp rice with sub-ingredients and proportions, the nutrition table on the supplier's serving basis, the allergen and packing line statement, and the note on prior revisions
+- supplier_spec_s3120_almond_butter.docx - the supplier specification for the roasted almond butter with its ingredient declaration, the nutrition table on the supplier's serving basis, the allergen and grinding line statement, and the note on the prior revision
 - product_brief_oat_cherry_bar.docx - the brand manager's brief listing the front panel claims marketing proposes, the pack format and what product development is asked to return
 
 ## Output File List
@@ -20,10 +21,10 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 | Form field | Value |
 |---|---|
 | Time to read and understand the prompt and requirements (minutes) | 15 |
-| Time to open, skim/search, and use the reference files (minutes) | 70 |
-| Time to perform the required work (minutes) | 240 |
+| Time to open, skim/search, and use the reference files (minutes) | 90 |
+| Time to perform the required work (minutes) | 300 |
 | Time for verification/QA and final review (minutes) | 60 |
-| Total time (hours) | 6.5 |
+| Total time (hours) | 8.0 |
 | Tools | Microsoft Excel; Microsoft Word |
 
 ## Domain and occupation

@@ -4,9 +4,9 @@
 - **Folder:** `submissions/08-nutrition-panel-granola`
 - **Outcome:** NEEDS_REVISION
 - **Eval revision requested:** 2026-09-23T00:51:51.433477Z
-- **Expires:** 2026-09-28T00:51:51.433477Z
+- **Reviewer revision requested:** 2026-09-29T16:34:54.319987Z
+- **Expires:** 2026-10-04T16:34:54.319987Z
 - **Further revisions allowed:** True
-- **EXPIRED:** the offer lapsed 4.9 h before this fetch; the operator checks whether the platform still takes the resubmission
 
 ## Eval revision notes
 
@@ -14,7 +14,17 @@ Agent Runner Summary: Evaluation FAILED. input_sufficiency: FAIL. The inputs pro
 
 Agent Runner Error: An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE
 
-## Checks (2 failed of 4)
+## Reviewer revision notes
+
+please make this task harder
+
+## notes.txt
+
+Revision Notes
+
+please make this task harder
+
+## Checks (2 failed of 8)
 
 ### PASS — Agent Runner Summary
 
@@ -32,6 +42,22 @@ Evaluation FAILED. input_sufficiency: FAIL. The inputs provide the formula, nutr
 
 An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE
 
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. 6 files: 6 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. prompt_completeness: PASS. The task instructions are well-specified. A food scientist at Kolstad Oat Works delegates nutrition labeling work to a colleague, providing six input files, a clear deliverable (a four-tab workbook), a deadline, and detailed procedural constraints via the SOP and product brief. All six named files are present in inventory. The role, organization, purpose, inputs, deliverable, and constraints are all clearly established. No material defects found.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. input_sufficiency: PASS. All material inputs needed to produce the requested oat_cherry_bar_label_review.xlsx workbook are present and sufficient. The formula (13 ingredients with weights), ingredient nutrient specifications (all 13 ingredients covered with full nutrient profiles), pilot batch record (for yield calculation), SOP QA-14 (rounding rules, daily values, claim thresholds, ingredient statement rules), supplier specifications for the two compound ingredients (crisp rice and dried cherries with sub-ingredient declarations and allergen information), and the product brief (with six proposed claims to evaluate) are all provided. The solver has sufficient information to compute the Nutrition Facts panel, build the computation trace, evaluate each claim, and identify open questions for Priya. No material gaps or contradictions were found.
+
+### PASS — Agent Runner Summary
+
+Evaluation PASSED. Hazy difficulty: PASS
+
 ## Difficulty check
 
 A PASS on any model in any valid attempt fails the task; no PASS on fewer than four valid attempts leaves that model undetermined and the verdict INCOMPLETE.
@@ -39,6 +65,9 @@ A PASS on any model in any valid attempt fails the task; no PASS on fewer than f
 - verdict **INCOMPLETE**
 - glm-5.2: FAIL, FAIL, FAIL, FAIL (4 valid, solved False)
 - qwen3.6-27b: INCOMPLETE, FAIL, FAIL, FAIL (3 valid, solved None)
+- verdict **PASS**
+- glm-5.2: FAIL, FAIL, FAIL, FAIL (4 valid, solved False)
+- qwen3.6-27b: FAIL, FAIL, FAIL, FAIL (4 valid, solved False)
 
 ## Platform vs repo
 
@@ -47,8 +76,8 @@ The prompt and every rubric row match the folder.
 ## What the platform holds
 
 - domain / occupation: life_physical_and_social_science / food_scientists_and_technologists
-- input files: 5
+- input files: 6
 - output files: 1
-- rubric rows: 23
+- rubric rows: 25
 - tools: Microsoft Excel, Microsoft Word
-- times: 15 / 60 / 240 / 60 min, total 6.25 h
+- times: 15 / 70 / 240 / 60 min, total 6.5 h

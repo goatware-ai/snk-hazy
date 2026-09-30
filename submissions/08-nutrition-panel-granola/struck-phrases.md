@@ -8,3 +8,7 @@ One bullet per phrase struck from the package, as a quoted literal or a /pattern
 - "legal should confirm which name prints" (the first note's hedge on the vanilla name, removed with the renaming; struck 2026-09-28)
 - "the crisp rice supplier should confirm the S-1187 basis in writing" (the first note's open item, answered by the specification now in the file; struck 2026-09-28)
 - "the allergen line rests on the formula alone" (the first note's sentence, now that two specifications carry allergen statements; struck 2026-09-28)
+- "129.1 mg" (the second build's sodium per serving, 142.7 mg after the formula's salt moved; reviewer round, struck 2026-09-29)
+- "129.1111" (the second rubric's strict-row figure; struck 2026-09-29)
+- "Low sodium is supported" (the second note's verdict, reversed on the per serving basis; struck 2026-09-29)
+- "rev 7 per 30 g serving" (the nutrient sheet's source cell, which stated the serving weight beside the row; struck 2026-09-29)

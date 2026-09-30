@@ -34,7 +34,43 @@ BATCH = sum(kg for _, _, kg in FORMULA)
 pb = fw["Pilot Batch Record"]
 rec = {pb.cell(row=r, column=1).value: pb.cell(row=r, column=2).value for r in range(4, 14)}
 FINISHED = D(str(rec["Finished batch weight, net of trim (kg)"])); BAR_G = D(str(rec["Target bar net weight (g)"])); BAR_SAMPLE = D(str(rec["Average bar weight, 30-bar sample (g)"]))
-SPEC = {r["INGREDIENT_CODE"]: r for r in csv.DictReader(open(INPUTS / "ingredient_nutrient_specs.csv", newline=""))}
+import re
+SHEET = {r["INGREDIENT_CODE"]: r for r in csv.DictReader(open(INPUTS / "ingredient_nutrient_specs.csv", newline=""))}
+DOCNAME = {"Calories": "CALORIES_KCAL", "Total fat": "TOTAL_FAT_G", "Saturated fat": "SAT_FAT_G", "Trans fat": "TRANS_FAT_G", "Cholesterol": "CHOLESTEROL_MG",
+           "Sodium": "SODIUM_MG", "Total carbohydrate": "TOTAL_CARB_G", "Dietary fiber": "FIBER_G", "Total sugars": "TOTAL_SUGARS_G",
+           "of which added sugars": "ADDED_SUGARS_G", "Protein": "PROTEIN_G", "Vitamin D": "VITAMIN_D_MCG", "Calcium": "CALCIUM_MG", "Iron": "IRON_MG", "Potassium": "POTASSIUM_MG"}
+
+
+def specs_in_force():
+    """The supplier specifications in the file: code -> (basis in grams, values), read from each document's own
+    nutrition heading and table. SOP 1.2: the basis is the one the specification states, and the specification in
+    force governs where the nutrient sheet differs."""
+    got = {}
+    for f in sorted(INPUTS.glob("supplier_spec_*.docx")):
+        doc = Document(f); code = "RM-" + doc.paragraphs[1].text.split("S-")[1].split(",")[0].strip()
+        head = next(q.text for q in doc.paragraphs if q.text.startswith("Nutrition, per"))
+        basis = D(re.search(r"(\d+) g", head).group(1))
+        vals = {}
+        for t in doc.tables:
+            for row in t.rows:
+                c = [x.text.strip() for x in row.cells]
+                for i in range(0, len(c) - 1, 2):
+                    if c[i] in DOCNAME:
+                        vals[DOCNAME[c[i]]] = c[i + 1].split()[0]
+        assert len(vals) == 15, (f.name, vals)
+        got[code] = (basis, vals)
+    return got
+
+
+DOCS = specs_in_force()
+SPEC = {}
+for code, r in SHEET.items():
+    row = dict(r); row["BASIS_G"] = "100"
+    if code in DOCS:
+        row["BASIS_G"] = str(DOCS[code][0]); row.update(DOCS[code][1])
+    else:
+        assert r["SPEC_BASIS"] == "100 g", code
+    SPEC[code] = row
 sop = "\n".join(p.text for p in Document(INPUTS / "sop_qa14_nutrition_labeling.docx").paragraphs)
 
 
@@ -61,7 +97,7 @@ def ingredient_statement():
         if code == "RM-4010":
             continue
         n = name.lower()
-        parts.append(f"{n} ({subs[code]})" if code in subs else n)
+        parts.append(f"{n} ({subs[code]})" if code in subs and "," in subs[code] else n)   # a one-item list is a single ingredient
     text = ", ".join(parts); text = text[0].upper() + text[1:] + "."
     names = " ".join(n for _, n, _ in FORMULA).lower()
     contains = "Contains: " + ", ".join(a for a in ("almonds", "soy") if a.rstrip("s") in names) + "."
@@ -99,13 +135,15 @@ def declare(key, x):
     raise KeyError(key)
 
 
-def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec"):
+def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec", cherries_from="spec"):
     fig, standing = {}, {}
     serving = BAR_G if serving is None else D(serving)
     scale = serving / (FINISHED * 1000) if yield_applied else serving / (BATCH * 1000)   # grams of finished bar per gram of batch input
     per = {k: D(0) for k in NUTS}; contrib = {}
     for code, name, kg in FORMULA:
         sp = SPEC[code]; basis = D(sp["BASIS_G"]) if basis_as_stated else D(100)
+        if code == "RM-3301" and cherries_from == "sheet":
+            sp = dict(SHEET[code]); sp["ADDED_SUGARS_G"] = sp["ADDED_SUGARS_G"] or "0"
         g_bar = rnd(kg * 1000 * scale, "0.0001")
         contrib[code] = {}
         for k in NUTS:
@@ -142,12 +180,13 @@ def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="dec
 
 
 VARIANTS = {
-    "crisp rice specification read as per 100 g": ({"basis_as_stated": False}, "per 30 g serving"),
+    "serving-basis specifications read as per 100 g": ({"basis_as_stated": False}, "per 30 g serving"),
     "no bake yield applied": ({"yield_applied": False}, "finished batch weight"),
     "serving computed on the pilot sample weight": ({"serving": "42.1"}, "target net weight"),
     "percent daily value from the unrounded amount": ({"pct_from": "unrounded"}, "declared, rounded amount"),
     "cherry sugars all counted as added": ({"cherry_added": "all"}, "sucrose taken up in the infusion"),
     "cherry sugars none counted as added": ({"cherry_added": "none"}, "sucrose taken up in the infusion"),
+    "cherries taken from the nutrient sheet row at revision 4": ({"cherries_from": "sheet"}, "specification in force"),
 }
 
 if __name__ == "__main__":
