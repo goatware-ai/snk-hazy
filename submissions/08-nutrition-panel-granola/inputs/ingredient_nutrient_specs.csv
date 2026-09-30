@@ -1,11 +1,11 @@
 INGREDIENT_CODE,INGREDIENT,SPEC_BASIS,CALORIES_KCAL,TOTAL_FAT_G,SAT_FAT_G,TRANS_FAT_G,CHOLESTEROL_MG,SODIUM_MG,TOTAL_CARB_G,FIBER_G,TOTAL_SUGARS_G,ADDED_SUGARS_G,PROTEIN_G,VITAMIN_D_MCG,CALCIUM_MG,IRON_MG,POTASSIUM_MG,SOURCE
-RM-1042,Whole grain rolled oats,100 g,379,6.50,1.10,0,0,6,67.70,10.10,1.00,0,13.20,0,52,4.25,362,Supplier spec S-1042 rev 4
+RM-1042,Whole grain rolled oats,100 g,379,6.50,1.10,0,0,6,67.70,11.40,1.00,0,13.20,0,45,4.25,362,Supplier spec S-1042 rev 4
 RM-2210,Brown rice syrup,100 g,316,0.20,0,0,0,43,78.00,0,44.60,44.60,0.50,0,12,0.10,62,Supplier spec S-2210 rev 2
 RM-1187,Crisp rice,serving,116,0.30,0.10,0,0,96,26.10,0.20,2.60,2.60,2.10,0,3,0.36,28,Supplier spec S-1187 rev 7
 RM-2205,Clover honey,100 g,304,0,0,0,0,4,82.40,0.20,82.10,82.10,0.30,0,6,0.42,52,Supplier spec S-2205 rev 3
 RM-3301,Infused dried cherries,100 g,325,1.00,0.10,0,0,12,78.00,3.00,58.00,,1.50,0,26,0.90,380,Supplier spec S-3301 rev 4
-RM-3120,Roasted almond butter,serving,196,17.80,1.30,0,0,2,6.00,3.30,1.40,0,6.70,0,111,1.12,239,Supplier spec S-3120 rev 2
-RM-3115,Sliced almonds,100 g,579,49.90,3.80,0,0,1,21.60,12.50,4.40,0,21.20,0,269,3.71,733,Supplier spec S-3115 rev 6
+RM-3120,Roasted almond butter,serving,196,17.80,1.30,0,0,2,6.00,3.30,1.40,0,6.70,0,65,1.12,239,Supplier spec S-3120 rev 2
+RM-3115,Sliced almonds,100 g,579,49.90,3.80,0,0,1,21.60,12.50,4.40,0,21.20,0,200,3.71,733,Supplier spec S-3115 rev 6
 RM-4010,Water,100 g,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Municipal water per plant analysis
 RM-4102,High oleic sunflower oil,100 g,884,100,8.50,0,0,0,0,0,0,0,0,0,0,0,0,Supplier spec S-4102 rev 3
 RM-5020,Vanilla extract,100 g,288,0.10,0,0,0,9,12.70,0,12.70,0,0.10,0,11,0.12,148,Supplier spec S-5020 rev 1

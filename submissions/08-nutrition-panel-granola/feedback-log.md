@@ -57,3 +57,29 @@ Reviewer note (revision_notes, 2026-09-29T16:34Z), fetched with tools/fetch_feed
 4. Re-enter the rubric: 29 criteria from the CSV, positive 33 / negative 15, formatting row last; confirm the form count reads 29.
 5. Times 15 / 90 / 300 / 60, total 8.0; tools, domain and occupation unchanged.
 6. Section 3: a human reviewer owns this round, so say in one or two sentences what was made harder, without naming the answers.
+
+## 2026-09-30 · Reviewer · six hardening arms · NEEDS_REVISION
+
+Reviewer note (revision_notes, 2026-09-30T22:15Z), fetched with tools/fetch_feedback.py: "How to harden the task" with six numbered arms (fiber knife-edge between the bases, whole grain on the yield, a vanilla extract specification that makes it a compound ingredient, crisp rice revision control, a minerals boundary under SOP 2.6, a working-sheet discrepancy running the other way on sodium). The 2026-09-30T01:42Z evaluation of the previous resubmission had passed all four checks; the platform's zips (uploaded 01:39Z), prompt and 29 criteria matched the folder. Offer expires 2026-10-05T22:15Z.
+
+**Findings** the six arms, applied as written; option (b) taken on the vanilla (natural flavors only, the claim passes, the statement expands and the added sugars move); the optional non-whole-grain oat fraction not taken.
+
+**Actions taken**
+1. Fiber: oats fiber 10.10 to 11.40 g per 100 g on the nutrient sheet; the bar carries 2.815 g per serving (10.1 percent) and 2.681 g per reference amount (9.6 percent), the claim fails on the reference amount alone and the panel still prints 3 g at 11 percent.
+2. Whole grain: SOP 5.3 floor 8 to 15 g; 15.5 g yield-correct against 13.86 g on 42 g of formula; a new -1 on testing it at 13.86 g.
+3. Vanilla: new supplier_spec_s5020_vanilla_extract.docx (Beaumont Flavor Company, revision 2, two-fold with sugar and a natural flavor, natural vanillin only, added sugars 12.7 g per 100 g against the sheet's revision 1 at 0); the statement prints "vanilla extract (vanilla bean extractives in water and alcohol, sugar, natural flavor)"; the brief's "only compound items" line left standing and the note calls it wrong; added sugars 7.929 g unrounded, still 8 g.
+4. Crisp rice revision control: the brief's receiving line puts 1,800 kg of launch inventory in September 2025 lots and 4,200 kg in November and December with the pilot on the later lots; S-1187 now states the revision 6 proportions and that pre-October lots carry the revision 6 declaration; the wrapper prints revision 7 and the note makes the September lots Priya's third decision; a new -1 on printing the revision 6 list.
+5. Calcium boundary: almond butter 111 to 65 mg per 32 g (specification and sheet), almonds 269 to 200, oats 52 to 45; the bar carries 25.7069 mg, 1.98 percent, declared 0 mg at 0 percent under SOP 2.6, which now states the 2 percent test is made on the unrounded amount; rounded first it would print 30 mg at 2 percent (a new -1).
+6. Sodium the other way: new supplier_spec_s2210_brown_rice_syrup.docx (Lindqvist Grain Sweeteners, revision 3, sodium 2 mg per 100 g after a plant move, against the sheet's revision 2 at 43); sodium 139.9362 mg per serving and 133.3 per reference amount, declared 140 mg at 6 percent, low sodium Supported; on the sheet row the serving exceeds the ceiling.
+- SOP: clause headings restyled to "1.3 ..." with section cross-references (1.1, 2.6, 3.1, 5.1, 5.4) so the golden's "section N.N" citations are the inputs' own form (G36, which fires once any input uses the noun). Golden: Specs rows for oats, syrup, almond butter, almonds and vanilla, Parameters B14 15, Formula F13, the Claims basis cells, the Ingredient Statement note and the note's paragraphs A4 to A9 rewritten; core.xml restored before each resave. verify_golden.py reads the whole grain floor from the SOP, adds the syrup-from-sheet, vanilla-from-sheet and minerals-rounded-first variants: 57 figures, no mismatch, 41 near flips.
+- Rubric 39 rows, positive 33 / negative 19; negatives reworded without "although" clauses (the in-app atomic read); gate findings fixed in place (R27 on the inventory row, R20 25.7069 as stored, R50 15.5, R132 "clearing", A20). Nine inputs; metadata.json, form-lists.md (times 15 / 100 / 330 / 60, 8.5 h), clause-map.md and struck-phrases.md resynced ("Low sodium is supported" removed from the ledger because the verdict is reinstated by design).
+- Coded check: skipped; the note is a hand-designed set of arms.
+- Gate: 0 errors on the packaged folder; zips byte-identical to the folder; package_sweep clean across 59 files with no findings in any task.
+
+**Form actions**
+1. Prompt: re-enter from instruction.md (nine files named).
+2. Input File List: nine entries from form-lists.md.
+3. Re-upload i-nutrition-panel-granola.zip (nine members) and s-nutrition-panel-granola.zip; confirm both uploadedAt stamps moved and read the input file list back for exactly nine members (PR14).
+4. Re-enter the rubric: 39 criteria from the CSV, positive 33 / negative 19, formatting row last; confirm the form count reads 39.
+5. Times 15 / 100 / 330 / 60, total 8.5; tools, domain and occupation unchanged.
+6. Section 3: a human reviewer owns this round; say that all six arms were applied and name the two specifications added, without stating the verdicts.

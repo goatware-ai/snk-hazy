@@ -5,6 +5,7 @@ could take with the phrase the golden uses to settle each one.
     .venv/bin/python drafts/08-nutrition-panel-granola/verify_golden.py
 """
 import csv
+import re
 import os
 import sys
 from decimal import Decimal as D, ROUND_HALF_UP
@@ -102,7 +103,9 @@ def ingredient_statement():
     names = " ".join(n for _, n, _ in FORMULA).lower()
     contains = "Contains: " + ", ".join(a for a in ("almonds", "soy") if a.rstrip("s") in names) + "."
     return text, contains, len(parts)
-assert "40 grams" in sop and "8 grams of whole grain" in sop
+assert "40 grams" in sop
+WHOLE_GRAIN_FLOOR = D(re.search(r"at least (\d+) grams of whole grain", sop).group(1))
+assert "unrounded amount, before the rounding" in sop
 
 
 def rnd(x, q):
@@ -135,7 +138,7 @@ def declare(key, x):
     raise KeyError(key)
 
 
-def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec", cherries_from="spec"):
+def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec", cherries_from="spec", sheet_rows=(), mineral_test="unrounded"):
     fig, standing = {}, {}
     serving = BAR_G if serving is None else D(serving)
     scale = serving / (FINISHED * 1000) if yield_applied else serving / (BATCH * 1000)   # grams of finished bar per gram of batch input
@@ -144,6 +147,8 @@ def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="dec
         sp = SPEC[code]; basis = D(sp["BASIS_G"]) if basis_as_stated else D(100)
         if code == "RM-3301" and cherries_from == "sheet":
             sp = dict(SHEET[code]); sp["ADDED_SUGARS_G"] = sp["ADDED_SUGARS_G"] or "0"
+        if code in sheet_rows:
+            sp = dict(SHEET[code]); sp["BASIS_G"] = str(DOCS[code][0]) if code in DOCS else "100"; sp["ADDED_SUGARS_G"] = sp["ADDED_SUGARS_G"] or "0"
         g_bar = rnd(kg * 1000 * scale, "0.0001")
         contrib[code] = {}
         for k in NUTS:
@@ -157,6 +162,8 @@ def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="dec
     fig["yield"] = str(rnd(FINISHED / BATCH, "0.0001")); fig["serving g"] = str(serving); fig["bar count"] = rec["Bars cut"]
     for k in NUTS:
         fig[f"{k} unrounded"] = str(rnd(per[k], "0.001")); fig[f"{k} declared"] = declare(k, per[k])
+        if mineral_test == "rounded" and k in ("CALCIUM_MG", "POTASSIUM_MG") and per[k] > 0:
+            fig[f"{k} declared"] = str(nearest(per[k], 10)) if nearest(per[k], 10) / DV[k] >= D("0.02") else "0"
         if k in DV:
             base = D(fig[f"{k} declared"]) if (pct_from == "declared" and not fig[f"{k} declared"].startswith("less")) else per[k]
             fig[f"{k} pct dv"] = str(rnd(base / DV[k] * 100, "1"))
@@ -166,7 +173,8 @@ def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="dec
     # claims per SOP 5: unrounded, per RACC and per serving, both must pass
     fiber_ok = per_racc["FIBER_G"] / DV["FIBER_G"] >= D("0.10") and per["FIBER_G"] / DV["FIBER_G"] >= D("0.10")
     sodium_ok = per_racc["SODIUM_MG"] <= 140 and per["SODIUM_MG"] <= 140
-    whole_ok = contrib["RM-1042"]["g"] >= 8
+    whole_ok = contrib["RM-1042"]["g"] >= WHOLE_GRAIN_FLOOR
+    fig["whole grain floor"] = str(WHOLE_GRAIN_FLOOR)
     fig["fiber pct dv racc"] = str(rnd(per_racc["FIBER_G"] / DV["FIBER_G"] * 100, "0.1")); fig["fiber pct dv serving"] = str(rnd(per["FIBER_G"] / DV["FIBER_G"] * 100, "0.1"))
     fig["sodium racc"] = str(rnd(per_racc["SODIUM_MG"], "0.1")); fig["sodium serving"] = str(rnd(per["SODIUM_MG"], "0.1"))
     claims = {"Good source of fiber": "Supported" if fiber_ok else "Not supported", "Low sodium": "Supported" if sodium_ok else "Not supported",
@@ -187,6 +195,9 @@ VARIANTS = {
     "cherry sugars all counted as added": ({"cherry_added": "all"}, "sucrose taken up in the infusion"),
     "cherry sugars none counted as added": ({"cherry_added": "none"}, "sucrose taken up in the infusion"),
     "cherries taken from the nutrient sheet row at revision 4": ({"cherries_from": "sheet"}, "specification in force"),
+    "brown rice syrup taken from the nutrient sheet row at revision 2": ({"sheet_rows": ("RM-2210",)}, "specification in force"),
+    "vanilla extract taken from the nutrient sheet row at revision 1": ({"sheet_rows": ("RM-5020",)}, "specification in force"),
+    "minerals tested against 2 percent after rounding": ({"mineral_test": "rounded"}, "on the unrounded amount"),
 }
 
 if __name__ == "__main__":

@@ -13,30 +13,32 @@
     "supplier_spec_s3301_dried_cherries.docx - the supplier specification for the infused dried cherries with sub-ingredients and proportions, nutrition per 100 g including added sugars, and the note on prior revisions",
     "supplier_spec_s1187_crisp_rice.docx - the supplier specification for the crisp rice with sub-ingredients and proportions, the nutrition table on the supplier's serving basis, the allergen and packing line statement, and the note on prior revisions",
     "supplier_spec_s3120_almond_butter.docx - the supplier specification for the roasted almond butter with its ingredient declaration, the nutrition table on the supplier's serving basis, the allergen and grinding line statement, and the note on the prior revision",
+    "supplier_spec_s2210_brown_rice_syrup.docx - the supplier specification for the brown rice syrup with its ingredient declaration, nutrition per 100 g, the allergen statement, and the note on the prior revision and the plant move",
+    "supplier_spec_s5020_vanilla_extract.docx - the supplier specification for the vanilla extract with its ingredient declaration and proportions, nutrition per 100 g, the vanillin origin statement, and the note on the prior revision",
     "product_brief_oat_cherry_bar.docx - the brand manager's brief listing the front panel claims marketing proposes, the pack format and what product development is asked to return"
   ],
   "output_files": [
     "oat_cherry_bar_label_review.xlsx - the label review workbook with the panel as it will print, the computation behind each declared value, the rounding, the claims check and the note to the brand manager"
   ],
-  "input_file_count": 7,
+  "input_file_count": 9,
   "output_file_count": 1,
   "tools": [
     "Microsoft Excel",
     "Microsoft Word"
   ],
   "time_read_minutes": 15,
-  "time_files_minutes": 90,
-  "time_work_minutes": 300,
+  "time_files_minutes": 100,
+  "time_work_minutes": 330,
   "time_qa_minutes": 60,
-  "total_time_hours": 8.0,
-  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, supplier_spec_s1187_crisp_rice.docx, supplier_spec_s3120_almond_butter.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
+  "total_time_hours": 8.5,
+  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, supplier_spec_s1187_crisp_rice.docx, supplier_spec_s3120_almond_butter.docx, supplier_spec_s2210_brown_rice_syrup.docx, supplier_spec_s5020_vanilla_extract.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
   "rubric": [
     {
       "description": "The deliverable is a single workbook named exactly oat_cherry_bar_label_review.xlsx whose first worksheet is the panel as it will print, with the serving size, the nutrient lines, the ingredient statement and the Contains statement.",
       "weight": 1
     },
     {
-      "description": "The rounding tab's unrounded sodium per serving reaches its value through a plain cell reference to the nutrients tab's per serving total behind it, or a sum over the same thirteen ingredient contributions alike, standing at 142.7292 mg.",
+      "description": "The rounding tab's unrounded sodium per serving reaches its value through a plain cell reference to the nutrients tab's per serving total behind it, or a sum over the same thirteen ingredient contributions alike, standing at 139.9362 mg.",
       "weight": 5
     },
     {
@@ -49,7 +51,7 @@
     },
     {
       "description": "Sodium is declared as 140 mg at 6 percent of the daily value.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "Total fat is declared as 7 g at 9 percent of the daily value.",
@@ -61,19 +63,23 @@
     },
     {
       "description": "Added sugars are declared as 8 g at 16 percent of the daily value.",
-      "weight": 2
+      "weight": 1
+    },
+    {
+      "description": "Calcium is declared as 0 mg on an unrounded 25.7069 mg that stands under the 2 percent test.",
+      "weight": 1
     },
     {
       "description": "The crisp rice specification is converted from its per 30 g serving basis before use, giving 320 mg of sodium per hundred grams on the specs tab.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "The almond butter specification is converted from its per 32 g serving basis before use, giving 55.625 g of total fat per hundred grams on the specs tab.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "The nutrients are carried into the finished batch weight net of trim, with 46.98 g of formula carried into one serving on the parameters tab.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "The percent daily values on all 12 lines that carry one are computed from the declared, rounded amounts, the added sugars line at 16 percent.",
@@ -88,19 +94,31 @@
       "weight": 1
     },
     {
+      "description": "The ingredient statement carries the vanilla extract sub-ingredients in parentheses as vanilla bean extractives in water and alcohol, sugar and natural flavor from specification S-5020.",
+      "weight": 1
+    },
+    {
       "description": "The Contains statement names almonds and soy.",
       "weight": 1
     },
     {
-      "description": "The good source of fiber claim is found not supported at 8.9 percent of the daily value per reference amount, with the panel's 11 percent explained as the rounded declared value.",
-      "weight": 2
+      "description": "The good source of fiber claim is found not supported at 9.6 percent of the daily value per reference amount and 10.1 percent per serving.",
+      "weight": 1
     },
     {
-      "description": "The claims tab's low sodium row finds the claim not supported at 135.9 mg per reference amount and 142.7 mg per serving.",
-      "weight": 2
+      "description": "The claims tab's low sodium row finds the claim supported at 133.3 mg per reference amount and 139.9 mg per serving.",
+      "weight": 1
+    },
+    {
+      "description": "The whole grain statement is found supported at 15.5 g of oats per serving against the 15 g floor.",
+      "weight": 1
     },
     {
       "description": "The no added sugar claim is found not supported because brown rice syrup, honey and sugar-infused cherries are added to the formula.",
+      "weight": 1
+    },
+    {
+      "description": "The no artificial flavors claim is found supported on specification S-5020 naming natural vanillin and a natural flavor only.",
       "weight": 1
     },
     {
@@ -108,44 +126,68 @@
       "weight": 1
     },
     {
+      "description": "The specs tab's brown rice syrup row carries sodium at 2 mg per 100 g, the figure of the revision in force.",
+      "weight": 1
+    },
+    {
+      "description": "The note to the brand manager flags the crisp rice lots packed before the revision 7 effective date as carrying the revision 6 declaration.",
+      "weight": 1
+    },
+    {
       "description": "The panel is the first worksheet, with the note to the brand manager on the last.",
       "weight": 1
     },
     {
-      "description": "The workbook wrongly reads the crisp rice specification as per 100 g although the specification states its values per 30 g serving.",
+      "description": "The workbook wrongly reads the crisp rice specification's per 30 g serving values as per 100 g.",
       "weight": -3
     },
     {
-      "description": "The workbook wrongly reads the almond butter specification as per 100 g although the specification states its values per 32 g serving.",
+      "description": "The workbook wrongly reads the almond butter specification's per 32 g serving values as per 100 g.",
       "weight": -2
     },
     {
-      "description": "The workbook wrongly computes the serving on the 42.1 gram pilot sample average although SOP 1.3 declares the target net weight.",
+      "description": "The workbook wrongly computes the serving on the 42.1 gram pilot sample average in place of the 42 gram target net weight.",
       "weight": -2
     },
     {
-      "description": "The workbook wrongly leaves the cherries' infusion sucrose out of added sugars although specification S-3301 states 30.0 g per 100 g as added.",
+      "description": "The workbook wrongly leaves the cherries' 30.0 g per 100 g of infusion sucrose out of added sugars.",
       "weight": -2
     },
     {
-      "description": "The workbook wrongly scales the nutrients to the 120 kg batch input weight although SOP 1.1 carries them into the finished batch weight net of trim.",
+      "description": "The workbook wrongly scales the nutrients to the 120 kg batch input weight in place of the finished batch weight net of trim.",
       "weight": -2
     },
     {
-      "description": "The workbook wrongly carries water into the ingredient statement although SOP 4.1 leaves off water removed in the bake.",
+      "description": "The workbook wrongly carries water into the ingredient statement.",
       "weight": -1
     },
     {
-      "description": "The workbook wrongly carries wheat or barley into the bar's allergen declaration although specification S-1187 states that no major food allergen is present in the crisp rice.",
+      "description": "The workbook wrongly carries wheat or barley into the bar's allergen declaration.",
       "weight": -2
     },
     {
-      "description": "The workbook wrongly carries peanuts into the bar's allergen declaration although specification S-3120 states that the almond butter line is tested for peanut protein before each almond run.",
+      "description": "The workbook wrongly carries peanuts into the bar's allergen declaration.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly declares calcium as 30 mg at 2 percent from the rounded figure.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly tests the whole grain statement on the 13.86 g of oats in 42 g of formula.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly prints vanilla extract as a single ingredient with no sub-ingredients.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly prints the revision 6 crisp rice sub-ingredients rice, sugar, salt and malt flavor on the wrapper.",
       "weight": -1
     },
     {
       "description": "Overall formatting and style of the deliverable as a label review the brand manager can take to legal.",
-      "weight": 1
+      "weight": 2
     }
   ],
   "built_with": "claude-fable-5-1",
