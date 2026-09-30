@@ -1,17 +1,29 @@
 INSTRUMENT_NO,RECORDED,DOC_TYPE,GRANTOR,GRANTEE,VOL_PAGE,AMOUNT,LEGAL,REF_INSTRUMENT
 198611030018,11/03/1986,DECLARATION OF RESTRICTIONS,Cedarbrook Development Co,Public,DB 809/112,,All lots Cedarbrook Sub PB 9/41,
-198705120041,05/12/1987,WARRANTY DEED,Cedarbrook Development Co,Voss Harold E & Mildred J,DB 812/455,21500.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-198705120042,05/12/1987,MORTGAGE,Voss Harold E & Mildred J,Newark Federal Savings & Loan,MB 611/201,58400.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
+198705120041,05/12/1987,WARRANTY DEED,Cedarbrook Development Co,Voss Harold E & Mildred J,DB 812/455,21500.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+198705120042,05/12/1987,MORTGAGE,Voss Harold E & Mildred J,Newark Federal Savings & Loan,MB 611/201,58400.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+199204160066,04/16/1992,WARRANTY DEED,Cedarbrook Development Co,Haldane Curtis W,DB 861/207,24750.00,Lot 14 & pt Lot 13 Cedarbrook Sub PB 9/41,
+199409220103,09/22/1994,MORTGAGE,Voss Harold E & Mildred J,Heath Building & Loan Co,MB 702/318,12000.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
 199808210077,08/21/1998,SATISFACTION OF MORTGAGE,Newark Federal Savings & Loan,Voss Harold E & Mildred J,OR 1102/833,,,198705120042
-200303070115,03/07/2003,WARRANTY DEED,Voss Harold E & Mildred J,Pruitt Daniel R,OR 1540/288,126500.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-200303070116,03/07/2003,MORTGAGE,Pruitt Daniel R,Licking Valley Savings Bank,OR 1540/291,101200.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-201103140062,03/14/2011,MORTGAGE,Pruitt Daniel R & Lorraine K,Buckeye Home Lending LLC,OR 2211/604,88000.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-201106020188,06/02/2011,SATISFACTION OF MORTGAGE,Licking Valley Savings Bank,Pruitt Daniel R,OR 2229/145,,,200303070116
-201409190112,09/19/2014,WARRANTY DEED,Pruitt Daniel R,Kessler Margaret Ann & Robert L,OR 2498/910,149900.00,Lot 12 Cedarbrook Sub PB 9/41,
-201409190113,09/19/2014,MORTGAGE,Kessler Margaret Ann & Robert L,Granville Community Bank,OR 2498/914,119920.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-201804270239,04/27/2018,SATISFACTION OF MORTGAGE,Granville Community Bank,Kessler Margaret Ann & Robert L,OR 2790/455,,,201409190113
-201805040071,05/04/2018,WARRANTY DEED,Kessler Robert L & Peggy A,Okafor Tamsin,OR 2791/302,172000.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-201805040072,05/04/2018,MORTGAGE,Okafor Tamsin,Muskingum Valley Bank,OR 2791/306,137600.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-202110080144,10/08/2021,EASEMENT,Okafor Tamsin,Licking Rural Electric Cooperative Inc,OR 3080/771,,W 10 ft of Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-202307210033,07/21/2023,MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin,OR 3202/58,6840.00,Lot 12 and N 1/2 Lot 13 Cedarbrook Sub PB 9/41,
-202310020190,10/02/2023,RELEASE OF MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin,OR 3214/402,,,202307210033
+199907160122,07/16/1999,MORTGAGE,Voss Harold E & Mildred J,Park National Bank,OR 1150/412,61500.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+200303070115,03/07/2003,WARRANTY DEED,Voss Harold E,Pruitt Daniel R,OR 1540/288,126500.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+200303070116,03/07/2003,MORTGAGE,Pruitt Daniel R,Licking Valley Savings Bank,OR 1540/291,101200.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+200610190027,10/19/2006,MORTGAGE,Pruitt Daniel R & Lorraine K,Licking Valley Savings Bank,OR 1874/512,25000.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+200906110041,06/11/2009,EASEMENT,Haldane Curtis W,City of Newark,OR 2071/390,,pt Lot 13 Cedarbrook Sub PB 9/41,
+201103140062,03/14/2011,MORTGAGE,Pruitt Daniel R & Lorraine K,Buckeye Home Lending LLC,OR 2211/604,88000.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+201106020188,06/02/2011,SATISFACTION OF MORTGAGE,Licking Valley Savings Bank,Pruitt Daniel R,OR 2229/145,,,200610190027
+201308150093,08/15/2013,ASSIGNMENT OF MORTGAGE,Buckeye Home Lending LLC,Tri-County Mortgage Servicing Corp,OR 2402/77,,,201103140062
+201409190112,09/19/2014,WARRANTY DEED,Pruitt Daniel R,Kessler Margaret Ann & Robert L,OR 2498/910,149900.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+201409190113,09/19/2014,MORTGAGE,Kessler Margaret Ann & Robert L,Granville Community Bank,OR 2498/914,119920.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+201410060131,10/06/2014,SATISFACTION OF MORTGAGE,Buckeye Home Lending LLC,Pruitt Daniel R & Lorraine K,OR 2503/219,,,201103140062
+201506300155,06/30/2015,WARRANTY DEED,Ames Thomas G & Rita,Pruitt Daniel R,OR 2561/40,118300.00,Lot 47 Hollander Add PB 6/12,
+201506300156,06/30/2015,MORTGAGE,Pruitt Daniel R,Central Ohio Home Loan Co,OR 2561/44,94640.00,Lot 47 Hollander Add PB 6/12,
+201602250048,02/25/2016,ASSIGNMENT OF MORTGAGE,Granville Community Bank,Flint Ridge Mortgage Servicing LLC,OR 2622/181,,,201409190113
+201804270239,04/27/2018,SATISFACTION OF MORTGAGE,Flint Ridge Mortgage Servicing LLC,Kessler Margaret Ann & Robert L,OR 2790/455,,,201409190113
+201805040071,05/04/2018,WARRANTY DEED,Kessler Robert L & Peggy A,Bello Tamsin N,OR 2791/302,172000.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+201805040072,05/04/2018,MORTGAGE,Bello Tamsin N,Muskingum Valley Bank,OR 2791/306,137600.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+201806150210,06/15/2018,WARRANTY DEED,Granview Land Co,Kessler Robert L & Peggy A,OR 2797/118,189500.00,Unit 9 Granview Condominium CB 3/27,
+202110080144,10/08/2021,EASEMENT,Okafor Tamsin N,Licking Rural Electric Cooperative Inc,OR 3080/771,,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+202307210033,07/21/2023,MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin N,OR 3202/58,6840.00,Lot 12 & pt Lot 13 Cedarbrook Sub PB 9/41,
+202310020190,10/02/2023,RELEASE OF MECHANICS LIEN,Dunmore Roofing LLC,Okafor Tamsin N,OR 3214/402,,,202307210033
+202506120087,06/12/2025,AMENDMENT OF RESTRICTIONS,Cedarbrook Sub lot owners,Public,OR 3341/615,,All lots Cedarbrook Sub PB 9/41,198611030018

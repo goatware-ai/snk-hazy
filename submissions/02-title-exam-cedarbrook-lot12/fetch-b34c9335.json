@@ -378,111 +378,138 @@
         "repeatable-bfbf1": [
           {
             "textarea-rubric_description": "The report, title_exam_report_cedarbrook_lot12.docx, is addressed to Priya Ramanathan as closing agent and dated October 14, 2026.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "ba42fbfb-20d0-47a5-a556-e40e6e20c1db"
           },
           {
             "textarea-rubric_description": "The report finds that the warranty deed at instrument 201409190112 describes Lot 12 alone, leaving record title to the north half of the adjoining lot in Daniel Pruitt.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 5
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 5,
+            "$entryId": "8518a141-c9b0-4061-9cf6-bcc407196dfb"
           },
           {
             "textarea-rubric_description": "The report requires a corrective conveyance of the north half of Lot 13 from Daniel Pruitt to the seller, or a judgment quieting title, before that land is insured.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3,
+            "$entryId": "d1a818a7-4cbe-44b8-9029-2f7ced04103e"
           },
           {
             "textarea-rubric_description": "The report requires a release of dower from Lorraine Pruitt, or evidence that her dower has terminated, because the deed at instrument 201409190112 was signed by a married grantor alone.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3,
+            "$entryId": "98f0a2fd-cb9b-44dc-981d-90da0cb4f866"
           },
           {
             "textarea-rubric_description": "The report lists the mortgage to Buckeye Home Lending LLC at instrument 201103140062 for $88,000.00 as open of record and requires a recorded satisfaction or a payoff.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4,
+            "$entryId": "385215c6-a1de-4698-9ce9-d8b783e60bd3"
           },
           {
             "textarea-rubric_description": "The report requires a payoff and recorded release of the seller's mortgage to Muskingum Valley Bank at instrument 201805040072.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3,
+            "$entryId": "32017971-74ed-4101-8445-5b2beadd799c"
           },
           {
             "textarea-rubric_description": "The report requires payment and release of the Capital Recovery Associates LLC judgment against the seller, computing the payoff through the closing date as $10,556.19.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 3,
+            "$entryId": "8a2b4a66-4544-4125-8c19-f70b3a3f846b"
           },
           {
             "textarea-rubric_description": "The judgment payoff carries $957.19 of simple interest at the rate the certificate of judgment states, run from the judgment date through the closing date.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "5b408af8-d42d-48da-b983-e8ac8626b592"
           },
           {
             "textarea-rubric_description": "The report states that the 2020 judgment against a Robert Kessler does not attach to the parcel because the Kesslers conveyed the parcel before it was filed.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "d2b8754c-36b2-4cfd-bf3c-5cc8c7c02073"
           },
           {
             "textarea-rubric_description": "The report requires an affidavit of identity establishing that Peggy Kessler and Margaret Ann Kessler are the same person.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "01883019-2c6d-47ff-8a95-411100f7b3aa"
           },
           {
             "textarea-rubric_description": "The report requires the seller's spouse to join the deed to the buyers to release dower.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "05b97d66-71df-4076-844a-3bdf54c2c7e0"
           },
           {
             "textarea-rubric_description": "The report states the delinquent second-half 2025 taxes and assessment, with penalty, as $2,319.48 to be paid at closing.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "d70ec4d7-f5e5-4355-8157-4774fec67ce7"
           },
           {
             "textarea-rubric_description": "The delinquency figure applies the 10% penalty to the tax installment and to the assessment installment alike.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "48df7d40-cd6c-4ae2-8fa3-402c815777e5"
           },
           {
             "textarea-rubric_description": "The report prorates the current-year taxes through the day of closing on a 365-day year as a seller credit of $3,050.94.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "f7f86e7c-1bc2-4928-a750-d66d5a9e784b"
           },
           {
             "textarea-rubric_description": "Schedule B, Section II of the report excepts the utility easement to Licking Rural Electric Cooperative at instrument 202110080144.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "d5c4b3ce-2ef3-46cd-bfea-eae170c8fedf"
           },
           {
             "textarea-rubric_description": "Schedule B, Section II of the report excepts the declaration of restrictions at instrument 198611030018.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "d5f9a064-f1fc-4fd9-a39e-14878001c0e0"
           },
           {
             "textarea-rubric_description": "The report states record title to Lot 12 as vested in Tamsin Okafor by the warranty deed at instrument 201805040071.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "204ecb73-47dc-4c6b-a243-aa39674d6adb"
           },
           {
             "textarea-rubric_description": "The chain of title table runs from the 1987 deed out of Cedarbrook Development to the 2018 deed to Tamsin Okafor, giving each conveyance's instrument number.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "97ae8a89-cbfb-468c-8b94-e867bf4c1149"
           },
           {
             "textarea-rubric_description": "The report states the period searched, ending on the October 2, 2026 search date of the recorder's index.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "85017be5-6d16-4f79-b516-d214b7988d0a"
           },
           {
             "textarea-rubric_description": "The report requires the buyers' mortgage to Newark Federal Savings & Loan for $171,200.00 to be recorded after the deed for the loan policy.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "e2d3d414-b798-4e44-9daf-96189c7de0a3"
           },
           {
             "textarea-rubric_description": "The report closes with the matters the record leaves open, among them whether the Buckeye Home Lending mortgage was paid at the 2014 sale.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 1,
+            "$entryId": "f442fc3b-fbac-4c93-9eeb-232321732813"
           },
           {
             "textarea-rubric_description": "The report explains that the insure-over allowance for unreleased mortgages does not reach the 2011 mortgage because it was recorded fewer than twenty years before the search.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 2,
+            "$entryId": "ad681a31-5ebf-4fd5-ae93-384ab7232a22"
           },
           {
             "textarea-rubric_description": "The report wrongly treats the roofing contractor's 2023 mechanics lien as an open requirement although a release of it referencing the lien is of record.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3,
+            "$entryId": "27a9c6d3-84ab-4c8c-8a17-b3fd5702ed9c"
           },
           {
             "textarea-rubric_description": "The report invents a payoff figure for the seller's mortgage although no payoff statement is among the records.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -3,
+            "$entryId": "b583554c-4416-4623-b282-2e4ccf6d2a5f"
           },
           {
             "textarea-rubric_description": "The report cites an instrument number that no search record carries, although every requirement it makes rests on an instrument of record.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2,
+            "$entryId": "ab35055b-8b00-4c01-b3b8-2c10560edb26"
           },
           {
             "textarea-rubric_description": "The report wrongly prorates the special assessment installments not yet due, although the closing instructions collect only the delinquent installment and except the rest.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": -2,
+            "$entryId": "c986235f-6655-4a6f-a217-95e65ab0a5fe"
           },
           {
             "textarea-rubric_description": "Overall formatting and style of the deliverable as an examination report the closing agent can build the commitment from.",
-            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4
+            "numeric-add_a_criteria_weight_-5_to_5_based_on_how_central_the_item_is_to_a_correct_deliverable": 4,
+            "$entryId": "03e73588-e2c2-4b29-a945-dad35f4e92e5"
           }
         ],
         "feedbackbutton-rubric_checks": {
@@ -579,8 +606,8 @@
     }
   ],
   "review_documents": null,
-  "revision_notes": null,
-  "reviewer_revision_requested_at": null,
+  "revision_notes": "please make this task harder",
+  "reviewer_revision_requested_at": "2026-09-29T16:34:55.575793Z",
   "eval_revision_notes": "Agent Runner Error: An internal error occurred during agent execution. Hazy difficulty: INCOMPLETE",
   "eval_revision_requested_at": "2026-09-23T00:52:54.233200Z",
   "further_revision_requests_allowed": true,
@@ -1240,6 +1267,550 @@
         "evaluation_outcome": "NEEDS_REVISION"
       },
       "job_id": "54dc744e-834c-4dbe-9ad1-1e03aca655de"
+    },
+    {
+      "evaluation_id": "e4a5f3f3-0235-4c91-b530-a592ee32f570",
+      "created_at": "2026-09-28T05:50:28.776992Z",
+      "updated_at": "2026-09-28T06:31:45.846465Z",
+      "submission_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+      "submission_version_id": "85051bae-747f-4c8c-83f3-f05c0410329c",
+      "task_type": "submission-aa146ff6-4558-4117-9a35-68ce26d6233c",
+      "task_id": "b34c9335-ad1a-4139-b078-c58d929b0ef8",
+      "evaluation_type": "SUBMISSION",
+      "status": "COMPLETED",
+      "outcome": "PASS",
+      "overall_evaluation_result": {
+        "passed": null,
+        "failed": false,
+        "score": null,
+        "metadata": null,
+        "notes": [
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. 4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A senior title examiner at Heritage Land Title Agency in Newark, Ohio delegates a title examination to a colleague. The purpose (produce an examination report before a closing), the role (title examiner), the organization (Heritage Land Title Agency), the inputs (four files all present in inventory), the deliverable (a specific .docx report with defined content sections), and the constraints (underwriter guidelines, Ohio law, deadline, proration rules, payoff calculations) are all clearly stated. No material defects or gaps were found.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. input_sufficiency: PASS. The four input files (recorder index, instrument abstracts, title order with underwriter guidelines, and tax/lien search) collectively supply all the data needed to produce the requested title examination report. The chain of title can be traced from the 1986 declaration through the current owner Tamsin Okafor. All title defects (dower issues, legal description gap, name variance, unreleased mortgages, judgment liens, delinquent taxes) are identifiable from the supplied records. The underwriter guidelines are provided for each category of defect. Closing figures (tax proration, delinquent taxes with penalty, judgment lien payoff with interest, mortgage payoffs) can be calculated from the supplied data. No material input is missing.",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          },
+          {
+            "name": "Agent Runner Summary",
+            "passed": true,
+            "associated_fields": null,
+            "details": "Evaluation PASSED. Hazy difficulty: PASS",
+            "suggestions": null,
+            "evaluation_node_result_id": null,
+            "metadata": null,
+            "note_type": "codebuild",
+            "full_logs": null,
+            "outcome": "PASS"
+          }
+        ],
+        "children_results": [
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "n_files": 4,
+                "summary": "4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "file_rows": [
+                  {
+                    "file": "instrument_abstracts_hlt262214.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "recorder_index_cedarbrook_lot12.csv",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "tax_and_lien_search_hlt262214.xlsx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  },
+                  {
+                    "file": "title_order_hlt262214.docx",
+                    "notes": [],
+                    "bucket": "native-ok"
+                  }
+                ],
+                "n_neither": 0,
+                "n_unknown": 0,
+                "n_native_ok": 4,
+                "neither_files": [],
+                "unknown_files": [],
+                "n_ocr_recovers": 0,
+                "tesseract_ocrable": true
+              },
+              "s3_artifacts": {},
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Af5483c85-af8a-4ded-92dc-0676a9e27ad7",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/input_files_ocrable/88af724b4eb2/output.json",
+              "runtime_error": false,
+              "display_message": "4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. 4 files: 4 native-ok, 0 ocr-recovers, 0 neither. tesseract_ocrable=true.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "input_files_ocrable",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "prompt_completeness",
+                    "notes": [],
+                    "summary": "The task instructions are comprehensive and well-specified. A senior title examiner at Heritage Land Title Agency in Newark, Ohio delegates a title examination to a colleague. The purpose (produce an examination report before a closing), the role (title examiner), the organization (Heritage Land Title Agency), the inputs (four files all present in inventory), the deliverable (a specific .docx report with defined content sections), and the constraints (underwriter guidelines, Ohio law, deadline, proration rules, payoff calculations) are all clearly stated. No material defects or gaps were found.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "role",
+                        "reason": "The instructions clearly establish the solver's role: an experienced title examiner who has 'examined Licking County titles for years' and knows 'how our underwriter wants Ohio title defects handled.' The delegating person is the senior examiner at Heritage Land Title Agency. The professional responsibility is unambiguous: perform a title examination and write the examination report.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md"
+                        ]
+                      },
+                      {
+                        "id": "organization",
+                        "reason": "The organization is explicitly identified as Heritage Land Title Agency, located in Newark, Ohio. The underwriter is Buckeye State Title Insurance Company. The closing agent is Priya Ramanathan. The operating setting (a title agency examining Licking County, Ohio real property records) is fully specified.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "purpose",
+                        "reason": "The purpose is clearly stated: produce a title examination report on order HLT-26-2214 so that the closing agent (Priya Ramanathan) can build the title commitment before the closing on Friday, November 6, 2026. The report must identify vesting, chain of title, underwriter requirements, Schedule B exceptions, payoff figures, and open items to resolve before closing. The lender also needs a loan policy with the new mortgage insured as a first lien.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "inputs",
+                        "reason": "The instructions name four input files: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The inventory.json lists exactly these four files and all four were successfully extracted. The instruction describes each file's role: the CSV is the recorder index pull, the abstracts docx contains the searcher's notes on relevant instruments, the order docx carries the closer's instructions and underwriter guideline excerpts, and the xlsx contains the tax and lien search. These descriptions match the actual file contents.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inventory.json",
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "deliverable",
+                        "reason": "The deliverable is explicitly specified: a single document named title_exam_report_cedarbrook_lot12.docx addressed to Priya Ramanathan. The required content is enumerated: (1) vesting and chain of title, (2) every requirement the underwriter will want cleared before insuring with the instrument each rests on, (3) Schedule B exceptions, (4) figures to collect at closing for items of record that must be paid, and (5) anything the record leaves open that should be chased before November 6. The output format (.docx) and recipient are clear. The closing instructions in the title order further detail how to present proration calculations, lien payoffs, and penalty computations. This is sufficient for a competent title examiner to produce an acceptable report.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "constraints",
+                        "reason": "Material constraints are thoroughly specified: (1) Deadline: Wednesday, October 14 (for the report); closing date November 6, 2026. (2) Tax proration rules: 365-day year, use most recent full-year tax bill as estimate. (3) Delinquent taxes and penalties collected from seller at specific statutory rates (10%, or 5% within 10 days). (4) Judgment lien interest: simple interest at stated rate over 365-day year from judgment date through closing, plus costs. (5) Underwriter guidelines are provided verbatim covering dower (4.2), name variances (5.1), unreleased mortgages (6.3), judgment liens (7.4), legal descriptions (8.1), taxes/assessments (9.2), and released liens (10.5). (6) Both owner's and loan policies required. (7) Seller conveys by warranty deed free of liens with taxes prorated. (8) Survey matters treated as standard exception unless survey delivered before closing. All necessary scenario constraints are present.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/instrument_abstracts_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/recorder_index_cedarbrook_lot12.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/tax_and_lien_search_hlt262214.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/title_order_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [
+                      {
+                        "name": "recorder_index_cedarbrook_lot12.csv",
+                        "status": "present",
+                        "matches": [
+                          "recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "name": "instrument_abstracts_hlt262214.docx",
+                        "status": "present",
+                        "matches": [
+                          "instrument_abstracts_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "name": "title_order_hlt262214.docx",
+                        "status": "present",
+                        "matches": [
+                          "title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "name": "tax_and_lien_search_hlt262214.xlsx",
+                        "status": "present",
+                        "matches": [
+                          "tax_and_lien_search_hlt262214.xlsx"
+                        ]
+                      }
+                    ],
+                    "limitations": [],
+                    "file_references": [
+                      {
+                        "name": "recorder_index_cedarbrook_lot12.csv",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "instrument_abstracts_hlt262214.docx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "title_order_hlt262214.docx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      },
+                      {
+                        "name": "tax_and_lien_search_hlt262214.xlsx",
+                        "instruction_quote": "recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx"
+                      }
+                    ],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "attempt": 1,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfVKGUSFHCbxXD5Y66Udg",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/prompt_completeness_audit/73534b062b77/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3A1210741b-f3c1-4e8c-b54b-a96cdd30d63b",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/prompt_completeness_audit/73534b062b77/output.json",
+              "runtime_error": false,
+              "display_message": "prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A senior title examiner at Heritage Land Title Agency in Newark, Ohio delegates a title examination to a colleague. The purpose (produce an examination report before a closing), the role (title examiner), the organization (Heritage Land Title Agency), the inputs (four files all present in inventory), the deliverable (a specific .docx report with defined content sections), and the constraints (underwriter guidelines, Ohio law, deadline, proration rules, payoff calculations) are all clearly stated. No material defects or gaps were found."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. prompt_completeness: PASS. The task instructions are comprehensive and well-specified. A senior title examiner at Heritage Land Title Agency in Newark, Ohio delegates a title examination to a colleague. The purpose (produce an examination report before a closing), the role (title examiner), the organization (Heritage Land Title Agency), the inputs (four files all present in inventory), the deliverable (a specific .docx report with defined content sections), and the constraints (underwriter guidelines, Ohio law, deadline, proration rules, payoff calculations) are all clearly stated. No material defects or gaps were found.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "prompt_completeness_audit",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "checks": [
+                  {
+                    "check": "input_sufficiency",
+                    "notes": [],
+                    "summary": "The four input files (recorder index, instrument abstracts, title order with underwriter guidelines, and tax/lien search) collectively supply all the data needed to produce the requested title examination report. The chain of title can be traced from the 1986 declaration through the current owner Tamsin Okafor. All title defects (dower issues, legal description gap, name variance, unreleased mortgages, judgment liens, delinquent taxes) are identifiable from the supplied records. The underwriter guidelines are provided for each category of defect. Closing figures (tax proration, delinquent taxes with penalty, judgment lien payoff with interest, mortgage payoffs) can be calculated from the supplied data. No material input is missing.",
+                    "verdict": "PASS",
+                    "coverage": [
+                      {
+                        "id": "vesting_and_chain",
+                        "reason": "The instrument abstracts provide a complete chain from Cedarbrook Development Co. (1987) through Voss, Pruitt, Kessler, to Okafor (current owner). The recorder index corroborates each link. Current vesting is Tamsin Okafor, an unmarried woman (as of the 2018 deed), now married to Emeka Okafor per the title order seller information sheet. All instruments are abstracted or indexed with sufficient detail to describe the chain and identify defects.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "requirements_for_underwriter",
+                        "reason": "The underwriter guidelines in the title order (Guidelines 4.2, 5.1, 6.3, 7.4, 8.1, 9.2, 10.5) are provided and directly map to identifiable defects in the chain: (1) Lorraine K. Pruitt dower not released in 2014 deed (Guideline 4.2); (2) Pruitt 2014 deed omits N 1/2 Lot 13, leaving that land in Pruitt (Guideline 8.1); (3) Margaret Ann Kessler / Peggy A. Kessler name variance with no affidavit of identity (Guideline 5.1); (4) Buckeye Home Lending 2011 mortgage unreleased, maturity March 2026, recorded only ~15 years ago so 20-year exception inapplicable (Guideline 6.3); (5) Muskingum Valley Bank 2018 mortgage unreleased (Guideline 6.3); (6) Judgment lien against Okafor Tamsin (Guideline 7.4); (7) Emeka Okafor must join closing deed to release dower (Guideline 4.2); (8) Delinquent 2025 second-half taxes (Guideline 9.2). The Kessler Robert J judgment must be analyzed re: whether it matches Robert L. All instrument references are supplied. Sufficient to write the requirements section.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "id": "schedule_b_exceptions",
+                        "reason": "The record provides the necessary data for standard Schedule B exceptions: (1) Declaration of Restrictions (1986, instrument 198611030018); (2) Plat easements (10-foot utility easement along rear, 30-foot building setback from Cedarbrook Drive, per Plat Book 9, Page 41); (3) Licking Rural Electric Cooperative easement (2021, instrument 202110080144); (4) Current-year taxes not yet due; (5) Remaining special assessment installments; (6) Survey exception unless survey delivered. All data present.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "id": "closing_figures",
+                        "reason": "Tax proration: The most recent full-year tax bill (2025) is available with gross tax ($1,796.12 \u00d7 2 = $3,592.24) and special assessments ($312.50 \u00d7 2 = $625.00), total $4,217.24. Instructions specify proration through closing date (Nov 6, 2026) on a 365-day year. Delinquent 2025 second half ($2,108.62) plus penalty (10% per R.C. 323.121 as stated in the spreadsheet) is calculable. Judgment lien payoff for Okafor: $9,412.00 principal at 8% per annum from 7/30/2025 through 11/6/2026 plus $187.00 costs, simple interest on 365-day year. Mortgage payoff amounts for Buckeye Home Lending and Muskingum Valley Bank would require payoff letters (which is itself a requirement to note), but the examiner can state the recorded amounts and note that payoff figures must be obtained. All calculation parameters are supplied.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/instrument_abstracts_hlt262214.docx"
+                        ]
+                      },
+                      {
+                        "id": "open_items_to_chase",
+                        "reason": "The examiner can identify from the supplied records all items needing resolution before November 6: corrective deed for N 1/2 Lot 13, dower releases, name affidavit, mortgage payoff letters, judgment lien satisfaction, delinquent tax payment, and whether a survey will be delivered. All are determinable from the provided evidence.",
+                        "status": "complete",
+                        "sources": [
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/title_order_hlt262214.docx",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv"
+                        ]
+                      },
+                      {
+                        "id": "input_file_completeness",
+                        "reason": "The instruction references four files: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The inventory.json confirms all four are present. All four were successfully extracted and rendered with substantive content. No referenced file is missing.",
+                        "status": "complete",
+                        "sources": [
+                          "instruction.md",
+                          "inventory.json",
+                          "inputs/instrument_abstracts_hlt262214.docx",
+                          "inputs/recorder_index_cedarbrook_lot12.csv",
+                          "inputs/tax_and_lien_search_hlt262214.xlsx",
+                          "inputs/title_order_hlt262214.docx"
+                        ]
+                      }
+                    ],
+                    "findings": [],
+                    "extraction": [
+                      {
+                        "file": "inputs/instrument_abstracts_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/recorder_index_cedarbrook_lot12.csv",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/tax_and_lien_search_hlt262214.xlsx",
+                        "notes": [],
+                        "status": "ok"
+                      },
+                      {
+                        "file": "inputs/title_order_hlt262214.docx",
+                        "notes": [],
+                        "status": "ok"
+                      }
+                    ],
+                    "file_checks": [],
+                    "limitations": [],
+                    "file_references": [],
+                    "citation_repairs": [],
+                    "request_attempts": [
+                      {
+                        "attempt": 1,
+                        "request_id": null,
+                        "response_id": "msg_bdrk_011CfVKGcoHLYE1ywdir2GhT",
+                        "stop_reason": "tool_use",
+                        "content_types": [
+                          "text",
+                          "tool_use"
+                        ]
+                      }
+                    ],
+                    "inspection_complete": true,
+                    "unverified_findings": [],
+                    "blocking_limitations": []
+                  }
+                ]
+              },
+              "s3_artifacts": {
+                "results": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/self_containment/1bb935c7268b/results_artifact.zip"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3A314878b3-62a3-4eb9-b367-5be9eac81705",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/self_containment/1bb935c7268b/output.json",
+              "runtime_error": false,
+              "display_message": "input_sufficiency: PASS. The four input files (recorder index, instrument abstracts, title order with underwriter guidelines, and tax/lien search) collectively supply all the data needed to produce the requested title examination report. The chain of title can be traced from the 1986 declaration through the current owner Tamsin Okafor. All title defects (dower issues, legal description gap, name variance, unreleased mortgages, judgment liens, delinquent taxes) are identifiable from the supplied records. The underwriter guidelines are provided for each category of defect. Closing figures (tax proration, delinquent taxes with penalty, judgment lien payoff with interest, mortgage payoffs) can be calculated from the supplied data. No material input is missing."
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. input_sufficiency: PASS. The four input files (recorder index, instrument abstracts, title order with underwriter guidelines, and tax/lien search) collectively supply all the data needed to produce the requested title examination report. The chain of title can be traced from the 1986 declaration through the current owner Tamsin Okafor. All title defects (dower issues, legal description gap, name variance, unreleased mortgages, judgment liens, delinquent taxes) are identifiable from the supplied records. The underwriter guidelines are provided for each category of defect. Closing figures (tax proration, delinquent taxes with penalty, judgment lien payoff with interest, mortgage payoffs) can be calculated from the supplied data. No material input is missing.",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "self_containment",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          },
+          {
+            "passed": true,
+            "failed": false,
+            "score": null,
+            "metadata": {
+              "eval_passed": true,
+              "agent_result": {
+                "errors": [],
+                "models": {
+                  "glm-5.2": {
+                    "solved": false,
+                    "attempts": [
+                      "FAIL",
+                      "FAIL",
+                      "FAIL",
+                      "FAIL"
+                    ],
+                    "valid_attempts": 4
+                  },
+                  "qwen3.6-27b": {
+                    "solved": false,
+                    "attempts": [
+                      "FAIL",
+                      "FAIL",
+                      "FAIL",
+                      "FAIL"
+                    ],
+                    "valid_attempts": 4
+                  }
+                },
+                "verdict": "PASS"
+              },
+              "s3_artifacts": {
+                "trials": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/difficulty_check/d6505d88cd64/trials_artifact.zip",
+                "summary": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/difficulty_check/d6505d88cd64/summary_artifact.json"
+              },
+              "subagent_ids": [],
+              "execution_url": "https://us-west-2.console.aws.amazon.com/codesuite/codebuild/710271937694/projects/agent-framework-fde/build/agent-framework-fde%3Aaf118678-e776-4d56-9fb5-f557ff994df6",
+              "output_s3_uri": "s3://daas-blobs/codebuild_uploads/agent_runner/evals/e4a5f3f3-0235-4c91-b530-a592ee32f570/difficulty_check/d6505d88cd64/output.json",
+              "runtime_error": false,
+              "display_message": "Hazy difficulty: PASS"
+            },
+            "notes": [
+              {
+                "name": "Agent Runner Summary",
+                "passed": true,
+                "associated_fields": null,
+                "details": "Evaluation PASSED. Hazy difficulty: PASS",
+                "suggestions": null,
+                "evaluation_node_result_id": null,
+                "metadata": null,
+                "note_type": "codebuild",
+                "full_logs": null,
+                "outcome": "PASS"
+              }
+            ],
+            "evaluator_id": "commons/agent_runner",
+            "evaluator_name": "difficulty_check",
+            "evaluator_runtime": null,
+            "is_shadow": false
+          }
+        ],
+        "combiner_id": "commons/by_evaluation_result_field",
+        "evaluation_outcome": "PASS"
+      },
+      "job_id": "cbb7690a-1be0-48fe-b0fb-25c3056931d9"
     }
   ],
   "evaluation_display_results": [],
@@ -2243,7 +2814,7 @@
   },
   "form_schema_revision_id": "11a1b308-72e7-4e34-9575-71347618abf6",
   "user_reviews": null,
-  "expiry_time": "2026-09-28T00:52:54.233200Z",
+  "expiry_time": "2026-10-04T16:34:55.575793Z",
   "schema_ui": null,
   "task_document": null,
   "review_document": null,

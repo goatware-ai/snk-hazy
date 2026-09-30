@@ -7,101 +7,195 @@
     "title": "Title Examiners, Abstractors, and Searchers"
   },
   "input_files": [
-    "recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries for the parcel by name and legal description, 1986 through the October 2, 2026 search date: instrument number, recording date, document type, parties, volume and page, amount, legal description, and referenced instrument",
-    "instrument_abstracts_hlt262214.docx - the searcher's abstracts of the recorded instruments that matter, with parties, marital recitals, legal descriptions as written, signatures, and release references, plus the searcher's notes",
-    "title_order_hlt262214.docx - the closing agent's title order and closing instructions for order HLT-26-2214, with the parties, price, lender, closing date, proration instructions, and the underwriter's examination guideline excerpts",
-    "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel, the clerk of courts judgment lien search results, and the names searched with the period each held an interest"
+    "recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries returned by the name and lot runs, 1986 through the October 2, 2026 search date: instrument number, recording date, document type, parties, volume and page, amount, legal description as indexed, and referenced instrument as indexed",
+    "instrument_abstracts_hlt262214.docx - the searcher's abstracts of the recorded instruments, giving the parties, recitals, legal description, dates, and execution of each instrument as it appears on the recorded image",
+    "title_order_hlt262214.docx - the closing agent's title order and closing instructions for order HLT-26-2214, with the parties, price, lender, commitment and closing dates, proration and interest instructions, the seller information sheet notes, and the underwriter's examination guideline excerpts",
+    "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel, the clerk of courts judgment lien docket with the later entries filed under each certificate, and the names searched",
+    "court_records_search_hlt262214.xlsx - the probate court index run (estates, guardianships, and marriage licenses) and the domestic relations case index run under the surnames in the chain",
+    "location_survey_418_cedarbrook.docx - the buyers' mortgage location survey report of October 9, 2026, with the basis of the survey, the measured ties to each improvement, and the lines of occupation"
   ],
   "output_files": [
-    "title_exam_report_cedarbrook_lot12.docx - the title examination report to the closing agent with vesting, chain of title, requirements, exceptions, closing figures, and open matters"
+    "title_exam_report_cedarbrook_lot12.docx - the title examination report to the closing agent with vesting, chain of title, requirements, exceptions, closing figures, survey matters, matters examined and passed, and open matters"
   ],
-  "input_file_count": 4,
+  "input_file_count": 6,
   "output_file_count": 1,
   "tools": [
     "Microsoft Word",
     "Microsoft Excel"
   ],
-  "time_read_minutes": 15,
-  "time_files_minutes": 90,
-  "time_work_minutes": 240,
-  "time_qa_minutes": 60,
-  "total_time_hours": 6.75,
-  "task_instruction": "Priya has a closing on Cedarbrook Drive set for Friday, November 6, and she needs the examination report on order HLT-26-2214 before she can build the commitment. I'm the senior examiner at Heritage Land Title Agency here in Newark, Ohio, so the examination is mine. I am out for a deposition and two other closings this week, and I am handing this one to you because you have examined Licking County titles for years and know how our underwriter wants Ohio title defects handled. The search came back from the recorder on October 2, and the pull is in the folder: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, and tax_and_lien_search_hlt262214.xlsx. The abstracts are the searcher's notes on the instruments that matter, and the order carries the closer's instructions along with the underwriter guideline excerpts she wants applied.\n\nWrite the examination report as one document named title_exam_report_cedarbrook_lot12.docx for Priya Ramanathan, who is closing the file. She needs the vesting and the chain of title as you find it, every requirement the underwriter will want cleared before it insures with the instrument each one rests on, the exceptions that will carry into Schedule B, the figures she has to collect at closing for anything of record that has to be paid, and anything the record leaves open that she should chase before the sixth. The buyers' lender wants a loan policy as well as the owner's policy. I need it by Wednesday, October 14.",
+  "time_read_minutes": 20,
+  "time_files_minutes": 180,
+  "time_work_minutes": 370,
+  "time_qa_minutes": 90,
+  "total_time_hours": 11.0,
+  "task_instruction": "Priya has a closing on Cedarbrook Drive set for Friday, November 6, and she needs the examination report on order HLT-26-2214 before she can build the commitment. I'm the senior examiner at Heritage Land Title Agency here in Newark, Ohio, so the examination is mine. I am out for a deposition and two other closings this week, and I am handing this one to you because you have examined Licking County titles for years and know how our underwriter wants Ohio title defects handled. The searches came back on October 2, and the pull is in the folder: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, tax_and_lien_search_hlt262214.xlsx, and court_records_search_hlt262214.xlsx. The buyers' survey came in on October 9 and is there as location_survey_418_cedarbrook.docx. The abstracts are the searcher's notes on the recorded instruments, and the order carries the closer's instructions along with the underwriter guideline excerpts she wants applied. Priya is expecting a short requirements list, because the seller has told her there is one loan to pay off.\n\nWrite the examination report as one document named title_exam_report_cedarbrook_lot12.docx for Priya Ramanathan, who is closing the file. She needs the vesting and the chain of title as you find it, every requirement the underwriter will want cleared before it insures with the instrument or court record each one rests on, the exceptions that will carry into Schedule B, the figures she has to collect at closing for anything of record that has to be paid, and anything the record leaves open that she should chase before the sixth. Tell her as well which liens and other matters you examined and passed, with the reason for each. The buyers' lender wants a loan policy as well as the owner's policy. I need it by Wednesday, October 21.",
   "rubric": [
     {
-      "description": "The report, title_exam_report_cedarbrook_lot12.docx, is addressed to Priya Ramanathan as closing agent and dated October 14, 2026.",
+      "description": "The report, title_exam_report_cedarbrook_lot12.docx, is addressed to Priya Ramanathan as closing agent and dated October 21, 2026.",
       "weight": 1
     },
     {
-      "description": "The report finds that the warranty deed at instrument 201409190112 describes Lot 12 alone, leaving record title to the north half of the adjoining lot in Daniel Pruitt.",
+      "description": "The report states the seller's record title under her former name, Tamsin Bello, as resting on the warranty deed at instrument 201805040071.",
+      "weight": 2
+    },
+    {
+      "description": "The report finds that the warranty deed at instrument 201409190112 describes only the north 24.25 feet of the adjoining lot, a shorter measure than the other deeds in the chain describe.",
       "weight": 5
     },
     {
-      "description": "The report requires a corrective conveyance of the north half of Lot 13 from Daniel Pruitt to the seller, or a judgment quieting title, before that land is insured.",
+      "description": "The report measures the omitted strip as 18.00 feet, with record title to it remaining in Daniel Pruitt.",
       "weight": 3
     },
     {
-      "description": "The report requires a release of dower from Lorraine Pruitt, or evidence that her dower has terminated, because the deed at instrument 201409190112 was signed by a married grantor alone.",
+      "description": "The report requires a corrective conveyance of the omitted strip from Daniel Pruitt, or a judgment quieting title, before that land is insured.",
+      "weight": 2
+    },
+    {
+      "description": "The report identifies the 2019 marriage to Carla Marie Hensley as that of Daniel Robert Pruitt, a different man from the record owner of the strip.",
       "weight": 3
     },
     {
-      "description": "The report lists the mortgage to Buckeye Home Lending LLC at instrument 201103140062 for $88,000.00 as open of record and requires a recorded satisfaction or a payoff.",
+      "description": "The report states that the dower of Lorraine Pruitt was terminated by the decree of dissolution in domestic relations case 16DR0842.",
+      "weight": 3
+    },
+    {
+      "description": "The report requires Emeka Okafor to join the seller's deed to release dower while divorce case 26DR0517 remains pending without a decree.",
+      "weight": 3
+    },
+    {
+      "description": "The report requires a recorded certificate of transfer of the undivided half of Mildred Voss from estate 01ES0117, the 1987 deed carrying no words of survivorship.",
       "weight": 4
     },
     {
+      "description": "The report finds the amendment of restrictions short of the two-thirds vote, with 25 of the 38 lot owners signing.",
+      "weight": 3
+    },
+    {
+      "description": "The report requires a recorded death certificate of Margaret Ann Kessler with an affidavit of survivorship, she having died before the deed at instrument 201805040071.",
+      "weight": 4
+    },
+    {
+      "description": "The report identifies Peggy Kessler as the second wife of Robert Kessler under marriage license 16ML0612.",
+      "weight": 2
+    },
+    {
+      "description": "The report holds the mortgage at instrument 201103140062 open, its satisfaction having been signed by Buckeye Home Lending LLC after the assignment to Tri-County Mortgage Servicing.",
+      "weight": 4
+    },
+    {
+      "description": "The report holds the open-end mortgage to Licking Valley Savings Bank at instrument 200610190027 open as a requirement for a recorded satisfaction or a payoff.",
+      "weight": 3
+    },
+    {
+      "description": "The report states that the satisfaction at instrument 201106020188 releases the 2003 mortgage to Licking Valley Savings Bank, which the satisfaction identifies by book and page.",
+      "weight": 2
+    },
+    {
+      "description": "The report rules out insuring over the open-end mortgage on its recording date, fewer than twenty years before the commitment date.",
+      "weight": 2
+    },
+    {
+      "description": "The report passes the mortgage to Heath Building & Loan at instrument 199409220103 as insured over under guideline 6.3, with no requirement made for it.",
+      "weight": 2
+    },
+    {
+      "description": "The report holds the mortgage to Park National Bank at instrument 199907160122 open of record, its final installment falling due after the commitment date.",
+      "weight": 3
+    },
+    {
       "description": "The report requires a payoff and recorded release of the seller's mortgage to Muskingum Valley Bank at instrument 201805040072.",
-      "weight": 3
-    },
-    {
-      "description": "The report requires payment and release of the Capital Recovery Associates LLC judgment against the seller, computing the payoff through the closing date as $10,556.19.",
-      "weight": 3
-    },
-    {
-      "description": "The judgment payoff carries $957.19 of simple interest at the rate the certificate of judgment states, run from the judgment date through the closing date.",
       "weight": 1
     },
     {
-      "description": "The report states that the 2020 judgment against a Robert Kessler does not attach to the parcel because the Kesslers conveyed the parcel before it was filed.",
+      "description": "The report finds that certificate of judgment 22JL00151 does not attach, its debtor being Daniel Robert Pruitt and a different man from the record owner.",
+      "weight": 4
+    },
+    {
+      "description": "The report finds that certificate of judgment 23JL00644 against Daniel Ray Pruitt attaches to the omitted strip, where he remains the owner of record.",
+      "weight": 3
+    },
+    {
+      "description": "The report computes the payoff of certificate 23JL00644 through the closing date as $4,724.26.",
       "weight": 2
     },
     {
-      "description": "The report requires an affidavit of identity establishing that Peggy Kessler and Margaret Ann Kessler are the same person.",
+      "description": "The report finds that certificate of judgment 17JL00288 against a former owner remains a lien on the land he held, having been refiled within five years of its filing.",
+      "weight": 3
+    },
+    {
+      "description": "The report computes the payoff of certificate 17JL00288 through the closing date as $8,543.78.",
       "weight": 2
     },
     {
-      "description": "The report requires the seller's spouse to join the deed to the buyers to release dower.",
+      "description": "The report finds certificate of judgment 10JL00227 in force on all of the land, each of its three refilings having come within five years of the one before.",
+      "weight": 3
+    },
+    {
+      "description": "The report computes the payoff of certificate 10JL00227 through the closing date as $5,993.47, the docket payment having been applied to principal.",
       "weight": 2
     },
     {
-      "description": "The report states the delinquent second-half 2025 taxes and assessment, with penalty, as $2,319.48 to be paid at closing.",
+      "description": "The report finds that certificate 15JL00932 does not attach, its refiling having come after the five years had run and after the debtor had conveyed.",
       "weight": 2
     },
     {
-      "description": "The delinquency figure applies the 10% penalty to the tax installment and to the assessment installment alike.",
+      "description": "The report states that certificate 16JL00541 lapsed five years after its filing with no refiling and is not a requirement.",
+      "weight": 2
+    },
+    {
+      "description": "The report computes the payoff of certificate 25JL01133 against the seller through the closing date as $7,809.53, the docket payment having been applied to principal.",
+      "weight": 3
+    },
+    {
+      "description": "The report states that certificate 24JL00902 against the seller's husband does not attach, inchoate dower not being record title.",
       "weight": 1
+    },
+    {
+      "description": "The report states that certificate 20JL00417 against Robert John Kessler does not attach to the land.",
+      "weight": 1
+    },
+    {
+      "description": "The report states the unpaid second-half 2025 installment of tax and assessment with its penalty as $2,319.48.",
+      "weight": 2
+    },
+    {
+      "description": "The report raises a penalty of $105.43 on the first-half 2025 installment, which the duplicate shows paid after its due date in the bare amount of the bill.",
+      "weight": 2
     },
     {
       "description": "The report prorates the current-year taxes through the day of closing on a 365-day year as a seller credit of $3,050.94.",
       "weight": 2
     },
     {
-      "description": "Schedule B, Section II of the report excepts the utility easement to Licking Rural Electric Cooperative at instrument 202110080144.",
+      "description": "The report places the detached garage wholly on the omitted strip, south of the seller's record line at 108.75 feet.",
+      "weight": 3
+    },
+    {
+      "description": "The report excepts the roofed front porch, which the survey places 26.70 feet from the front line, as standing over the front building line of the restrictions.",
       "weight": 2
+    },
+    {
+      "description": "The report excepts the detached garage as standing 1.55 feet from the south line of the tract, inside the side line restriction on accessory structures.",
+      "weight": 2
+    },
+    {
+      "description": "The report excepts the storage shed as standing 3.50 feet inside the rear utility easement.",
+      "weight": 2
+    },
+    {
+      "description": "The report excepts the neighboring owner's chain link fence as standing up to 0.80 feet onto the tract.",
+      "weight": 1
+    },
+    {
+      "description": "Schedule B, Section II of the report excepts the utility easement to Licking Rural Electric Cooperative at instrument 202110080144.",
+      "weight": 1
     },
     {
       "description": "Schedule B, Section II of the report excepts the declaration of restrictions at instrument 198611030018.",
       "weight": 1
     },
     {
-      "description": "The report states record title to Lot 12 as vested in Tamsin Okafor by the warranty deed at instrument 201805040071.",
-      "weight": 2
-    },
-    {
-      "description": "The chain of title table runs from the 1987 deed out of Cedarbrook Development to the 2018 deed to Tamsin Okafor, giving each conveyance's instrument number.",
-      "weight": 2
-    },
-    {
-      "description": "The report states the period searched, ending on the October 2, 2026 search date of the recorder's index.",
+      "description": "The chain of title table runs from the 1987 deed out of Cedarbrook Development to the 2018 deed to the seller, giving each conveyance's instrument number.",
       "weight": 1
     },
     {
@@ -109,27 +203,55 @@
       "weight": 1
     },
     {
-      "description": "The report closes with the matters the record leaves open, among them whether the Buckeye Home Lending mortgage was paid at the 2014 sale.",
+      "description": "The report passes the Granville Community Bank mortgage as released by the satisfaction at instrument 201804270239, signed by the assignee of record.",
       "weight": 1
     },
     {
-      "description": "The report explains that the insure-over allowance for unreleased mortgages does not reach the 2011 mortgage because it was recorded fewer than twenty years before the search.",
-      "weight": 2
+      "description": "The report requires the seller's deed to recite her married name together with her former name, Tamsin Bello.",
+      "weight": 1
     },
     {
-      "description": "The report wrongly treats the roofing contractor's 2023 mechanics lien as an open requirement although a release of it referencing the lien is of record.",
+      "description": "The report names among the matters the record leaves open whether the Buckeye Home Lending loan was in fact paid.",
+      "weight": 1
+    },
+    {
+      "description": "The report wrongly requires an affidavit of identity under guideline 5.1 by reading the second wife's given name as a variance of the first wife's.",
       "weight": -3
     },
     {
-      "description": "The report invents a payoff figure for the seller's mortgage although no payoff statement is among the records.",
+      "description": "The report wrongly requires a release of dower in the strip from the wife of the record owner's namesake.",
       "weight": -3
     },
     {
-      "description": "The report cites an instrument number that no search record carries, although every requirement it makes rests on an instrument of record.",
+      "description": "The report wrongly reduces the payoff of certificate 25JL01133 by the vacated $1,175.00 credit.",
       "weight": -2
     },
     {
-      "description": "The report wrongly prorates the special assessment installments not yet due, although the closing instructions collect only the delinquent installment and except the rest.",
+      "description": "The report wrongly carries the roofing contractor's released 2023 mechanics lien as an open requirement.",
+      "weight": -3
+    },
+    {
+      "description": "The report wrongly states a payoff figure for a mortgage with no payoff statement among the records.",
+      "weight": -3
+    },
+    {
+      "description": "The report wrongly insures over the unmatured mortgage recorded in 1999.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly excepts the storm sewer easement at instrument 200906110041 over the south part of the adjoining lot as a matter on the insured land.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly requires payment of the docket-satisfied certificate 12JL00655.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly requires payment of the lapsed certificate 16JL00541.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly prorates the special assessment installments not yet due into the seller's tax credit.",
       "weight": -2
     },
     {
