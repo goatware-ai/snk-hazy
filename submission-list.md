@@ -5,28 +5,26 @@
 | 01 | covenant-certificate-aug-2026 | d2aa8273-c67c-49f0-ac97-9f6b515cbdae | 2026-09-30 13:07 EDT | claude-fable-5-1 |
 | 05 | am-exemption-review | 4fad9f2e-3574-4c22-805d-40275df0171e | 2026-09-30 13:07 EDT | claude-fable-5-1 |
 
-## REVIEW_PENDING (2)
+## REVIEW_PENDING (8)
 
 | Seq | Task name | Taskboard UID | Updated | Model |
 |-----|-----------|---------------|---------|-------|
+| 02 | title-exam-cedarbrook-lot12 | b34c9335-ad1a-4139-b078-c58d929b0ef8 | 2026-09-30 23:22 EDT | claude-fable-5-1 |
+| 03 | pretreatment-smr-q3-2026 | b3aa1605-dfc8-4be9-a476-fd9dfe7747ed | 2026-10-01 10:43 EDT | claude-fable-5-1 |
+| 06 | tract7-boundary-retracement | bd4c9fd2-060e-41f4-bcdb-76cee0b48cc0 | 2026-10-01 10:43 EDT | claude-fable-5-1 |
+| 07 | freight-invoice-audit | 8c225b0a-e6e3-4f45-a932-df2e679e6a30 | 2026-10-01 10:43 EDT | claude-fable-5-1 |
 | 08 | nutrition-panel-granola | 40b109e6-c4fc-4a07-b092-5262ab4ff29f | 2026-09-30 21:52 EDT | claude-fable-5-1 |
 | 09 | concrete-acceptance-review | 90babb9c-5a09-4898-a50b-b9af6a105e01 | 2026-09-30 03:01 EDT | claude-fable-5-1 |
+| 10 | carton-bid-evaluation | bd686eba-d1d8-440c-bd7a-845b363fb9d5 | 2026-10-01 10:43 EDT | claude-fable-5-1 |
+| 11 | lien-analysis-larkspur | a5f1d783-e915-427c-abd4-f467617f09c3 | 2026-09-30 22:51 EDT | claude-fable-5-1 |
 
-## EVALUATION_PENDING (4)
+## EVALUATION_PENDING (0)
 
-| Seq | Task name | Taskboard UID | Updated | Model |
-|-----|-----------|---------------|---------|-------|
-| 02 | title-exam-cedarbrook-lot12 | b34c9335-ad1a-4139-b078-c58d929b0ef8 | 2026-09-30 21:52 EDT | claude-fable-5-1 |
-| 03 | pretreatment-smr-q3-2026 | b3aa1605-dfc8-4be9-a476-fd9dfe7747ed | 2026-09-30 22:22 EDT | claude-fable-5-1 |
-| 07 | freight-invoice-audit | 8c225b0a-e6e3-4f45-a932-df2e679e6a30 | 2026-09-30 21:37 EDT | claude-fable-5-1 |
-| 11 | lien-analysis-larkspur | a5f1d783-e915-427c-abd4-f467617f09c3 | 2026-09-30 21:37 EDT | claude-fable-5-1 |
+_None._
 
-## NEEDS_REVISION (2)
+## NEEDS_REVISION (0)
 
-| Seq | Task name | Taskboard UID | Updated | Model | Note |
-|-----|-----------|---------------|---------|-------|------|
-| 06 | tract7-boundary-retracement | bd4c9fd2-060e-41f4-bcdb-76cee0b48cc0 | 2026-09-30 22:27 EDT | claude-fable-5-1 |  |
-| 10 | carton-bid-evaluation | bd686eba-d1d8-440c-bd7a-845b363fb9d5 | 2026-09-30 19:00 EDT | claude-fable-5-1 |  |
+_None._
 
 ## OFFERED (0)
 
