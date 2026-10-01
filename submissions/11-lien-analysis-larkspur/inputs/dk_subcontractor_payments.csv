@@ -1,40 +1,21 @@
-ENTRY_DATE,CHECK_NO,TYPE,PAYEE,TRADE,PAY_APP,AMOUNT,BANK_CLEARED
-03/27/2026,4390,CHK,Ostrowski Electric Inc,Electrical,2,152950.00,04/01/2026
-03/27/2026,4391,CHK,Tallac Concrete Inc,Site concrete,2,71250.00,03/31/2026
-03/27/2026,4393,CHK,Petrakis Plumbing Inc,Plumbing,2,61370.00,04/02/2026
-04/28/2026,4402,CHK,Ostrowski Electric Inc,Electrical,3,121600.00,05/01/2026
-04/28/2026,4403,CHK,Tallac Concrete Inc,Site concrete,3,158650.00,04/30/2026
-04/28/2026,4404,CHK,R Nakamura Framing Inc,Rough carpentry,3,164730.00,05/04/2026
-04/28/2026,4405,CHK,Fenwick Roofing Inc,Roofing,3,95410.00,05/01/2026
-04/29/2026,4407,CHK,Kastner Mechanical Contractors Inc,HVAC,3,32110.00,05/04/2026
-04/29/2026,4409,CHK,Petrakis Plumbing Inc,Plumbing,3,48830.00,05/05/2026
-05/29/2026,4418,CHK,Ostrowski Electric Inc,Electrical,4,98325.00,06/03/2026
-05/29/2026,4419,CHK,R Nakamura Framing Inc,Rough carpentry,4,194370.00,06/02/2026
-05/29/2026,4420,CHK,Kastner Mechanical Contractors Inc,HVAC,4,97565.00,06/03/2026
-05/29/2026,4422,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,4,8700.00,06/04/2026
-05/29/2026,4423,CHK,Fenwick Roofing Inc,Roofing,4,173465.00,06/02/2026
-06/01/2026,4424,CHK,Lindqvist Fire Protection,Fire sprinklers,4,69501.50,06/05/2026
-06/01/2026,4426,CHK,Tallac Concrete Inc,Site concrete,4,143710.00,06/04/2026
-06/26/2026,4433,CHK,Ostrowski Electric Inc,Electrical,5,89305.00,07/01/2026
-06/26/2026,4434,CHK,R Nakamura Framing Inc,Rough carpentry,5,106400.00,07/01/2026
-06/26/2026,4435,CHK,Kastner Mechanical Contractors Inc,HVAC,5,66860.00,06/30/2026
-06/26/2026,4436,CHK,Tallac Concrete Inc,Site concrete,5,5115.00,07/02/2026
-06/29/2026,4437,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,5,46170.00,07/06/2026
-06/29/2026,4438,CHK,Bautista Painting Co,Painting,5,12825.00,07/07/2026
-06/29/2026,4439,CHK,Abrego Glass and Glazing,Storefront and glazing,5,112765.00,07/02/2026
-06/30/2026,4440,CHK,Petrakis Plumbing Inc,Plumbing,5,116525.00,07/06/2026
-06/30/2026,4441,CHK,Calder Bros Masonry Inc,Masonry,5,31350.00,07/06/2026
-07/29/2026,4448,CHK,Fenwick Roofing Inc,Roofing,6,14937.50,08/03/2026
-07/29/2026,4449,CHK,Ostrowski Electric Inc,Electrical,6,120113.00,08/03/2026
-07/29/2026,4451,CHK,R Nakamura Framing Inc,Rough carpentry,6,21280.00,08/04/2026
-07/29/2026,4452,CHK,Kastner Mechanical Contractors Inc,HVAC,6,88920.00,08/03/2026
-07/30/2026,4453,CHK,Bautista Painting Co,Painting,6,21755.00,08/05/2026
-07/30/2026,4454,CHK,Abrego Glass and Glazing,Storefront and glazing,6,64790.00,08/04/2026
-07/30/2026,4455,CHK,Lindqvist Fire Protection,Fire sprinklers,6,66016.00,08/05/2026
-07/30/2026,4456,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,6,100515.00,08/04/2026
-08/18/2026,4460,CHK,Kastner Mechanical Contractors Inc,HVAC,7,73910.00,
-08/19/2026,4461,CHK,Ostrowski Electric Inc,Electrical,7,41230.00,08/24/2026
-08/19/2026,4463,CHK,Petrakis Plumbing Inc,Plumbing,7,37166.00,08/25/2026
-08/24/2026,4460,STP,Kastner Mechanical Contractors Inc,HVAC,7,-73910.00,
-09/18/2026,4474,CHK,Kastner Mechanical Contractors Inc,HVAC,7,73910.00,09/23/2026
-09/30/2026,4479,CHK,Ostrowski Electric Inc,Electrical,8,27227.00,
+ENTRY_DATE,CHECK_NO,TYPE,PAYEE,TRADE,PAY_APP,AMOUNT,BANK_CLEARED,ENTRY_DATE_2,CHECK_NO_2,TYPE_2,PAYEE_2,TRADE_2,PAY_APP_2,AMOUNT_2,BANK_CLEARED_2
+03/27/2026,4390,CHK,Ostrowski Electric Inc,Electrical,2,152950.00,04/01/2026,06/29/2026,4437,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,5,46170.00,07/06/2026
+03/27/2026,4391,CHK,Tallac Concrete Inc,Site concrete,2,71250.00,03/31/2026,06/29/2026,4438,CHK,Bautista Painting Co,Painting,5,12825.00,07/07/2026
+03/27/2026,4393,CHK,Petrakis Plumbing Inc,Plumbing,2,61370.00,04/02/2026,06/29/2026,4439,CHK,Abrego Glass and Glazing,Storefront and glazing,5,112765.00,07/02/2026
+04/28/2026,4402,CHK,Ostrowski Electric Inc,Electrical,3,121600.00,05/01/2026,06/30/2026,4440,CHK,Petrakis Plumbing Inc,Plumbing,5,116525.00,07/06/2026
+04/28/2026,4403,CHK,Tallac Concrete Inc,Site concrete,3,158650.00,04/30/2026,06/30/2026,4441,CHK,Calder Bros Masonry Inc,Masonry,5,31350.00,07/06/2026
+04/28/2026,4404,CHK,R Nakamura Framing Inc,Rough carpentry,3,164730.00,05/04/2026,07/29/2026,4448,CHK,Fenwick Roofing Inc,Roofing,6,14937.50,08/03/2026
+04/28/2026,4405,CHK,Fenwick Roofing Inc,Roofing,3,95410.00,05/01/2026,07/29/2026,4449,CHK,Ostrowski Electric Inc,Electrical,6,120113.00,08/03/2026
+04/29/2026,4407,CHK,Kastner Mechanical Contractors Inc,HVAC,3,32110.00,05/04/2026,07/29/2026,4451,CHK,R Nakamura Framing Inc,Rough carpentry,6,21280.00,08/04/2026
+04/29/2026,4409,CHK,Petrakis Plumbing Inc,Plumbing,3,48830.00,05/05/2026,07/29/2026,4452,CHK,Kastner Mechanical Contractors Inc,HVAC,6,88920.00,08/03/2026
+05/29/2026,4418,CHK,Ostrowski Electric Inc,Electrical,4,98325.00,06/03/2026,07/30/2026,4453,CHK,Bautista Painting Co,Painting,6,21755.00,08/05/2026
+05/29/2026,4419,CHK,R Nakamura Framing Inc,Rough carpentry,4,194370.00,06/02/2026,07/30/2026,4454,CHK,Abrego Glass and Glazing,Storefront and glazing,6,64790.00,08/04/2026
+05/29/2026,4420,CHK,Kastner Mechanical Contractors Inc,HVAC,4,97565.00,06/03/2026,07/30/2026,4455,CHK,Lindqvist Fire Protection,Fire sprinklers,6,66016.00,08/05/2026
+05/29/2026,4422,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,4,8700.00,06/04/2026,07/30/2026,4456,CHK,Calder Drywall and Plaster LLC,Drywall and plaster,6,100515.00,08/04/2026
+05/29/2026,4423,CHK,Fenwick Roofing Inc,Roofing,4,173465.00,06/02/2026,08/18/2026,4460,CHK,Kastner Mechanical Contractors Inc,HVAC,7,73910.00,
+06/01/2026,4424,CHK,Lindqvist Fire Protection,Fire sprinklers,4,69501.50,06/05/2026,08/19/2026,4461,CHK,Ostrowski Electric Inc,Electrical,7,41230.00,08/24/2026
+06/01/2026,4426,CHK,Tallac Concrete Inc,Site concrete,4,143710.00,06/04/2026,08/19/2026,4463,CHK,Petrakis Plumbing Inc,Plumbing,7,37166.00,08/25/2026
+06/26/2026,4433,CHK,Ostrowski Electric Inc,Electrical,5,89305.00,07/01/2026,08/24/2026,4460,STP,Kastner Mechanical Contractors Inc,HVAC,7,-73910.00,
+06/26/2026,4434,CHK,R Nakamura Framing Inc,Rough carpentry,5,106400.00,07/01/2026,09/18/2026,4474,CHK,Kastner Mechanical Contractors Inc,HVAC,7,73910.00,09/23/2026
+06/26/2026,4435,CHK,Kastner Mechanical Contractors Inc,HVAC,5,66860.00,06/30/2026,09/30/2026,4479,CHK,Ostrowski Electric Inc,Electrical,8,27227.00,
+06/26/2026,4436,CHK,Tallac Concrete Inc,Site concrete,5,5115.00,07/02/2026,10/06/2026,4488,CHK,Ostrowski Electric Inc and Capitol Wire and Lighting,Electrical,8,8940.00,10/09/2026

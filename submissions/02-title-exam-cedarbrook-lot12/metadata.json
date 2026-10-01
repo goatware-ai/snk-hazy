@@ -10,7 +10,7 @@
     "recorder_index_cedarbrook_lot12.csv - Licking County recorder's index entries returned by the name and lot runs, 1986 through the October 2, 2026 search date: instrument number, recording date, document type, parties, volume and page, amount, legal description as indexed, and referenced instrument as indexed",
     "instrument_abstracts_hlt262214.docx - the searcher's abstracts of the recorded instruments, giving the parties, recitals, legal description, dates, and execution of each instrument as it appears on the recorded image",
     "title_order_hlt262214.docx - the closing agent's title order and closing instructions for order HLT-26-2214, with the parties, price, lender, commitment and closing dates, proration and interest instructions, the seller information sheet notes, and the underwriter's examination guideline excerpts",
-    "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel, the clerk of courts judgment lien docket with the later entries filed under each certificate, and the names searched",
+    "tax_and_lien_search_hlt262214.xlsx - the treasurer's tax duplicate inquiry for the parcel with the rollback credits and the payment history, the clerk of courts judgment lien docket with the later entries filed under each certificate, and the names searched",
     "court_records_search_hlt262214.xlsx - the probate court index run (estates, guardianships, and marriage licenses) and the domestic relations case index run under the surnames in the chain",
     "location_survey_418_cedarbrook.docx - the buyers' mortgage location survey report of October 9, 2026, with the basis of the survey, the measured ties to each improvement, and the lines of occupation"
   ],
@@ -24,10 +24,10 @@
     "Microsoft Excel"
   ],
   "time_read_minutes": 20,
-  "time_files_minutes": 180,
-  "time_work_minutes": 370,
+  "time_files_minutes": 190,
+  "time_work_minutes": 400,
   "time_qa_minutes": 90,
-  "total_time_hours": 11.0,
+  "total_time_hours": 11.75,
   "task_instruction": "Priya has a closing on Cedarbrook Drive set for Friday, November 6, and she needs the examination report on order HLT-26-2214 before she can build the commitment. I'm the senior examiner at Heritage Land Title Agency here in Newark, Ohio, so the examination is mine. I am out for a deposition and two other closings this week, and I am handing this one to you because you have examined Licking County titles for years and know how our underwriter wants Ohio title defects handled. The searches came back on October 2, and the pull is in the folder: recorder_index_cedarbrook_lot12.csv, instrument_abstracts_hlt262214.docx, title_order_hlt262214.docx, tax_and_lien_search_hlt262214.xlsx, and court_records_search_hlt262214.xlsx. The buyers' survey came in on October 9 and is there as location_survey_418_cedarbrook.docx. The abstracts are the searcher's notes on the recorded instruments, and the order carries the closer's instructions along with the underwriter guideline excerpts she wants applied. Priya is expecting a short requirements list, because the seller has told her there is one loan to pay off.\n\nWrite the examination report as one document named title_exam_report_cedarbrook_lot12.docx for Priya Ramanathan, who is closing the file. She needs the vesting and the chain of title as you find it, every requirement the underwriter will want cleared before it insures with the instrument or court record each one rests on, the exceptions that will carry into Schedule B, the figures she has to collect at closing for anything of record that has to be paid, and anything the record leaves open that she should chase before the sixth. Tell her as well which liens and other matters you examined and passed, with the reason for each. The buyers' lender wants a loan policy as well as the owner's policy. I need it by Wednesday, October 21.",
   "rubric": [
     {
@@ -107,6 +107,10 @@
       "weight": 1
     },
     {
+      "description": "The report requires a release of the Dunmore Roofing mechanics lien at instrument 202307210033 that identifies it, the recorded release reciting a different instrument.",
+      "weight": 3
+    },
+    {
       "description": "The report finds that certificate of judgment 22JL00151 does not attach, its debtor being Daniel Robert Pruitt and a different man from the record owner.",
       "weight": 4
     },
@@ -131,7 +135,11 @@
       "weight": 3
     },
     {
-      "description": "The report computes the payoff of certificate 10JL00227 through the closing date as $5,993.47, the docket payment having been applied to principal.",
+      "description": "The report computes the payoff of certificate 10JL00227 through the closing date as $6,329.47.",
+      "weight": 2
+    },
+    {
+      "description": "The report applies the $1,000.00 credit on certificate 10JL00227 wholly to accrued interest, leaving its principal at $4,318.55.",
       "weight": 2
     },
     {
@@ -143,8 +151,12 @@
       "weight": 2
     },
     {
-      "description": "The report computes the payoff of certificate 25JL01133 against the seller through the closing date as $7,809.53, the docket payment having been applied to principal.",
+      "description": "The report computes the payoff of certificate 25JL01133 against the seller through the closing date as $6,243.07.",
       "weight": 3
+    },
+    {
+      "description": "The report applies the garnishment credit on certificate 25JL01133 first to accrued interest of $391.95.",
+      "weight": 2
     },
     {
       "description": "The report states that certificate 24JL00902 against the seller's husband does not attach, inchoate dower not being record title.",
@@ -155,15 +167,19 @@
       "weight": 1
     },
     {
-      "description": "The report states the unpaid second-half 2025 installment of tax and assessment with its penalty as $2,319.48.",
+      "description": "The report states the unpaid second-half 2025 installment of net tax and assessment with its penalty as $2,072.55.",
       "weight": 2
     },
     {
-      "description": "The report raises a penalty of $105.43 on the first-half 2025 installment, which the duplicate shows paid after its due date in the bare amount of the bill.",
+      "description": "The report raises a penalty of $94.21 on the first-half 2025 installment, which the duplicate shows paid after its due date in the bare amount of the bill.",
       "weight": 2
     },
     {
-      "description": "The report prorates the current-year taxes through the day of closing on a 365-day year as a seller credit of $3,050.94.",
+      "description": "The report collects $175.91 on the second-half 2024 installment paid short, the unpaid balance with its penalty.",
+      "weight": 2
+    },
+    {
+      "description": "The report prorates the net tax after the rollback credits through the day of closing on a 365-day year as a seller credit of $2,669.64.",
       "weight": 2
     },
     {
@@ -227,10 +243,6 @@
       "weight": -2
     },
     {
-      "description": "The report wrongly carries the roofing contractor's released 2023 mechanics lien as an open requirement.",
-      "weight": -3
-    },
-    {
       "description": "The report wrongly states a payoff figure for a mortgage with no payoff statement among the records.",
       "weight": -3
     },
@@ -248,6 +260,14 @@
     },
     {
       "description": "The report wrongly requires payment of the lapsed certificate 16JL00541.",
+      "weight": -2
+    },
+    {
+      "description": "The report wrongly passes the roofing contractor's 2023 mechanics lien as released on the index reference alone.",
+      "weight": -3
+    },
+    {
+      "description": "The report wrongly prorates the gross tax before the rollback credits.",
       "weight": -2
     },
     {

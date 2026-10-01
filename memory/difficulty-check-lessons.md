@@ -249,3 +249,36 @@ superseded revision with the rule doc saying the specification in force governs.
   zip-reading check and rides into the zip; delete it before zipping. R55 reads "Co." as a sentence end, so a bidder named
   "X Container Co." is written "X Container" in a criterion. form_payload.py is gone; sync_metadata.py embeds the
   instruction, file lists and rubric into metadata.json, and M7 fires when the rubric changes without a re-sync.
+
+- 2026-09-30 (nutrition-panel-granola, the reviewer's second note): a reviewer can answer "make it harder"
+  with a numbered design (six arms: a claim on a knife-edge between two bases, a threshold set between the
+  naive and the yield-correct figure, a spec that contradicts a purchasing statement, revision control on
+  inventory lots, a rounding boundary with the test order stated in the rule, and a stale-sheet
+  discrepancy running the other way); apply them as written and log which option was taken. Pipeline:
+  G36 fires the moment any input uses the noun "section", so a golden citing "section 1.3" needs the SOP's
+  own headings in "1.3 Title" form plus cross-references in that style; a mineral row's 2 percent test on
+  the unrounded amount is already how the golden's IF() reads, so the arm is the SOP sentence plus a -1.
+- 2026-09-30 (title-exam-cedarbrook-lot12, second pass the same day on an operator list of seven items written against the
+  first build): four of the seven were already in the package, so each item is checked against the current files before
+  anything is built, and the answer names which were done and which were new. The three new arms: docket credits applied
+  first to accrued interest (a credit smaller than the interest then accrued leaves the principal unchanged, which the old
+  applied-to-principal reading gets wrong on both certificates), a lien release that recites another recording while the
+  index keys it to the lien (the reverse of the mis-keyed satisfaction, so both directions of guideline 1.3 decide something),
+  and a duplicate carrying rollback credits with proration on the net tax and one installment paid short (gross figures set
+  to multiples of $0.08 so 87.5 percent is exact to the cent and no rubric figure sits on a tie). Rubric 62 rows at +116/-26.
+  Pipeline: a shared-string tweak after the Excel resave goes in at zip level in xl/sharedStrings.xml, then the sequence
+  reruns; every rubric row pinning a date plus two figures trips R27, drop the date.
+
+- 2026-09-30 (freight-invoice-audit, the reviewer's six specific items after the bulk note): each item was a rule arm left unexercised, so the fix is PR22 again, not volume: a withdrawn bill beside its marked corrected bill (7.1 gained the sentence that makes the correction the live bill), a ticket at 4.6 percent and one that crosses a break, a deficit sweep near every break with the minimum charge floor absorbing one base-charge error (the exception cascade now blanks wherever the amount due equals the amount billed), a confirmation the day after delivery and a consignee's request, a July bill whose ninety days close before the report date (the bulletin grew the quarter's July weeks; the window is a day count because G9 reads a due-by date between the inputs' clock and the report date as scheduled work), and a stated rounding order with one half-cent discount the carrier rounded down. Stating the rounding order exposed two existing bills whose linehaul ended in 25 or 75 cents (a structural discount tie at 0.62 and 0.38 alike, and every deficit-rated MN vinyl siding shipment lands on one): scan every bill for ties at every binding step before pinning a figure. Word leaves a ~$ lock file when a resave fails; fix_metadata crashes on it, so check inputs/ for one after any failed resave.
+
+- 2026-09-30, third harden on lien-analysis-larkspur (a reviewer's six itemised directions rather than the bulk note): the items
+  a reviewer sends are the shape to copy elsewhere. Strip narrative signposts from a memo and state a closure once in a
+  separate notice the solver has to find; a second name collision beside the first, with the claimant's own certified
+  mail article returned unclaimed so "given on deposit" has to be applied against the pull of the blank green card; a
+  post-recording payment found only by reconciling a joint-payee ledger line with a conditional final waiver whose
+  stated exception is exactly the unpaid balance; a prompt-named exact-figure deliverable (retention due for release,
+  penalty per month) that moves under almost every misreading of the file; a rounding convention stated in the rules
+  with the cap set so per-claim and total rounding give opposite answers (15 percent of an appraisal, not a round
+  number); a look-alike that HOLDS on the rule the failing arm fails (notice to the owner at the permit address beside
+  Norcal's notice to nobody). Design constraint learned: a releasable retention exists only when the claims of record
+  fit inside the money held with room for the 150 percent hold, so that ask forces the held answer to Yes.

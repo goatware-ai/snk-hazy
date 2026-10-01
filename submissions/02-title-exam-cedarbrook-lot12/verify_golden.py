@@ -169,7 +169,8 @@ def derive(description_skimmed=False, reference_by_index=False, assignor_release
            proration_through_closing=True, prorate_assessment=False, year_days=365, pending_case_terminates=False,
            decree_ignored=False, dower_is_title=False, inclusive_days=False, same_initial_same_man=False,
            nickname_read=False, porch_ignored=False, all_survivorship=False, vacated_credit_applied=False,
-           amendment_counted_loosely=False, maturity_ignored=False, lapsed_in_force=False, chain_from_filing=False):
+           amendment_counted_loosely=False, maturity_ignored=False, lapsed_in_force=False, chain_from_filing=False,
+           credits_to_principal=False, short_payment_missed=False, proration_on_gross=False):
     # ---------------------------------------------------------- chain of title, piece by piece
     deeds = [r for r in INDEX if r["DOC_TYPE"] == "WARRANTY DEED" and "L12" in describes(r["INSTRUMENT_NO"])]
     holder = {p: None for p in PIECES}
@@ -290,8 +291,8 @@ def derive(description_skimmed=False, reference_by_index=False, assignor_release
     requirements_mtg = [no for no, st in standing.items() if st.startswith("open")]
     ml_open = []
     for l in [r for r in INDEX if r["DOC_TYPE"] == "MECHANICS LIEN"]:
-        rel = [x for x in INDEX if x["DOC_TYPE"].startswith("RELEASE") and BYVP.get(volpage_key(ABS[x["INSTRUMENT_NO"]])) == l["INSTRUMENT_NO"]
-               and x["GRANTOR"] == l["GRANTOR"]]
+        rel = [x for x in INDEX if x["DOC_TYPE"].startswith("RELEASE") and x["GRANTOR"] == l["GRANTOR"]
+               and (x["REF_INSTRUMENT"] if reference_by_index else BYVP.get(volpage_key(ABS[x["INSTRUMENT_NO"]]))) == l["INSTRUMENT_NO"]]
         if not rel:
             ml_open.append(l["INSTRUMENT_NO"])
 
@@ -335,33 +336,48 @@ def derive(description_skimmed=False, reference_by_index=False, assignor_release
             principal, costs = D(str(row[6])), D(str(row[7]))
             rate = D(row[8].split("%")[0]) / 100
             d0 = filed if interest_from_filing else rendered
-            interest = D(0)
+            interest = D(0)          # interest paid or still due, in all
+            unpaid_int = D(0)        # accrued and not covered by a credit
             for e in sorted(ents, key=lambda e: pdate(e[1])):
                 vacated = any(x[2].startswith("Credit of " + e[1]) for x in ents)
-                if e[2] == "Payment credited" and not payment_ignored and (vacated_credit_applied or not vacated):
-                    interest += c(principal * rate * (pdate(e[1]) - d0).days / year_days)
-                    principal -= D(str(e[3]))
+                if e[2].endswith("credited") and not payment_ignored and (vacated_credit_applied or not vacated):
+                    accrued = c(principal * rate * (pdate(e[1]) - d0).days / year_days)
+                    interest += accrued
+                    amt = D(str(e[3]))
+                    if credits_to_principal:
+                        principal -= amt
+                    else:
+                        to_int = min(amt, unpaid_int + accrued)
+                        unpaid_int = unpaid_int + accrued - to_int
+                        principal -= amt - to_int
                     d0 = pdate(e[1])
             n = (CLOSING - d0).days + (1 if inclusive_days else 0)
             interest += c(principal * rate * n / year_days)
-            payoff[no] = (principal, interest, costs, principal + interest + costs)
+            if credits_to_principal:
+                payoff[no] = (principal, interest, costs, principal + interest + costs)
+            else:
+                paid_int = interest - unpaid_int - c(principal * rate * n / year_days)
+                payoff[no] = (principal, interest, costs, principal + (interest - paid_int) + costs)
 
     # ---------------------------------------------------------- taxes (guideline 9.2)
     pen = D(penalty)
     due = D(0)
     late = D(0)
+    short = D(0)
     for r in TAX:
-        bill = D(str(r[3])) + D(str(r[4]))
-        if r[7] == "Unpaid":
-            due += D(str(r[3])) + c(D(str(r[3])) * pen) + D(str(r[4])) + c(D(str(r[4])) * pen)
-        elif pdate(r[6]) > pdate(r[2]) and not late_payment_missed:
-            days_late = (pdate(r[6]) - pdate(r[2])).days
-            charge = c(bill * (D("0.05") if days_late <= 10 else D("0.10")))
-            late += bill + charge - D(str(r[5]))
+        gross, net, assess, billed, paid, status = D(str(r[3])), D(str(r[5])), D(str(r[6])), D(str(r[7])), D(str(r[8])), r[10]
+        if status == "Unpaid":
+            due += net + c(net * pen) + assess + c(assess * pen)
+        elif pdate(r[9]) > pdate(r[2]) and not late_payment_missed:
+            days_late = (pdate(r[9]) - pdate(r[2])).days
+            charge = c(billed * (D("0.05") if days_late <= 10 else D("0.10")))
+            late += billed + charge - paid
+        elif paid < billed and not short_payment_missed:
+            short += (billed - paid) + c((billed - paid) * D("0.10"))
     last = max(r[0] for r in TAX)
-    annual = sum((D(str(r[3])) for r in TAX if r[0] == last), D(0))
+    annual = sum((D(str(r[3] if proration_on_gross else r[5])) for r in TAX if r[0] == last), D(0))
     if prorate_assessment:
-        annual += sum((D(str(r[4])) for r in TAX if r[0] == last), D(0))
+        annual += sum((D(str(r[6])) for r in TAX if r[0] == last), D(0))
     days = (CLOSING - dt.date(CLOSING.year, 1, 1)).days + (1 if proration_through_closing else 0)
     credit = c(annual * days / 365)
 
@@ -401,14 +417,15 @@ def derive(description_skimmed=False, reference_by_index=False, assignor_release
         "seller tax credit": money(credit),
         "second-half 2025 with penalty": money(due),
         "penalty open on the first half": money(late),
-        "delinquent taxes and penalty": money(due + late),
+        "unpaid on the installment paid short, with penalty": money(short),
+        "delinquent taxes and penalty": money(due + late + short),
     }
     for no, (pr, i, co, tot) in payoff.items():
         figures[no + " principal"] = money(pr)
         figures[no + " interest"] = money(i)
         figures[no + " payoff"] = money(tot)
     figures["judgment payoffs, total"] = money(sum((v[3] for v in payoff.values()), D(0)))
-    figures["of record to clear, total"] = money(sum((v[3] for v in payoff.values()), D(0)) + due + late)
+    figures["of record to clear, total"] = money(sum((v[3] for v in payoff.values()), D(0)) + due + late + short)
 
     standings = {
         "garage and driveway": garage_on,
@@ -451,7 +468,7 @@ VARIANTS = {
     "the twenty years measured to the closing date": ({"insure_over_at_closing": True}, "fewer than twenty years before the commitment date"),
     "a certificate refiled late read as a renewal": ({"late_refile_renews": True}, "after the five years had run"),
     "a lien read as ending when the debtor conveyed": ({"lien_ends_at_conveyance": True}, "remains on the parcel after the debtor conveys"),
-    "the docket payment left out of the payoff": ({"payment_ignored": True}, "applied to principal on the date it was credited"),
+    "the docket payment left out of the payoff": ({"payment_ignored": True}, "A payment or garnishment the docket credits"),
     "interest run from the filing date": ({"interest_from_filing": True}, "from the date the judgment was rendered"),
     "interest days counted inclusively": ({"inclusive_days": True}, "counting the closing date and not the starting date"),
     "interest on a 360-day year": ({"year_days": 360}, "365-day year"),
@@ -465,6 +482,9 @@ VARIANTS = {
     "the maturity test skipped on a mortgage older than twenty years": ({"maturity_ignored": True}, "its stated maturity has not passed"),
     "a certificate never refiled read as still in force": ({"lapsed_in_force": True}, "with no refiling"),
     "every refiling measured from the first filing": ({"chain_from_filing": True}, "each refiling inside the five years from the one before it"),
+    "a docket credit taken off principal with the interest untouched": ({"credits_to_principal": True}, "goes first to the interest accrued"),
+    "the installment paid short read as paid": ({"short_payment_missed": True}, "has stood unpaid since its due date"),
+    "the proration run on the gross tax": ({"proration_on_gross": True}, "after the rollback credits"),
 }
 
 EXPECTED = {
@@ -474,24 +494,25 @@ EXPECTED = {
     "garage to the south line, feet": "1.55",
     "shed inside the rear easement, feet": "3.50",
     "omitted strip, feet": "18.00",
-    "annual tax estimate": "3,592.24",
+    "annual tax estimate": "3,143.28",
     "proration days": "310",
-    "seller tax credit": "3,050.94",
-    "second-half 2025 with penalty": "2,319.48",
-    "penalty open on the first half": "105.43",
-    "delinquent taxes and penalty": "2,424.91",
-    "10JL00227 principal": "3,318.55",
-    "10JL00227 interest": "2,550.92",
-    "10JL00227 payoff": "5,993.47",
+    "seller tax credit": "2,669.64",
+    "second-half 2025 with penalty": "2,072.55",
+    "penalty open on the first half": "94.21",
+    "unpaid on the installment paid short, with penalty": "175.91",
+    "delinquent taxes and penalty": "2,342.67",
+    "10JL00227 principal": "4,318.55",
+    "10JL00227 interest": "2,886.92",
+    "10JL00227 payoff": "6,329.47",
     "17JL00288 interest": "2,276.38",
     "17JL00288 payoff": "8,543.78",
     "23JL00644 interest": "687.06",
     "23JL00644 payoff": "4,724.26",
-    "25JL01133 principal": "6,762.00",
-    "25JL01133 interest": "860.53",
-    "25JL01133 payoff": "7,809.53",
-    "judgment payoffs, total": "27,071.04",
-    "of record to clear, total": "29,495.95",
+    "25JL01133 principal": "5,752.23",
+    "25JL01133 interest": "794.07",
+    "25JL01133 payoff": "6,243.07",
+    "judgment payoffs, total": "25,840.58",
+    "of record to clear, total": "28,183.25",
 }
 EXPECTED_STANDINGS = {
     "garage and driveway": "on the strip",
@@ -505,7 +526,7 @@ EXPECTED_STANDINGS = {
     "dower of Lorraine K. Pruitt": "terminated by decree 16DR0842",
     "spouse of the strip's owner": "none of record",
     "seller's spouse": "joins the deed",
-    "open mechanics liens": "none",
+    "open mechanics liens": "202307210033",
     "mortgage requirements": "199907160122,200610190027,201103140062,201805040072",
     "mortgage 198705120042": "released by 199808210077",
     "mortgage 199907160122": "open",

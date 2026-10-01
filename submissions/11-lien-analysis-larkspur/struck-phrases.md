@@ -32,3 +32,24 @@ Phrases and claims this revision removed, each as a quoted literal or a /pattern
 - "Ferguson Enterprises" - second harden, 2026-09-30: a real supplier's name, replaced by Sierra Pipe & Supply, Inc. throughout (also G18 read the two-word name as a person beside a derived deadline).
 - "Consolidated Electrical Distributors" - second harden, 2026-09-30: a real supplier's name, replaced by Capitol Wire & Lighting, Inc. throughout.
 - /\bCED\b/ - second harden, 2026-09-30: the direct contractor's short form for the renamed electrical supplier.
+- /fifteen (recorded )?claims/ - third harden, 2026-09-30: the file now holds sixteen recorded claims.
+- /each of the fifteen claimants/ - third harden, 2026-09-30: sixteen claimants are searched.
+- "the two things Nadia asked in her email" - third harden, 2026-09-30: Nadia's email now asks a third thing, the retention due for release and the monthly penalty; the prompt was reworded.
+- "The two answers for Nadia" - third harden, 2026-09-30: the Summary heading now reads "The answers for Nadia".
+- "$578,094.11" - third harden, 2026-09-30: the fifteen-claim bond total.
+- "$3,094.11" - third harden, 2026-09-30: the fifteen-claim excess over the old line.
+- "$286,087.47" - third harden, 2026-09-30: the fifteen-claim enforceable total under the direct contract.
+- "$283,135.50" - third harden, 2026-09-30: the money held before change orders 1 to 6 rose to $80,000.00.
+- "$2,951.97" - third harden, 2026-09-30: the fifteen-claim shortfall; the money held now covers.
+- "$561,561.79" - third harden, 2026-09-30: the fifteen claims as recorded.
+- "$3,794,250.00" - third harden, 2026-09-30: the adjusted contract sum before the change orders rose.
+- "$189,712.50" - third harden, 2026-09-30: the retention before the change orders rose.
+- "up to $575,000.00 in total penal sum" - third harden, 2026-09-30: the surety's line is now 15 percent of the appraisal.
+- "The second lot was ready on Friday, September 4" - third harden, 2026-09-30 (reviewer item 1): the memorandum's narrative signpost on the mailing lots.
+- "The post office counter was closed on Monday, September 7 for Labor Day" - third harden, 2026-09-30 (reviewer item 1): Labor Day now appears only in the court's notice.
+- "The last lot went the day after" - third harden, 2026-09-30 (reviewer item 1): the mail log alone dates the lots.
+- "The clerk's office and the county recorder's office were closed to the public for the whole of Friday, September 25, 2026 for the county's conversion" - third harden, 2026-09-30 (reviewer item 1): the closure moved out of the search paragraph into part E.
+- "Dunmore-Kettle has told me it will correct the units at its cost" - third harden, 2026-09-30 (reviewer item 4): the rooftop correction is now disputed in good faith.
+- "Document No. 2026-0098955" - third harden, 2026-09-30 (reviewer item 2): Sierra Pipe's claim moved to October 1, 2026 under Document No. 2026-0101690.
+- "Norman S. Wright" - third harden, 2026-09-30: a real manufacturer's representative, replaced by Pacific Comfort Products.
+- "Date: Saturday, October 3, 2026, 8:51 am" - third harden, 2026-09-30 (reviewer item 3): the ledger email moved to October 10 to carry the joint check.
