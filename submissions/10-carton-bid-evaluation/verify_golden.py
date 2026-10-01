@@ -74,7 +74,8 @@ assert "A modification that reaches the purchasing office after the due time is 
 assert "A bid that is withdrawn and resubmitted is received when the resubmitted bid reaches" in itb
 assert "each item's shipping weight is rated at the rate for the state of the plant that ships it" in itb
 assert "a bid with less is treated as a bid without it" in add and "tooling included" in add
-assert "conditions its price on truckload releases takes an exception to the quantity term" in add
+assert "conditions its prices on a shorter period or on an index" in itb and "signed by an officer of the bidder" in itb
+assert "made to the specification in the drawing set as amended" in add and "releases are placed monthly in pallet multiples" in itb
 assert "until quality engineering has cleared the hold" in pol and "passed over" in pol
 assert "read from the signed bid form" in pol
 
@@ -96,6 +97,9 @@ for kind, val in blocks(INPUTS / "bid_forms_itb_2026_17.docx"):
             FORMS[cur]["letter"] += val + "\n"
         if cur and part == "form" and val.startswith("Plant of manufacture:"):
             FORMS[cur]["plant"] = val.split(":", 1)[1].strip()
+        if cur and part == "form" and val.startswith("Bidder: "):
+            FORMS[cur]["address"] = val.split(", ", 1)[1].strip()
+            FORMS[cur]["hq_state"] = STATE[re.search(r", ([A-Za-z ]+) \d{5}$", val).group(1)]
     elif cur:
         FORMS[cur]["tables"].append(val)
 NAMES = list(FORMS)
@@ -146,12 +150,13 @@ for r in range(4, lw.max_row + 1):
         LOG.append(dict(no=v[0], key=key(v[1], v[2]), date=v[1], time=v[2], who=v[3], how=v[4], item=v[5], sol=v[6]))
 
 
-SIGNER = {}
+SIGNER, OFFICER = {}, {}
 for kind, val in blocks(INPUTS / "bid_forms_itb_2026_17.docx"):
     if kind == "p" and val.startswith("Signed: "):
         person, rest = val[8:].split(",", 1)
         firm = next(n for n in NAMES if n in rest)
         SIGNER[firm] = person.strip().split()[-1].lower()       # the log enters some items under the signer's name
+        OFFICER[firm] = bool(re.search(r"president|owner|chief|treasurer|secretary", rest.split(firm)[0], re.I))
 
 
 def log_rows(name, how=None, item=None):
@@ -195,6 +200,16 @@ for kind, val in blocks(INPUTS / "bid_correspondence_itb_2026_17.docx"):
         if val[0][0] == "Entry":
             e = {r[0]: r[1] for r in val[1:]}
             CLEARED_BY_NOTICE[e["Hold number"]] = e["Cleared"]
+LOT_PASSED_UNSIGNED = set()
+_hold = None
+for kind, val in blocks(INPUTS / "bid_correspondence_itb_2026_17.docx"):
+    if kind == "p":
+        m = re.match(r"Re: (QH-\d{2}-\d{3})", val)
+        if m:
+            _hold = m.group(1)
+        if _hold and "verification lot" in val and "passed" in val and "has not yet signed" in val:
+            LOT_PASSED_UNSIGNED.add(_hold)
+assert LOT_PASSED_UNSIGNED == {"QH-26-031"}
 CHANGE_RECEIVED = {n: log_rows(n, how="Fax")[0] for n in CHANGES}
 # a telephone message is logged but is not a signed writing, section 3.4
 TELEPHONE = {}
@@ -202,7 +217,7 @@ for n in NAMES:
     for g in log_rows(n, how="Telephone"):
         m = re.search(r"item (\d) to be read at ([\d.]+)", g["item"])
         TELEPHONE[n] = (int(m.group(1)), D(m.group(2)), g)
-assert list(TELEPHONE) == ["Ridgecrest Packaging"] and TELEPHONE["Ridgecrest Packaging"][2]["key"] < DUE
+assert list(TELEPHONE) == ["Dahlgren Paper Box Co."] and TELEPHONE["Dahlgren Paper Box Co."][2]["key"] < DUE
 for n, ch in CHANGES.items():
     for it, (old, new) in ch.items():
         assert FORMS[n]["units"][it - 1] == old, (n, it)
@@ -212,12 +227,13 @@ hw = openpyxl.load_workbook(INPUTS / "supplier_quality_holds_2026.xlsx", data_on
 HOLDS = []
 for r in range(4, hw.max_row + 1):
     if hw.cell(row=r, column=1).value and str(hw.cell(row=r, column=1).value).startswith("QH-"):
-        HOLDS.append(dict(no=hw.cell(row=r, column=1).value, supplier=hw.cell(row=r, column=2).value, status=hw.cell(row=r, column=6).value))
+        HOLDS.append(dict(no=hw.cell(row=r, column=1).value, supplier=hw.cell(row=r, column=2).value, status=hw.cell(row=r, column=6).value, address=hw.cell(row=r, column=10).value or ""))
 
 
-def open_holds(name, notice=True):
-    return [h["no"] for h in HOLDS if h["supplier"].startswith(name) and h["status"] == "Open"
-            and not (notice and h["no"] in CLEARED_BY_NOTICE)]
+def open_holds(name, notice=True, lot_pass=False):
+    street = FORMS[name]["address"].split(",")[0].strip().lower()
+    return [h["no"] for h in HOLDS if h["address"].lower().startswith(street) and h["status"] == "Open"
+            and not (notice and h["no"] in CLEARED_BY_NOTICE) and not (lot_pass and h["no"] in LOT_PASSED_UNSIGNED)]
 
 
 MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
@@ -230,15 +246,16 @@ def conditions(name):
     if m:
         through = (int(m.group(3)), MONTHS.index(m.group(1)) + 1, int(m.group(2)))
         short_date = through < (AWARD_NOT_BEFORE[0] + 1, AWARD_NOT_BEFORE[1], AWARD_NOT_BEFORE[2])
-    return dict(price_hold=("six months" in t and "index" in t and "adjust" in t), short_date=short_date,
+    return dict(price_hold=("surcharge" in t and "index" in t), short_date=short_date,
+                sample_off=("sample" in t and "32 ect" in t),
                 alt_only=any("alternate" in d for d in FORMS[name]["desc"]),
-                truckload=("full truckload" in t and "stop charge" in t),
+                truckload=("fee" in t and "release" in t and "pallets" in t),
                 tooling_credit=num(re.search(r"credit the \$([\d,.]+\d) tooling", t).group(1)) if "tooling charge back" in t else D(0))
 
 
 def item_state(name, item):
     letter = FORMS[name]["letter"]
-    m = re.search(r"item (\d), would be made at our plant in ([A-Za-z]+), ([A-Za-z ]+?),", letter)
+    m = re.search(r"item (\d), would be made at our plant in ([A-Za-z ]+?), ([A-Za-z ]+?),", letter)
     if m and int(m.group(1)) == item:
         return STATE[m.group(3)]
     return FORMS[name]["state"]
@@ -262,7 +279,7 @@ def derive(unit_governs=True, discount_min_days=DISC_MIN_DAYS, freight_on="origi
            truckload_material=True, addendum_material=True, hold_bars=True, notice_counts=True, weights="current",
            plants="by item", unit_source="form", late_change=False, timely_change=True, band=BAND,
            receipt="bid opened", security_waived=False, description_read=True, firm_date_read=True, tooling="in full",
-           telephone_change=False, alternate_only_read=True):
+           telephone_change=False, alternate_only_read=True, sample_read=True, lot_pass_as_clearance=False):
     fig, standing, ev = {}, {}, {}
     lb = LB_CURRENT if weights == "current" else LB_FIRST
     for n in NAMES:
@@ -280,7 +297,7 @@ def derive(unit_governs=True, discount_min_days=DISC_MIN_DAYS, freight_on="origi
         cwt_by_state = {}
         if f["fob"].startswith("Origin") and freight_on == "origin":
             for i in range(5):
-                st = item_state(n, i + 1) if plants == "by item" else f["state"]
+                st = item_state(n, i + 1) if plants == "by item" else (f["hq_state"] if plants == "office" else f["state"])
                 cwt = lb[i + 1] * QTY[i] / 100
                 cwt_by_state[st] = cwt_by_state.get(st, D(0)) + cwt
                 freight += r2(cwt * FREIGHT[st])
@@ -307,9 +324,11 @@ def derive(unit_governs=True, discount_min_days=DISC_MIN_DAYS, freight_on="origi
             reasons.append("truckload condition")
         if c["alt_only"] and alternate_only_read:
             reasons.append("an item offered only as an alternate, no bid on the item as specified")
+        if c["sample_off"] and sample_read:
+            reasons.append("a sample not made to the specification as amended")
         rc = RECEIPT[n] if receipt == "bid opened" else FIRST_LOGGED[n]
         ev[n] = dict(ext=ext, sub=sub, freight=freight, credit=credit, total=total, responsive=not reasons, short=short,
-                     written=f["total_written"], holds=open_holds(n, notice_counts), key=rc["key"], rcv=rc["date"] + " " + rc["time"],
+                     written=f["total_written"], holds=open_holds(n, notice_counts, lot_pass_as_clearance), key=rc["key"], rcv=rc["date"] + " " + rc["time"],
                      cwt=cwt_by_state, units=units)
         fig[f"{n} subtotal"] = money(sub)
         fig[f"{n} freight"] = money(freight)
@@ -350,6 +369,7 @@ def derive(unit_governs=True, discount_min_days=DISC_MIN_DAYS, freight_on="origi
     fig["approver"] = "Vice president of operations" if ev[award]["total"] > APPROVAL else "Director of supply chain"
     fig["lowest as written"] = min(NAMES, key=lambda n: ev[n]["written"])
     fig["responsive count"] = len(resp)
+    fig["informality"] = ", ".join(n for n in NAMES if not OFFICER[n])
     fig["bids received"] = len(NAMES)
     for n in NAMES:
         for st, cwt in ev[n]["cwt"].items():
@@ -386,6 +406,9 @@ VARIANTS = {
     "tooling netted of the credit a letter offers": ({"tooling": "net of the credit offered"}, "added in full"),
     "telephone price change applied": ({"telephone_change": True}, "signed writing"),
     "an alternate-only item taken as a bid on the item": ({"alternate_only_read": False}, "item as specified"),
+    "a sample on the superseded board not read": ({"sample_read": False}, "specification as amended"),
+    "freight rated at the state of the bidder's office": ({"plants": "office"}, "plant that ships it"),
+    "the verification lot's pass taken as clearance of the hold": ({"lot_pass_as_clearance": True}, "has not signed the clearance"),
 }
 
 if __name__ == "__main__":
@@ -443,6 +466,7 @@ if __name__ == "__main__":
     resp_col = {n: j for j, n in enumerate(hdr)}
     rep.expect("passed over responsibility", "Not responsible, open quality hold, PP-3.7.1", rows["Responsibility of the bidder in line, PP-3.7.1"][resp_col[fig["passed over"]]])
     rep.expect("award responsibility", "Responsible", rows["Responsibility of the bidder in line, PP-3.7.1"][resp_col[fig["award"]]])
+    rep.expect("informality", fig["informality"], "Pemberton Container" if str(rows["Informality waived under 5.7"][0]).startswith("Form signed by a regional sales manager") else rows["Informality waived under 5.7"][0])
     # per-line columns behind the front page
     e = wb["Evaluation"]
     for j, n in enumerate(NAMES):
@@ -481,13 +505,13 @@ if __name__ == "__main__":
         rep.expect(f"{no} before the due time", "Yes" if g["key"] < DUE else "No", lwr.cell(row=r, column=8).value)
     note = "\n".join(str(c.value) for row in wb["Note to Torsten"].iter_rows() for c in row if c.value)
     late_fig, _s, _e = derive(late_change=True)
-    for phrase in ("director of supply chain", f"${fig['Kessel Container Corp. total']}", f"${fig['Thorsgard Box & Label total']}", f"${fig['Otter Tail Corrugated total']}", f"${fig['award total']}", f"${fig['next total']}", f"${fig['award above next']}", f"${fig['passed below award']}",
-                   f"${fig['passed total']}", fig["passed hold"], "26,912.00", "26,112.00", f"${fig['Ridgecrest Packaging freight']}",
-                   f"${fig['Ridgecrest Packaging credit']}", "1,072 hundredweight", "396 hundredweight", f"${fig['Dahlgren Paper Box Co. security short']}",
+    for phrase in ("vice president", f"${fig['Kessel Container Corp. total']}", f"${fig['Thorsgard Box & Label total']}", f"${fig['Otter Tail Corrugated total']}", f"${fig['award total']}", f"${fig['next total']}", f"${fig['award above next']}", f"${fig['passed below award']}",
+                   f"${fig['passed total']}", fig["passed hold"], "26,912.00", "26,112.00", "25,900.00", "25,600.00", f"${fig['Ridgecrest Packaging freight']}",
+                   f"${fig['Ridgecrest Packaging credit']}", f"${fig['Ridgecrest Packaging total']}", "1,072 hundredweight", "396 hundredweight", f"${fig['Ridgecrest Packaging security short']}",
                    f"${fig['Dahlgren Paper Box Co. total']}", f"${fig['Halvard Corrugated total']}", f"${fig['Wenzel & Krause Corrugated total']}",
-                   f"${late_fig['Wenzel & Krause Corrugated total']}", f"${fig['Pemberton Container subtotal']}", f"${fig['Ridgecrest Packaging written total']}",
-                   "11:37 on October 5", "08:15 on October 6", "09:12 on October 6", "10:07 on October 6", "QH-26-034",
-                   f"${fig['Mesabi Container Co. total']}", f"${fig['Mesabi Container Co. freight']}", "1,468 hundredweight", "10:00 on October 6", "09:35 on October 6", "0.255"):
+                   f"${fig['Pemberton Container subtotal']}", f"${fig['Ridgecrest Packaging written total']}", "4,554.95", "4,674.95",
+                   "11:37 on October 5", "09:33 on October 6", "09:12 on October 6", "10:07 on October 6", "QH-26-034", "October 20", "October 16", "L&V Container Corp.", "regional sales manager",
+                   f"${fig['Mesabi Container Co. total']}", f"${fig['Mesabi Container Co. freight']}", "1,468 hundredweight", "10:00 on October 6", "09:38 on October 6", "0.594"):
         rep.expect(f"note states {phrase}", phrase in note, True)
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)
     rep.finish()

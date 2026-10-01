@@ -32,3 +32,30 @@ Reviewer revision requested 2026-09-29T16:34Z, offer expires 2026-10-04T16:34Z, 
 4. Output File List unchanged; upload s-tract7-boundary-retracement.zip and confirm the uploadedAt moved.
 5. Times 20 / 90 / 330 / 80 minutes, total 8.75 hours; tools, domain and occupation unchanged.
 6. Resubmit before 2026-10-04T16:34Z.
+
+## 2026-09-30 · source: reviewer direction, five numbered points pasted by the operator · verdict: NEEDS_REVISION (second pass, same return)
+
+The operator pasted the reviewer's "How to harden the task" with five numbered directions, written against the 09-21 package the platform holds. Two of its items (the field book's conclusions, the fences settled in the field) were already struck in the 09-29 rebuild; the rest reshape the geometry, so the inputs, golden, verify script and rubric were regenerated from a design model rather than patched. Each direction, as applied:
+
+1. Rotation course against standard 3.2. The stone at the angle point is now an original monument (the 1994 plat found it in the fence row and left it as found), so the 4-5 call, stone to stone, is the one deed course with a found original monument at each end and gives the rotation, 2° 12'. The field book states only that Tolliver's 1962 corners were pins and stones and carries the crew's belief that the two capped road pins are the 1962 pins; the road course, pin to pin, would give 2° 15', three minutes off, and the 1994 plat and the PLS 1188 cap show the corner 1 pin is a later mark. Under the road rotation the rebar at corner 3 would hold at 0.33 foot and nothing would be set; under 3.2 it lies 0.85 foot off and corner 3 is set.
+2. Two deed anomalies, no conclusions in the field book. The 3-4 distance transposition (597.2 for the deed of trust's 592.7) stays, and the deed transcription now reads the 5-1 call N 34° 31' W, a 43 to 34 digit slip that the stone at corner 5 and the held pin at corner 1 resolve (measured within 3 minutes of N 43° 31' W rotated). As transcribed the deed misses by 32.13 feet; with 592.7 alone 35.30; with the bearing alone 4.69; with both 0.21. Standard 3.3 rewritten for two calls in error, each resting on held or set corners.
+3. Occupation ties as sideshots. Every post is a shot from a station beside a corner (T2, T3, T4, T5, T6); the Hutchins middle post stands 0.66 foot inside the tract (an encroachment), the Ballinger posts stand 0.12 to 0.35 foot outside (an occupation note), the Farley fence 0.24 foot inside at most. The post 202 station trap is kept and now flips the Hutchins finding; the 103/203 number exchange now flips whether corner 3 is held, the corner post standing 0.36 foot from the corner.
+4. Field notes complicated. A seventh station T7 makes the T7-T2 leg straddle north (forward N 0° 00' 03" W, reverse S 0° 00' 01" W), so an arithmetic mean of the azimuths points the leg south; the golden means directions after a 45 degree turn (Parameters B30) and the note says so. Three legs shot twice: T2-T3 agrees and is meaned, T3-T4's first pair has a reverse distance 1.20 feet long and is rejected under the new within-pair sentence of 1.1, T5-T6's first pair was taken to the PK nail and is set aside on the field book and the closure (8,300 against 12,500; both pairs meaned 11,900; the pair in error alone 3,800).
+5. Corner 3 set in the field before the loop was closed. The crew's pin (point 107, cap PLS 2641, code IPS) was set where the 2-3 and 3-4 calls meet on the road-course rotation; the analysis sets corner 3 on the Ballinger line at northing 5,493.9, easting 5,751.948, moves the pin 0.47 foot, and the findings page lists the adjusted coordinates of every corner; the prompt now asks for the grid coordinates of every corner and the corners as held or set; 3.7 gained the provisional-mark sentence.
+
+**Actions taken**
+- inputs/field_notes_traverse_tract7.csv regenerated (36 shots); field_book_tract7.docx, deed_book_412_page_233.docx, record_research_tract7.docx and firm_survey_standards.docx edited in place with their in-world stamps restored and resaved through Word.
+- Golden rebuilt by build_golden.py (kept in the folder with design_model.py and reduce_core.py): ten tabs, 964 cached values after the Excel resave, no error cells; verify_golden.py rewritten on the same rule engine, 253 figures reproduced, 62 near flips over 14 variants.
+- Rubric 32 rows at +39 / -12: strict rows on 12,500 and 430,624; gated clauses on the rotation, the corner 3 coordinates, the 0.21 closure, the count of 2 and the 9.886 acres (7 of 39); the road-course decoy, the crew's pin, the 5-1 slip and the T3-T4 pair in error each graded; negatives on the urban class, the road rotation, the rebar held, the transcribed 5-1 bearing, the Ballinger encroachment and the adjusted closure.
+- clause-map.md 20 clauses, Rebuilt 2026-09-30; struck-phrases.md six new entries; form-lists.md and metadata.json times 20 / 100 / 360 / 80, total 9.5 h.
+- Pipeline: F1 fires on a cached sine of a near-north azimuth stored in exponent form, settled by turning every leg azimuth 45 degrees before the direction mean; the within-pair bearing test must wrap at north or the straddling leg rejects itself.
+- Gate TOTAL: 0 errors on the packaged folder (32 criteria, 0 flake-prone); package_sweep 59 files across 2 roots, 0 findings.
+- Coded check: none; the directions are design reads with no detector.
+
+**Form actions** (replace the earlier list in full)
+1. Prompt: replace with instruction.md in full.
+2. Rubric: re-enter all 32 rows from rubric-tract7-boundary-retracement-bd4c9fd2.csv; confirm 32 rows and +39 / -12.
+3. Input File List: 5 entries from form-lists.md; upload i-tract7-boundary-retracement.zip, confirm uploadedAt moved, read the list back and remove any stale upload.
+4. Output File List unchanged; upload s-tract7-boundary-retracement.zip and confirm uploadedAt moved.
+5. Times 20 / 100 / 360 / 80 minutes, total 9.5 hours; tools, domain and occupation unchanged.
+6. Resubmit before 2026-10-04T16:34Z.

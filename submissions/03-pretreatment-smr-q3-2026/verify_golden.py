@@ -100,9 +100,12 @@ for r in log[4:]:
         continue
     e = EVENTS[r[0]]
     e["point"] = r[lh.index("SAMPLED AT")]
+    e["collected dt"] = mdyhm(r[lh.index("COLLECTED")])            # the end of the composite period, or the grab
     e["metals analyzed"] = mdy(r[lh.index("METALS ANALYZED")])
+    e["metals analyzed dt"] = mdyhm(r[lh.index("METALS ANALYZED")])
     cn = str(r[lh.index("CYANIDE ANALYZED")])
     e["CN analyzed"] = mdy(cn) if re.match(r"\d\d/\d\d/\d{4}", cn) else None
+    e["CN analyzed dt"] = mdyhm(cn) if re.match(r"\d\d/\d\d/\d{4} \d\d:\d\d", cn) else None
     e["issued"] = mdyhm(r[lh.index("REPORT ISSUED")])
     e["aware"] = {p: e["issued"] for p in PARAMS}
 MDL, HOLD = {}, {}
@@ -113,28 +116,35 @@ for r in wb["Methods"].iter_rows(min_row=5, values_only=True):
         HOLD[key] = str(r[6])
 
 # ------------------------------------------------------------------ the case narratives
-REJECTED, REVISED = set(), {}
+REJECTED, REVISED, KNOWN_REJECTED = set(), {}, {}
 narr = Document(INPUTS / "lab_case_narratives_2026.docx")
-current = None
+current, rev_time = None, None
 for p in narr.paragraphs:
     m = re.match(r"GLA-26-\d+, sample (VP-\w+),", p.text)
     if m:
         current = m.group(1)
+        t = re.search(r"Revision 1 issued (\d\d/\d\d/\d{4}) at (\d\d:\d\d)", p.text)
+        rev_time = mdyhm(f"{t.group(1)} {t.group(2)}") if t else None
         continue
     if current:
         for m in re.finditer(r"laboratory has rejected the (\w+) result", p.text):
             REJECTED.add((current, NAMES[m.group(1)]))
+            if rev_time:
+                KNOWN_REJECTED[(current, NAMES[m.group(1)])] = rev_time   # a rejection in a revision is known from the revision
         m = re.search(r"Revision 1 corrects (\w+) to ([\d.]+) mg/L", p.text)
         if m:
             when = re.search(r"on (\d\d/\d\d/\d{4}) at (\d\d:\d\d)", p.text)
             REVISED[(current, NAMES[m.group(1)])] = (D(m.group(2)), mdyhm(f"{when.group(1)} {when.group(2)}"))
 
 # ------------------------------------------------------------------ the operator logs
-START, REGISTER, BANDS, ALIQUOTS, VOICEMAIL, PULLED, AROUND, RESET = {}, {}, {}, {}, [], {}, {}, {}
+START, REGISTER, BANDS, ALIQUOTS, VOICEMAIL, PULLED, AROUND, RESET, MONTH_END = {}, {}, {}, {}, [], {}, {}, {}, {}
 for month, name in ((7, "jul"), (8, "aug"), (9, "sep")):
     doc = Document(INPUTS / f"operator_log_{name}2026.docx")
     intro = doc.paragraphs[1].text
     START[month] = int(re.search(r"Register at 07:00 on \d\d/01/2026: ([\d,]+) gallons", intro).group(1).replace(",", ""))
+    e = re.search(r"Register read ([\d,]+) at 07:00 on \d\d/01 for the month total", doc.paragraphs[3].text)
+    if e:
+        MONTH_END[month] = int(e.group(1).replace(",", ""))     # the operator's own month-end reading
     for row in doc.tables[0].rows[1:]:
         cells = [c.text for c in row.cells]
         if not re.match(r"\d\d/\d\d/2026", cells[0]):
@@ -161,18 +171,32 @@ for month, name in ((7, "jul"), (8, "aug"), (9, "sep")):
         v = re.search(r"[Ll]eft a voicemail for Renee Castellanos at (\d\d:\d\d) on the ([\d.]+) copper", cells[3])
         if v:
             VOICEMAIL.append((dt.datetime(2026, month, day, int(v.group(1)[:2]), int(v.group(1)[3:])), v.group(2)))
-FLOWS = {}
-REGISTER_TOTAL, seg_start, prev = 0, START[7], START[7]
-for month in (7, 8, 9):
-    assert prev == START[month], (month, prev, START[month])    # each log opens on the register the last one closed on
-    for day in range(1, 32):
-        if (month, day) in REGISTER:
-            if (month, day) in RESET:                            # a replaced register: close the old segment, restart
-                REGISTER_TOTAL += prev - seg_start
-                seg_start = prev = RESET[(month, day)]
-            FLOWS[(month, day)] = REGISTER[(month, day)] - prev
-            prev = REGISTER[(month, day)]
-REGISTER_TOTAL += prev - seg_start
+def build_flows(as_written=False):
+    """Daily flows from the register chain; a month's last line that disagrees with the next log's opening and the
+    operator's month-end reading is read as transposed unless as_written."""
+    flows, total, seg_start, prev, as_logged = {}, 0, START[7], START[7], {}
+    for month in (7, 8, 9):
+        assert prev == START[month] or as_written, (month, prev, START[month])
+        prev = START[month]
+        last = max(d for (m, d) in REGISTER if m == month)
+        for day in range(1, 32):
+            if (month, day) in REGISTER:
+                reg = REGISTER[(month, day)]
+                if day == last and month + 1 in START and reg != START[month + 1] and MONTH_END.get(month) == START[month + 1]:
+                    as_logged[(month, day)] = reg
+                    if not as_written:
+                        reg = START[month + 1]
+                if (month, day) in RESET:                            # a replaced register: close the old segment, restart
+                    total += prev - seg_start
+                    seg_start = prev = RESET[(month, day)]
+                flows[(month, day)] = reg - prev
+                prev = reg
+    total += prev - seg_start
+    return flows, total, as_logged
+
+
+FLOWS, REGISTER_TOTAL, AS_LOGGED = build_flows()
+FLOWS_AS_WRITTEN = build_flows(as_written=True)[0]
 
 # ------------------------------------------------------------------ the Coordinator's note
 corr = Document(INPUTS / "city_correspondence_oct2026.docx")
@@ -204,12 +228,15 @@ for t in corr.tables:
             c = [x.text for x in row.cells]
             CALLS.append((mdyhm(f"{c[0]} {c[1]}"), c[3]))
 SIGNATORY = re.search(r"Authorized representative: ([^.]+)\.", permit.paragraphs[3].text).group(1)
-Q2_RECEIVED = dt.date(2026, 7, 14)
-q1 = [re.search(r"first quarter report was the late one.*did not get to Renee until (\w+) (\d+)", p.text) for p in corr.paragraphs]
+q2 = [re.search(r"second-quarter report on file, received (\w+) (\d+) over Mr\. Vandeveer's signature", p.text) for p in corr.paragraphs]
+q2 = [m for m in q2 if m][0]
+Q2_RECEIVED = dt.date(2026, MONTHNUM[q2.group(1)], int(q2.group(2)))     # the Coordinator's date
+Q2_DUE = dt.date(2026, 7, 15)
+q1 = [re.search(r"first quarter report was the one Renee wrote us up for.*did not get to her until (\w+) (\d+)", p.text) for p in corr.paragraphs]
 q1 = [m for m in q1 if m][0]
-Q1_RECEIVED = dt.date(2026, MONTHNUM[q1.group(1)], int(q1.group(2)))
+Q1_RECEIVED = dt.date(2026, MONTHNUM[q1.group(1)], int(q1.group(2)))     # the plant manager's date
 Q1_DUE = dt.date(2026, 4, 15)                                   # Section 3.1, the fifteenth of the month after the quarter
-assert any("received July 14" in p.text for p in corr.paragraphs)
+assert any("a little late but fine" in p.text for p in corr.paragraphs)
 assert "manhole 44-118" in permit.paragraphs[3].text          # the City's sampling point is Outfall 001's manhole
 
 OVERFLOW = dt.datetime(2026, 9, 9, 7, 50)
@@ -228,7 +255,8 @@ def derive(nondetect="zero", include_march=False, ignore_composite=False, ignore
            notice_from_manager=False, resample_in_month=True, ignore_same_day=False, frequency_by_count=False,
            ignore_voicemail=False, city_by_set_date=False, lab_dates_govern=False,
            bypass_metered=False, first_quarter_report_outside=False, quarter_events_only=False,
-           count_city_grab=False, test_kit_sample=False):
+           count_city_grab=False, test_kit_sample=False, register_line_as_written=False, log_note_governs=False,
+           hold_in_whole_days=False):
     events = [dict(e) for e in EVENTS.values()] + ([] if ignore_city else [dict(c) for c in CITY])
     if test_kit_sample:                                   # the 09/24 test kit reading taken as an Outfall 001 sample
         kit = dict(id="kit 09/24", date=dt.date(2026, 9, 24), kind="Additional", source="permittee", point="OF-001",
@@ -277,6 +305,11 @@ def derive(nondetect="zero", include_march=False, ignore_composite=False, ignore
             return False
         if not ignore_hold:
             analyzed = e["CN analyzed"] if p == "CN" else e["metals analyzed"]
+            if p == "CN" and not hold_in_whole_days and e.get("CN analyzed dt"):
+                hours = (e["CN analyzed dt"] - e["collected dt"]).total_seconds() / 3600   # elapsed hours, Section 2.3
+                if hours > int(HOLD["CN"].split()[0]) * 24:
+                    return False
+                return True
             if p == "CN":
                 limit = e["date"] + dt.timedelta(days=int(HOLD["CN"].split()[0]))
             elif metals_hold_days:
@@ -350,15 +383,39 @@ def derive(nondetect="zero", include_march=False, ignore_composite=False, ignore
         figures[f"SNC {p} share above TRC pct"] = f"{share_trc}"
         figures[f"SNC {p} TRC threshold"] = f"{thr:.3f}"
         standings[f"SNC {p}"] = "Significant noncompliance" if share >= 66 or share_trc >= 33 else "Not in significant noncompliance"
-    # ---- holding days the golden prints
+    # ---- holding days and hours the golden prints
     for e in events:
-        if e["source"] == "permittee":
+        if e["source"] == "permittee" and "metals analyzed" in e:
             figures[f"metals hold days {e['id']}"] = str((e["metals analyzed"] - e["date"]).days)
             if e["CN analyzed"]:
                 figures[f"cyanide hold days {e['id']}"] = str((e["CN analyzed"] - e["date"]).days)
+                figures[f"cyanide hold hours {e['id']}"] = f"{(e['CN analyzed dt'] - e['collected dt']).total_seconds() / 3600:.1f}"
+    # ---- replacement samples under Section 2.3: a result not valid, known while the month was open, needs a later valid
+    #      sample of the parameter in the month
+    for e in events:
+        if e["source"] != "permittee" or not (dt.date(2026, 7, 1) <= e["date"] <= dt.date(2026, 9, 30)):
+            continue
+        if not at_outfall(e):
+            continue                                   # process control information is not a sample
+        for p in PARAMS:
+            val, q = e[p]
+            if q == "NS" or val is None or valid(p, e):
+                continue
+            if e["id"] in ALIQUOTS and ALIQUOTS[e["id"]] < MIN_ALIQUOTS and p in METALS:
+                known = dt.datetime.combine(e["date"], dt.time(5, 30))            # the operator's round
+            else:
+                known = KNOWN_REJECTED.get((e["id"], p), e["issued"])
+            month_end = (dt.date(e["date"].year, e["date"].month + 1, 1) - dt.timedelta(days=1))
+            if known.date() > month_end:
+                continue
+            later = [x for x in events if x["source"] == "permittee" and x["date"].month == e["date"].month
+                     and x["date"] > known.date() and valid(p, x) and x[p][1] != "NS" and x[p][0] is not None]
+            standings[f"replacement after {e['id']} {p}"] = "Collected" if later else "Not collected"
+            figures[f"replacement known {e['id']} {p}"] = f"{known:%m/%d/%Y %H:%M}"
     # ---- flow and in-line pH
+    flows_all = FLOWS_AS_WRITTEN if register_line_as_written else FLOWS
     for m, label in MONTHS.items():
-        flows = {d: f for (mm, d), f in FLOWS.items() if mm == m}
+        flows = {d: f for (mm, d), f in flows_all.items() if mm == m}
         highs = [b[1] for (mm, d), b in BANDS.items() if mm == m and b]
         lows = [b[0] for (mm, d), b in BANDS.items() if mm == m and b]
         if manager_attestation and m in (7, 8):
@@ -379,6 +436,12 @@ def derive(nondetect="zero", include_march=False, ignore_composite=False, ignore
     figures["quarter flow total from the registers"] = str(REGISTER_TOTAL)
     figures["quarter flow total"] = str(sum(FLOWS.values()))
     figures["July 17 daily flow"] = str(FLOWS[(7, 17)])
+    figures["August 31 daily flow"] = str(flows_all[(8, 31)])
+    figures["August 31 register as logged"] = str(AS_LOGGED.get((8, 31), "as the next log opens"))
+    standings["August 31 flow"] = "Positive" if flows_all[(8, 31)] > 0 else "Negative"
+    sep9 = next(e for e in events if e["id"] == "VP-260909")
+    figures["September 9 composite period end"] = f"{sep9['collected dt']:%H:%M}"
+    standings["September 9 zinc cause"] = "Overflow" if (log_note_governs or sep9["collected dt"] > OVERFLOW) else "Not established"
     figures["September 9 metered flow"] = str(FLOWS[(9, 9)])
     figures["September 9 discharge"] = str(FLOWS[(9, 9)] + AROUND[(9, 9)])
     figures["August 13 daily flow"] = str(FLOWS[(8, 13)])
@@ -440,12 +503,14 @@ def derive(nondetect="zero", include_march=False, ignore_composite=False, ignore
     standings["August 13 flow telephone notice"] = "Not made" if not [w for w, s in CALLS if read_0814 <= w <= read_0814 + dt.timedelta(days=7) and "flow" in s] else "Made"
     standings["August 20 pH telephone notice"] = "Not made" if not [w for w, s in CALLS if w.date() in (dt.date(2026, 8, 20), dt.date(2026, 8, 21)) and "pH" in s] else "Made"
     figures["authorized representative on the permit"] = SIGNATORY
-    standings["second quarter report under the 45-day arm"] = "Late" if (Q2_RECEIVED - dt.date(2026, 7, 15)).days > 45 else "Not late"
-    figures["first quarter report, days after its due date"] = str((Q1_RECEIVED - Q1_DUE).days)
-    day45 = Q1_DUE + dt.timedelta(days=45)
-    figures["first quarter report, forty-fifth day"] = f"{day45:%m/%d/%Y}"
-    late = Q1_RECEIVED > day45 and PERIOD[0] <= day45 <= PERIOD[1] and not first_quarter_report_outside
-    standings["first quarter report under the 45-day arm"] = "Significant noncompliance" if late else "Not counted"
+    late = {}
+    for name, received, due in (("first", Q1_RECEIVED, Q1_DUE), ("second", Q2_RECEIVED, Q2_DUE)):
+        figures[f"{name} quarter report, days after its due date"] = str((received - due).days)
+        day45 = due + dt.timedelta(days=45)
+        figures[f"{name} quarter report, forty-fifth day"] = f"{day45:%m/%d/%Y}"
+        late[name] = received > day45 and PERIOD[0] <= day45 <= PERIOD[1] and not (first_quarter_report_outside and name == "first")
+        standings[f"{name} quarter report under the 45-day arm"] = "Significant noncompliance" if late[name] else "Not counted"
+    late = any(late.values())
     standings["plant, six-month review"] = ("Significant noncompliance" if late or any(
         standings[f"SNC {p}"] == "Significant noncompliance" for p in PARAMS) else "Not in significant noncompliance")
     return figures, standings
@@ -455,6 +520,9 @@ VARIANTS = {
     "the March 31 sample counted in the six months": ({"include_march": True}, "collected before April 1"),
     "the City's grab of June 23 counted as a measurement": ({"count_city_grab": True}, "not collected as Section 2.1 requires"),
     "the test kit reading of September 24 counted as a sample": ({"test_kit_sample": True}, "not a method approved under 40 CFR Part 136"),
+    "the August 31 register line taken as written": ({"register_line_as_written": True}, "two digits transposed"),
+    "the log's note that the composite ran through the overflow taken as true": ({"log_note_governs": True}, "before the 07:50 overflow"),
+    "the cyanide holding time counted in whole days": ({"hold_in_whole_days": True}, "elapsed hours"),
     "the July 7 composite counted as collected": ({"ignore_composite": True}, "9 aliquots"),
     "the City's two composites left out of the measurements": ({"ignore_city": True}, "whether the sample was collected by the permittee or by the City"),
     "the copper figure first printed for August 25 used": ({"ignore_revision": True}, "the revised result replaces the result first reported"),
@@ -487,7 +555,7 @@ VARIANTS = {
 EXPECTED = {
     "Jul Cu monthly average": "4.090", "Jul Cu valid samples": "1", "Jul Cd valid samples": "1", "Jul Cr valid samples": "1",
     "Jul Ni valid samples": "1", "Jul Zn valid samples": "0", "Jul Zn monthly average": "none",
-    "Jul CN valid samples": "2", "Jul CN monthly average": "0.310", "Jul CN days between the valid samples": "14",
+    "Jul CN valid samples": "1", "Jul CN monthly average": "0.270", "Jul CN days between the valid samples": "none",
     "Aug Cu valid samples": "3", "Aug Cu monthly average": "3.977", "Aug Cu daily maximum": "4.330",
     "Aug Ni valid samples": "3", "Aug Ni monthly average": "2.083", "Aug Zn monthly average": "1.093",
     "Aug Cd monthly average": "0.005", "Aug Cr monthly average": "0.697",
@@ -495,13 +563,18 @@ EXPECTED = {
     "Aug Cu days between the valid samples": "14",
     "Sep Cu monthly average": "2.053", "Sep Cu daily maximum": "2.960", "Sep Cu valid samples": "3",
     "Sep Zn monthly average": "1.653", "Sep Zn daily maximum": "3.140",
-    "Sep Cd monthly average": "0.004", "Sep CN monthly average": "0.325", "Sep CN valid samples": "2",
-    "Sep CN days between the valid samples": "13",
+    "Sep Cd monthly average": "0.004", "Sep CN monthly average": "0.240", "Sep CN valid samples": "1",
+    "Sep CN days between the valid samples": "none",
+    "cyanide hold hours VP-260721": "339.8", "cyanide hold hours VP-260505": "335.7", "cyanide hold hours VP-260811": "367.1",
+    "replacement known VP-260909 CN": "09/25/2026 09:40", "replacement known VP-260721 CN": "07/30/2026 14:05",
+    "August 31 daily flow": "34598", "August 31 register as logged": "1137773",
+    "September 9 composite period end": "06:40",
+    "second quarter report, days after its due date": "47", "second quarter report, forty-fifth day": "08/29/2026",
     "SNC Cu measurements": "14", "SNC Cu above limit": "7", "SNC Cu above TRC": "4",
     "SNC Cu share above TRC pct": "28.6", "SNC Cu share above limit pct": "50.0", "SNC Cu TRC threshold": "4.056",
     "SNC Zn measurements": "13", "SNC Zn above limit": "4", "SNC Zn above TRC": "4",
     "SNC Zn share above TRC pct": "30.8", "SNC Zn TRC threshold": "3.132",
-    "SNC Cd measurements": "14", "SNC Cr measurements": "14", "SNC Ni measurements": "14", "SNC CN measurements": "12",
+    "SNC Cd measurements": "14", "SNC Cr measurements": "14", "SNC Ni measurements": "14", "SNC CN measurements": "10",
     "copper measurement of 08/19/2026": "3.86", "zinc measurement of 08/19/2026": "1.145",
     "metals hold days VP-260407": "37", "cyanide hold days VP-260811": "15", "cyanide hold days VP-260505": "14",
     "Jul highest daily flow": "44880", "Jul days above the flow limit": "0", "July 28 daily flow": "44880",
@@ -523,23 +596,29 @@ EXPECTED = {
     "notice due VP-260818 Cu": "08/27/2026 15:40", "voicemail hours VP-260818 Cu": "25.42",
     "notice due VP-260825 Cu": "09/15/2026 10:15",
     "notice due VP-260909 Zn": "09/16/2026 11:20", "notice hours VP-260909 Zn": "22.75",
-    "first quarter report, days after its due date": "50", "first quarter report, forty-fifth day": "05/30/2026",
+    "first quarter report, days after its due date": "43", "first quarter report, forty-fifth day": "05/30/2026",
     "authorized representative on the permit": "Harlan Vandeveer, President",
 }
 
 EXPECTED_STANDINGS = {
     "plant, six-month review": "Significant noncompliance",
-    "first quarter report under the 45-day arm": "Significant noncompliance",
-    "second quarter report under the 45-day arm": "Not late",
+    "first quarter report under the 45-day arm": "Not counted",
+    "second quarter report under the 45-day arm": "Significant noncompliance",
+    "September 9 zinc cause": "Not established", "August 31 flow": "Positive",
+    "replacement after VP-260707 Cd": "Collected", "replacement after VP-260707 Cr": "Collected",
+    "replacement after VP-260707 Cu": "Collected", "replacement after VP-260707 Ni": "Collected",
+    "replacement after VP-260707 Zn": "Not collected",
+    "replacement after VP-260721 Zn": "Not collected", "replacement after VP-260721 CN": "Not collected",
+    "replacement after VP-260811 CN": "Not collected", "replacement after VP-260909 CN": "Not collected",
     "SNC Cu": "Not in significant noncompliance", "SNC Zn": "Not in significant noncompliance",
     "SNC Cd": "Not in significant noncompliance", "SNC Cr": "Not in significant noncompliance",
     "SNC Ni": "Not in significant noncompliance", "SNC CN": "Not in significant noncompliance",
     "Jul Cu frequency status": "Below frequency", "Jul Zn frequency status": "Below frequency",
-    "Jul Zn monthly average status": "No valid sample", "Jul CN frequency status": "Met",
+    "Jul Zn monthly average status": "No valid sample", "Jul CN frequency status": "Below frequency",
     "Jul Cu monthly average status": "Exceeded",
     "Aug Cu monthly average status": "Exceeded", "Aug Ni monthly average status": "Met", "Aug Ni frequency status": "Met",
     "Aug CN frequency status": "Below frequency", "Sep Zn monthly average status": "Exceeded",
-    "Sep Cu monthly average status": "Met", "Sep CN frequency status": "Met",
+    "Sep Cu monthly average status": "Met", "Sep CN frequency status": "Below frequency",
     "Jul flow": "Met", "Aug flow": "Exceeded", "Sep flow": "Exceeded",
     "Jul in-line pH": "Met", "Aug in-line pH": "Exceeded", "Sep in-line pH": "Exceeded",
     "Jul grab pH": "Met", "Aug grab pH": "Met", "Sep grab pH": "Met",
@@ -567,7 +646,7 @@ if __name__ == "__main__":
     rep.expect("quarter total ties to the registers", figures["quarter flow total"], figures["quarter flow total from the registers"])
     for label, golden in EXPECTED_STANDINGS.items():
         rep.expect(label, standings.get(label), golden)
-    unexpected = sorted(k for k in standings if k.startswith(("repeat sampling", "telephone notice")) and k not in EXPECTED_STANDINGS)
+    unexpected = sorted(k for k in standings if k.startswith(("repeat sampling", "telephone notice", "replacement after")) and k not in EXPECTED_STANDINGS)
     rep.expect("no notice or repeat line beyond the golden's", ", ".join(unexpected) or "none", "none")
     rep.sensitivity(lambda **kw: derive(**kw)[1], VARIANTS)
     rep.finish()

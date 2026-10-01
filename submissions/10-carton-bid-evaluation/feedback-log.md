@@ -100,3 +100,30 @@ Operator direction on top of the 2026-09-29 reviewer rebuild, which had not yet 
 5. Re-enter the rubric: 27 criteria from the CSV, positive 33 / negative 18, formatting row last; confirm the count on the form reads 27.
 6. Times 15 / 165 / 285 / 105, total 9.5; tools unchanged.
 7. Section 3 (review comment): the reviewer's note is answered by the operator from the 2026-09-29 entry and this one.
+
+## 2026-09-30 · Operator · six-point hardening list · NEEDS_REVISION (unchanged)
+
+Operator pasted a six-point list ("How to harden the task") on top of the same day's eleven-bid package. Every point applied as an arm of a rule already in the file; eight inputs, eleven bids, no new file.
+
+**Findings (the six directions as applied)**
+1. Addendum 2 no longer pre-decides the exceptions: the index/price-hold answer, the truckload-release answer, the discount-on-tooling answer and the freight-truckload answer are gone (three harmless answers citing sections 4.3, 5.4 and 5.5 take their place, which also keeps the addendum over the 500-word floor and the golden's citation forms grounded). Halvard's letter now holds prices for twelve months with a raw-material surcharge should the PPW 42 lb linerboard index rise more than 6 percent (a condition on an index under 4.3; the form boxes read Yes and None). Otter Tail's clause is a $185 delivery-efficiency fee on any release under 20 pallets (an exception to the quantity term under section 1 and 5.2); its October 8 letter withdraws the fee.
+2. Loken & Vik's responsibility turns on identity and timing: the register carries QH-26-031 Open under the trade name "L&V Container Corp., Sioux Falls" at 4700 North Cliff Avenue, the address on the bid form (a SUPPLIER_ADDRESS column was added to the register); a quality engineering e-mail of October 20 in the correspondence says the verification lot passed on October 16 but the quality manager has not signed the clearance, which is what clears a hold; the decoy is now "Loken Container Supply, Sioux City" on an open hold at a different address.
+3. The awardee carries a waivable informality: ITB 3.3 and every bid form now ask for an officer's signature, every signer but Pemberton's is an officer, and Pemberton signs by a regional sales manager, waived under 5.7 with the waiver recorded (a new INFORMALITY_WAIVED_5.7 column and a Recommendation line). The genuine non-obvious defect moved to Ridgecrest: a cashier's check of $4,554.95, five percent of its extensions alone, $120.00 short of five percent of its $93,499 total bid as written, so the low bid on paper is set aside.
+4. The responsive field is Loken & Vik (passed over), Pemberton and Dahlgren: Dahlgren now carries a surety bond, a written item 2 extension of $25,900 corrected to $25,600, and evaluates at $100,026.33, $52.67 under Pemberton, so ITB 5.6 and the receipt log (Pemberton 10/05 11:37, Dahlgren 10/06 09:33) decide the award. The telephone price change moved to Dahlgren (09:38, "item 1 to be read at 0.594"); applied, Dahlgren falls outside the band and wins.
+5. Ridgecrest's office is in Cedar Rapids and its plant of manufacture Omaha; items 1 to 4 ship from Omaha (Nebraska rate) and item 5 from Cedar Rapids (Iowa rate), $7,663.72 for the record. Wenzel & Krause's letter says its item 5 sample was run on 32 ECT board, so it is set aside under 3.2 and the samples answer.
+6. Pemberton's item 5 unit price moved to $0.957, so the award sits at $100,079.00: over the PP-3.5.3 line with tooling added in full and the ten day discount not credited (the vice president approves, as the prompt says), and under it if either is read the other way.
+
+**Actions taken**
+- Generator patched (patch3.py) and the package regenerated: golden with the new columns and lines, note rewritten, Excel-recalculated; verify_golden.py reads the surcharge, the fee, the sample board, the officer titles, the office state, the address-matched register and the October 20 e-mail (437 figures, 23 variants, 44 near flips). Rubric 27 rows, positive 33 / negative 18: new rows on the waived informality (+2), Ridgecrest's short check (+2), the index surcharge (+2), the fee (+1), the sample (+1), Dahlgren's corrected extension (+1) and the $52.67 margin; the Kessel and Thorsgard reason rows and the freight-working row cut to fund them. "under ITB 5.7" is written "under 5.7 of the invitation" because W12 reads "under ITB" as a header token.
+- Times 15 / 180 / 300 / 120, total 10.25 hours; form-lists.md, metadata.json (sync_metadata.py), clause-map.md and struck-phrases.md updated. Gate 0 errors; package sweep clean across 59 files.
+- Pipeline: a zsh `rm -f ~$*` with no match aborts the install chain (guard it with find -delete); Word rolled the addendum back once under a stale lock and resaved cleanly on an isolated copy; the single changed workbook or document is resaved in an isolated folder rather than the whole task folder.
+- Coded check: none added; the six directions are design arms with no detector beyond L7/L8 and PR21/PR22.
+
+**Form actions** (supersede the earlier lists)
+1. Section 1: set the occupation to Purchasing Managers under Management.
+2. Replace the prompt with instruction.md (unchanged since 2026-09-29).
+3. Input File List: eight entries from form-lists.md.
+4. Re-upload i-carton-bid-evaluation.zip (eight members) and s-carton-bid-evaluation.zip; delete the old input upload; confirm both uploadedAt stamps moved on a re-fetch and read input_files back against the zip.
+5. Re-enter the rubric: 27 criteria from the CSV, positive 33 / negative 18, formatting row last; confirm the count on the form reads 27.
+6. Times 15 / 180 / 300 / 120, total 10.25; tools unchanged.
+7. Section 3: the reviewer's note is answered by the operator from the three 2026-09-29/30 entries.

@@ -282,3 +282,41 @@ superseded revision with the rule doc saying the specification in force governs.
   number); a look-alike that HOLDS on the rule the failing arm fails (notice to the owner at the permit address beside
   Norcal's notice to nobody). Design constraint learned: a releasable retention exists only when the claims of record
   fit inside the money held with room for the 150 percent hold, so that ask forces the held answer to Yes.
+
+- 2026-09-30 (pretreatment-smr-q3-2026, the reviewer's five itemised directions pasted the same day): the items were
+  written against the package the platform holds, not the folder, so each was mapped onto the current mechanics
+  (the 28-day metals hold it cited had already been struck as wrong; the hours arm went onto cyanide's 14 days, outside
+  by 3 h 50 m beside a look-alike inside by 20 minutes). Shapes: a holding time in elapsed hours from the
+  chain-of-custody time with the lab's notes stripped; COLLECTED as the end of the composite period, so the 09/09
+  composite ended before the overflow the log says it ran through (the cause becomes "not established"); a rejection
+  in a lab revision with no replacement, Section 2.3 made a duty ("shall ... where the month has not ended"), the
+  revision dated after the month's last routine grab so no later sample serves as the replacement; a transposed
+  month-end register line exposed by the operator's own month-end reading and the next log's opening; the report
+  arm moved to the second quarter report at 47 days ("a little late but fine") with the first at 43 as the arm that
+  does not count. Pipeline: a Lab Data row insertion leaves the violations table's direct cell references one row
+  stale while every range widens, so grep the golden for 'Lab Data'!<cell> references after any insertion and
+  print the referenced values back; times in a criterion ("06:40", "07:50") count as figures for R27, and a
+  tenth ("339.8") trips R94, so a positive on a time-boundary call names the call and not the clock.
+
+- 2026-09-30 (carton-bid-evaluation, the operator's six-point list on top of the eleven-bid package): applied as arms, no new
+  file. Shape that fit: the addendum's pre-deciding answers removed and replaced by harmless ones that keep the citation
+  forms (G36) and the word floor (A11); softer clauses (an index surcharge, a per-release fee) the solver tests against 4.3
+  and 5.2 alone; the hold under a trade name at the form's address with an e-mail saying the lot passed but the clearance
+  is unsigned, beside a same-surname decoy at another address; an officer-signature line on the form with the awardee the
+  only non-officer (waived under 5.7, recorded); the short cashier's check moved onto the low bid on paper, computed on
+  extensions alone; a runner-up inside the $100 band with a corrected extension and the telephone request; the awardee at
+  $79 over the approval line so the discount and tooling readings each flip the approver. Pipeline: W12 reads "under ITB
+  5.7" as a header token, write "under 5.7 of the invitation"; a zsh glob with no match aborts an && chain, guard deletes
+  with find; resave a single changed file in an isolated folder.
+
+- 2026-09-30 (tract7-boundary-retracement, second pass: the operator pasted the reviewer's five numbered "How to harden"
+  directions, written against the platform's 09-21 copy). Applied each against the current package rather than the old one:
+  a rotation-course conflict (the only stone-to-stone deed course carries both originals, the road course the crew trusts
+  differs by three minutes and flips whether the corner 3 rebar holds), a second deed anomaly (a 43-to-34 digit slip in a
+  bearing that only the held monuments at both ends resolve, the closure block showing each correction alone and both
+  together), fence sideshots with one post inside, a busted pair the standard's new within-pair sentence rejects, a leg
+  straddling north (an arithmetic mean points it south), and a crew's provisional pin set before the loop closed with the
+  plat coordinates of every corner asked for. Built from a design model (design_model.py) whose parameters were grid-searched
+  against the reduced figures, because a 0.2 foot closure error moves a 640 foot course's rotation by a minute and every
+  threshold figure with it. Pipeline: F1 fires on a cached sine stored in exponent form, turn every azimuth 45 degrees
+  before a direction mean; the within-pair bearing test must wrap at north; keep the generator in the task folder.

@@ -13,8 +13,8 @@
     "bid_forms_itb_2026_17.docx - the eleven bidders' completed bid forms as marked and the letter each enclosed with its bid, compiled as opened",
     "bid_tabulation_itb_2026_17.xlsx - the eleven bids as keyed at the opening, unit prices and extensions, tooling, the bid form terms and submittals, the inbound freight schedule and the item shipping weights by drawing revision",
     "bid_receipt_log_itb_2026_17.xlsx - the purchasing office desk log of every envelope, sample parcel, facsimile, telephone message and letter received on open solicitations from October 1 through October 12, with date and time",
-    "bid_correspondence_itb_2026_17.docx - the writings in the bid file other than the bids: a withdrawal request, two facsimiles changing prices, the return of a late envelope, two bidders' letters after the opening and a quality engineering hold clearance notice",
-    "supplier_quality_holds_2026.xlsx - the quality engineering register of supplier quality holds opened since September 2025, extracted October 7, with each hold's status and clearance date"
+    "bid_correspondence_itb_2026_17.docx - the writings in the bid file other than the bids: a withdrawal request, two facsimiles changing prices, the return of a late envelope, two bidders' letters after the opening, a quality engineering hold clearance notice and a quality engineering e-mail on a second hold",
+    "supplier_quality_holds_2026.xlsx - the quality engineering register of supplier quality holds opened since September 2025, extracted October 7, with each hold's status, clearance date and the supplier's address"
   ],
   "output_files": [
     "bid_evaluation_itb_2026_17.xlsx - the bid evaluation workbook with the recommendation, the bids as written beside the evaluated figures, the recomputed extensions, freight and discount, the responsiveness and responsibility checks and the note to the vice president"
@@ -26,10 +26,10 @@
     "Microsoft Word"
   ],
   "time_read_minutes": 15,
-  "time_files_minutes": 165,
-  "time_work_minutes": 285,
-  "time_qa_minutes": 105,
-  "total_time_hours": 9.5,
+  "time_files_minutes": 180,
+  "time_work_minutes": 300,
+  "time_qa_minutes": 120,
+  "total_time_hours": 10.25,
   "task_instruction": "The carton bids opened on the 6th, and Torsten wants the award recommendation on his desk before the current carton contract runs out at the end of the month. I'm the purchasing manager at Nordvik Manufacturing in Alexandria, Minnesota, and every competitive award over the corrugated line comes through me. Torsten Nordvik is the vice president of operations and signs the award, so what he needs from me is an evaluation he can approve without reworking it and that will hold up when the bidder who thinks it was low asks why it lost. One of the bidders has already called him to say it was low at the opening, so he will read this one closely. I am at the supplier summit in Minneapolis through next week, and you have a few years of purchasing behind you, so I am handing you the bid file as it stands: itb_2026_17_cartons.docx, itb_2026_17_addendum_2.docx, purchasing_policy_pp3_excerpt.docx, bid_forms_itb_2026_17.docx, bid_tabulation_itb_2026_17.xlsx, bid_receipt_log_itb_2026_17.xlsx, bid_correspondence_itb_2026_17.docx, and the quality office's supplier_quality_holds_2026.xlsx. The desk keyed the tabulation at the opening and tells me it was proofed against the forms.\n\nBuild the evaluation as one workbook named bid_evaluation_itb_2026_17.xlsx. The first tab is the recommendation Torsten reads: which bidders are responsive and why any bid was set aside, each responsive bidder's total evaluated price with its components, the recommended award and its margin over the next bidder, and who has to approve it. Behind it I want the bids as written beside the evaluated figures, every extension recomputed, the freight and the discount worked where they apply, the responsiveness check bidder by bidder against the invitation as amended, and the bidder in line for award checked under PP-3.7 before its name goes on the page. Put a note to Torsten on the last tab with anything he should weigh that the evaluation does not decide, and what to tell the bidder that was low on paper. I need the workbook by Friday, October 23.",
   "rubric": [
     {
@@ -37,19 +37,19 @@
       "weight": 1
     },
     {
-      "description": "The recommendation's corrected extensions for the recommended bidder reaches its value through a plain cell reference to the evaluation behind it, or a sum over the same item extensions alike, standing at $98,109.",
+      "description": "The recommendation's corrected extensions for the recommended bidder reaches its value through a plain cell reference to the evaluation behind it, or a sum over the same item extensions alike, standing at $98,229.",
       "weight": 5
     },
     {
-      "description": "The award is recommended to Pemberton Container at a total evaluated price of $99,959 on the recommendation tab.",
+      "description": "The award is recommended to Pemberton Container at a total evaluated price of $100,079 on the recommendation tab.",
       "weight": 3
     },
     {
-      "description": "The approver required is named as the director of supply chain for an award value at or under one hundred thousand dollars.",
+      "description": "The approver required is named as the vice president of operations for an award value over one hundred thousand dollars.",
       "weight": 1
     },
     {
-      "description": "The recommendation states that the recommended award stands $31.75 above the next bid in line.",
+      "description": "The recommendation states that the recommended award stands $52.67 above the next bid in line.",
       "weight": 1
     },
     {
@@ -57,11 +57,7 @@
       "weight": 2
     },
     {
-      "description": "Ridgecrest Packaging's total evaluated price is stated as $99,927.25 on the recommendation tab.",
-      "weight": 1
-    },
-    {
-      "description": "The freight working shows 396 as the hundredweight from Omaha, Nebraska, rated at that state's rate.",
+      "description": "Dahlgren's written extension of $25,900 on the second item is corrected to $25,600 under the unit price rule.",
       "weight": 1
     },
     {
@@ -69,31 +65,35 @@
       "weight": 2
     },
     {
-      "description": "Loken & Vik Container is shown as passed over under PP-3.7.1 for its open quality hold.",
+      "description": "Loken & Vik Container is shown as passed over under PP-3.7.1 for hold QH-26-031 standing open at the date of the recommendation with its clearance unsigned.",
       "weight": 2
     },
     {
       "description": "Pemberton is shown as responsible, its hold QH-26-034 having been cleared by quality engineering on 10/15/2026.",
+      "weight": 1
+    },
+    {
+      "description": "Pemberton's bid form signature by a regional sales manager is recorded as an informality waived under 5.7 of the invitation.",
+      "weight": 2
+    },
+    {
+      "description": "Ridgecrest Packaging is found non-responsive on a $4,554.95 cashier's check that falls under five percent of its $93,499 total bid as written.",
       "weight": 2
     },
     {
       "description": "Mesabi Container is found non-responsive for offering item 4 only as a 200 lb test doublewall alternate with no bid on the item as specified.",
-      "weight": 3
-    },
-    {
-      "description": "Dahlgren Paper Box is found non-responsive on a $4,904.75 cashier's check that falls under five percent of its $100,045 total bid as written.",
-      "weight": 1
-    },
-    {
-      "description": "Kessel Container is found non-responsive under PP-3.4.5 for describing item 2 at the superseded 18 x 12 x 12 size.",
-      "weight": 1
-    },
-    {
-      "description": "Thorsgard Box & Label is found non-responsive for prices firm only through September 30, 2027, short of twelve months from award.",
       "weight": 2
     },
     {
-      "description": "Otter Tail Corrugated is found non-responsive for conditioning its price on full truckload releases, an exception to the quantity term.",
+      "description": "Halvard Corrugated is found non-responsive for the linerboard index surcharge in its letter, a condition on an index under 4.3 of the invitation.",
+      "weight": 2
+    },
+    {
+      "description": "Otter Tail Corrugated is found non-responsive for its delivery-efficiency fee on releases under 20 pallets, an exception to the quantity term.",
+      "weight": 1
+    },
+    {
+      "description": "Wenzel & Krause Corrugated is found non-responsive for an item 5 sample made on 32 ECT board.",
       "weight": 1
     },
     {
@@ -101,7 +101,7 @@
       "weight": 1
     },
     {
-      "description": "The note tells the vice president that the low bidder on paper lost under 5.6 to a bid within $100 that was received first.",
+      "description": "The note tells the vice president that the low bidder on paper was set aside on a cashier's check $120 short of the bid security required.",
       "weight": 1
     },
     {
@@ -117,7 +117,7 @@
       "weight": -3
     },
     {
-      "description": "The workbook wrongly changes a unit price on the telephone message the receipt log records at 09:35 on October 6.",
+      "description": "The workbook wrongly changes a unit price on the telephone message the receipt log records at 09:38 on October 6.",
       "weight": -2
     },
     {

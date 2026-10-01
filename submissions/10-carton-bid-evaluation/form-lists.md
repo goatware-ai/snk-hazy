@@ -10,8 +10,8 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 - bid_forms_itb_2026_17.docx - the eleven bidders' completed bid forms as marked and the letter each enclosed with its bid, compiled as opened
 - bid_tabulation_itb_2026_17.xlsx - the eleven bids as keyed at the opening, unit prices and extensions, tooling, the bid form terms and submittals, the inbound freight schedule and the item shipping weights by drawing revision
 - bid_receipt_log_itb_2026_17.xlsx - the purchasing office desk log of every envelope, sample parcel, facsimile, telephone message and letter received on open solicitations from October 1 through October 12, with date and time
-- bid_correspondence_itb_2026_17.docx - the writings in the bid file other than the bids: a withdrawal request, two facsimiles changing prices, the return of a late envelope, two bidders' letters after the opening and a quality engineering hold clearance notice
-- supplier_quality_holds_2026.xlsx - the quality engineering register of supplier quality holds opened since September 2025, extracted October 7, with each hold's status and clearance date
+- bid_correspondence_itb_2026_17.docx - the writings in the bid file other than the bids: a withdrawal request, two facsimiles changing prices, the return of a late envelope, two bidders' letters after the opening, a quality engineering hold clearance notice and a quality engineering e-mail on a second hold
+- supplier_quality_holds_2026.xlsx - the quality engineering register of supplier quality holds opened since September 2025, extracted October 7, with each hold's status, clearance date and the supplier's address
 
 ## Output File List
 
@@ -22,10 +22,10 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 | Form field | Value |
 |---|---|
 | Time to read and understand the prompt and requirements (minutes) | 15 |
-| Time to open, skim/search, and use the reference files (minutes) | 165 |
-| Time to perform the required work (minutes) | 285 |
-| Time for verification/QA and final review (minutes) | 105 |
-| Total time (hours) | 9.5 |
+| Time to open, skim/search, and use the reference files (minutes) | 180 |
+| Time to perform the required work (minutes) | 300 |
+| Time for verification/QA and final review (minutes) | 120 |
+| Total time (hours) | 10.25 |
 | Tools | Microsoft Excel; Microsoft Word |
 
 ## Domain and occupation
