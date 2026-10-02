@@ -353,3 +353,9 @@ superseded revision with the rule doc saying the specification in force governs.
   and the golden has to say so. Pipeline: a leftover placeholder in a generated formula makes Excel refuse the save
   with "Parameter error (-50)", so assert none survive before the resave; R132 fires on "clear" in a rubric row when an
   input states a rounding rule; a G43 convention phrase must be re-checked after any rewording of the note.
+
+- 2026-10-02 (consolidation, operator request): every hardening return through 2026-10-01 is distilled into
+  docs/submission/difficulty.md (eight root causes, the five-step design read, an eleven-shape hardening catalog, the
+  rubric and revision rules), wired into prompts/submission.md design target 2, prompts/revise-task.md step 3, 01/03/05
+  workflows, house-rules.md and a new `design_read` MANUAL row in 07. Read that page first; this file keeps the per-task
+  cases and pipeline traps behind it.

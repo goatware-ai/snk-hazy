@@ -113,6 +113,10 @@ Good  [+2] The workbook states total damage revenue as $15,170.
 - **Liveness rows** land on a pure read-through or one aggregation call, never same-sheet
   arithmetic (R98, R9, R72); summary counts and conditional sums are COUNTIF/SUMIFS, not
   boolean SUMPRODUCT (R96).
+- **Weight follows judgment, not arithmetic.** Fund the rows on the calls the traps decide and
+  cut rows on figures a tidy read of one table gives; anchor the strict +5 row on a figure the
+  central trap moves, give each rule arm its own row and the look-alike's error a negative
+  (`../difficulty.md#the-rubric-for-a-hardened-task`).
 - **Keep style and formatting rows a minority of the count**, the closing criterion aside.
   A rubric whose weight sits in presentation does not distinguish a correct deliverable
   from a plausible one.

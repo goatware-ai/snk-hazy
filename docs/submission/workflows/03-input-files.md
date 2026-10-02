@@ -88,6 +88,16 @@ The house check is T1: a standalone file, never inside an input or either zip.
   the kind of column real extracts carry anyway. The strongest task built to date derives
   its whole contract mechanism, a five-month reference lag, from a `preliminary` flag and
   the revision cycle it implies.
+- **Give the raw record, not the computed figure.** Register readings rather than daily flows,
+  measured diameters rather than an area, collected and analysed timestamps rather than a
+  hold column. A column that has already done the solver's arithmetic gives the call away.
+- **No input narrates the answer.** Memos, emails, field books, abstracts, addenda and
+  transmittals state facts and particulars; none confesses, concludes or answers the
+  exception the golden has to find.
+- **Put the decisive figure on its threshold.** A verdict that sits far from its line
+  survives every misread; one a hair from it flips on the read the task is about.
+- The full catalog of shapes the reviewers asked for, and the design read to run before a
+  build is called done, is `../difficulty.md`.
 - **Do not introduce inconsistencies in core facts** such as the entity, date range,
   currency or jurisdiction. Conflicts are planted in the figures and the records, never in
   what the task is about.

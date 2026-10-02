@@ -39,6 +39,11 @@ and five is where this desk aims so that an unsympathetic estimate still clears 
 Enforced by **M4**, which errors under three hours and recommends under five, and by the
 `frontier_resistance` row of the pre-submission audit.
 
+**Build for the reviewer, not the difficulty check.** The platform's check is a floor; the
+reviewer's bar is higher and has sent passed tasks back for hardening. Every build runs the
+design read in [difficulty.md](difficulty.md) before it is called done, and the
+`design_read` row of the pre-submission audit records it.
+
 ## Prompt shape
 
 **Tell the solver WHAT to produce, not HOW.** An instruction that reads like a template to

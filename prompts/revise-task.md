@@ -61,6 +61,14 @@ status, never upload. Submitting the revision is the operator's, on the platform
    every file before the named items are fixed, and the map's `Rebuilt:` line is dated when that is
    done (R134).
 
+   **A note asking for a harder task** (the one-line "please make this task harder", a numbered
+   "How to harden the task" list, or an operator direction to the same effect) is handled by
+   `docs/submission/difficulty.md`, "Applying a hardening note": keep the task, run the design
+   read, and add arms of rules already in the package rather than starting a new build. Check
+   each numbered item against the current files before building it, since lists are written
+   against the platform's copy; log every item by number as already present, built, or built
+   with a named option.
+
 4. **Apply the revision.** Update the rubric CSV, the solution or input files, and/or
    `instruction.md` as the feedback requires, following the existing conventions:
    - Rubric edits: one simple atomic sentence per criterion (R55), negatives worded as the

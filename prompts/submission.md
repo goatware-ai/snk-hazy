@@ -253,7 +253,13 @@ checked to submit, so every box must be true of the package before it is.
    rule (PR21); a rule that turns on a document or a written act is exercised on both arms with a
    look-alike that fails it, never left as a two-file mismatch a script reproduces (PR22); the
    platform's difficulty check re-runs weak models on the files and fails a task that one attempt
-   in three, or two of four, can clear.
+   in three, or two of four, can clear. That check is the floor, not the bar: on 2026-09-29 the
+   reviewer sent every task in review back for being too easy, passed checks included, then sent
+   numbered hardening lists. Build to `docs/submission/difficulty.md` from the start: run its
+   design read before the build is called done, and make sure the package already carries its
+   recurring shapes (both arms with a look-alike, the decisive figure on its threshold, raw records
+   rather than computed columns, no input that narrates the call, a stated convention that flips a
+   figure, exact figures rather than Yes/No answers) and that rubric weight sits on the calls.
 3. **Files.** Could someone who never worked in this field have produced this layout? If yes,
    rebuild it with the conventions a real practitioner document carries. Each planted
    inconsistency is one the golden resolves and the rubric credits.

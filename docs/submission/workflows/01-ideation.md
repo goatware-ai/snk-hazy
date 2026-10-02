@@ -74,6 +74,11 @@ Record the pair in `metadata.json` (`06-metadata.md`).
   use") is the answer, and a permit report built that way failed the same check on 2026-09-28
   (one weak-model attempt in three cleared it). Leave the dates in the record and the call to the
   solver, and put the decisive instance where the file does not flag it at all.
+- **Passing the difficulty check is not enough.** The reviewer sent every task in review back
+  for being too easy on 2026-09-29, including ones the check had passed, then followed with
+  numbered hardening lists. Design to `../difficulty.md` from the first sketch: name each
+  decision, the rule arm on each side of it, the look-alike, and the misreading that moves a
+  graded figure. A concept that cannot carry five or six such decisions is too thin to build.
 - **A mismatch is not a trap either.** A rating audit whose every exception was a difference
   between two tidy files failed the same check on 2026-09-22 (one weak-model attempt in three
   cleared it): a script reproduces a mismatch. A rule that turns on a document or a written act
@@ -126,6 +131,8 @@ One selected concept, held to this shape before moving on:
 4. The input files you will build (at least 2, 3+ preferred) and what each contributes to
    the answer.
 5. Where the four blocks of manual time actually go, and the total in hours.
-6. Why a frontier model fails it on the first pass.
+6. Why a frontier model fails it on the first pass: the decisions it turns on, each with the
+   rule arm that holds, the look-alike that fails, and the misreading that moves a graded figure
+   (`../difficulty.md#the-design-read`).
 
 Next: `02-prompt-writing.md`

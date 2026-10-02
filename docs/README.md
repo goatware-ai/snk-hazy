@@ -38,6 +38,8 @@ docs/
 │   │   ├── onet-codes.md                    verified codes, job families, and the four traps
 │   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage
 │   │   └── style-guide-llm-tells.md         severity-keyed LLM tell tables
+│   ├── house-rules.md               ← this desk's own standards beyond the form
+│   ├── difficulty.md                ← making a task hard: root causes, design read, hardening catalog
 │   └── workflows/                   ← our decomposition, one stage per file
 │       ├── 01-ideation.md           pick a domain, occupation and a task worth building
 │       ├── 02-prompt-writing.md     house prompt rules (P4/P6/A20)
