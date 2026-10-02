@@ -3,14 +3,13 @@
 > `../docs/rules.md` is generated from this tree and must be regenerated
 > (`autoeval_check.py --rules`) after any check change.
 
-Generic, task-agnostic tools. Per-task build scripts are NOT kept in the repo —
-each task's data generators live and die with the session that built it; any
-later revision is applied by editing the delivered files directly.
+Generic, task-agnostic tools. A task's own generator scripts, when it has them,
+live in that task's folder beside `verify_golden.py`, so a revision regenerates the
+package rather than patching delivered files (`docs/submission/difficulty.md`).
 
 ## Environment (recreate on any machine)
 
-    uv venv .venv
-    uv pip install --python .venv/bin/python openpyxl python-docx
+    python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 `.venv/` is gitignored; submissions/, accepted/, archived/, and memory/ are
 tracked. Claude's persistent memory lives at `memory/` in the repo root — the
@@ -21,7 +20,7 @@ symlink to it; recreate that symlink after moving to a new machine.
 
 - **gate_families.py** `[RULE-ID]` — the consolidation layer over the coded checks.
   Every check id in gcheck is mapped to one of
-  **35 generalized rules** grouped under the reports the platform actually returns in
+  the **generalized rules** (families) grouped under the reports the platform actually returns in
   EVALUATION_PENDING: the golden solution check (GOLD-LAND / LIVE / KEY / NEG / FID),
   the LLM authorship check (AUTH-PKG / FAB / NUM), rubric quality (RUB-ATOM / OBJ /
   POL / DUP / COVER / FORM), and the adjacent gates (DATA / SKILL / LEAK / UNIQ).
@@ -55,7 +54,7 @@ symlink to it; recreate that symlink after moving to a new machine.
       gcheck/common.py        the one home for each shared helper: load_rows, input_texts,
                               package_texts, generator_of, split_sentences/split_clauses, the
                               month table, the solution value bags
-      gcheck/procedural.py    PR1-PR4, house rules with no detector, registered so they have an id
+      gcheck/procedural.py    the PR rules: house rules with no detector, registered so they have an id
       gcheck/driver.py        the submission runner
 
   Every check declares its ids, its generalized rules and its `needs` (prompt, rubric,
@@ -117,6 +116,18 @@ symlink to it; recreate that symlink after moving to a new machine.
   - `package_sweep.py [root...]` — the portfolio-wide, report-only sweep; `inspect()` lives
     in `gcheck/authorship/package.py`.
 
+- **office_resave.py** `<file-or-task-folder>... [--force] [--check] [--quiet]` — re-saves
+  every .xlsx/.docx through the real Microsoft Office apps, so docProps names the
+  application that wrote the file and Excel recalculates every cache (A14). `--check`
+  reports without saving; a resave that changes content is rolled back and reported.
+- **fix_metadata.py** `<task-folder> [--check]` — de-batches document-property metadata
+  (shared write instants, default python-docx properties) and syncs mtimes (A3).
+- **fix_package.py** `<task-folder>` — repairs a formula workbook shipped without
+  `xl/calcChain.xml` (A13).
+- **golden_verify.py** — the report module a task's `verify_golden.py` calls so the gate
+  can read its result (G43); the template is `templates/verify_golden.py`.
+- **build_model.py** `current|require|check|uid|read|stamp` — records and recovers which
+  model built a task (`built_with`), so `/revise-task` routes a revision back to it.
 - **fix_floats.py** `scan|fix <xlsx...>` — rewrite float-repr tails in cached
   values (`34.04799999999999`) to shortest clean decimals. The LLM-authorship
   check flags these HIGH. Run `scan` on every xlsx (inputs AND solution)
@@ -150,19 +161,7 @@ symlink to it; recreate that symlink after moving to a new machine.
     on label text, so press Scan before Fill. The 14-box checklist is opt-in, because each
     box is an attestation about the package. See `hazy-helper/README.md`.
 
-- **audit_task.py** `<task-folder>` — pre-zip sweeps: Hazy canary (incl.
-  embedded metadata), 555 phone numbers, calendar-false weekday/date pairs,
-  zip hygiene (flat/no spaces/no double extensions/no empty files), prompt
-  file-name references, and a review list of future dates (each must be a
-  genuinely prospective deadline).
+## The package sequence
 
-## Standard pre-zip sequence for any task
-
-    # 1. Recalculate formula caches: open the solution workbook in a spreadsheet
-    #    app and save (openpyxl leaves cached <v> values empty; judges misread
-    #    empty caches). The in-repo formulas-engine injector was removed
-    #    2026-08-19 per user — rebuild from feedback history if ever needed.
-    .venv/bin/python tools/fix_floats.py    fix  <all xlsx>
-    .venv/bin/python tools/autoeval_check.py     <task folder>   # 0 errors
-      # (runs fix_floats scan, empty-cache scan, audit_task, rubric_lint
-      #  and the authorship/rubric/metadata catalog checks in one pass)
+The order the fix tools run in, ending in the gate, is stated once, in
+`docs/submission/workflows/07-pre-submission-audit.md#package-sequence`.

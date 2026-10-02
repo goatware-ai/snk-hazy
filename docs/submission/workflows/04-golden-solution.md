@@ -1,6 +1,6 @@
 # Workflow 04 — Golden Solution: the perfect, client-ready answer
 
-The golden solution is the correct answer to your prompt — the deliverable you would
+The golden solution is the correct answer to your prompt: the deliverable you would
 actually put in front of a client or your manager. It is both the reference the rubric
 grades against and proof the task is doable.
 
@@ -44,11 +44,11 @@ and why the files cannot close it.
 
 ## Never let the file describe itself
 
-The deliverable must not name its own category or production method — anywhere
+The deliverable must not name its own category or production method anywhere
 (`../platform/style-guide-llm-tells.md`, all HIGH-severity tells; coded as N1):
 
-- **File name:** never `golden_solution.xlsx`, `ai_output.pptx`, `model_response.pdf`
-  — the prompt names the deliverable, and that name is what ships.
+- **File name:** never `golden_solution.xlsx`, `ai_output.pptx`, `model_response.pdf`;
+  the prompt names the deliverable, and that name is what ships.
 - **Body/headings:** no "Golden Solution", "AI-generated", "As requested, this
   document provides", no watermarks referencing AI or draft status.
 - **Title slides:** a real professional title ("Q3 Operations Review: Midwest
@@ -81,9 +81,36 @@ points (`05-rubric.md`):
   G5, G7).
 - Comma rules held in every text cell and paragraph (A20, `02-prompt-writing.md`).
 
+- Nothing teaches materially unsafe practice. A golden that normalises an unsafe act fails on
+  safety even when every number is right, and in the clinical and laboratory occupations that
+  is the likeliest way to lose an otherwise correct task (a read).
+- The golden never contradicts the prompt or the rubric, even by one number (G1, R60).
+
 Write down, as you go, the exact value behind every claim you will later grade. The rubric
 quotes those values verbatim and is never allowed to estimate them
 (`05-rubric.md`), so a running list of figure-to-cell pairs saves a rebuild later.
+
+## Prove it from the inputs: verify_golden.py and the clause map
+
+- **`verify_golden.py`** (start from `tools/templates/verify_golden.py`) reads only
+  `inputs/`, reproduces every figure the golden states, and lists every other reading the
+  figures admit (rounding at each step, band boundaries, tolerances, each trap missed) with
+  the phrase the golden uses to settle it; the golden's method text states each of those
+  phrases (G43). The alternate readings are also the evidence that the traps are graded
+  difficulty (`../difficulty.md#the-design-read`).
+- **`clause-map.md`**, written last from the final prompt, golden and rubric, maps every
+  prompt ask to a quoted golden anchor and at least one positive rubric row (R134). The golden
+  makes each asked-for artifact itself, in the form any input prescribes, never an action row
+  that says to make it later (G41).
+
+## Spreadsheets: live formulas with cached values
+
+Judges read workbooks with tools. A formula cell without a cached value shows them only the
+formula string; a judge once estimated `=1-H5/E5` at about 7.6% when it computes to 11.7%
+and fired a contradiction penalty against the golden itself. Every formula cell ships with
+the cached value real Excel wrote (A9, A13, A17), which the package sequence's Office
+re-save provides. Summary counts and conditional sums are COUNTIF/COUNTIFS/SUMIFS, dot
+products SUMPRODUCT(range,range) (R96).
 
 ## Packaging rules
 
@@ -94,8 +121,9 @@ quotes those values verbatim and is never allowed to estimate them
   each one from the zipped copy before submitting.
 - No revision residue: no tracked changes, no comments, no hidden sheets (L2).
 - Every formula cell carries its cached value and the workbook is formula-live (A9, A13,
-  A17); the reason is in `06-metadata.md#house-notes-on-the-live-form`.
-- Run the package sequence in `07-pre-submission-audit.md#package-sequence` before zipping.
+  A17).
+- Build it with the package sequence (`07-pre-submission-audit.md#package-sequence`); the
+  zip holds exactly the files of `solution/` (H10).
 
 ## Final screen before moving on
 
@@ -108,10 +136,9 @@ quotes those values verbatim and is never allowed to estimate them
 - [ ] **The literal read done:** G10, G18, G20, G9, G8, G19, G21 and the three hand reads
       above
 - [ ] Comma rules held in every text cell and paragraph (A20)
+- [ ] Nothing teaches unsafe practice; no contradiction with the prompt or rubric (G1, R60)
 - [ ] A list of every figure the rubric will cite, with the cell or paragraph it comes from
-
-Platform note: judges read spreadsheets with tools and decompose each criterion
-into statements they must find in the deliverable; the observed behaviour and the house
-mitigations are in `06-metadata.md#house-notes-on-the-live-form`.
+- [ ] `verify_golden.py` exits 0 and names every alternate reading (G43); `clause-map.md`
+      written last (R134)
 
 Next: `05-rubric.md`

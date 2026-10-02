@@ -8,13 +8,10 @@ Everything on the form except the two file uploads is filled from the task's own
 `metadata.json`. Browsers will not let a page set a file input from a path, so the two zips
 are attached by hand.
 
-```bash
-.venv/bin/python tools/sync_metadata.py drafts/NN-task-name
-```
-
-That folds the form's fields into the folder's `metadata.json`, leaving `task_name`,
-`taskboard_uid`, `built_with` and `build_session` untouched, then prints what it found and
-anything it could not fill.
+`tools/sync_metadata.py` (step 6 of the package sequence) folds the form's fields into the
+folder's `metadata.json`, leaving `task_name`, `taskboard_uid`, `built_with` and
+`build_session` untouched, then prints what it found and anything it could not fill. Re-run
+it, and the gate after it, whenever a source file changes.
 
 `metadata.json` is the only file the helper needs. It already carried the build record; it
 now carries the form's fields too, so there is no second file to keep in step.
@@ -50,7 +47,7 @@ empty and named in its report.
 own shape, so the generator copies them rather than inferring anything. Where `form-lists.md` and the existing metadata disagree on domain or occupation, the
 sync takes `form-lists.md` and reports the change.
 
-`occupation_code` is the one key the extension never reads. The form asks for the
+`onet_occupation.code` is the one key the extension never reads. The form asks for the
 occupation by name, not by code, so the code rides along only so you can check it against
 [onet-codes.md](../platform/onet-codes.md) without opening another file.
 
@@ -58,8 +55,8 @@ occupation by name, not by code, so the code rides along only so you can check i
 
 ```json
 {
-  "task_name": "carton-bid-evaluation",
-  "taskboard_uid": "bd686eba-...",
+  "task_name": "freight-audit-q2",
+  "taskboard_uid": null,
   "domain": "Management",
   "onet_occupation": { "code": "11-3061.00", "title": "Purchasing Managers" },
   "input_files": [
@@ -163,5 +160,7 @@ knowing before you see them:
 
 ## After submitting
 
-Record the Taskboard UID in `metadata.json` and move the folder from `drafts/` to
-`submissions/`. `/fetch-status` reconciles the rest.
+Record the Taskboard UID in the draft's `metadata.json` and leave the folder where it is. The
+next `/fetch-status` matches the UID to the live submission, moves the folder from `drafts/`
+to `submissions/`, adds its `submission-list.md` row and renames the rubric CSV with the
+UID's first eight characters.

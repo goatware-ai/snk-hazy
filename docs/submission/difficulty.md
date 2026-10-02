@@ -73,7 +73,9 @@ the task's `clause-map.md` notes or the build log; they are what the next revisi
 ## The hardening catalog
 
 These are the shapes the reviewers asked for, in the order they recur. A good round applies three
-to six of them, each as a new arm of a rule already in the package.
+to six of them, each as a new arm of a rule already in the package. The frame they hang on is a
+**candidate set**: several bids, bills, claims or samples, each wrong one disqualified by a
+different property found only in the files, so each missed trap changes the headline.
 
 ### 1. Both arms, with a look-alike
 
@@ -194,7 +196,9 @@ only arrives as its own file).
 "Harder and bigger" was the operator's direction on the bulk note, and the hardened tasks did grow:
 10 to 11 bids, 38 to 46 bills, 12 to 17 claims, 5 to 10 inputs. Every new member was a new arm of a
 rule already in play, a look-alike, or a decoy. Plain filler rows add effort, not difficulty; one
-round dropped two clean bills to make room for two that each decided something.
+round dropped two clean bills to make room for two that each decided something. (On the desk this
+repo came from, a 300-row task whose policy files handed over every formula was solved perfectly,
+while a much smaller one built on a single hard decision was not.)
 
 - Prefer no new rule and no new deliverable. Add a file only when an arm needs a document a
   practitioner would actually hold (a supplier specification, a transmittal, correspondence).
@@ -218,7 +222,7 @@ round dropped two clean bills to make room for two that each decided something.
 
 ## Applying a hardening note
 
-On a revision (`prompts/revise-task.md`, step 4):
+On a revision (`prompts/revise-task.md`, step 3):
 
 - **The bulk one-liner** after a difficulty PASS: keep the task, harden it and grow it. Do not re-run
   the creation workflow. Run the design read, then apply three to six catalog shapes as new arms.

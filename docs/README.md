@@ -1,69 +1,82 @@
-# Project Hazy — Documentation
+# Project Hazy: Documentation
 
 Local documentation for **Hazy_Task_Creation**, Snorkel's task-authoring project
 (`cda2e943-8524-45f0-a966-469903337102`). The desk's job here is to **author** task
-packages: an instruction, input files, a completed solution and a rubric.
+packages: an instruction, input files, a completed solution and a rubric. There is no fixed
+sector: each task picks one of 14 domains and one of 64 occupations from a closed list
+(`submission/platform/domains-and-occupations.md`).
 
-Inside `submission/`, the `platform/` subdirectory holds documents captured from Snorkel's
-own pages. **Those captures are authoritative** — on any conflict with a workflow page, a
-tool, or anything else in this repo, the capture wins. Everything outside `platform/` is
-this repo's own derived working material.
+## What governs, in order
 
-Two things govern above everything else:
+1. **The platform captures** in `submission/platform/`, led by
+   `platform-submission-form.md`. The form is what blocks submission, and where it speaks it
+   governs. Two captures, `creating-input-files.md` and `style-guide-llm-tells.md`, carry a
+   banner: they were carried over from the desk this repo was built from and are not yet
+   confirmed here, so their guidance is used but their specifics yield to the form.
+2. **`submission/house-rules.md`**: this desk's own standards for what the form leaves
+   unsaid. None of them is a platform requirement, and each can be changed by deciding to.
+3. **`submission/difficulty.md`**: how a task is made hard enough for the reviewer.
+4. **`submission/workflows/`**: the build order, one stage per file. Each topic has one home
+   there and other pages point to it rather than restating it.
+5. **`rules.md`**: one line per coded check, generated from `tools/gcheck/`. Cite check ids
+   from here; where a workflow page states a count, a band or a weight range, the page
+   governs.
 
-1. **The submission form is the authority.** It is what blocks submission, and where it
-   speaks it governs. `submission/house-rules.md` holds this desk's own standards for what
-   the form leaves unsaid; nothing there is a platform requirement.
-2. **There is no fixed sector.** Each task picks one of 14 domains and one of 64
-   occupations from a closed list. See `submission/platform/domains-and-occupations.md`.
+The build and revision prompts that drive a session are in `../prompts/`: `submission.md`
+(one task), `create-task-brief.md` (a batch of drafts) and `revise-task.md` (a return).
 
-The pipeline is short: fill the form's five sections, tick its fourteen-box checklist,
-submit. Two captures, `creating-input-files.md` and `style-guide-llm-tells.md`, carry a
-banner saying they were carried over from the desk this repo was built from and are not yet
-confirmed here; their guidance is domain-agnostic, but do not treat their specifics as this
-project's rules until an assignment confirms them.
+## How the platform judges a task
 
----
+- **In the form.** Each of the five sections ends in **Run Evaluations and Continue** and
+  the last in **Run Evaluations and Submit**. The three "Checks (optional)" panels (Task
+  Instruction, Completed Task, Task Rubric) are advisory and block nothing, so a clean panel
+  proves nothing. What blocks is the fourteen-box **Before You Submit** checklist: every box
+  must be true of the package before it is checked (`workflows/07-pre-submission-audit.md`,
+  section I).
+- **After submitting.** The evaluations seen on this project's returns, read with
+  `tools/fetch_feedback.py`, are a file-readability pass, `prompt_completeness`,
+  `input_sufficiency` and the Hazy difficulty check (two weak models, four attempts each; one
+  PASS on any attempt fails the task; an INCOMPLETE with no PASS is a runner error and goes
+  back unchanged). The visible note is often one sentence or empty; the fetched JSON carries
+  the detail.
+- **The reviewer.** A human reviewer reads the task after the evaluations, and holds a higher
+  difficulty bar than the automated check (`submission/difficulty.md`).
 
 ## Layout
 
 ```
 docs/
 ├── README.md                        ← this file
-│
+├── rules.md                         ← GENERATED from the check registry: one line per check id
 ├── submission/                      ← authoring a task (the whole job)
 │   ├── platform/                    ← AUTHORITATIVE captures
-│   │   ├── platform-submission-form.md      the live form, section by section — TOP AUTHORITY
+│   │   ├── platform-submission-form.md      the live form, section by section: TOP AUTHORITY
 │   │   ├── domains-and-occupations.md       the closed 14-domain / 64-occupation lists
 │   │   ├── onet-codes.md                    verified codes, job families, and the four traps
-│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage
-│   │   └── style-guide-llm-tells.md         severity-keyed LLM tell tables
+│   │   ├── creating-input-files.md          authenticity, LLM-assist policy, leakage (carried over)
+│   │   └── style-guide-llm-tells.md         severity-keyed LLM tell tables (carried over)
 │   ├── house-rules.md               ← this desk's own standards beyond the form
 │   ├── difficulty.md                ← making a task hard: root causes, design read, hardening catalog
-│   └── workflows/                   ← our decomposition, one stage per file
-│       ├── 01-ideation.md           pick a domain, occupation and a task worth building
-│       ├── 02-prompt-writing.md     house prompt rules (P4/P6/A20)
-│       ├── 03-input-files.md        authenticity, distributed difficulty, leakage, packaging
-│       ├── 04-golden-solution.md    the ground truth the rubric is built from
-│       ├── 05-rubric.md             6 minimum / 20+ expected; weights −5..+5; the closing row
-│       ├── 06-metadata.md           the form's fields: domain, occupation, times, tools
-│       ├── 07-pre-submission-audit.md   package sequence, then the form's 14-box checklist
-│       └── 08-fill-the-form-and-submit.md metadata's form fields, filling the form, submitting
-│
-├── rules.md                         ← GENERATED from the check registry: one line per check id
-│
+│   └── workflows/                   ← the build order, one stage per file
+│       ├── 01-ideation.md           domain, occupation, a concept worth building, uniqueness
+│       ├── 02-prompt-writing.md     the prompt: the form's six asks, the P-rules, overspecification
+│       ├── 03-input-files.md        authenticity, tells, leakage, input-side difficulty, packaging
+│       ├── 04-golden-solution.md    the ground truth, the literal read, verify_golden.py, live caches
+│       ├── 05-rubric.md             count, weights, negatives, rubric shape, how judges read
+│       ├── 06-metadata.md           metadata.json, the domain/occupation fields, tools, times
+│       ├── 07-pre-submission-audit.md   THE package sequence, the audit table, the 14 boxes
+│       └── 08-fill-the-form-and-submit.md   filling the form from metadata.json, submitting
 └── reference/                       ← this repo's own corpora, not platform documents
     └── llm-prose-tells.md           prose classes the style guide lacks (feeds check A10)
 ```
 
 ## Reading order for a new task
 
-1. `submission/platform/domains-and-occupations.md` — pick the occupation, then the domain.
-2. `submission/platform/onet-codes.md` — confirm the code. Eight are detail codes ending
-   `.01` to `.04`, and the four First-Line Supervisor rows are not Management.
-3. `submission/workflows/01-ideation.md` through `08-fill-the-form-and-submit.md`.
-4. `submission/platform/platform-submission-form.md` — the 14-box checklist, before you
-   submit anything.
+1. `submission/platform/platform-submission-form.md`, in full.
+2. `submission/house-rules.md` and `submission/difficulty.md`.
+3. `submission/platform/domains-and-occupations.md` and `onet-codes.md`: pick the
+   occupation, then the domain, then confirm the code.
+4. `submission/workflows/01-ideation.md` through `08-fill-the-form-and-submit.md`.
 
 ## What is generated, and from where
 
@@ -72,23 +85,18 @@ record, folded in by `tools/sync_metadata.py` from `form-lists.md`, `instruction
 rubric CSV. It is the one file the browser helper fills the form from; its shape is in
 `submission/workflows/08-fill-the-form-and-submit.md`.
 
-`rules.md` is regenerated from `tools/gcheck/` by `autoeval_check.py --rules` and is the
-place to cite a check id from. Regenerate it after any check or family change, or it will
-state a band the gate no longer enforces. Tool usage — the package sequence, the gate, the
-harnesses — is documented in `../tools/README.md`, not here.
+`rules.md` is regenerated from `tools/gcheck/` by `autoeval_check.py --rules`. Regenerate it
+after any check or family change, or it will state a band the gate no longer enforces. Tool
+usage is documented in `../tools/README.md`.
 
 ## Open questions
 
-Two things the captures do not settle. Both are open until an assignment or a platform page
-answers them.
-
-1. **Nothing confirms that this project runs an automated evaluation after submission.**
-   The form's three in-form check panels are advisory and block nothing, and each section
-   ends in a Run Evaluations button, so evaluations run at submit time; what happens to a
-   submission afterwards is not documented anywhere available to this desk. Three checks
-   (R24, R73, R129) only make sense against a post-submission auto-eval and should be
-   dropped if there is none.
+1. **Several coded checks were written for evaluations seen on the earlier desk and not yet
+   seen here.** `rules.md` stage 2 lists a three-run `golden_solution_check` and an
+   `llm_authorship_check`; neither has appeared in this project's fetched returns. The checks
+   built for them (R24, R73, R129 and the GOLD-* and LLM-* families) still run and still
+   protect a sound package, but a finding from them is evidence of an earlier platform's
+   rule, not this one's.
 2. **No prompt-length or criterion-length cap is documented.** Neither platform document
-   mentions one. R1 still rejects a criterion over 500 characters, but it now says so as a
-   house rule rather than citing a form cap that no capture carries. Raise or drop that
-   number freely; the reason to keep it is that the form asks for one thing per line.
+   mentions one. R1 rejects a criterion over 500 characters as a house rule; raise or drop
+   that number freely, the reason to keep it being that the form asks for one thing per line.

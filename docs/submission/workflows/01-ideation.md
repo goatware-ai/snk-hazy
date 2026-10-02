@@ -1,9 +1,9 @@
 # Workflow 01 — Ideation: pick a task worth building
 
-Everything downstream — prompt, files, solution, rubric — inherits the quality of this
-decision. A weak concept cannot be rescued by good packaging. The platform states its bar in
-`../house-rules.md`; this page adds the house reading
-of it.
+Everything downstream (prompt, files, solution, rubric) inherits the quality of this
+decision. A weak concept cannot be rescued by good packaging. The desk's standing bar is in
+`../house-rules.md` and what makes a task hard is in `../difficulty.md`; this page turns
+both into a concept.
 
 ## Start by picking the domain and the occupation
 
@@ -37,54 +37,28 @@ Record the pair in `metadata.json` (`06-metadata.md`).
 ## The three gates every concept must clear
 
 1. **Over 3 hours by hand, aim for 5 to 10.** Without an LLM, from genuine analytical work,
-   never padding. The form's Difficulty check wants estimated manual effort over 3 hours
-   (`../platform/platform-submission-form.md#completed-task-checks-optional`) and the
-   guidelines target 5 to 10 (`../house-rules.md`).
-   The estimate is entered as four minute fields plus a total in hours (`06-metadata.md`),
-   so decide at this stage where each of the four blocks of time actually goes.
-2. **A frontier model cannot do it perfectly today.** The guidelines' key rule: a model
-   should not be able to produce a good answer by reading the instructions alone without the
-   input files. If a model drafts the golden correctly on the first try with no meaningful
-   edits, the task is not hard enough. Test this before file production, not after.
-3. **Difficulty lives in the files, not the prompt.** If the task can be answered without
-   opening the attachments, the files are decoration and the task is sent back
-   (`../platform/platform-submission-form.md#2-metadata`). Difficulty
-   comes from source materials and the reasoning required to reconcile them, never from
-   making the prompt longer or more prescriptive.
+   never padding (M4, `../house-rules.md#difficulty`). The estimate is entered as four minute
+   fields plus a total in hours (`06-metadata.md`), so decide now where each block goes.
+2. **Unanswerable from the instruction alone, and not one-shot by a frontier model.** If a
+   model drafts the golden correctly on the first try, the task is not hard enough. Test
+   this against a sketch of the inputs before building files, not after.
+3. **Difficulty lives in the files, not the prompt.** It comes from the source material and
+   the reasoning needed to reconcile it, never from a longer or more prescriptive prompt.
 
-## Judgment is what makes a task hard. Volume is not.
+## Judgment is what makes a task hard
 
-- **Row count buys build effort, not difficulty.** A 300-row task whose policy files hand
-  over every formula was solved perfectly by both platform models; a much smaller one built
-  on a single hard decision beat both. Before scaling a concept up, ask what decision the
-  extra rows force that the first twenty did not; if none, keep it small and spend the effort on the decision.
-- **Give them a candidate set to eliminate.** Put several candidates in front of the solver
-  where each wrong one carries a different disqualifying property discoverable only in the
-  files. The difficulty is in the set, not in the volume of any member, and it is cheaper
-  to build than cross-referencing.
-- **Never label the trap.** A column that states a record's exception with the section it
-  breaks, or a flag that names the rule, hands the graded call to the solver; the platform's
-  difficulty check failed a four-bid evaluation built that way on 2026-09-22 (two of four
-  weak-model attempts cleared the rubric). Put the condition in the record's own prose, in a
-  second file that has to be reconciled, or under a status column a reader can skip, and make
-  every numbered rule an input carries decide something (L7 for the labelled column, L8 for a
-  flag legend that states the record's disposition, PR21 for the walk;
-  `memory/difficulty-check-lessons.md` carries the cases). A flag that says what was observed
-  ("holding time exceeded") is data; a legend that says what follows ("not valid for compliance
-  use") is the answer, and a permit report built that way failed the same check on 2026-09-28
-  (one weak-model attempt in three cleared it). Leave the dates in the record and the call to the
-  solver, and put the decisive instance where the file does not flag it at all.
-- **Passing the difficulty check is not enough.** The reviewer sent every task in review back
-  for being too easy on 2026-09-29, including ones the check had passed, then followed with
-  numbered hardening lists. Design to `../difficulty.md` from the first sketch: name each
-  decision, the rule arm on each side of it, the look-alike, and the misreading that moves a
-  graded figure. A concept that cannot carry five or six such decisions is too thin to build.
-- **A mismatch is not a trap either.** A rating audit whose every exception was a difference
-  between two tidy files failed the same check on 2026-09-22 (one weak-model attempt in three
-  cleared it): a script reproduces a mismatch. A rule that turns on a document or a written act
-  (a signed certificate, a certified ticket over the tolerance, a confirmation in writing before
-  delivery) is exercised on both arms, with a look-alike record that fails it, so the call
-  depends on reading the record (PR22).
+`../difficulty.md` is the whole method: the reasons first builds came back too easy, the
+design read, and the catalog of shapes reviewers asked for. At this stage it means:
+
+- **Design the decisions before the files.** Name each decision the golden will make, the
+  rule arm on each side of it, the look-alike, and the misreading that moves a graded figure.
+  A concept that cannot carry five or six such decisions is too thin to build.
+- **A candidate set beats volume.** Several candidates, each wrong one disqualified by a
+  different property found only in the files, cost less to build than row count and are
+  harder to solve. Extra rows that force no new decision buy build effort, not difficulty.
+- **Build for the reviewer, not the check.** The platform's difficulty check is the floor;
+  the reviewer returned every task in review as too easy on 2026-09-29, passed checks
+  included.
 - **Prefer real published data where the occupation offers it.** Real data carries its own
   ambiguity, discontinued series, revision flags and withheld cells; a fabricated pack has
   to invent that friction, and the absence shows (all-whole-dollar cost figures, A15).
@@ -96,7 +70,7 @@ Record the pair in `metadata.json` (`06-metadata.md`).
   files, 3 or more strongly preferred (`03-input-files.md`), and the concept has to justify
   every one of them.
 - **Realistic messiness.** Duplicates, inconsistent naming, cancelled records, competing
-  priorities, missing information — the friction real work carries.
+  priorities, missing information: the friction real work carries.
 - **A real decision at stake.** Someone specific needs the output to decide something
   now: a vendor recommendation, a filing, a board deliverable, a compliance position.
 - **Objectively verifiable.** There is a known correct answer (or, for genuine judgment
@@ -105,10 +79,11 @@ Record the pair in `metadata.json` (`06-metadata.md`).
 ## Uniqueness
 
 The platform publishes no map of accepted asks for this project, so uniqueness is checked
-against this portfolio only (U1, U2). Test the candidate's dimension-2 sentence (what the
-solver does, in one line) against the paths this desk has already spent
-before building, and treat the occupation as part of the identity: the same analytical ask
-under a different occupation is still the same task if the solver's work is the same.
+against this portfolio only (U1, U2). Before building, test the candidate's one-line
+statement of what the solver does against every prompt in `submissions/`, `accepted/`,
+`archived/` and `drafts/` (a batch's own earlier drafts included). Treat the occupation as
+part of the identity: the same analytical ask under a different occupation is still the same
+task when the solver's work is the same.
 
 ## Concepts to discard early
 
@@ -116,7 +91,7 @@ under a different occupation is still the same task if the solver's work is the 
 - Workflows outside the US (unless a US company working internationally).
 - Anything requiring proprietary tools, logins, or paywalled/restricted source material.
 - Single-document summarization or reformatting dressed up as analysis.
-- A workflow you have not personally done — the field-authenticity tells will surface it.
+- A workflow you have not personally done; the field-authenticity tells will surface it.
 - Anything that cannot be reached from one of the 14 domains and 64 occupations. The list
   is closed: there is no free-text alternative, so a concept that does not fit an entry
   cannot be submitted at all.

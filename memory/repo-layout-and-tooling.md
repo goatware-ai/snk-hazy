@@ -107,3 +107,12 @@ and the core-cluster weighting read. The platform's own full-credit completeness
 exists and still fails on thin clusters, so that has to be judged by reading the rubric against
 the prompt's requirements now, with no local arithmetic behind it.
 - 2026-09-15 (rule-catalog cleanup): the selfcheck now fails a first docstring line that opens with an id, stops mid-sentence or runs under 30 characters, a PRIMARY family that is not a RULES key, and a PR id cited in memory, prompts, docs or .claude that procedural.py does not register; a crashing check is an ERROR and the rest still run; .gate-debt lines matching no finding print a NOTE; atomicity reports one finding per criterion and R20/R43/R50 wait for atomic criteria; tools/fixture_suite.py runs the planted-defect fixtures in tools/check_fixtures/ and prints catalog coverage, so add a fixture with every new check; G2a, G2c and G2d retired; P4 and P6 now map to PRE-FRAME.
+
+- 2026-10-02 (consolidation, operator request): docs and prompts now hold one home per topic.
+  docs/README.md owns the authority order and how the platform judges a task; the package
+  sequence is stated once, in 07-pre-submission-audit.md#package-sequence (resave, fix_floats,
+  ~$ cleanup, fix_metadata, zips, sync_metadata, gate); prompts/submission.md is a short list of
+  non-negotiables pointing into workflows 01-07. Edit the home page, never restate a rule in a
+  second file. Removed as outdated: the two-negative floor, the "although" negative frame, "two
+  co-equal outputs get sent back", "gloss one or two files", hand promotion of drafts, and
+  tools/README's "no per-task build scripts" line.

@@ -1,13 +1,11 @@
 # Workflow 05 — Rubric: atomic, specific, weighted criteria
 
 The rubric is how model outputs are scored against your golden solution. The platform
-states the rules in two places: the count, the weight range, the negative-weight licence,
-the values-from-ground-truth rule and the mandatory closing line in
-`../platform/platform-submission-form.md#4-task-rubrics`; the criterion properties, the
-weighting meanings and the mirroring mistake in
-`../platform/platform-submission-form.md#4-task-rubrics`. This page holds what the
-house adds on top; every coded rule carries its id, and `../../rules.md` states each in one
-line.
+states its rules (the count, the weight range, the negative-weight licence, the
+values-from-ground-truth rule, the criterion properties, the mirroring mistake and the
+mandatory closing line) in `../platform/platform-submission-form.md#4-task-rubrics`. This
+page holds what the house adds on top; every coded rule carries its id, and `../../rules.md`
+states each in one line.
 
 Write the rubric **after** the golden solution, off the golden solution. Every value in it
 is read from the ground truth, never estimated.
@@ -16,7 +14,7 @@ is read from the ground truth, never estimated.
 
 | Band | Verdict |
 | --- | --- |
-| Under 6 | Not submittable as designed. The guidelines' floor is six clear criteria |
+| Under 6 | Below the house floor (`../house-rules.md#rubric`); the form itself accepts 3 |
 | 6 to 19 | Submittable, but under the form's expected range. Cover more of the task |
 | 20 and up | The form's stated expectation: "somewhere in the 20-60+ range depending on complexity" |
 
@@ -55,17 +53,22 @@ What still constrains a negative is its **shape**, not its subject:
 - **Affirmative phrasing of the defect**: the row reads TRUE when the failure is present
   ("The workbook carries rows for the three deferred families" rather than "does not
   omit ..."). E1 and W18 code it, one negation only (R53).
-- Framed inside the sentence ("although <source> documents no X"), never as a trailing "in
-  violation of" clause (R84).
+- The defect stated once, with the record inside the predicate, never as a trailing "in
+  violation of" clause (R84). The in-app atomic check reads an "although" clause on a
+  negative, or a "because" clause on a positive, as a second check: one defect or one
+  verdict per row.
 - **Scoped to exactly the rows the golden would violate** (R33, R37, R52). A universal
   negative ("any populated price below floor") fires against the golden itself when the
   golden correctly holds some of those rows unchanged. Test every negative against every row
   class of the golden and carve out the classes that are supposed to violate it.
+- Never the mirror of a positive: no negative shares a positive's subject and verb, its rule
+  anchor over the same records, its record ids, its distinctive figure or its distinctive
+  proper noun (R69, R104, R15, R22, R41).
 - Derivable from the shipped inputs, like every other row.
 
-Carry at least two. A rubric where nothing can go wrong grades only presence, and the
-scoring check still requires at least one positive weight so a correct deliverable can
-score.
+There is no minimum number of negatives and no required penalty share; R61's 20 percent is a
+recommendation only. A negative earns its place where a specific misreading is worth naming,
+which in a hardened task is usually the look-alike's error.
 
 ## The mandatory closing criterion
 
@@ -117,16 +120,49 @@ Good  [+2] The workbook states total damage revenue as $15,170.
   cut rows on figures a tidy read of one table gives; anchor the strict +5 row on a figure the
   central trap moves, give each rule arm its own row and the look-alike's error a negative
   (`../difficulty.md#the-rubric-for-a-hardened-task`).
-- **Keep style and formatting rows a minority of the count**, the closing criterion aside.
-  A rubric whose weight sits in presentation does not distinguish a correct deliverable
-  from a plausible one.
+- **Keep style and formatting rows a minority**: under half the count and a quarter of the
+  positive weight, the closing criterion aside. A rubric whose weight sits in presentation
+  does not distinguish a correct deliverable from a plausible one.
 - **A rubric that would pass the golden's own errors is the rejection that survives a
   0-error gate.** Pin the facts the literal read verifies: each cited identifier, the
   deliverable's date, the signature line, the closed status of every policy class, the
   partial-period cost, the successor for a departing asset. Then ask of every row: if the
   golden had this wrong, would the row fail it?
 - **Every prompt clause and every golden action row maps to a criterion** (R4, R13,
-  R101, R102); build that map before reading anything else.
+  R101, R102); build that map before reading anything else. It becomes `clause-map.md`
+  (R134).
+
+## Rubric shape
+
+- +2 or more on the rows that decide something, never six or more rows all at +1.
+- The two strictest rows sit on two different deliverables' outputs, never a unit count
+  beside the dollar total of one order (R114) nor two cells of one page (R117); the page a
+  row calls first is the workbook's first worksheet (R120).
+- One formula-only gated row at most, every other gated clause riding on a value row (R118);
+  no single liveness row carries more than the completeness cap (R24). A row over a computed
+  figure names its value or its reconciliation, never presence alone (R119).
+- An "each item ... N items" row is written as the count row plus separate spot checks.
+- Negatives put the deliverable in the actor's seat ("The workbook wrongly books ...", R111).
+- No golden-only tab name in any criterion; name what the tab is (R112).
+- No row asks the judge to re-sum an aggregate from a raw input CSV (W3), and a relative
+  time window carries an absolute date (W2).
+- Carry a contradiction check and a domain-correctness clause.
+
+## How judges read a criterion
+
+Observed on submissions, and treated as precautions rather than platform rules:
+
+- **Judges decompose each criterion into atomic statements and verify each one inside the
+  deliverable.** A criterion pairing a method with a value (a policy tier plus one item's
+  reorder point) failed 1 of 3 runs with "Statement 4 was completely omitted" although the
+  value sat in a 66-row table. One verifiable statement per criterion (R54, R55); say where
+  in the deliverable the value can be checked, in deliverable-neutral words; give dense tabs
+  a parameters legend and one worked example row.
+- **Several independent record ids in one criterion read as a bundle** (one criterion
+  listing six SKUs that could each pass or fail). Phrase the check over the class or split
+  one criterion per item (R27, R85).
+- **Judges read workbooks with tools**, so a figure a row pins must sit in a cell with a
+  cached value (`04-golden-solution.md#spreadsheets-live-formulas-with-cached-values`).
 
 ## Final screen before moving on
 
@@ -137,18 +173,15 @@ Good  [+2] The workbook states total damage revenue as $15,170.
 - [ ] No criterion asserts a fact the shipped inputs cannot produce
 - [ ] Every weight a non-zero integer in −5..+5, in the numeric field only (R12)
 - [ ] At least one +4/+5; no flat weighting (R99)
-- [ ] ≥2 negatives, each on a specific observable unwanted outcome, affirmative (E1),
-      framed inside the sentence (R84), scoped to the golden's row classes (R33, R37, R52)
+- [ ] Every negative on a specific observable unwanted outcome, affirmative (E1), one
+      defect with no "although" clause (R84), scoped to the golden's row classes (R33, R37,
+      R52), never a positive's mirror (R69, R104)
+- [ ] Weight on the calls the traps decide; the strict row on a figure the central trap
+      moves (`../difficulty.md#the-rubric-for-a-hardened-task`)
 - [ ] File-name criterion present with the exact basename (R83)
 - [ ] **The last row is "Overall formatting and style of the deliverable"**
 - [ ] Golden solution scores ~100
 - [ ] Each fact the literal read verified (`04-golden-solution.md`) has a row that would
       fail if the golden had it wrong
-
-Platform note: the in-form Task Rubric Checks are advisory and block nothing
-(`../platform/platform-submission-form.md#task-rubric-checks-optional`); the checklist is
-what blocks. Judges decompose each criterion into statements and read ID lists as bundles;
-the observed behaviour and the house mitigations are in
-`06-metadata.md#house-notes-on-the-live-form`.
 
 Next: `06-metadata.md`

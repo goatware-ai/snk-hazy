@@ -71,17 +71,11 @@ status, never upload. Submitting the revision is the operator's, on the platform
 
 4. **Apply the revision.** Update the rubric CSV, the solution or input files, and/or
    `instruction.md` as the feedback requires, following the existing conventions:
-   - Rubric edits: one simple atomic sentence per criterion (R55), negatives worded as the
-     defect committed with a polarity pin (R84), no CSV re-sums, absolute date windows, no
-     liveness-mirror negatives (R15, R22). Weights stay non-zero integers from -5 to +5, with
-     no gap around -1 and -2, and a negative may penalise any specific, observable unwanted
-     outcome, not a restricted class of them (`docs/submission/platform/platform-submission-form.md`,
-     "4. Task Rubrics"). When feedback asks for coverage, add rows freely: the floor is 6
-     criteria, 20 or more is the expected range and there is no ceiling. Every value a new or
-     edited criterion asserts is pulled from the golden and the inputs, never estimated and
-     never hedged ("approximately", "roughly", "about", "~"). After any addition, renumbering
-     or deletion, the general **Overall formatting and style of the deliverable** row is still
-     the last row of the CSV.
+   - Rubric edits follow `docs/submission/workflows/05-rubric.md`: one atomic sentence per
+     criterion, one defect or one verdict per row (no "although" or "because" clause), every
+     value read off the golden and never hedged, weights non-zero integers in -5..+5, rows
+     added freely when feedback asks for coverage (no ceiling), and the general **Overall
+     formatting and style of the deliverable** row still last after any renumbering.
    - File and metadata edits: if an input or output file is added, removed or renamed, the
      Input File List, the Output File List, every mention in `instruction.md` and the member names
      inside the rebuilt zip all have to match again, exactly, case and extension included; a
@@ -89,9 +83,8 @@ status, never upload. Submitting the revision is the operator's, on the platform
      the work changed, revisit the five time values (four minutes fields plus the total in
      hours, the total at least their sum and over 3) and the tools list in `metadata.json`.
    - Workbook and document edits: no blue fills or datetime cells (A1, A2), decision fields
-     stay live formulas, then run the Package sequence (`prompts/submission.md`) on every
-     touched file. Rebuild the affected `i-`/`s-` zips (flat, bare task name) only if their
-     contents changed.
+     stay live formulas. Where the task folder keeps its generator scripts, change the
+     generator and regenerate rather than patching cells.
    - Record every phrase the feedback strikes, and every claim a fix removes, in
      `struck-phrases.md` the same day: a quoted literal, or a /pattern/ that also catches the
      claim reworded, then source and date (PR20); G42 searches every file for it, table cells
@@ -105,9 +98,10 @@ status, never upload. Submitting the revision is the operator's, on the platform
    reporting. If it is a one-off, say so in the feedback log rather than
    silently skipping.
 
-6. **Gate.** The Package sequence ends in `tools/autoeval_check.py` at zero errors on the folder
-   as it will be uploaded; if any file is touched after it, the sequence runs again from the
-   top. The gate runs `verify_golden.py` (G43) and reads `clause-map.md` (R134) and
+6. **Gate.** Run the package sequence
+   (`docs/submission/workflows/07-pre-submission-audit.md#package-sequence`), which ends in
+   `tools/autoeval_check.py` at zero errors on the folder as it will be uploaded; if any file is
+   touched after it, the sequence runs again from the top. The gate runs `verify_golden.py` (G43) and reads `clause-map.md` (R134) and
    `struck-phrases.md` (G42), so a revision is not done while any of them fails. Then run
    `.venv/bin/python tools/package_sweep.py`, the mechanical read-only sweep of
    every task folder (no repair mode by design): fix only what it reports against the task

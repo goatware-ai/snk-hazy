@@ -127,7 +127,7 @@ Every `ACCEPTED` row whose `submissions/{seq}-{task-name}/` folder still exists 
 
 ### A matched draft submission is promoted automatically
 
-A platform submission reporting `OFFERED` or `EVALUATION_PENDING` with no submission-list.md row is checked against every `drafts/{seq}-{task-name}/metadata.json`'s `taskboard_uid`. On a match, the script moves that draft folder to `submissions/{seq}-{task-name}/` and adds a new row (Created = today, Status = whatever the platform reports) under **Promoted from drafts/**. A submission with no matching draft is reported under **Needs attention** as `?` instead — the script never invents a row for one.
+A platform submission reporting `OFFERED` or `EVALUATION_PENDING` with no submission-list.md row is checked against every `drafts/{seq}-{task-name}/metadata.json`'s `taskboard_uid`. On a match, the script moves that draft folder to `submissions/{seq}-{task-name}/`, renames its `rubric-{name}.csv` to `rubric-{name}-{uid8}.csv`, and adds a row (Updated stamped now) in the section matching the platform's status, reported under **Promoted from drafts/**. A submission with no matching draft is reported under **Needs attention** as `?` instead — the script never invents a row for one.
 
 The platform is the source of truth for state. Never edit the platform to match submission-list.md; correct submission-list.md.
 

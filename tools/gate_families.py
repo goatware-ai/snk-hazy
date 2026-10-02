@@ -166,12 +166,11 @@ RULES = {
         "A bare plural subject and stacked negations draw ambiguous_negative_polarity on "
         "all 3 oracle runs; 'does not meet it' reads to the quality review as inverted."),
     "PRE-SCOPE": ("PRE-RUBRIC",
-        "A penalty is spent only on a critical commission.",
-        "The Rubric penalty scope check allows a negative weight on four classes and no "
-        "others: safety harm, a privacy leak, an inverted or prohibited top-level decision, "
-        "and fabrication. A cadence, threshold or rate misapplied is an ordinary planning "
-        "miss, belongs to an affirmative positive, and FAILs the dimension where it is "
-        "written as a penalty (2026-08-27)."),
+        "A negative penalises its own defect, never the mirror of a positive's call.",
+        "A negative may penalise any specific, observable unwanted outcome (the form's own "
+        "rule; the critical-only allowlist R67 was deleted 2026-09-21). What it may not do is "
+        "restate a positive's subject and verb, or its rule anchor over the same records, "
+        "which scores one disposition twice (an adjudication, 2026-09-10)."),
     "PRE-DUP": ("PRE-RUBRIC",
         "No criterion scores what another criterion already scores.",
         "Mirrored positive/negative pairs and repeated figures fail the near-identical "

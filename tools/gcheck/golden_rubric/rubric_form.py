@@ -899,7 +899,7 @@ def check_form_basics(rows):
     """A criterion stays under 500 characters, anchors every evaluative term in its own sentence, states no drafting order, and pairs a formula demand with a displayed value.
 
     Codes:
-      R1   a criterion is at most 500 characters (the form cap)
+      R1   a criterion is at most 500 characters (a house cap, house-rules.md)
       R25  an evaluative term (consistently, appropriate, thin ...) carries a figure, quote or comparison in the same sentence
       R2   no process-ordering clause; a finished file carries no drafting timeline
       R9   a formula-only liveness criterion carries a displayed-value anchor

@@ -1,13 +1,11 @@
 # Workflow 03 — Input Files: authentic, substantial, distributed
 
-The platform states the input rules in three places: the standard, the fingerprints to keep
-out, the leakage hard line, the LLM-assist workflow and the tell log in
-`../platform/creating-input-files.md`; the count, the formats and the
-field-authenticity test in
-`../house-rules.md`; and the list-
-versus-upload matching rule in
-`../platform/platform-submission-form.md#input-file-list`. This page holds the packaging
-shape the tools expect and the house additions the checks code.
+The input rules live in three places: the standard, the fingerprints to keep out, the
+leakage hard line, the LLM-assist workflow and the tell log in
+`../platform/creating-input-files.md` (a carried-over capture); the list-versus-upload
+matching rule in `../platform/platform-submission-form.md#input-file-list`; and the desk's
+count and formats in `../house-rules.md`. This page holds the house additions the checks
+code and the packaging shape the tools expect.
 
 ## How many files
 
@@ -51,10 +49,12 @@ note, never the em dash the form's placeholder shows (A6).
   re-save is the only sanctioned remedy: `07-pre-submission-audit.md#package-sequence`.
 - **Tells the authorship screen fires on that the style guide does not list:**
   floating-point dust in stored data cells (F1), 555-prefix phone numbers (H2), calendar-
-  false weekday/date pairs (H3), number series without variance (A15), the default LLM
-  blue fills (A1), em dashes (A6), and the prose shapes of
-  `../../reference/llm-prose-tells.md` (A10). Detail in
-  `06-metadata.md#house-notes-on-the-live-form`.
+  false weekday/date pairs (H3), number series without variance (A15), round-number figures
+  where real records carry odd ones, company names from the LLM-favoured lexicon, placeholder
+  entries, the default LLM blue fills (A1), em dashes (A6), and the prose shapes of
+  `../../reference/llm-prose-tells.md` (A10). One isolated tell is usually forgiven; two or
+  more in one file compound. Authorship is the highest-severity gate: one HIGH tell returns a
+  task without a full review.
 - No 'notes' columns or annotations that give away issues the solver should deduce (L1,
   L3).
 - **Occupation-specific exposure.** Several of the 64 occupations are clinical,
@@ -71,39 +71,33 @@ changes, speaker notes (L2); an input paragraph that enumerates the golden's ans
 (L1), hands over a verdict a criterion scores (L3) or names the members of a listed set a criterion scores (L4);
 a firm-price or validity date in
 an input the golden never carries (R23); a snapshot dated before records it references, or
-a stated balance an input reproduces only without the date cutoff (G22).
+a stated balance an input reproduces only without the date cutoff (G22: pick the cutoff
+first and clamp every record date to it). Remove any executive summary, key finding, total,
+recommendation or conclusion that shortcuts the analysis the task asks for.
 
 **Tell log:** `../platform/creating-input-files.md#6-the-tell-log-only-when-tells-are-found`.
 The house check is T1: a standalone file, never inside an input or either zip.
 
 ## Build in difficulty
 
-- **Distributed information** and **realistic messiness** as `01-ideation.md` defines them;
-  every planted inconsistency is one the golden resolves and the rubric can credit.
+`../difficulty.md` is the method; run its design read on the inputs before the golden is
+built. The input-side rules it rests on: give the raw record rather than a computed column,
+let no memo, email or addendum narrate the call, label no trap (L7, L8), exercise both arms
+of every rule with a look-alike (PR22), and set the decisive figure on its threshold. Beyond
+those:
+
+- **Every planted inconsistency is one the golden resolves and the rubric credits.**
 - **Mixed file types** that must be reconciled (a contract PDF against a pricing
-  spreadsheet against email correspondence). With three or more files this is the cheapest
-  source of real difficulty.
-- **Put a step of the answer in a metadata column.** A status, flag, base-period or
-  effective-date column that most solvers skim is where difficulty hides cheaply, and it is
-  the kind of column real extracts carry anyway. The strongest task built to date derives
-  its whole contract mechanism, a five-month reference lag, from a `preliminary` flag and
-  the revision cycle it implies.
-- **Give the raw record, not the computed figure.** Register readings rather than daily flows,
-  measured diameters rather than an area, collected and analysed timestamps rather than a
-  hold column. A column that has already done the solver's arithmetic gives the call away.
-- **No input narrates the answer.** Memos, emails, field books, abstracts, addenda and
-  transmittals state facts and particulars; none confesses, concludes or answers the
-  exception the golden has to find.
-- **Put the decisive figure on its threshold.** A verdict that sits far from its line
-  survives every misread; one a hair from it flips on the read the task is about.
-- The full catalog of shapes the reviewers asked for, and the design read to run before a
-  build is called done, is `../difficulty.md`.
+  spreadsheet against email correspondence) are the cheapest source of real difficulty.
+- **A status, flag, base-period or effective-date column** that a solver skims is a good
+  home for a step of the answer, and real extracts carry such columns anyway. It reports a
+  state ("Superseded", "Open", "preliminary"); it never states the consequence (L8).
 - **Do not introduce inconsistencies in core facts** such as the entity, date range,
   currency or jurisdiction. Conflicts are planted in the figures and the records, never in
   what the task is about.
-- **Keep worked examples inside the first ~25 data rows** of an input; automated reads of
-  an input workbook have been observed to cover only about 28 data rows
-  (`memory/rubric-coverage-and-completeness.md`).
+- **Mind the preview windows.** The platform previews the first 25 and last 15 lines of a
+  CSV and about the first 25 rows of a workbook sheet. A long CSV goes into side-by-side
+  panels (H7), and every row the golden cites sits inside the window (H8).
 
 ## Packaging rules
 
@@ -112,7 +106,8 @@ The house check is T1: a standalone file, never inside an input or either zip.
   so a flat zip is also what it wants.
 - File names match the prompt and the Input File List exactly, and every file either one
   names exists (H5).
-- Run the package sequence in `07-pre-submission-audit.md#package-sequence` before zipping.
+- Build it with the package sequence (`07-pre-submission-audit.md#package-sequence`); the
+  zip holds exactly the files of `inputs/` (H10).
 
 ## Final screen before moving on
 

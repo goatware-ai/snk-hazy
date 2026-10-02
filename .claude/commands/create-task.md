@@ -37,5 +37,5 @@ printf '\033]0;%s\007' "drafts/{seq}-{task-name}" > /dev/tty 2>/dev/null || true
 ```
 
 If the title cannot be set, it says nothing and carries on. Drafts carry no Taskboard UID, get
-no `submission-list.md` row, and are gitignored; promoting one into `submissions/` is mine to do
-by hand.
+no `submission-list.md` row, and are gitignored. Once I submit one and record its UID in its
+`metadata.json`, `/fetch-status` promotes it into `submissions/`.

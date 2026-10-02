@@ -15,7 +15,8 @@ Checklist items 1 to 6 are submit-blocking confirmations of exactly these
 (`../platform/platform-submission-form.md#5-before-you-submit--task-creation-checklist`):
 
 1. A named role, a named organization, and a reason the work is happening today.
-2. Every input file named, with a phrase on what it contains.
+2. Every input file named, and what it contains (in the prompt for the files that need it,
+   P5 below; in the Input File List for every file).
 3. The exact deliverable: file type, plus any length or structural requirement (page limit,
    tab count, required columns, naming convention).
 4. Real scenario constraints where they belong: budget, deadline, headcount, threshold.
@@ -29,15 +30,20 @@ everything needed to produce the answer, and nothing that is the answer.
 
 ## House rules the platform does not state
 
-- **One primary deliverable, named** (P1). Two co-equal required output files get sent back;
-  fold companion outputs into the single artifact (a briefing tab, an appendix). Mark a
-  second file optional only if it truly is, and then the rubric must not require it.
+- **Prefer one deliverable, named exactly** (P1). Fold companion material into it as a tab
+  or an appendix. The Output File List does accept several files, so when the work genuinely
+  produces more than one, name each exactly with its format; never leave a second
+  deliverable half-specified, and never mark one optional while the rubric requires it.
 - **Every input file named in the opening paragraph, woven into the narrative** (P2, P3).
   A separate "here are the pulls" inventory paragraph reads as machine-written even when
   every file is named.
-- **Gloss at most one or two files** (P5). Saying what most named files are *for* fails the
-  human-voice read; name them all in one run and gloss only the one or two whose
-  distinction is unclear.
+- **A content phrase on at most half the named files** (P5). Saying what most files are
+  *for* fails the human-voice read; name them all in one run and describe only the ones
+  whose distinction is unclear. The Input File List describes every file.
+- **A due date at least 21 days after the build, or none** (P8). The package is read weeks
+  after it is built, and a deadline already past reads as an impossible timeline.
+- **Length is not difficulty.** Brief the colleague and stop; no character cap is recorded
+  for the field, so do not read its absence as headroom.
 - **The file names in the prompt must match the Input File List and the ZIP exactly**,
   character for character including case and extension. The form calls a mismatch here one
   of the most common reasons a submission gets sent back
@@ -134,16 +140,17 @@ not become a fit through rephrasing.
       names says in the same sentence why it matters
 - [ ] **A20:** a comma before and/but/so/or joining two clauses, never three clauses in one
       sentence, a serial comma in every list
-- [ ] One output file named exactly (P1), with its format and every length or structural
+- [ ] Every output file named exactly (P1), with its format and every length or structural
       requirement stated (checklist 3)
-- [ ] Every input file named in the opening paragraph (P2, P3, checklist 2), at most one or
-      two glossed (P5), names matching the Input File List and the ZIP exactly
+- [ ] Every input file named in the opening paragraph (P2, P3, checklist 2), at most half
+      glossed (P5), names matching the Input File List and the ZIP exactly
+- [ ] Any due date at least 21 days after the build (P8)
 - [ ] Real scenario constraints present: budget, deadline, headcount, threshold
       (checklist 4)
 - [ ] No number, name or finding that can only come from working the files (checklist 5)
 - [ ] Not answerable without the input files; self-contained without the rubric
       (checklist 6)
 - [ ] What, not how: none of the six giveaway forms above
-- [ ] No spelling or grammar errors
+- [ ] No spelling or grammar errors; no em dashes (A6)
 
 Next: `03-input-files.md`

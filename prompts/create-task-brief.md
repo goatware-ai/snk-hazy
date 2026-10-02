@@ -1,7 +1,8 @@
 # Brief: build a batch of Hazy draft tasks
 
-Read this together with `prompts/submission.md`, which carries the build rules, the folder
-layout and the Package sequence. This file states only where a batch of drafts differs.
+Read this together with `prompts/submission.md`, which carries the build rules and the folder
+layout; the package sequence is in `docs/submission/workflows/07-pre-submission-audit.md`.
+This file states only where a batch of drafts differs.
 
 **How many:** the count passed to the invoking skill (default 1).
 
@@ -22,8 +23,8 @@ it, with the command in `.claude/commands/create-task.md`.
   and promotes a draft on its own once the draft's `metadata.json` UID matches a live submission.
 - **No Taskboard UID.** Leave `"taskboard_uid": null`; a null UID is what marks a folder as
   unsubmitted. Do not invent, request or fill one.
-- **No promotion.** Stop at the finished draft; moving a folder into `submissions/` is the
-  operator's step.
+- **No promotion.** Stop at the finished draft. The operator submits it and records the UID in
+  its `metadata.json`; `/fetch-status` then moves it into `submissions/`.
 
 ## What a draft records
 
@@ -41,27 +42,20 @@ it, with the command in `.claude/commands/create-task.md`.
 
 ## Uniqueness across the batch
 
-The uniqueness gate (U1, U2) runs against `submissions/`, `accepted/`, `archived/` **and every
-draft already built in this session**, including the ones built minutes ago. Two drafts from one
-batch sharing a reasoning path is the most likely failure: read the existing
-`drafts/*/instruction.md` before designing each new one and pick a different core workflow if
-anything is close.
-
-The domain and occupation are part of that identity now that neither is fixed. Pick a different
-occupation for each draft in the batch wherever the concepts allow it, and never let two drafts
-share an occupation **and** a reasoning path: the same analytical ask under a different
-occupation is still the same task when the solver's work is the same. Reusing one occupation
-across a whole batch also concentrates every draft on the same narrow slice of the 64-item list,
-which makes the next batch harder to keep distinct.
+The uniqueness rule (`01-ideation.md#uniqueness`) covers **every draft already built in this
+session**, including the ones built minutes ago. Two drafts from one batch sharing a reasoning
+path is the most likely failure: read the existing `drafts/*/instruction.md` before designing
+each new one and pick a different core workflow if anything is close. Pick a different
+occupation for each draft wherever the concepts allow it; reusing one occupation across a batch
+concentrates every draft on the same narrow slice of the 64-item list.
 
 ## Per-task verification
 
-Each task clears the full gate before you move on: run the Package sequence
-(`prompts/submission.md`) with `{target}` set to `drafts`, `clause-map.md` and `verify_golden.py`
-written in the draft folder first (R134, G43), ending in `autoeval_check.py` at 0
-errors on the packaged files. Walk the form's fourteen-box checklist
-(`docs/submission/platform/platform-submission-form.md`, "5. Before You Submit") against each
-finished draft as well: a draft is only accept-on-submit if every box is already true of it.
+Each task clears the full gate before you move on: the design read done, `clause-map.md` and
+`verify_golden.py` written in the draft folder (R134, G43), then the package sequence ending in
+`autoeval_check.py` at 0 errors on the packaged files. Walk the form's fourteen-box checklist
+against each finished draft as well: a draft is only accept-on-submit if every box is already
+true of it.
 
 ## Reporting
 
