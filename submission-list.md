@@ -9,23 +9,23 @@
 | 07 | freight-invoice-audit | 8c225b0a-e6e3-4f45-a932-df2e679e6a30 | 2026-10-01 19:39 EDT | claude-fable-5-1 |
 | 09 | concrete-acceptance-review | 90babb9c-5a09-4898-a50b-b9af6a105e01 | 2026-10-01 19:39 EDT | claude-fable-5-1 |
 
-## REVIEW_PENDING (1)
+## REVIEW_PENDING (3)
 
 | Seq | Task name | Taskboard UID | Updated | Model |
 |-----|-----------|---------------|---------|-------|
 | 02 | title-exam-cedarbrook-lot12 | b34c9335-ad1a-4139-b078-c58d929b0ef8 | 2026-09-30 23:22 EDT | claude-fable-5-1 |
+| 08 | nutrition-panel-granola | 40b109e6-c4fc-4a07-b092-5262ab4ff29f | 2026-10-02 00:21 EDT | claude-fable-5-1 |
+| 11 | lien-analysis-larkspur | a5f1d783-e915-427c-abd4-f467617f09c3 | 2026-10-01 23:07 EDT | claude-fable-5-1 |
 
-## EVALUATION_PENDING (0)
+## EVALUATION_PENDING (1)
+
+| Seq | Task name | Taskboard UID | Updated | Model |
+|-----|-----------|---------------|---------|-------|
+| 10 | carton-bid-evaluation | bd686eba-d1d8-440c-bd7a-845b363fb9d5 | 2026-10-01 21:52 EDT | claude-fable-5-1 |
+
+## NEEDS_REVISION (0)
 
 _None._
-
-## NEEDS_REVISION (3)
-
-| Seq | Task name | Taskboard UID | Updated | Model | Note |
-|-----|-----------|---------------|---------|-------|------|
-| 08 | nutrition-panel-granola | 40b109e6-c4fc-4a07-b092-5262ab4ff29f | 2026-10-01 19:39 EDT | claude-fable-5-1 |  |
-| 10 | carton-bid-evaluation | bd686eba-d1d8-440c-bd7a-845b363fb9d5 | 2026-10-01 19:39 EDT | claude-fable-5-1 |  |
-| 11 | lien-analysis-larkspur | a5f1d783-e915-427c-abd4-f467617f09c3 | 2026-10-01 19:39 EDT | claude-fable-5-1 |  |
 
 ## OFFERED (0)
 

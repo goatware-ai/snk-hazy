@@ -15,35 +15,32 @@
     "supplier_spec_s3120_almond_butter.docx - the supplier specification for the roasted almond butter with its ingredient declaration, the nutrition table on the supplier's serving basis, the allergen and grinding line statement, and the note on the prior revision",
     "supplier_spec_s2210_brown_rice_syrup.docx - the supplier specification for the brown rice syrup with its ingredient declaration, nutrition per 100 g, the allergen statement, and the note on the prior revision and the plant move",
     "supplier_spec_s5020_vanilla_extract.docx - the supplier specification for the vanilla extract with its ingredient declaration and proportions, nutrition per 100 g, the vanillin origin statement, and the note on the prior revision",
+    "supplier_spec_s5040_sea_salt.docx - the supplier specification for the sea salt with its ingredient declaration and proportions, nutrition per 100 g, the allergen statement, and the handling and testing notes",
     "product_brief_oat_cherry_bar.docx - the brand manager's brief listing the front panel claims marketing proposes, the pack format and what product development is asked to return"
   ],
   "output_files": [
     "oat_cherry_bar_label_review.xlsx - the label review workbook with the panel as it will print, the computation behind each declared value, the rounding, the claims check and the note to the brand manager"
   ],
-  "input_file_count": 9,
+  "input_file_count": 10,
   "output_file_count": 1,
   "tools": [
     "Microsoft Excel",
     "Microsoft Word"
   ],
   "time_read_minutes": 15,
-  "time_files_minutes": 100,
-  "time_work_minutes": 330,
+  "time_files_minutes": 110,
+  "time_work_minutes": 360,
   "time_qa_minutes": 60,
-  "total_time_hours": 8.5,
-  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, supplier_spec_s1187_crisp_rice.docx, supplier_spec_s3120_almond_butter.docx, supplier_spec_s2210_brown_rice_syrup.docx, supplier_spec_s5020_vanilla_extract.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
+  "total_time_hours": 9.25,
+  "task_instruction": "The Oat and Cherry Bar wrapper goes to the packaging vendor on October 26, and marketing needs the panel, the ingredient statement and the claims answered before legal sees the copy. I'm the food scientist at Kolstad Oat Works in Northfield, Minnesota, and the nutrition labeling on every product we launch comes through me. The formula is frozen and the pilot batch passed, so what is left is the labeling work. I am at the co-packer in Iowa on the granola line for the next two weeks, and you have a few years of nutrition labeling behind you, so I am handing this one to you. The file has formula_ocb_26_03.xlsx, ingredient_nutrient_specs.csv, sop_qa14_nutrition_labeling.docx, supplier_spec_s3301_dried_cherries.docx, supplier_spec_s1187_crisp_rice.docx, supplier_spec_s3120_almond_butter.docx, supplier_spec_s2210_brown_rice_syrup.docx, supplier_spec_s5020_vanilla_extract.docx, supplier_spec_s5040_sea_salt.docx, and product_brief_oat_cherry_bar.docx.\n\nBuild it as one workbook named oat_cherry_bar_label_review.xlsx. The first tab is the panel as it will print: the serving size, every Nutrition Facts line with its declared value and percent daily value, the ingredient statement and the Contains statement, in the order they appear on the wrapper. Behind it I want the computation laid out so Priya's legal reviewer can follow any declared value back to its formula line and its supplier specification, with the rounding shown next to the unrounded figure. Then a tab that takes each claim in Priya's brief and says whether the product supports it and on what number. Purchasing says part of the crisp rice on hand was packed under the earlier revision of its specification, so tell me whether the panel, the ingredient statement and the low sodium flag hold for everything we will run at launch. Put a note to Priya on the last tab with anything she has to decide or take to a supplier before the copy locks. I need the workbook by Tuesday, October 20.",
   "rubric": [
     {
       "description": "The deliverable is a single workbook named exactly oat_cherry_bar_label_review.xlsx whose first worksheet is the panel as it will print, with the serving size, the nutrient lines, the ingredient statement and the Contains statement.",
       "weight": 1
     },
     {
-      "description": "The rounding tab's unrounded sodium per serving reaches its value through a plain cell reference to the nutrients tab's per serving total behind it, or a sum over the same thirteen ingredient contributions alike, standing at 139.9362 mg.",
+      "description": "The rounding tab's unrounded sodium per serving reaches its value through a plain cell reference to the nutrients tab's per serving total behind it, or a sum over the same thirteen ingredient contributions alike, standing at 138.3824 mg.",
       "weight": 5
-    },
-    {
-      "description": "The serving size is declared as one bar of 42 g, the target net weight rather than the pilot sample average.",
-      "weight": 1
     },
     {
       "description": "The panel carries all 15 nutrient lines from Calories through Potassium in wrapper order.",
@@ -54,7 +51,11 @@
       "weight": 1
     },
     {
-      "description": "Total fat is declared as 7 g at 9 percent of the daily value.",
+      "description": "Total fat is declared as 6 g at 8 percent of the daily value.",
+      "weight": 1
+    },
+    {
+      "description": "Saturated fat is declared as 0 g on an unrounded 0.4981 g per serving.",
       "weight": 1
     },
     {
@@ -66,7 +67,7 @@
       "weight": 1
     },
     {
-      "description": "Calcium is declared as 0 mg on an unrounded 25.7069 mg that stands under the 2 percent test.",
+      "description": "Calcium is declared as 0 mg on an unrounded 25.3889 mg that stands under the 2 percent test.",
       "weight": 1
     },
     {
@@ -78,7 +79,7 @@
       "weight": 1
     },
     {
-      "description": "The nutrients are carried into the finished batch weight net of trim, with 46.98 g of formula carried into one serving on the parameters tab.",
+      "description": "The nutrients are carried into the scale ticket's finished batch weight net of trim, with 46.98 g of formula carried into one serving on the parameters tab.",
       "weight": 1
     },
     {
@@ -98,6 +99,10 @@
       "weight": 1
     },
     {
+      "description": "The ingredient statement carries the sea salt sub-ingredients in parentheses as sea salt and calcium silicate from specification S-5040.",
+      "weight": 1
+    },
+    {
       "description": "The Contains statement names almonds and soy.",
       "weight": 1
     },
@@ -106,11 +111,11 @@
       "weight": 1
     },
     {
-      "description": "The claims tab's low sodium row finds the claim supported at 133.3 mg per reference amount and 139.9 mg per serving.",
+      "description": "The claims tab's low sodium row finds the claim supported at 131.8 mg per reference amount and 138.4 mg per serving.",
       "weight": 1
     },
     {
-      "description": "The whole grain statement is found supported at 15.5 g of oats per serving against the 15 g floor.",
+      "description": "The whole grain statement is found not supported at 14.8 g of oats per serving against the 15 g floor.",
       "weight": 1
     },
     {
@@ -122,15 +127,11 @@
       "weight": 1
     },
     {
-      "description": "The specs tab's cherries row carries total sugars of 60 g, the figure of the revision in force.",
-      "weight": 1
+      "description": "The inventory check finds the low sodium flag does not hold for the September 2025 crisp rice lots at 145.2728 mg per serving.",
+      "weight": 2
     },
     {
-      "description": "The specs tab's brown rice syrup row carries sodium at 2 mg per 100 g, the figure of the revision in force.",
-      "weight": 1
-    },
-    {
-      "description": "The note to the brand manager flags the crisp rice lots packed before the revision 7 effective date as carrying the revision 6 declaration.",
+      "description": "The inventory check finds the ingredient statement does not hold for the September 2025 lots, which print malt flavor in place of barley malt extract.",
       "weight": 1
     },
     {
@@ -158,6 +159,10 @@
       "weight": -2
     },
     {
+      "description": "The workbook wrongly takes the finished batch weight as the 2,520 bars cut times 42 g in place of the scale ticket net of trim.",
+      "weight": -1
+    },
+    {
       "description": "The workbook wrongly carries water into the ingredient statement.",
       "weight": -1
     },
@@ -174,7 +179,7 @@
       "weight": -1
     },
     {
-      "description": "The workbook wrongly tests the whole grain statement on the 13.86 g of oats in 42 g of formula.",
+      "description": "The workbook wrongly adds the brown rice syrup grams into the whole grain figure.",
       "weight": -1
     },
     {
@@ -182,12 +187,20 @@
       "weight": -1
     },
     {
+      "description": "The workbook wrongly prints sea salt as a single ingredient with no sub-ingredients.",
+      "weight": -1
+    },
+    {
       "description": "The workbook wrongly prints the revision 6 crisp rice sub-ingredients rice, sugar, salt and malt flavor on the wrapper.",
       "weight": -1
     },
     {
+      "description": "The workbook wrongly extends the low sodium flag to the September 2025 crisp rice lots.",
+      "weight": -1
+    },
+    {
       "description": "Overall formatting and style of the deliverable as a label review the brand manager can take to legal.",
-      "weight": 2
+      "weight": 1
     }
   ],
   "built_with": "claude-fable-5-1",

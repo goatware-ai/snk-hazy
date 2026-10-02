@@ -37,19 +37,19 @@
       "weight": 1
     },
     {
-      "description": "The recommendation's corrected extensions for the recommended bidder reaches its value through a plain cell reference to the evaluation behind it, or a sum over the same item extensions alike, standing at $98,229.",
+      "description": "The recommendation's corrected extensions for the recommended bidder reaches its value through a plain cell reference to the evaluation behind it, or a sum over the same item extensions alike, standing at $98,901.",
       "weight": 5
     },
     {
-      "description": "The award is recommended to Pemberton Container at a total evaluated price of $100,079 on the recommendation tab.",
+      "description": "The award is recommended to Pemberton Container at a total evaluated price of $99,761.99 on the recommendation tab.",
       "weight": 3
     },
     {
-      "description": "The approver required is named as the vice president of operations for an award value over one hundred thousand dollars.",
+      "description": "The approver required is named as the director of supply chain for an award value at or under one hundred thousand dollars.",
       "weight": 1
     },
     {
-      "description": "The recommendation states that the recommended award stands $52.67 above the next bid in line.",
+      "description": "The recommendation states that the recommended award stands $61.79 above the next bid in line.",
       "weight": 1
     },
     {
@@ -57,36 +57,40 @@
       "weight": 2
     },
     {
-      "description": "Dahlgren's written extension of $25,900 on the second item is corrected to $25,600 under the unit price rule.",
+      "description": "Dahlgren's written extension of $24,044 on the second item is corrected to $23,744 under the unit price rule.",
       "weight": 1
     },
     {
-      "description": "Loken & Vik Container's bid is evaluated as a bid received by the due time, handed over at 10/06/2026 10:00.",
+      "description": "Dahlgren's freight of $6,062.20 is added at the Minnesota rate for the items shipped from Saint Cloud and the Wisconsin rate for the items shipped from Eau Claire.",
       "weight": 2
+    },
+    {
+      "description": "Loken & Vik Container's bid is evaluated as a bid received by the due time, handed over at 10/06/2026 10:00.",
+      "weight": 1
     },
     {
       "description": "Loken & Vik Container is shown as passed over under PP-3.7.1 for hold QH-26-031 standing open at the date of the recommendation with its clearance unsigned.",
       "weight": 2
     },
     {
-      "description": "Pemberton is shown as responsible, its hold QH-26-034 having been cleared by quality engineering on 10/15/2026.",
+      "description": "Pemberton is shown as responsible, the clearance notice for verification lot P-26-1009 at the Neenah plant read as clearing hold QH-26-034 on 10/15/2026.",
       "weight": 1
     },
     {
       "description": "Pemberton's bid form signature by a regional sales manager is recorded as an informality waived under 5.7 of the invitation.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "Ridgecrest Packaging is found non-responsive on a $4,554.95 cashier's check that falls under five percent of its $93,499 total bid as written.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "Mesabi Container is found non-responsive for offering item 4 only as a 200 lb test doublewall alternate with no bid on the item as specified.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "Halvard Corrugated is found non-responsive for the linerboard index surcharge in its letter, a condition on an index under 4.3 of the invitation.",
-      "weight": 2
+      "weight": 1
     },
     {
       "description": "Otter Tail Corrugated is found non-responsive for its delivery-efficiency fee on releases under 20 pallets, an exception to the quantity term.",
@@ -94,6 +98,18 @@
     },
     {
       "description": "Wenzel & Krause Corrugated is found non-responsive for an item 5 sample made on 32 ECT board.",
+      "weight": 1
+    },
+    {
+      "description": "Thorsgard Box & Label is found non-responsive for prices firm only through September 30, 2027, short of twelve months from award.",
+      "weight": 1
+    },
+    {
+      "description": "Kessel Container is found non-responsive under PP-3.4.5 for describing item 2 at the superseded 18 x 12 x 12 size.",
+      "weight": 1
+    },
+    {
+      "description": "Brannock Box Company is found non-responsive for acknowledging addendum 1 only.",
       "weight": 1
     },
     {
@@ -117,11 +133,15 @@
       "weight": -3
     },
     {
-      "description": "The workbook wrongly changes a unit price on the telephone message the receipt log records at 09:38 on October 6.",
+      "description": "The workbook wrongly changes a unit price on the telephone message the receipt log records at 09:56 on October 6.",
       "weight": -2
     },
     {
       "description": "The workbook wrongly credits a ten day discount under the twenty day floor of ITB 5.5.",
+      "weight": -2
+    },
+    {
+      "description": "The workbook wrongly times Pemberton's bid from its facsimile of October 6 rather than from its envelope logged on October 2.",
       "weight": -2
     },
     {

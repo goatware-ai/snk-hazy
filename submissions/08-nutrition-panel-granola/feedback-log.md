@@ -83,3 +83,28 @@ Reviewer note (revision_notes, 2026-09-30T22:15Z), fetched with tools/fetch_feed
 4. Re-enter the rubric: 39 criteria from the CSV, positive 33 / negative 19, formatting row last; confirm the form count reads 39.
 5. Times 15 / 100 / 330 / 60, total 8.5; tools, domain and occupation unchanged.
 6. Section 3: a human reviewer owns this round; say that all six arms were applied and name the two specifications added, without stating the verdicts.
+
+## 2026-10-01 · Reviewer · five more hardening arms · NEEDS_REVISION
+
+Reviewer note (revision_notes, 2026-10-01T22:25Z), fetched with tools/fetch_feedback.py: "How to harden the task" with five numbered arms (the revision 6 crisp rice lots made numerically consequential with an explicit launch-inventory ask, an undeclared compound ingredient against purchasing's statement, a declared value on a rounding band boundary, an SOP exception to the whole grain rule with the syrup's whole grain source stated prominently, a cross-file yield inconsistency with the SOP naming the governing figure). The 2026-09-30T23:15Z evaluation of the previous resubmission had passed all four checks; the platform's zips (23:13Z), prompt and 39 criteria matched the folder. Third return logged, so the package was rebuilt from clause-map.md (PR19) with every ask re-read, and the map carries a Rebuilt line. Offer expires 2026-10-06T22:25Z.
+
+**Findings** the five arms, applied as written; the trim double-count alternative in arm 5 not taken (the bar count disagreement was).
+
+**Actions taken**
+1. Revision 6 lots: S-1187's supersession paragraph now states revision 6 sodium at 140 mg per 30 g (salt 1.2 percent) and "malt flavor from barley"; sea salt cut from 0.81 to 0.80 kg so the revision 7 lots sit at 138.3824 mg per serving (declared 140, low sodium Supported) and the September 2025 lots at 145.2728 mg (declared 150, flag fails, statement prints malt flavor). The prompt gains the explicit ask whether the panel, the statement and the flag hold for everything run at launch; the golden gains an Inventory Check tab between Claims and the note, with three Panel rows (No / No / No) reading from it.
+2. Undeclared compound: new supplier_spec_s5040_sea_salt.docx (Marren Sea Salt Company, revision 1, "Sea salt, calcium silicate" at 0.5 percent, no "supersedes", nutrition per 100 g equal to the sheet row); the sheet and the brief stay silent; the statement prints "sea salt (sea salt, calcium silicate)" and the note calls purchasing's line wrong on two counts.
+3. Rounding boundary: sunflower oil 5.4 to 4.0 kg, oats saturated fat 1.10 to 0.70, almond butter 1.3 to 1.0 g per 32 g, almonds 3.8 to 3.6; saturated fat 0.4981 g per serving declared 0 g, total fat 6.172 g declared 6 g at 8 percent.
+4. Whole grain exception: SOP 5.3 counts only the intact or flaked whole grain ingredient and excludes derivatives such as a syrup; S-2210's title and description now say "from whole grain brown rice"; oats 39.6 to 37.8 kg so the oats alone carry 14.80 g against the 15 g floor (Not supported), 21.61 g with the syrup wrongly counted; oats fiber 11.4 to 12.0 to keep the fiber knife-edge (2.823 g, 10.1 percent per serving, 9.6 per reference amount).
+5. Yield inconsistency: bars cut 2,548 to 2,520 on the record (2,520 times 42 g is 105,840 g against the 107.28 kg scale ticket net of trim); SOP 1.1 now says the scale ticket governs; on the bar-count weight sodium is 140.280 mg and the flag fails. Water takes the balance to 120 kg (9.12 kg).
+- Golden: Formula, Pilot Batch Record, Parameters (a reference row for the bar count figure), Specs, Claims basis cells, the Ingredient Statement note and the note's paragraphs A3 to A9 rewritten (six decisions now); core.xml restored before each resave. verify_golden.py reads the revision 6 sub-ingredients and sodium from the S-1187 note, adds the bar-count, syrup-as-whole-grain and revision 6 variants and checks the Inventory Check cells and the three Panel rows: 64 figures, no mismatch, 47 near flips.
+- Rubric 42 rows, positive 33 / negative 22: new rows on saturated fat 0 g, the salt sub-ingredients, whole grain not supported at 14.8 g, the two inventory verdicts, and negatives on the bar-count weight, the syrup counted as whole grain, salt printed alone and the flag extended to the September lots; the syrup 2 mg row and the serving-size row dropped to hold 33; gate findings fixed in place (W19 twice, R21, R89, R134 three times, G43 twice, A20). Ten inputs; metadata.json, form-lists.md (times 15 / 110 / 360 / 60, 9.25 h), clause-map.md (twelve clauses, Rebuilt line) and struck-phrases.md resynced.
+- Coded check: skipped; the note is a hand-designed set of arms.
+- Gate: 0 errors on the packaged folder; zips byte-identical to the folder; package_sweep clean across 35 files with no findings in any task.
+
+**Form actions**
+1. Prompt: re-enter from instruction.md (ten files named and the launch-inventory ask added).
+2. Input File List: ten entries from form-lists.md.
+3. Re-upload i-nutrition-panel-granola.zip (ten members) and s-nutrition-panel-granola.zip; confirm both uploadedAt stamps moved and read the input file list back for exactly ten members (PR14).
+4. Re-enter the rubric: 42 criteria from the CSV, positive 33 / negative 22, formatting row last; confirm the form count reads 42.
+5. Times 15 / 110 / 360 / 60, total 9.25; tools, domain and occupation unchanged.
+6. Section 3: a human reviewer owns this round; say that all five arms were applied, that the prompt now carries the launch-inventory ask and that the sea salt specification was added, without stating the verdicts.

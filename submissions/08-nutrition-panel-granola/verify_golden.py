@@ -57,13 +57,17 @@ def specs_in_force():
                 c = [x.text.strip() for x in row.cells]
                 for i in range(0, len(c) - 1, 2):
                     if c[i] in DOCNAME:
-                        vals[DOCNAME[c[i]]] = c[i + 1].split()[0]
+                        vals[DOCNAME[c[i]]] = c[i + 1].split()[0].replace(",", "")
         assert len(vals) == 15, (f.name, vals)
         got[code] = (basis, vals)
     return got
 
 
 DOCS = specs_in_force()
+CRISP = "\n".join(q.text for q in Document(INPUTS / "supplier_spec_s1187_crisp_rice.docx").paragraphs)
+REV6 = re.search(r"revision 6 .*?sub-ingredients as ([a-z, ]+?) at .*?sodium at (\d+) mg per 30 g", CRISP)
+REV6_SUBS, REV6_SODIUM = REV6.group(1).replace(" and ", ", "), D(REV6.group(2))
+BARS = D(str(rec["Bars cut"]))
 SPEC = {}
 for code, r in SHEET.items():
     row = dict(r); row["BASIS_G"] = "100"
@@ -138,13 +142,16 @@ def declare(key, x):
     raise KeyError(key)
 
 
-def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec", cherries_from="spec", sheet_rows=(), mineral_test="unrounded"):
+def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="declared", cherry_added="spec", cherries_from="spec", sheet_rows=(), mineral_test="unrounded", finished="scale", whole_grain="oats", crisp_rev=7):
     fig, standing = {}, {}
     serving = BAR_G if serving is None else D(serving)
-    scale = serving / (FINISHED * 1000) if yield_applied else serving / (BATCH * 1000)   # grams of finished bar per gram of batch input
+    fin = FINISHED if finished == "scale" else BARS * BAR_G / 1000   # SOP 1.1: the scale ticket net of trim governs, not the bar count
+    scale = serving / (fin * 1000) if yield_applied else serving / (BATCH * 1000)   # grams of finished bar per gram of batch input
     per = {k: D(0) for k in NUTS}; contrib = {}
     for code, name, kg in FORMULA:
         sp = SPEC[code]; basis = D(sp["BASIS_G"]) if basis_as_stated else D(100)
+        if code == "RM-1187" and crisp_rev == 6:
+            sp = dict(sp); sp["SODIUM_MG"] = str(REV6_SODIUM)
         if code == "RM-3301" and cherries_from == "sheet":
             sp = dict(SHEET[code]); sp["ADDED_SUGARS_G"] = sp["ADDED_SUGARS_G"] or "0"
         if code in sheet_rows:
@@ -168,12 +175,13 @@ def derive(basis_as_stated=True, yield_applied=True, serving=None, pct_from="dec
             base = D(fig[f"{k} declared"]) if (pct_from == "declared" and not fig[f"{k} declared"].startswith("less")) else per[k]
             fig[f"{k} pct dv"] = str(rnd(base / DV[k] * 100, "1"))
     # whole grain per serving: rolled oats grams in the bar
-    fig["whole grain g"] = str(rnd(contrib["RM-1042"]["g"], "0.01"))
     fig["cherries g"] = str(rnd(contrib["RM-3301"]["g"], "0.01"))
     # claims per SOP 5: unrounded, per RACC and per serving, both must pass
     fiber_ok = per_racc["FIBER_G"] / DV["FIBER_G"] >= D("0.10") and per["FIBER_G"] / DV["FIBER_G"] >= D("0.10")
     sodium_ok = per_racc["SODIUM_MG"] <= 140 and per["SODIUM_MG"] <= 140
-    whole_ok = contrib["RM-1042"]["g"] >= WHOLE_GRAIN_FLOOR
+    wg = contrib["RM-1042"]["g"] + (contrib["RM-2210"]["g"] if whole_grain == "with syrup" else D(0))
+    whole_ok = wg >= WHOLE_GRAIN_FLOOR
+    fig["whole grain g"] = str(rnd(wg, "0.01"))
     fig["whole grain floor"] = str(WHOLE_GRAIN_FLOOR)
     fig["fiber pct dv racc"] = str(rnd(per_racc["FIBER_G"] / DV["FIBER_G"] * 100, "0.1")); fig["fiber pct dv serving"] = str(rnd(per["FIBER_G"] / DV["FIBER_G"] * 100, "0.1"))
     fig["sodium racc"] = str(rnd(per_racc["SODIUM_MG"], "0.1")); fig["sodium serving"] = str(rnd(per["SODIUM_MG"], "0.1"))
@@ -198,6 +206,8 @@ VARIANTS = {
     "brown rice syrup taken from the nutrient sheet row at revision 2": ({"sheet_rows": ("RM-2210",)}, "specification in force"),
     "vanilla extract taken from the nutrient sheet row at revision 1": ({"sheet_rows": ("RM-5020",)}, "specification in force"),
     "minerals tested against 2 percent after rounding": ({"mineral_test": "rounded"}, "on the unrounded amount"),
+    "finished weight taken as bars cut times the target weight": ({"finished": "bars"}, "scale ticket net of trim"),
+    "brown rice syrup counted as whole grain": ({"whole_grain": "with syrup"}, "derivative of a whole grain"),
 }
 
 if __name__ == "__main__":
@@ -229,6 +239,15 @@ if __name__ == "__main__":
         rep.expect(f"claim {k}", fig[f"claim {k}"], claims[k])
     note = "\n".join(str(c.value) for row in wb["Note to Priya"].iter_rows() for c in row if c.value)
     stmt, contains, n_decl = ingredient_statement()
+    r6, _ = derive(crisp_rev=6)
+    inv = wb["Inventory Check"]
+    rep.expect("rev 6 sodium per serving", r6["SODIUM_MG unrounded"], str(rnd(D(str(inv["C8"].value)), "0.001")))
+    rep.expect("rev 6 sodium declared", r6["SODIUM_MG declared"], str(int(round(float(inv["C9"].value)))))
+    rep.expect("rev 6 low sodium", r6["claim Low sodium"], inv["C10"].value)
+    rep.expect("rev 6 crisp rice as printed", f"crisp rice ({REV6_SUBS})", inv["C11"].value)
+    rep.expect("panel holds for all inventory", "Yes" if r6["SODIUM_MG declared"] == fig["SODIUM_MG declared"] else "No", rows["Panel holds for all launch inventory"][0])
+    rep.expect("statement holds for all inventory", "No", rows["Ingredient statement holds for all launch inventory"][0])
+    rep.expect("low sodium holds for all inventory", "Yes" if r6["claim Low sodium"] == fig["claim Low sodium"] == "Supported" else "No", rows["Low sodium flag holds for all launch inventory"][0])
     rep.expect("ingredient statement", stmt, rows["Ingredients"][0])
     rep.expect("contains statement", contains, rows["Allergens"][0])
     rep.expect("ingredients declared", str(n_decl), str(wb["Ingredient Statement"]["B19"].value))

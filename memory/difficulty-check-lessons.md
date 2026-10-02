@@ -320,3 +320,36 @@ superseded revision with the rule doc saying the specification in force governs.
   against the reduced figures, because a 0.2 foot closure error moves a 640 foot course's rotation by a minute and every
   threshold figure with it. Pipeline: F1 fires on a cached sine stored in exponent form, turn every azimuth 45 degrees
   before a direction mean; the within-pair bearing test must wrap at north; keep the generator in the task folder.
+
+- 2026-10-01 (carton-bid-evaluation, a second pasted list, five points): the runner-up made the FOB origin two-plant bidder inside the
+  $100 band at the revision B weights; the awardee's total under the approval line only after a correctly credited discount; the
+  5.6 order turning on a withdrawal and resubmission against a bid whose only change was a timely facsimile; a clearance notice
+  naming a lot and a plant but no supplier or hold, resolved through the register's note, beside a look-alike supplier on an open
+  hold; the other hold's clearance set for a review date after the recommendation; the silent set-asides graded at +1 each.
+  Pipeline: a struck literal must be checked against every live figure first (a 0.594 struck as "the old telephone request" was
+  also a bidder's real unit price, G42); G43 names the convention phrase, so a rewritten note must keep the words the verifier
+  lists or the variant list is updated with it; "St. Cloud" in a criterion reads as two sentences to R55, write "Saint Cloud".
+
+- 2026-10-01 (nutrition-panel-granola, the reviewer's third list, after two PASSes): a reviewer can keep
+  sending numbered arms after the difficulty check passes; each list is applied as written and logged by
+  arm. New shapes this round: a superseded revision made numerically consequential (its sodium and
+  sub-ingredients stated in the in-force spec's supersession note, inventory split by pack date in the
+  brief, an explicit prompt ask whether the deliverable holds for all inventory, answered on its own tab
+  with Yes/No rows on the panel); an undeclared compound ingredient with the sheet and brief silent; a
+  declared value two thousandths under a band line; a rule exception that a prominent source description
+  tempts (whole grain from a syrup); a record figure (bar count) that disagrees with the governing scale
+  ticket. Pipeline: a spec table's "38,758 mg" needs the comma stripped in verify_golden.py; a verify
+  comparison of a cached 150 must not go through Decimal.normalize (1.5E+2); W19 also fires on "counts"
+  and "reports"; R89 fires on "/1000" inside a formula, so keep the reference figure in grams.
+
+- 2026-10-01, fourth harden on lien-analysis-larkspur (the reviewer's second itemised list): the asks were to turn Yes/No
+  answers into linked exact figures (held, enforceable, cushion, release, penalty accrued through a named date), a second
+  search run after a deadline but current only through a day before it beside an early claimant with a lis pendens on
+  another APN, a second owner-side dispute beside a contractor-sub dispute the owner takes no position on, a split
+  invoice at the window's edge, the direct contractor's own deadline as a first-tab figure, and the cheapest clearing
+  action named. Design reads: an exact-figure retention ask forces the held figure to be pinnable, so tune one
+  application so the payments total is a whole dollar; a penalty-through-a-date figure needs the due-day rule and the
+  day-count convention both stated in the rules; a search's "current through" date, not its run date, decides expiry,
+  and the golden has to say so. Pipeline: a leftover placeholder in a generated formula makes Excel refuse the save
+  with "Parameter error (-50)", so assert none survive before the resave; R132 fires on "clear" in a rubric row when an
+  input states a rounding rule; a G43 convention phrase must be re-checked after any rewording of the note.

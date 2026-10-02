@@ -64,7 +64,9 @@ def doc_text(path):
 
 # ---------------------------------------------------------------- practice note: the rules and constants
 note, _ = doc_text(INPUTS / "practice_note_pn14_mechanics_liens.docx")
-for phrase in ("within 15 days after completion", "within 10 days after it is recorded", "30 days after the owner records a notice of completion",
+for phrase in ("current through a day after the last day to commence the action", "does not keep this lien alive",
+               "not moved by sections 12a and 12b", "computed by the day on a 30 day month", "on which the owner has taken no position is not",
+               "within 15 days after completion", "within 10 days after it is recorded", "30 days after the owner records a notice of completion",
                "60 days after the owner records a notice of completion", "ineffective to shorten the time",
                "the 90 days after completion is that claimant's period", "not later than 20 days after the claimant first furnishes",
                "within 90 days after the claim is recorded", "125 percent of the amount of the claim of lien as recorded",
@@ -74,33 +76,41 @@ for phrase in ("within 15 days after completion", "within 10 days after it is re
                "only once the bank has paid it", "A payment the claimant receives after it records reduces what it can enforce", "finance charges",
                "a change order request that was not approved adds nothing to it", "saves only a disputed claim for extras that the form states in a dollar amount",
                "A document in any other form does not release the lien", "retention included", "direct contractual relationship with the owner",
-               "only on a search run after the last day", "unenforceable as a matter of law", "at the address shown on the building permit",
+               "unenforceable as a matter of law", "at the address shown on the building permit",
                "accepts a preliminary notice mailed to the owner at the address the permit shows",
                "as adjusted by the change orders the owner has approved", "within 45 days after completion", "withhold 150 percent",
-               "less 150 percent of any amount in good faith dispute, and never less than zero", "2 percent per month on that amount"):
+               "less 150 percent of any amount in good faith dispute, and never less than zero", "2 percent per month on the amount due for release"):
     assert phrase in note, phrase
 NOC_DAYS, COPY_DAYS, SUB_DAYS, DC_DAYS, NO_NOC_DAYS, PRELIM_DAYS, ACTION_DAYS, BOND_PCT = 15, 10, 30, 60, 90, 20, 90, D(125)
-RET_DAYS, DISPUTE_PCT, PENALTY_PCT = 45, D(150), D(2)
+RET_DAYS, DISPUTE_PCT, PENALTY_PCT, DAYS_MONTH = 45, D(150), D(2), 30
 
 # ---------------------------------------------------------------- close-out file
 corr, cdoc2 = doc_text(INPUTS / "completion_and_correspondence_larkspur.docx")
 COMPLETION = longdate(re.search(r"was completed on ([A-Z][a-z]+ \d+, \d{4})", corr).group(0))
 NOC_RECORDED = longdate(re.search(r"Recorded ([A-Z][a-z]+ \d+, \d{4}), Placer County Recorder, Document No\. 2026-0081562", corr).group(0))
-INDEX_DATE = longdate(re.search(r"civil case index search, run ([A-Z][a-z]+ \d+, \d{4})", corr).group(0))
-assert "no civil action found naming Piedmont Ridge Properties" in corr and "no notice of pendency of action" in corr
+SEARCHES = []
+for m in re.finditer(r"civil case index search, run ([A-Z][a-z]+ \d+, \d{4}).*?current (?:only )?through the close of business on ([A-Z][a-z]+ \d+)(?:, (\d{4}))?", corr, re.S):
+    SEARCHES.append(dict(run=longdate(m.group(1)), through=longdate(f"{m.group(2)}, {m.group(3) or 2026}")))
+assert [s_["run"] for s_ in SEARCHES] == [dt.date(2026, 10, 2), dt.date(2026, 10, 8)] and [s_["through"] for s_ in SEARCHES] == [dt.date(2026, 9, 30), dt.date(2026, 10, 2)], SEARCHES
+assert "no action found with any of the seventeen claimants as plaintiff in which the property at 2210 Pleasant Grove Boulevard is described" in corr
+assert "no notice of pendency of action" in corr and "indexed against APN 480-210-041 only" in corr
 assert "no notice of credit" in corr and "no release of any claim" in corr
 NO_ACTION = True
 RETENTION = dollars(re.search(r"will stand at (\$[\d,]+\.\d\d) once application 8 is certified", corr).group(1))
 ADJUSTED = dollars(re.search(r"six approved change orders, (\$[\d,]+\.\d\d) against the original", corr).group(1))
 CONTRACT_SIGNED = dollars(re.search(r"against the original (\$[\d,]+\.\d\d)", corr).group(1))
 HVAC = dollars(re.search(r"estimated the correction at (\$[\d,]+\.\d\d)", corr).group(1))
-assert "disputes that the shortfall is its responsibility" in corr
+PAVING = dollars(re.search(r"back charged Dunmore-Kettle (\$[\d,]+\.\d\d) for it", corr).group(1))
+assert "disputes that the shortfall is its responsibility" in corr and "Dunmore-Kettle contests the survey" in corr
+assert "The plaster patching back charge Dunmore-Kettle has made to Calder Drywall is between the two of them, and we have taken no position on it" in corr
+CLOSING = longdate(re.search(r"set to close on ([A-Z][a-z]+ \d+, \d{4})", corr).group(1))
 m = re.search(r"up to (\d+) percent of the value in the bank's appraisal, which came in at (\$[\d,]+\.\d\d)", corr)
 LINE_PCT, APPRAISAL = D(m.group(1)), dollars(m.group(2))
 SURETY_LINE = r2(APPRAISAL * LINE_PCT / 100)
 PERMIT_ADDRESS = re.search(r"old office, (1440 Eureka Road, Suite 100), as the owner's address on that permit", corr).group(1)
 BANK_DATE = "November 6" in corr
-assert "how much of Dunmore-Kettle's retention we have to release now" in corr
+assert "how much of Dunmore-Kettle's retention we have to release now" in corr and "through the closing on November 20" in corr
+assert "tell me the cheapest way to bring the bonds inside it" in corr and "tell me how long it has to do that" in corr
 recorder_rows = [[c.text for c in r.cells] for r in cdoc2.tables[0].rows[1:]]
 notice_e = corr[corr.index("E. Public notice of office closures"):]
 HOLIDAYS = {longdate(m.group(1)) for m in re.finditer(r"closed on (?:Monday|Tuesday|Wednesday|Thursday|Friday), ([A-Z][a-z]+ \d{1,2}, \d{4}), Labor Day", notice_e)}
@@ -126,7 +136,9 @@ for m in re.finditer(r"Claim (\d+)\. (.+?), recorded ([A-Z][a-z]+ \d+, \d{4}), D
                         direct="at the request of Piedmont Ridge Properties, LLC, the owner" in item5,
                         served_owner_office=service.startswith("the owner at Piedmont Ridge Properties") and "3100 Douglas Boulevard" in service,
                         served_permit=service.startswith("the owner at Piedmont Ridge Properties") and PERMIT_ADDRESS in service and "building permit" in service)
-assert len(CLAIMS) == 16
+assert len(CLAIMS) == 17
+OTHER_PROPERTY_ACTIONS = {n for n in CLAIMS if re.search(re.escape(n) + r" v\. Piedmont Ridge Properties, LLC, case no\. \S+, filed [A-Z][a-z]+ \d+, \d{4}, a complaint to foreclose a claim of mechanics lien on APN 480-210-041", corr)}
+assert OTHER_PROPERTY_ACTIONS == {"Auburn Scaffold & Shoring, Inc."}, OTHER_PROPERTY_ACTIONS
 assert sorted(r[0] for r in recorder_rows if r[2] == "Claim of mechanics lien") == sorted(c["doc"] for c in CLAIMS.values())
 POS, STATEMENTS = {}, {}
 for tbl in cdoc.tables:
@@ -160,7 +172,7 @@ PRELIM = {}
 for r in wb["Prelim Log"].iter_rows(min_row=5, values_only=True):
     if r[0]:
         PRELIM[r[0]] = dict(on_notice=mdy(r[3]), mailed=mdy(r[4]), received=mdy(r[5]), first=mdy(r[6]))
-assert "Granite Bay Sheet Metal, Inc." not in PRELIM and "Norcal Rebar & Mesh, LLC" not in PRELIM
+assert "Granite Bay Sheet Metal, Inc." not in PRELIM and "Norcal Rebar & Mesh, LLC" not in PRELIM and "Auburn Scaffold & Shoring, Inc." in PRELIM
 SUBVAL, SUBCO = {}, {}
 for r in wb["Subcontractors"].iter_rows(min_row=4, values_only=True):
     if r[0]:
@@ -295,7 +307,7 @@ def components(name):
             if h["balance"] > 0:
                 out.append((f"{h['inv']} {h['ticket']}", h["date"] or h["invdate"], h["balance"], "charges" if h["charge"] else "materials", h["invdate"]))
         return out
-    if name in ("Norcal Rebar & Mesh, LLC", "Foothill Ready Mix, Inc.", "Granite Bay Sheet Metal, Inc."):
+    if name in ("Norcal Rebar & Mesh, LLC", "Foothill Ready Mix, Inc.", "Granite Bay Sheet Metal, Inc.", "Auburn Scaffold & Shoring, Inc."):
         return [("materials", c["last"], c["amount"], "materials", c["last"])]
     if name == "Tallac Concrete, Inc.":
         ret = r2(SUBVAL[name] * D("0.05"))
@@ -323,7 +335,8 @@ def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, joint_
            prelim_days=PRELIM_DAYS, noc_inclusive=False, cond_on_signing=False, issued_is_paid=False, uncond_needs_payment=False,
            final_saves_retention=False, final_exception=True, other_form_releases=False, price_rule=True, service_checked=True,
            permit_address_ok=True, permit_notice_ok=True, dc_notice_suffices=False, expiry="search", bond_pct=BOND_PCT, bond_round="each",
-           deadline_from="noc", held_basis="adjusted", dispute_pct=DISPUTE_PCT, claims_withheld=True):
+           deadline_from="noc", held_basis="adjusted", dispute_pct=DISPUTE_PCT, claims_withheld=True, second_dispute=True, plaster_counted=False,
+           search_by="through", other_property_counts=False, due_extended=False, penalty_by="day"):
     fig, standing = {}, {}
     hol = HOLIDAYS | (CLOSURES if closure_is_holiday else set())
     ext = (lambda d: extend(d, hol)) if weekend_ext else (lambda d: d)
@@ -341,8 +354,12 @@ def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, joint_
     fig["last day others"] = fmt(last_sub)
     fig["last day direct contractor with notice"] = fmt(last_dc)
     fig["last day without notice"] = fmt(last_none)
-    fig["retention due"] = fmt(extend(COMPLETION + dt.timedelta(days=RET_DAYS), hol))
-    fig["withhold for hvac"] = money(r2(HVAC * dispute_pct / 100))
+    due_day = COMPLETION + dt.timedelta(days=RET_DAYS)
+    if due_extended:
+        due_day = extend(due_day, hol)
+    fig["retention due"] = fmt(due_day)
+    disputed = HVAC + (PAVING if second_dispute else D(0)) + (D("29200") if plaster_counted else D(0))
+    fig["withhold for hvac"] = money(r2(disputed * dispute_pct / 100))
     fig["held on the direct contract"] = money(held)
     fig["surety line"] = money(SURETY_LINE)
 
@@ -391,8 +408,10 @@ def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, joint_
         served = c["served_owner_office"] or (c["served_permit"] and permit_address_ok) or not service_checked
         # ---- expiry
         due = ext(c["recorded"] + dt.timedelta(days=ACTION_DAYS))
+        own_action = name in OTHER_PROPERTY_ACTIONS and other_property_counts
+        covered = max((s_["through"] if search_by == "through" else s_["run"]) for s_ in SEARCHES)
         if expiry == "search":
-            expired = NO_ACTION and INDEX_DATE > due
+            expired = (not own_action) and covered > due
         elif expiry == "due date alone":
             expired = NO_ACTION and dt.date(2026, 10, 20) > due
         else:
@@ -488,8 +507,16 @@ def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, joint_
         total_bond = D(math.ceil(total_bond_exact))
     elif bond_round == "cent":
         total_bond = r2(total_bond_exact)
-    withhold = r2(HVAC * dispute_pct / 100)
+    withhold = r2(disputed * dispute_pct / 100)
     release = max(D(0), r2(held - (chain_enf if claims_withheld else D(0)) - withhold))
+    pen_days = (CLOSING - due_day).days
+    if penalty_by == "day":
+        pen_total = r2(release * PENALTY_PCT / 100 / DAYS_MONTH * pen_days)
+    else:
+        pen_total = r2(release * PENALTY_PCT / 100 * math.ceil(pen_days / DAYS_MONTH))
+    bonded = {n: (D(fig[f"{n} enforceable"].replace(",", "")), D(fig[f"{n} bond"].replace(",", ""))) for n in CLAIMS if fig[f"{n} standing"] == "Enforceable"}
+    clear_who = min(bonded, key=lambda n: bonded[n][0]) if bonded else ""
+    clear_amt, clear_bond = bonded.get(clear_who, (D(0), D(0)))
     fig["claims as recorded"] = money(total_rec)
     fig["enforceable total"] = money(total_enf)
     fig["bonds total"] = money(total_bond)
@@ -504,8 +531,15 @@ def derive(weekend_ext=True, closure_is_holiday=True, later_payment=True, joint_
     fig["noc effective"] = "Yes" if noc_ok else "No"
     fig["retention to release"] = money(release)
     fig["penalty per month"] = money(r2(release * PENALTY_PCT / 100))
+    fig["penalty days to closing"] = pen_days
+    fig["penalty through closing"] = money(pen_total)
+    fig["cheapest claim to clear"] = clear_who
+    fig["payment that clears it"] = money(clear_amt)
+    fig["bonds after that payment"] = money(total_bond - clear_bond)
+    fig["inside the line after that payment"] = money(SURETY_LINE - (total_bond - clear_bond))
     for k in ("last day others", "last day Dunmore-Kettle", "bonds total", "enforceable under the direct contract", "bonds fit the line", "held covers",
-              "claims to bond", "noc effective", "held on the direct contract", "held over the enforceable claims", "retention to release", "penalty per month"):
+              "claims to bond", "noc effective", "held on the direct contract", "held over the enforceable claims", "retention to release", "penalty per month",
+              "penalty through closing", "cheapest claim to clear", "bonds after that payment"):
         standing[k] = fig[k]
     return fig, standing
 
@@ -540,15 +574,21 @@ VARIANTS = {
     "service at the building permit address rejected": ({"permit_address_ok": False}, "address shown on the building permit"),
     "preliminary notice to the owner at the permit address rejected": ({"permit_notice_ok": False}, "given to the owner although the owner's log never recorded it"),
     "notice to the direct contractor alone accepted": ({"dc_notice_suffices": True}, "never given to the owner"),
-    "expiry judged by the due date without a later search": ({"expiry": "due date alone"}, "before its last day"),
+    "expiry judged by the due date without a later search": ({"expiry": "due date alone"}, "current only through October 2"),
     "ninety day expiry not checked": ({"expiry": "none"}, "has expired"),
     "bond measured at 100 percent": ({"bond_pct": D(100)}, "125 percent"),
     "bonds rounded once on the total": ({"bond_round": "total"}, "rounded once"),
     "bonds computed to the cent": ({"bond_round": "cent"}, "Computed to the cent"),
     "thirty days counted from completion": ({"deadline_from": "completion"}, "thirtieth day after the notice of completion was recorded"),
     "money held measured against the contract sum as signed": ({"held_basis": "signed"}, "adjusted by the six approved change orders"),
-    "dispute hold at 100 percent of the estimate": ({"dispute_pct": D(100)}, "A hold at 100 percent of the estimate"),
+    "dispute hold at 100 percent of the estimate": ({"dispute_pct": D(100)}, "A hold at 100 percent of the disputed amounts"),
     "enforceable claims of record not withheld from what is due": ({"claims_withheld": False}, "enforceable claims of record under the contract"),
+    "the paving back charge not counted as a dispute": ({"second_dispute": False}, "$14,000.00 paving back charge"),
+    "the plaster back charge counted as the owner's dispute": ({"plaster_counted": True}, "between Dunmore-Kettle and Calder Drywall"),
+    "a search read by the day it was run": ({"search_by": "run"}, "current only through October 2"),
+    "an action on another property treated as enforcing the lien": ({"other_property_counts": True}, "another property"),
+    "the retention due date carried over the closed Friday": ({"due_extended": True}, "is therefore not moved"),
+    "the penalty counted per month or part of a month": ({"penalty_by": "month"}, "by the day on a 30 day month"),
 }
 
 if __name__ == "__main__":
@@ -586,7 +626,7 @@ if __name__ == "__main__":
         rep.expect(f"{name} bond", fig[f"{name} bond"], money(g("RELEASE_BOND")))
         rep.expect(f"{name} recorded amount", money(CLAIMS[name]["amount"]), money(g("AMOUNT_AS_RECORDED")))
         rep.expect(f"{name} recorded", fmt(CLAIMS[name]["recorded"]), g("RECORDED"))
-    rep.expect("claims as recorded", fig["claims as recorded"], money(kv("Amount of the sixteen claims as recorded")))
+    rep.expect("claims as recorded", fig["claims as recorded"], money(kv("Amount of the seventeen claims as recorded")))
     rep.expect("enforceable total", fig["enforceable total"], money(kv("Amount the claimants could enforce against the property")))
     rep.expect("bonds total", fig["bonds total"], money(kv("Release bonds required, total penal sum at 125 percent")))
     rep.expect("release demands amount", fig["release demands amount"], money(kv("Recorded amount of the claims to demand released")))
@@ -603,6 +643,13 @@ if __name__ == "__main__":
     rep.expect("retention due", fig["retention due"], kv("Date the retention fell due"))
     rep.expect("retention to release", fig["retention to release"], money(kv("Retention Piedmont Ridge must release to Dunmore-Kettle now")))
     rep.expect("penalty per month", fig["penalty per month"], money(kv("Penalty for each month all of it is held past the due date")))
+    rep.expect("penalty days to closing", fig["penalty days to closing"], kv("Days from the due date to the refinance closing"))
+    rep.expect("penalty through closing", fig["penalty through closing"], money(kv("Penalty accrued if all of it is held through the refinance closing")))
+    rep.expect("cheapest claim to clear", fig["cheapest claim to clear"], kv("Claim cheapest to clear by paying its enforceable amount"))
+    rep.expect("payment that clears it", fig["payment that clears it"], money(kv("Payment that clears it, against an unconditional final release")))
+    rep.expect("bonds after that payment", fig["bonds after that payment"], money(kv("Bonds required after that payment")))
+    rep.expect("inside the line after that payment", fig["inside the line after that payment"], money(kv("Room inside the surety's line after that payment")))
+    rep.expect("dk last day on the answers", fig["last day Dunmore-Kettle"], kv("Last day for Dunmore-Kettle Builders to record its own claim"))
     # working tabs
     p = gwb["Notices"]
     for r in range(4, 4 + len(CLAIMS)):
@@ -624,7 +671,8 @@ if __name__ == "__main__":
     pr = gwb["Parameters"]
     prm = {pr.cell(row=r, column=1).value: pr.cell(row=r, column=2).value for r in range(4, 70) if pr.cell(row=r, column=1).value}
     rep.expect("retention due (parameters)", fig["retention due"], prm["Retention due to the direct contractor"])
-    rep.expect("withhold for hvac", fig["withhold for hvac"], money(prm["Retention the owner may withhold for the rooftop unit correction"]))
+    rep.expect("withhold for disputes", fig["withhold for hvac"], money(prm["Retention the owner may withhold for the amounts in good faith dispute"]))
+    rep.expect("paving back charge", money(PAVING), money(prm["Site paving back charge the direct contractor contests in writing"]))
     rep.expect("retention withheld", money(RETENTION), money(prm["Retention withheld from the direct contractor"]))
     rep.expect("application 8 net", money(APP8_NET), money(prm["Application 8 unpaid, net of its retention"]))
     rep.expect("paid to the direct contractor", money(paid_dk), money(prm["Paid to the direct contractor to date"]))
@@ -637,7 +685,7 @@ if __name__ == "__main__":
                    f"${fig['held over the enforceable claims']}", f"${money(HELD_SIGNED)}", f"${fig['retention to release']}", f"${fig['penalty per month']}",
                    f"${fig['surety line']}", f"${fig['bonds over the line']}",
                    "$29,091.69", "$8,125.00", "$85,235.00", "$61,477.00", "$38,915.00", "$25,080.00", "$17,204.84", "$7,132.50", "$13,040.00", "$18,360.00",
-                   "$8,940.00", "$14,540.00", "$1,500.00", "$9,467.50", "November 9, 2026", "October 5, 2026", "September 28, 2026", "check 4460", "check 4474",
+                   "$8,940.00", "$14,540.00", "$1,500.00", "$640.00", "$9,467.50", "$11,480.00", "$14,000.00", "$54,000.00", "November 9, 2026", "October 5, 2026", "October 1, 2026", "September 25", "October 2", "check 4460", "check 4474", f"${fig['penalty through closing']}", f"${fig['bonds after that payment']}", "56 days",
                    "check 4479", "joint check 4488", "May 9", "January 27", "certified mail number 7022 1670 0002 3391 4399", "1440 Eureka Road", "permit B25-1187", f"${fig['claims as recorded']}",
                    f"${fig['release demands amount']}"):
         rep.expect(f"note states {phrase}", phrase in ntext, True)

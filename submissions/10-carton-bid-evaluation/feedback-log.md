@@ -127,3 +127,29 @@ Operator pasted a six-point list ("How to harden the task") on top of the same d
 5. Re-enter the rubric: 27 criteria from the CSV, positive 33 / negative 18, formatting row last; confirm the count on the form reads 27.
 6. Times 15 / 180 / 300 / 120, total 10.25; tools unchanged.
 7. Section 3: the reviewer's note is answered by the operator from the three 2026-09-29/30 entries.
+
+## 2026-10-01 · Operator · five-point hardening list · NEEDS_REVISION (unchanged)
+
+Operator pasted a second list ("How to harden the task", five points) on top of the 2026-09-30 package. Every point applied as an arm of a rule already in the file; eight inputs, eleven bids, no new file.
+
+**Findings (the five directions as applied)**
+1. Dahlgren is now the FOB origin bidder from two plants, items 1 to 3 from St. Cloud (Minnesota rate) and items 4 and 5 from Eau Claire (Wisconsin rate), $6,062.20 on 838 and 630 hundredweight at the revision B weights; it evaluates at $99,700.20, $61.79 under Pemberton, so freight, the weight revision and 5.6 decide the order (rated at revision A, or at one plant's rate, it stands clear of the band and wins).
+2. Pemberton's terms are 1% 20, net 30 and its item 5 price 0.985: the award is $99,761.99, under the PP-3.5.3 line only after the $989.01 credit is correctly taken ($100,750.99 before it), so the director of supply chain approves and not the vice president reading the memo.
+3. Pemberton's envelope is logged October 2 at 10:26 and its only change is the facsimile of October 6; Dahlgren delivered an envelope on October 1, withdrew it by letter on October 5 (handed back) and delivered a new one at 09:52 on October 6, so 3.4 times Dahlgren from the resubmission and Pemberton is first. Dahlgren's telephone message moved to 09:56 ("item 1 to be read at 0.548"). Ridgecrest no longer withdraws.
+4. The October 15 clearance notice names only verification lot P-26-1009 and the Neenah plant; the register note on QH-26-034 names that lot, and a look-alike "Pemberton Fibre Products, Green Bay" sits on open hold QH-26-029 with a different lot. The October 20 e-mail says clearances are signed at the monthly review on October 28, after the recommendation date, so QH-26-031 stays open; "Loken Container Supply, Sioux City" stays as the other decoy.
+5. Thorsgard, Kessel and Brannock each take a +1 row; Wenzel & Krause's 10:07 facsimile keeps its -3 negative (R104 bars a positive on the same rule). Thorsgard at $98,883.64 is the lowest responsive-looking price after its credit.
+
+**Actions taken**
+- Generator patched (patch4.py) and the package regenerated: receipt log renumbered R-1039 to R-1063 with the Dahlgren withdrawal and resubmission, the register's new look-alike hold, the correspondence rewritten (Dahlgren's withdrawal letter, the lot-and-plant notice, the October 28 e-mail), the golden's Freight tab carrying three FOB origin bidders with per-bidder hundredweight lines, the note rewritten, Excel-recalculated. verify_golden.py resolves the notice through the register note, reads multi-plant letters, adds the re-timing variant (447 figures, 24 variants, 60 near flips).
+- Rubric 32 rows, positive 33 / negative 20: the two-plant freight row (+2), Thorsgard, Kessel and Brannock (+1 each) and a -2 on timing Pemberton's bid from its facsimile added; L&V 10:00, the informality, Ridgecrest, Mesabi and Halvard cut from +2 to +1; the Pemberton responsibility row now names the lot and plant. "St. Cloud" is written "Saint Cloud" in a criterion because R55 reads the period as a sentence end.
+- Gate 0 errors; package sweep clean; clause-map.md (Rebuilt: 2026-10-01) and struck-phrases.md updated (a struck "0.594" was withdrawn because it is Halvard's real item 1 price).
+- Coded check: none added; design arms under PR21/PR22.
+
+**Form actions** (supersede the earlier lists)
+1. Section 1: set the occupation to Purchasing Managers under Management.
+2. Replace the prompt with instruction.md (unchanged since 2026-09-29).
+3. Input File List: eight entries from form-lists.md.
+4. Re-upload i-carton-bid-evaluation.zip (eight members) and s-carton-bid-evaluation.zip; delete the old input upload; confirm both uploadedAt stamps moved on a re-fetch and read input_files back against the zip.
+5. Re-enter the rubric: 32 criteria from the CSV, positive 33 / negative 20, formatting row last; confirm the count on the form reads 32.
+6. Times 15 / 180 / 300 / 120, total 10.25; tools unchanged.
+7. Section 3: the reviewer's note is answered by the operator from the 2026-09-29 to 10-01 entries.

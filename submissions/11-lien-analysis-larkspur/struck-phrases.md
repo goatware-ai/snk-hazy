@@ -53,3 +53,22 @@ Phrases and claims this revision removed, each as a quoted literal or a /pattern
 - "Document No. 2026-0098955" - third harden, 2026-09-30 (reviewer item 2): Sierra Pipe's claim moved to October 1, 2026 under Document No. 2026-0101690.
 - "Norman S. Wright" - third harden, 2026-09-30: a real manufacturer's representative, replaced by Pacific Comfort Products.
 - "Date: Saturday, October 3, 2026, 8:51 am" - third harden, 2026-09-30 (reviewer item 3): the ledger email moved to October 10 to carry the joint check.
+- /sixteen (recorded )?claims/ - fourth harden, 2026-10-01: the file now holds seventeen recorded claims.
+- /each of the sixteen claimants/ - fourth harden, 2026-10-01: seventeen claimants are searched.
+- "The same tab has to answer what Nadia asked in her email: whether the bonds fit inside the line her surety will write, whether the money Piedmont Ridge still holds on the Dunmore-Kettle contract covers what the claimants under that contract could enforce, and how much of the retention has to be released now and what each month of holding all of it costs." - fourth harden, 2026-10-01 (reviewer items 1, 5 and 6): the prompt now asks for each answer as a figure, the cheapest way inside the line, the penalty through the closing, and the direct contractor's own last day.
+- "$317,135.50" - fourth harden, 2026-10-01: the money held before change orders 1 to 6 rose to $100,000.00 and application 2 was certified at $333,680.00.
+- "$38,554.47" - fourth harden, 2026-10-01: the sixteen-claim cushion.
+- "$5,554.47" - fourth harden, 2026-10-01: the sixteen-claim retention due for release; the second dispute moved it.
+- "$111.09" - fourth harden, 2026-10-01: the sixteen-claim monthly penalty.
+- "$3,828,250.00" - fourth harden, 2026-10-01: the adjusted contract sum before the change orders rose.
+- "$191,412.50" - fourth harden, 2026-10-01: the retention before the change orders rose.
+- "$579,921.79" - fourth harden, 2026-10-01: the sixteen claims as recorded.
+- "$118,829.14" - fourth harden, 2026-10-01: the six claims to demand released; a seventh joined them.
+- "The index was current through the close of business on October 1 when the search was run" - fourth harden, 2026-10-01 (reviewer item 2): the first search is current through September 30 and a second search of October 8 is current only through October 2.
+- "no civil action found naming Piedmont Ridge Properties, LLC as a defendant" - fourth harden, 2026-10-01 (reviewer item 2): the scaffold lessor's Building A action now appears on both searches.
+- "A search proves nothing about days it did not cover. A lien is treated as expired only on a search run after the last day to commence the action." - fourth harden, 2026-10-01 (reviewer item 2): PN-14 4.1 now reads searches by the day they are current through.
+- "The penalty under section 8818(a) runs at 2 percent per month on that amount from the day the retention fell due." - fourth harden, 2026-10-01 (reviewer item 1): PN-14 4.5 now fixes the due day as the forty-fifth day, unmoved, and computes the penalty by the day.
+- "the forty-fifth day having been the closed Friday" - fourth harden, 2026-10-01 (reviewer item 1): the due date is no longer carried over the closure.
+- "One item for the file: Kastner's testing" - fourth harden, 2026-10-01 (reviewer item 3): the memorandum now carries two items, the second the $14,000.00 paving back charge, and the plaster back charge is stated to be between Dunmore-Kettle and Calder Drywall.
+- "Invoice C-11842, ticket D-30117, temporary power panel and service conductors" - fourth harden, 2026-10-01 (reviewer item 4): the invoice now splits over two tickets, 01/26/2026 and 01/27/2026, either side of the notice window.
+- "T-89131 | 05/12/2026" - fourth harden, 2026-10-01 (reviewer item 4): Hedrick's companion ticket on invoice S-41188 was delivered 05/09/2026, the first day of its window.

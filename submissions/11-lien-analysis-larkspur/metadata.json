@@ -8,13 +8,13 @@
   },
   "input_files": [
     "practice_note_pn14_mechanics_liens.docx - the firm's practice note on mechanics lien claims on private works: who is a direct contractor, preliminary notice, completion and the notice of completion and the copies the owner has to give, the time to record, service of the claim, the amount of the lien, the four waiver and release forms, the 90 day enforcement period, the owner's remedies, and the counting conventions the office uses",
-    "claims_of_lien_larkspur_crossing.docx - the sixteen claims of mechanics lien recorded against the property, transcribed from the recorder's copies with each proof of service affidavit and the exhibits five claimants attached, three statements of account and two proofs of service of preliminary notice",
+    "claims_of_lien_larkspur_crossing.docx - the seventeen claims of mechanics lien recorded against the property, transcribed from the recorder's copies with each proof of service affidavit and the exhibits five claimants attached, three statements of account and two proofs of service of preliminary notice",
     "owner_project_file_larkspur.xlsx - the owner's project file: the preliminary notices received, the waivers and releases received with each payment application, the owner's payments to the direct contractor with retention and the approved change orders, the agreements the owner signed itself, the subcontractor list with subcontract values, and the outgoing certified mail log with its returned mail record",
     "dk_subcontractor_payments.csv - the direct contractor's subcontractor payment ledger for the job, every check and stop payment entered against a subcontractor with its payment application, amount, and the date the check paid at the bank",
-    "completion_and_correspondence_larkspur.docx - the notice of completion as recorded, the construction manager's two memoranda on completion and on the copies of the notice, the email exchange among the owner, the direct contractor, and the firm, the civil index and recorder searches, and the court's public notice of office closures"
+    "completion_and_correspondence_larkspur.docx - the notice of completion as recorded, the construction manager's two memoranda on completion and on the copies of the notice, the email exchange among the owner, the direct contractor, and the firm, the two civil index and recorder searches with the days each is current through, and the court's public notice of office closures"
   ],
   "output_files": [
-    "lien_analysis_larkspur_crossing.xlsx - the lien analysis workbook with the page for the partner and the answers for the owner on the bonds, the money held, and the retention, the governing dates, the preliminary notice, notice of completion copy, and deadline tests, the waivers read against the payment ledger, each claim built up to its enforceable amount, the standing and bond for each claim, and the note to the partner"
+    "lien_analysis_larkspur_crossing.xlsx - the lien analysis workbook with the page for the partner and the answers for the owner on the bonds and the cheapest way inside the line, the money held, the retention and its penalty, and the direct contractor's own last day, the governing dates, the preliminary notice, notice of completion copy, and deadline tests, the waivers read against the payment ledger, each claim built up to its enforceable amount, the standing and bond for each claim, and the note to the partner"
   ],
   "input_file_count": 5,
   "output_file_count": 1,
@@ -23,14 +23,14 @@
     "Microsoft Word"
   ],
   "time_read_minutes": 20,
-  "time_files_minutes": 150,
-  "time_work_minutes": 390,
+  "time_files_minutes": 160,
+  "time_work_minutes": 420,
   "time_qa_minutes": 110,
-  "total_time_hours": 11.5,
-  "task_instruction": "Nadia at Piedmont Ridge wants the Larkspur Crossing liens dealt with before the refinance closes on November 20, and Marguerite has to tell her by the end of the month which claims we demand released and which the bank will make us bond. I'm the paralegal on the Piedmont Ridge account at Ferraro Whitcombe in Sacramento, California, and the first analysis on every lien file the office defends starts with me. I am in trial in Redding through the 16th, so I am handing this one to you because you have worked mechanics lien claims in this office for years and can read a waiver form against a check register without the Code open beside you. The file is in the folder: practice_note_pn14_mechanics_liens.docx, claims_of_lien_larkspur_crossing.docx, owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx. The claims are our transcriptions of the recorder's copies with whatever each claimant attached, and the payments file is what Dunmore-Kettle's controller sent when Marguerite asked for it.\n\nBuild the analysis as one workbook named lien_analysis_larkspur_crossing.xlsx. The first tab is what Marguerite reads: for each recorded claim, whether the claimant has lien rights at all, whether the claim was recorded in time, what the waivers on file do to it, the amount the claimant could actually enforce against the property, what we do about it, and what a release bond would have to be for each lien we cannot clear. The same tab has to answer what Nadia asked in her email: whether the bonds fit inside the line her surety will write, whether the money Piedmont Ridge still holds on the Dunmore-Kettle contract covers what the claimants under that contract could enforce, and how much of the retention has to be released now and what each month of holding all of it costs. Behind it I want the dates worked from the notice of completion under the practice note, the preliminary notices and the waivers checked claimant by claimant against the payments, and each enforceable amount built up so that Marguerite can follow every dollar to the claim or the ledger it came from. Put a note to Marguerite on the last tab with anything the file leaves open and anything that cuts against what Nadia expects. Nadia's position with the bank is that every claim is either late, waived, or Dunmore-Kettle's to answer, and if the record says otherwise Marguerite needs to hear it from us first. I need the workbook by Tuesday, October 20.",
+  "total_time_hours": 12,
+  "task_instruction": "Nadia at Piedmont Ridge wants the Larkspur Crossing liens dealt with before the refinance closes on November 20, and Marguerite has to tell her by the end of the month which claims we demand released and which the bank will make us bond. I'm the paralegal on the Piedmont Ridge account at Ferraro Whitcombe in Sacramento, California, and the first analysis on every lien file the office defends starts with me. I am in trial in Redding through the 16th, so I am handing this one to you because you have worked mechanics lien claims in this office for years and can read a waiver form against a check register without the Code open beside you. The file is in the folder: practice_note_pn14_mechanics_liens.docx, claims_of_lien_larkspur_crossing.docx, owner_project_file_larkspur.xlsx, dk_subcontractor_payments.csv, and completion_and_correspondence_larkspur.docx. The claims are our transcriptions of the recorder's copies with whatever each claimant attached, and the payments file is what Dunmore-Kettle's controller sent when Marguerite asked for it.\n\nBuild the analysis as one workbook named lien_analysis_larkspur_crossing.xlsx. The first tab is what Marguerite reads: for each recorded claim, whether the claimant has lien rights at all, whether the claim was recorded in time, what the waivers on file do to it, the amount the claimant could actually enforce against the property, what we do about it, and what a release bond would have to be for each lien we cannot clear. The same tab has to answer what Nadia asked in her email, each as a figure she can read off: whether the bonds fit inside the line her surety will write and the cheapest way to bring them inside it, whether the money Piedmont Ridge still holds on the Dunmore-Kettle contract covers what the claimants under that contract could enforce, how much of the retention has to be released now and what the penalty comes to through the closing if all of it is held, and how long Dunmore-Kettle has to record a claim of its own. Behind it I want the dates worked from the notice of completion under the practice note, the preliminary notices and the waivers checked claimant by claimant against the payments, and each enforceable amount built up so that Marguerite can follow every dollar to the claim or the ledger it came from. Put a note to Marguerite on the last tab with anything the file leaves open and anything that cuts against what Nadia expects. Nadia's position with the bank is that every claim is either late, waived, or Dunmore-Kettle's to answer, and if the record says otherwise Marguerite needs to hear it from us first. I need the workbook by Tuesday, October 20.",
   "rubric": [
     {
-      "description": "The workbook named lien_analysis_larkspur_crossing.xlsx states the standing of each of the 16 recorded claims on its first worksheet.",
+      "description": "The workbook named lien_analysis_larkspur_crossing.xlsx states the standing of each of the 17 recorded claims on its first worksheet.",
       "weight": 1
     },
     {
@@ -50,15 +50,7 @@
       "weight": 1
     },
     {
-      "description": "Petrakis Plumbing's claim is found untimely.",
-      "weight": 1
-    },
-    {
       "description": "Sierra Pipe & Supply's claim is found untimely.",
-      "weight": 1
-    },
-    {
-      "description": "The notice of completion is found effective under section 8182.",
       "weight": 1
     },
     {
@@ -70,7 +62,7 @@
       "weight": 1
     },
     {
-      "description": "Lindqvist Fire Protection's claim is found served on the owner.",
+      "description": "Auburn Scaffold & Shoring's lien is found expired.",
       "weight": 1
     },
     {
@@ -94,14 +86,6 @@
       "weight": 1
     },
     {
-      "description": "Fenwick Roofing's claim is found released in full.",
-      "weight": 1
-    },
-    {
-      "description": "Abrego Glass & Glazing's claim is found not served on the owner.",
-      "weight": 1
-    },
-    {
       "description": "Bautista Painting's enforceable amount is stated as $8,125 on the first worksheet.",
       "weight": 1
     },
@@ -114,7 +98,19 @@
       "weight": 1
     },
     {
-      "description": "The first worksheet answers that the money the owner holds on the Dunmore-Kettle contract covers the claims enforceable under it.",
+      "description": "The claim to settle by payment against an unconditional final release so that the bonds fit inside the surety's line is identified on the first worksheet as Lindqvist Fire Protection's.",
+      "weight": 1
+    },
+    {
+      "description": "The bonds required after that payment are stated as $555,619 on the first worksheet.",
+      "weight": 1
+    },
+    {
+      "description": "The money the owner holds on the Dunmore-Kettle contract is stated as $337,126 on the first worksheet.",
+      "weight": 1
+    },
+    {
+      "description": "The money held is stated to exceed the claims enforceable under the Dunmore-Kettle contract by $58,544.97.",
       "weight": 1
     },
     {
@@ -122,23 +118,27 @@
       "weight": 1
     },
     {
-      "description": "The retention Piedmont Ridge must release to Dunmore-Kettle now is stated as $5,554.47 on the first worksheet.",
+      "description": "The retention Piedmont Ridge must release to Dunmore-Kettle now is stated as $4,544.97 on the first worksheet.",
       "weight": 1
     },
     {
-      "description": "The penalty for each month the retention is held past its due date is stated as $111.09 on the first worksheet.",
+      "description": "The penalty accrued through the 11/20/2026 closing if all of the retention is held is stated as $169.68 on the first worksheet.",
       "weight": 1
     },
     {
-      "description": "The first worksheet routes 6 of the 16 recorded claims to a demand for release.",
+      "description": "The retention is found to have fallen due on 09/25/2026.",
+      "weight": 1
+    },
+    {
+      "description": "The first worksheet routes 7 of the 17 recorded claims to a demand for release.",
+      "weight": 1
+    },
+    {
+      "description": "The first worksheet states the last day for Dunmore-Kettle Builders to record its own claim as 11/09/2026.",
       "weight": 1
     },
     {
       "description": "The note to Marguerite is the last worksheet.",
-      "weight": 1
-    },
-    {
-      "description": "The note tells Marguerite that the direct contractor can still record a claim until 11/09/2026.",
       "weight": 1
     },
     {
@@ -158,19 +158,7 @@
       "weight": -1
     },
     {
-      "description": "The workbook wrongly measures a release bond by the enforceable amount instead of the claim as recorded.",
-      "weight": -1
-    },
-    {
       "description": "The workbook wrongly includes the lumber supplier's delivery of 05/08/2026 in its enforceable amount.",
-      "weight": -1
-    },
-    {
-      "description": "The workbook wrongly includes the lumber supplier's finance charges of $1,912.37 in its enforceable amount.",
-      "weight": -1
-    },
-    {
-      "description": "The workbook wrongly treats the drywall subcontractor's July release on the direct contractor's own form as releasing the July draw.",
       "weight": -1
     },
     {
@@ -187,6 +175,18 @@
     },
     {
       "description": "The workbook wrongly includes the fire sprinkler subcontractor's change order request 3 of $9,467.50 in its enforceable amount.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly treats the scaffold lessor's lien as kept alive by its action on APN 480-210-041.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly treats the ready mix supplier's lien as expired on a search current only through 10/02/2026.",
+      "weight": -1
+    },
+    {
+      "description": "The workbook wrongly holds retention against the plaster back charge between the direct contractor and the drywall subcontractor.",
       "weight": -1
     },
     {

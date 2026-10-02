@@ -17,3 +17,8 @@ One bullet per phrase struck from the package, as a quoted literal or a /pattern
 - "2.613 g" (the earlier fiber figure, 2.815 g after the oat specification moved; struck 2026-09-30)
 - "8.9 percent" (the earlier fiber share per reference amount, 9.6 percent now; struck 2026-09-30)
 - "the only flavorings in the formula are the vanilla extract" (the earlier note's clause, reworded around S-5020; struck 2026-09-30)
+- "139.9362" (the fourth rubric's strict-row figure, 138.3824 after the salt and oats moved; reviewer's third list, struck 2026-10-01)
+- "Total fat is declared as 7 g" (the earlier rubric row, 6 g after the oil moved; struck 2026-10-01)
+- "Made with whole grain oats is supported" (the earlier note's verdict, reversed by the 14.80 g oats and the SOP 5.3 derivative exclusion; struck 2026-10-01)
+- "15.5 g of oats" (the earlier whole grain figure; struck 2026-10-01)
+- "2,548" (the earlier bar count, 2,520 on the record now; struck 2026-10-01)

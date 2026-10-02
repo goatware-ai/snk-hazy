@@ -12,6 +12,7 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 - supplier_spec_s3120_almond_butter.docx - the supplier specification for the roasted almond butter with its ingredient declaration, the nutrition table on the supplier's serving basis, the allergen and grinding line statement, and the note on the prior revision
 - supplier_spec_s2210_brown_rice_syrup.docx - the supplier specification for the brown rice syrup with its ingredient declaration, nutrition per 100 g, the allergen statement, and the note on the prior revision and the plant move
 - supplier_spec_s5020_vanilla_extract.docx - the supplier specification for the vanilla extract with its ingredient declaration and proportions, nutrition per 100 g, the vanillin origin statement, and the note on the prior revision
+- supplier_spec_s5040_sea_salt.docx - the supplier specification for the sea salt with its ingredient declaration and proportions, nutrition per 100 g, the allergen statement, and the handling and testing notes
 - product_brief_oat_cherry_bar.docx - the brand manager's brief listing the front panel claims marketing proposes, the pack format and what product development is asked to return
 
 ## Output File List
@@ -23,10 +24,10 @@ Entries for the platform form, written from the zip listings. Each Input File Li
 | Form field | Value |
 |---|---|
 | Time to read and understand the prompt and requirements (minutes) | 15 |
-| Time to open, skim/search, and use the reference files (minutes) | 100 |
-| Time to perform the required work (minutes) | 330 |
+| Time to open, skim/search, and use the reference files (minutes) | 110 |
+| Time to perform the required work (minutes) | 360 |
 | Time for verification/QA and final review (minutes) | 60 |
-| Total time (hours) | 8.5 |
+| Total time (hours) | 9.25 |
 | Tools | Microsoft Excel; Microsoft Word |
 
 ## Domain and occupation
